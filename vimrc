@@ -15,11 +15,18 @@
 		let Tlist_Use_Right_Window = 1			" show on right side
 		let Tlist_Show_One_File = 1 			" Displaying tags for only one file
 
-		" show taglist on <-
+		" show taglist on ->
 		map <right> <ESC>:TlistToggle<RETURN>
 	" }}
 	" LUSTYJUGLER{{
 		nmap ,b :LustyJuggler<CR>
+	" }}
+	" NETRW{{
+		let g:netrw_browse_split = 4            " open new buffer in previous window
+		let g:netrw_liststyle = 3               " by default use tree view
+		let g:netrw_winsize = 25                " default window size
+		" show netrw on <-
+		map <left> <ESC>:Vexplore<CR>
 	" }}
 " }}
 
