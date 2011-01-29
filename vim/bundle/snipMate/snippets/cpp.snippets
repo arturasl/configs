@@ -1,0 +1,44 @@
+snippet class
+	class ${1:CClass} {
+		private:
+			${2:/* data */}
+		public:
+			$1();
+			~$1();
+	};
+snippet main
+	int main(int argc, char **argv){
+		${1:/* code */}
+		return 0;
+	}
+snippet u
+	using namespace std;
+snippet in
+	#include      "${1:localfile}"
+snippet is
+	#include      <${1:globfile}>
+snippet fg
+	#ifndef ${1:`toupper(Filename('', 'UNTITLED'))`}
+	#define $1
+
+	${2:/* data */}
+
+	#endif /* end of include guard: $1 */
+snippet if
+	if(${1:/* condition */}){
+		${2:/* code */}
+	}
+snippet ifel
+	if(${1:/* condition */}){
+		${2:/* code */}
+	}else{
+		${3:/* code else */}
+	}
+snippet for
+	for (${1:/* init */}; ${2:/* condition */}; ${3: /* after */}) {
+		${4:/* code */}
+	}
+snippet while
+	while(${1:/* condition */}){
+		${2:/* code */}
+	}
