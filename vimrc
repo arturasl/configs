@@ -45,14 +45,6 @@
 	set listchars=tab:⇾\ ,eol:↩
 " }}
 
-" ASM MAGIC {{
-	if has("autocmd")
-		"autocmd BufReadPost *.ASM silent %!awk -f ~/.vim/bundle/macro_asm_in.awk
-		"autocmd BufWritePre *.ASM silent %!awk -f ~/.vim/bundle/macro_asm_out.awk
-		"autocmd BufWritePost *.ASM silent %!awk -f ~/.vim/bundle/macro_asm_in.awk
-	endif
-" }}
-
 " GENERAL{{
 	set nocompatible    " use vim defaults
 	filetype plugin indent on " load filetype settings
