@@ -31,6 +31,8 @@
 " }}
 
 " FUNCTION_KEYS{{
+	" Author of this function:
+	" http://technotales.wordpress.com/2010/03/31/preserve-a-vim-function-that-keeps-your-state/
 	function! Preserve(command)
 		" Preparation: save last search, and cursor position.
 		let _s=@/
