@@ -43,7 +43,15 @@
 		call cursor(l, c)
 		nohl
 	endfunction
-	nmap <F1> :echo "<F1> Show this help\n<F2> Reindent\n<F3> Remove whitespaces from EOL\n<F4> Reindent with AStyle\n<F5> Check xml syntax\n<F6> Show invisible chars\n"<CR>
+	function! ShowHelp()
+		:echo "<F1> Show this help"
+		:echo "<F2> Reindent"
+		:echo "<F3> Remove whitespaces from EOL"
+		:echo "<F4> Reindent with AStyle"
+		:echo "<F5> Check xml syntax"
+		:echo "<F6> Show invisible chars"
+	endfunction
+	nmap <F1> :call ShowHelp()<CR>
 	nmap <F2> :call Preserve("normal gg=G")<CR>
 	nmap <F3> :call Preserve("%s/\\s\\+$//e")<CR>
 	nmap <F4> :%!astyle --indent=tab=4 --brackets=attach --indent-switches --indent-namespaces --indent-preprocessor --indent-col1-comments --break-blocks --pad-oper --pad-header --add-brackets --align-pointer=name --lineend=linux<CR>
