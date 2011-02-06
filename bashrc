@@ -19,7 +19,9 @@ alias dmenu_show="dmenu_run -nb '#2E2E2E' -nf '#D6D6D6' -sb '#D6D6D6' -sf '#2E2E
 shopt -s cdspell
 
 # Add completion for some programs
-if [[ -d "/etc/bash_completion.d/" ]]; then
+if [ -f /etc/bash_completion ]; then
+	. /etc/bash_completion
+elif [[ -d "/etc/bash_completion.d/" ]]; then
 	nComplete=$(complete -p | wc --lines)
 	if [[ "$nComplete" < "5" ]]; then
 		for strFile in /etc/bash_completion.d/*; do
@@ -40,16 +42,16 @@ PS2=" └> "
 #### Tmux
 
 function atmux(){
-	cd
+cd
 
-	tmux start-server
+tmux start-server
 
-	tmux new-session -d -s arturasl_tmux -n 'bash'
-	tmux new-window -t arturasl_tmux:2 -n 'zsh' 'zsh'
-	tmux new-window -t arturasl_tmux:3 -n 'newsbeuter' 'newsbeuter'
-	tmux new-window -t arturasl_tmux:4 -n 'irssi' 'irssi'
-	tmux new-window -t arturasl_tmux:5 -n 'htop' 'htop'
+tmux new-session -d -s arturasl_tmux -n 'bash'
+tmux new-window -t arturasl_tmux:2 -n 'zsh' 'zsh'
+tmux new-window -t arturasl_tmux:3 -n 'newsbeuter' 'newsbeuter'
+tmux new-window -t arturasl_tmux:4 -n 'irssi' 'irssi'
+tmux new-window -t arturasl_tmux:5 -n 'htop' 'htop'
 
-	tmux select-window -t arturasl_tmux:1
-	tmux attach-session -t arturasl_tmux
+tmux select-window -t arturasl_tmux:1
+tmux attach-session -t arturasl_tmux
 }
