@@ -1,1 +1,22 @@
 These are basic configuration files to set up on new machines.
+
+Installation:
+	git clone git://github.com/arturasl/configs.git ~/configs
+
+Post installation:
+	vim:
+		ln -s ~/configs/vimrc ~/.vimrc
+		ln -s ~/configs/vim ~/.vim
+		mkdir ~/configs/vim/backups
+		mkdir ~/configs/vim/tags
+	bash:
+		ln -s ~/configs/bashrc ~/.bashrc
+	tmux:
+		ln -s  ~/tmux.conf ~/.tmux.conf
+	urxvt:
+		Write XResourcesURxvt to your ~/.Xresources (read on X startup):
+		cat ~/configs/XResourcesURxvt >> ~/.Xresources
+		or to ~/.Xdefaults (read on demand):
+		cat ~/configs/XResourcesURxvt >> ~/.Xdefaults
+		you can also load settings manually with:
+		xrdb -merge ~/configs/XResourcesURxvt
