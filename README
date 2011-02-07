@@ -12,7 +12,7 @@ Post installation:
 	bash:
 		ln -s ~/configs/bashrc ~/.bashrc
 	tmux:
-		ln -s  ~/tmux.conf ~/.tmux.conf
+		ln -s  ~/configs/tmux.conf ~/.tmux.conf
 	urxvt:
 		Write XResourcesURxvt to your ~/.Xresources (read on X startup):
 		cat ~/configs/XResourcesURxvt >> ~/.Xresources
