@@ -28,6 +28,28 @@
 		" show netrw on <-
 		map <left> <ESC>:Vexplore<CR>
 	" }}
+	" OMNICPPCOMPLETE{{
+        let OmniCpp_GlobalScopeSearch   = 1  " allow global scope search
+        let OmniCpp_NamespaceSearch     = 1  " extract namespaces from current buffer
+        let OmniCpp_DisplayMode         = 0  " let omnicppcomplete to choose which members to show
+        let OmniCpp_ShowScopeInAbbr     = 0  " do not show abbreviations for scope
+        let OmniCpp_ShowPrototypeInAbbr = 0  " do not show abbreviations for prototypes
+        let OmniCpp_ShowAccess          = 1  " show access information (+ public, # protected, - private)
+
+		" automatically complete as much as you can
+        let OmniCpp_MayCompleteDot      = 1
+        let OmniCpp_MayCompleteArrow    = 1
+        let OmniCpp_MayCompleteScope    = 1
+		let OmniCpp_LocalSearchDecl     = 1
+
+		set tags+=~/.vim/tags/cpp_wx.tags
+		" pop-up menu settings
+		set completeopt=menuone,menu,longest,preview
+		" automatically close preview window
+		if has("autocmd")
+			autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+		endif
+	" }}
 " }}
 
 " FUNCTION_KEYS{{

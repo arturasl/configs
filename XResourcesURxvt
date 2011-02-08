@@ -1,0 +1,27 @@
+! For information about options see:
+! http://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/doc/rxvt.1.pod
+! or man urxvt
+
+! Colors
+URxvt.foreground         : #DADADA
+URxvt.background         : #262626
+URxvt.tintColor          : #000000
+URxvt.transparent        : true
+URxvt.fading             : 0
+URxvt.shading            : 20
+
+! Scrollbar?
+URxvt.scrollBar          : false
+
+! Use xfontsel or xlsfonts
+URxvt.font               : xft:Bitstream Vera Sans Mono:pixelsize=12
+
+! URLs
+URxvt.urlLauncher        : firefox
+URxvt.perl-ext-common    : default,matcher
+URxvt.colorUL            : #33FFCC
+
+! Other
+URxvt.saveLines          : 1000
+URxvt.visualBell         : true
+URxvt.insecure           : true
