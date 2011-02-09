@@ -112,7 +112,10 @@
 	set linebreak " but do not cut in a middle of word
 	"move by screen lines not by file
 	nmap j gj
+	vmap j gj
+
 	nmap k gk
+	vmap k gk
 " }}
 " INDENTION{{
 	set autoindent      " copy indention from prev line
