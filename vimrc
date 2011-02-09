@@ -2,44 +2,44 @@
 " vim: foldmarker={{,}}
 
 " PLUGINS{{
-    " PATHOGEN{{
+	" PATHOGEN{{
 		filetype off
 		call pathogen#helptags()
 		call pathogen#runtime_append_all_bundles()
-	" }}
-	" TAGLIST{{
-		let Tlist_Auto_Open = 0					" let the tag list open automagically
-		let Tlist_Compact_Format = 0			" show small menu
-		let Tlist_Exist_OnlyWindow = 1			" close if last window
-		let Tlist_File_Fold_Auto_Close = 1		" fold closed other trees
-		let Tlist_Use_Right_Window = 1			" show on right side
-		let Tlist_Show_One_File = 1 			" Displaying tags for only one file
+   " }}
+   " TAGLIST{{
+	let Tlist_Auto_Open = 0            " let the tag list open automagically
+	let Tlist_Compact_Format = 0       " show small menu
+	let Tlist_Exist_OnlyWindow = 1     " close if last window
+	let Tlist_File_Fold_Auto_Close = 1 " fold closed other trees
+	let Tlist_Use_Right_Window = 1     " show on right side
+	let Tlist_Show_One_File = 1        " Displaying tags for only one file
 
-		" show taglist on ->
-		map <right> <ESC>:TlistToggle<RETURN>
+	" show taglist on ->
+	map <right> <ESC>:TlistToggle<RETURN>
 	" }}
 	" LUSTYJUGLER{{
 		nmap ,b :LustyJuggler<CR>
 	" }}
 	" NETRW{{
-		let g:netrw_browse_split = 4            " open new buffer in previous window
-		let g:netrw_liststyle = 3               " by default use tree view
-		let g:netrw_winsize = 25                " default window size
+		let g:netrw_browse_split = 4 " open new buffer in previous window
+		let g:netrw_liststyle = 3    " by default use tree view
+		let g:netrw_winsize = 25     " default window size
 		" show netrw on <-
 		map <left> <ESC>:Vexplore<CR>
 	" }}
 	" OMNICPPCOMPLETE{{
-        let OmniCpp_GlobalScopeSearch   = 1  " allow global scope search
-        let OmniCpp_NamespaceSearch     = 1  " extract namespaces from current buffer
-        let OmniCpp_DisplayMode         = 0  " let omnicppcomplete to choose which members to show
-        let OmniCpp_ShowScopeInAbbr     = 0  " do not show abbreviations for scope
-        let OmniCpp_ShowPrototypeInAbbr = 0  " do not show abbreviations for prototypes
-        let OmniCpp_ShowAccess          = 1  " show access information (+ public, # protected, - private)
+		let OmniCpp_GlobalScopeSearch   = 1  " allow global scope search
+		let OmniCpp_NamespaceSearch     = 1  " extract namespaces from current buffer
+		let OmniCpp_DisplayMode         = 0  " let omnicppcomplete to choose which members to show
+		let OmniCpp_ShowScopeInAbbr     = 0  " do not show abbreviations for scope
+		let OmniCpp_ShowPrototypeInAbbr = 0  " do not show abbreviations for prototypes
+		let OmniCpp_ShowAccess          = 1  " show access information (+ public, # protected, - private)
 
 		" automatically complete as much as you can
-        let OmniCpp_MayCompleteDot      = 1
-        let OmniCpp_MayCompleteArrow    = 1
-        let OmniCpp_MayCompleteScope    = 1
+		let OmniCpp_MayCompleteDot      = 1
+		let OmniCpp_MayCompleteArrow    = 1
+		let OmniCpp_MayCompleteScope    = 1
 		let OmniCpp_LocalSearchDecl     = 1
 
 		set tags+=~/.vim/tags/cpp_wx.tags
@@ -67,6 +67,7 @@
 		call cursor(l, c)
 		nohl
 	endfunction
+
 	function! ShowHelp()
 		:echo "<F1> Show this help"
 		:echo "<F2> Reindent"
@@ -85,30 +86,30 @@
 " }}
 
 " GENERAL{{
-	set nocompatible    " use vim defaults
+	set nocompatible          " use vim defaults
 	filetype plugin indent on " load filetype settings
-	set number			" show line numbers
-	set scrolloff=5		" try to show atleast num lines
-	set showmatch		" show matching brackets
-	set cursorline		" show current line
-	set ruler			" show the cursor position
-	set showcmd         " display incomplete commands
-	set mouse=a			" more mouse please :)
-	set autochdir		" always switch to the current file directory
-	set visualbell t_vb=			" no bell just blink
-	set virtualedit=all	" let cursor fly anythere
-	set hidden			" switch buffers without saving
+	set number                " show line numbers
+	set scrolloff=5           " try to show atleast num lines
+	set showmatch             " show matching brackets
+	set cursorline            " show current line
+	set ruler                 " show the cursor position
+	set showcmd               " display incomplete commands
+	set mouse=a               " more mouse please :)
+	set autochdir             " always switch to the current file directory
+	set visualbell t_vb=      " no bell just blink
+	set virtualedit=all       " let cursor fly anythere
+	set hidden                " switch buffers without saving
 	let g:tex_flavor='latex'
 " }}
 " COLORS{{
-	set background=dark     " dark background (must be before syntax on)
-	syntax on               " syntax highlight
+	set background=dark " dark background (must be before syntax on)
+	syntax on           " syntax highlight
 	colorscheme lucius
-	set t_Co=256            " all colours :)
+	set t_Co=256        " all colours :)
 " }}
 " WRAPPING{{
-	set wrap           " yes, wrap lines
-	set linebreak      " but do not cut in a middle of word
+	set wrap      " yes, wrap lines
+	set linebreak " but do not cut in a middle of word
 	"move by screen lines not by file
 	nmap j gj
 	nmap k gk
@@ -123,11 +124,11 @@
 	match Error /\s\+$/ " show 'bad' whitespaces
 " }}
 " SEARCHING_SETTINGS{{
-	set ignorecase		" case insensetive search
-	set smartcase		" unless capitals are use
-	set incsearch		" search while typying
-	set hlsearch		" show all results
-	set gdefault        " append g to substitution automatically
+	set ignorecase " case insensetive search
+	set smartcase  " unless capitals are use
+	set incsearch  " search while typying
+	set hlsearch   " show all results
+	set gdefault   " append g to substitution automatically
 	" use regex that is more like pcre by default
 	nnoremap / /\v
 	vnoremap / /\v
