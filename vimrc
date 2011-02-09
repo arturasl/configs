@@ -70,12 +70,12 @@
 	endfunction
 
 	function! ShowHelp()
-		:echo "<F1> Show this help"
-		:echo "<F2> Reindent"
-		:echo "<F3> Remove whitespaces from EOL"
-		:echo "<F4> Reindent with AStyle"
-		:echo "<F5> Check xml syntax"
-		:echo "<F6> Show invisible chars"
+		echo "<F1> Show this help"
+		echo "<F2> Reindent"
+		echo "<F3> Remove whitespaces from EOL"
+		echo "<F4> Reindent with AStyle"
+		echo "<F5> Check xml syntax"
+		echo "<F6> Show invisible chars"
 	endfunction
 	nmap <F1> :call ShowHelp()<CR>
 	nmap <F2> :call Preserve("normal gg=G")<CR>
