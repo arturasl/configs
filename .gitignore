@@ -1,4 +1,4 @@
 *.swp
-vim/backups/
+vim/tmp/
 vim/.netrwhist
 *.tags

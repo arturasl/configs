@@ -7,7 +7,7 @@ Post installation:
 	vim:
 		ln -s ~/configs/vimrc ~/.vimrc
 		ln -s ~/configs/vim ~/.vim
-		mkdir ~/configs/vim/backups
+		mkdir --parent ~/configs/vim/tmp/undo/ ~/configs/vim/tmp/backups/ ~/configs/vim/tmp/swap/
 		mkdir ~/configs/vim/tags
 	bash:
 		ln -s ~/configs/bashrc ~/.bashrc
