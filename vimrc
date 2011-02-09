@@ -95,7 +95,6 @@
 	set showcmd         " display incomplete commands
 	set mouse=a			" more mouse please :)
 	set autochdir		" always switch to the current file directory
-	set backupdir=~/.vim/backups	"backups
 	set visualbell t_vb=			" no bell just blink
 	set virtualedit=all	" let cursor fly anythere
 	set hidden			" switch buffers without saving
@@ -133,3 +132,16 @@
 	nnoremap / /\v
 	vnoremap / /\v
 " }}
+" TMP_FILES{{
+	set backup
+	set backupext=.bak
+	set backupdir=~/.vim/tmp/backups/
+
+	set swapfile
+	set directory=~/.vim/tmp/swap/
+
+	if has('persistent_undo')
+		set undofile
+		set undodir=~/.vim/tmp/undo/
+	endif
+"}}
