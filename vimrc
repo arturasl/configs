@@ -8,15 +8,15 @@
 		call pathogen#runtime_append_all_bundles()
    " }}
    " TAGLIST{{
-	let Tlist_Auto_Open = 0            " let the tag list open automagically
-	let Tlist_Compact_Format = 0       " show small menu
-	let Tlist_Exist_OnlyWindow = 1     " close if last window
-	let Tlist_File_Fold_Auto_Close = 1 " fold closed other trees
-	let Tlist_Use_Right_Window = 1     " show on right side
-	let Tlist_Show_One_File = 1        " Displaying tags for only one file
+		let Tlist_Auto_Open = 0            " let the tag list open automagically
+		let Tlist_Compact_Format = 0       " show small menu
+		let Tlist_Exist_OnlyWindow = 1     " close if last window
+		let Tlist_File_Fold_Auto_Close = 1 " fold closed other trees
+		let Tlist_Use_Right_Window = 1     " show on right side
+		let Tlist_Show_One_File = 1        " Displaying tags for only one file
 
-	" show taglist on ->
-	map <right> <ESC>:TlistToggle<RETURN>
+		" show taglist on ->
+		map <right> <ESC>:TlistToggle<RETURN>
 	" }}
 	" LUSTYJUGLER{{
 		nmap ,b :LustyJuggler<CR>
