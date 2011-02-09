@@ -42,12 +42,13 @@
 		let OmniCpp_MayCompleteScope    = 1
 		let OmniCpp_LocalSearchDecl     = 1
 
-		set tags+=~/.vim/tags/cpp_wx.tags
 		" pop-up menu settings
 		set completeopt=menuone,menu,longest,preview
-		" automatically close preview window
 		if has("autocmd")
+			" automatically close preview window
 			autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+			" use needed tags
+			autocmd FileType cpp setlocal tags+=~/.vim/tags/cpp_wx.tags
 		endif
 	" }}
 " }}
