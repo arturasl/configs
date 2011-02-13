@@ -119,13 +119,14 @@
 	vmap k gk
 " }}
 " INDENTION{{
-	set autoindent      " copy indention from prev line
-	set cindent         " c indention
-	set shiftwidth=4    " numbers of spaces to <> commands
-	set softtabstop=4   " if someone uses spaces delete them with backspace
-	set tabstop=4       " numbers of spaces of tab character
-	set noexpandtab     " use tab character
-	match Error /\s\+$/ " show 'bad' whitespaces
+	set autoindent             " copy indention from prev line
+	set cindent                " c indention
+	set shiftwidth=4           " numbers of spaces to <> commands
+	set softtabstop=4          " if someone uses spaces delete them with backspace
+	set tabstop=4              " numbers of spaces of tab character
+	set noexpandtab            " use tab character
+	match Error /\s\+$/        " show 'bad' whitespaces
+	match Error /[^\t]\zs\t\+/ " show me then tabs are used for alignment
 " }}
 " SEARCHING_SETTINGS{{
 	set ignorecase " case insensetive search
