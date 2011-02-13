@@ -125,8 +125,9 @@
 	set softtabstop=4          " if someone uses spaces delete them with backspace
 	set tabstop=4              " numbers of spaces of tab character
 	set noexpandtab            " use tab character
-	match Error /\s\+$/        " show 'bad' whitespaces
-	match Error /[^\t]\zs\t\+/ " show me then tabs are used for alignment
+	" show me then tabs are used for alignment
+	" show whitespaces which are at the end of file
+	match Error /\s\+$\|[^\t]\zs\t\+/
 " }}
 " SEARCHING_SETTINGS{{
 	set ignorecase " case insensetive search
