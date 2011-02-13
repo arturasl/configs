@@ -156,6 +156,7 @@
 	" JAVA{{
 		autocmd FileType java setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
 		autocmd FileType java setlocal foldmethod=syntax foldnestmax=2
+		autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 	" }}
 	" CPP{{
 		" use needed tags
