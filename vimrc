@@ -47,8 +47,6 @@
 		if has("autocmd")
 			" automatically close preview window
 			autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-			" use needed tags
-			autocmd FileType cpp setlocal tags+=~/.vim/tags/cpp_wx.tags
 		endif
 	" }}
 " }}
@@ -152,3 +150,18 @@
 		set undodir=~/.vim/tmp/undo/
 	endif
 "}}
+
+" LANG_SPECIFIC{{
+	if has("autocmd")
+	" JAVA{{
+		autocmd FileType java setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
+		autocmd FileType java setlocal foldmethod=syntax foldnestmax=2
+	" }}
+	" CPP{{
+		" use needed tags
+		autocmd FileType cpp setlocal tags+=~/.vim/tags/cpp_wx.tags
+
+		autocmd FileType cpp setlocal foldmethod=syntax foldnestmax=1
+	" }}
+	endif
+" }}
