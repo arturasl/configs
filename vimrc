@@ -36,18 +36,11 @@
 		let OmniCpp_ShowPrototypeInAbbr = 0  " do not show abbreviations for prototypes
 		let OmniCpp_ShowAccess          = 1  " show access information (+ public, # protected, - private)
 
-		" automatically complete as much as you can
-		let OmniCpp_MayCompleteDot      = 1
-		let OmniCpp_MayCompleteArrow    = 1
-		let OmniCpp_MayCompleteScope    = 1
-		let OmniCpp_LocalSearchDecl     = 1
-
-		" pop-up menu settings
-		set completeopt=menuone,menu,longest,preview
-		if has("autocmd")
-			" automatically close preview window
-			autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-		endif
+		" do not show completion automatically
+		let OmniCpp_MayCompleteDot      = 0
+		let OmniCpp_MayCompleteArrow    = 0
+		let OmniCpp_MayCompleteScope    = 0
+		let OmniCpp_LocalSearchDecl     = 0
 	" }}
 " }}
 
@@ -150,19 +143,41 @@
 		set undodir=~/.vim/tmp/undo/
 	endif
 "}}
+" COMPLETION{{
+	" pop-up menu settings
+	set completeopt=menuone,menu,longest,preview
+
+	if has("autocmd")
+		" automatically close preview window
+		autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+	endif
+
+	" load tags, specific to the language defined by strLang parameter
+	function! LoadLangTags(strLang)
+		let l:files = split(globpath('~/.vim/tags/', a:strLang . '_*.tags'), '\n')
+		for l:strTag in l:files
+			execute 'setlocal tags+='.l:strTag
+		endfor
+	endfunction
+" }}
 
 " LANG_SPECIFIC{{
 	if has("autocmd")
 	" JAVA{{
 		autocmd FileType java setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
 		autocmd FileType java setlocal foldmethod=syntax foldnestmax=2
+
 		autocmd Filetype java setlocal omnifunc=javacomplete#Complete
+		" too slow
+		"autocmd Filetype java imap <buffer> . .<C-x><C-o>
 	" }}
 	" CPP{{
-		" use needed tags
-		autocmd FileType cpp setlocal tags+=~/.vim/tags/cpp_wx.tags
-
 		autocmd FileType cpp setlocal foldmethod=syntax foldnestmax=1
+
+		autocmd FileType cpp call LoadLangTags('cpp')
+		autocmd Filetype cpp imap <buffer> . .<C-x><C-o>
+		autocmd Filetype cpp imap <buffer> -> -><C-x><C-o>
+		autocmd Filetype cpp imap <buffer> :: ::<C-x><C-o>
 	" }}
 	endif
 " }}

@@ -5,10 +5,20 @@ Installation:
 
 Post installation:
 	vim:
+		basic:
 		ln -s ~/configs/vimrc ~/.vimrc
 		ln -s ~/configs/vim ~/.vim
+
+		directories for temporal files:
 		mkdir --parent ~/configs/vim/tmp/undo/ ~/configs/vim/tmp/backups/ ~/configs/vim/tmp/swap/
+
+		ctags:
 		mkdir ~/configs/vim/tags
+		ctags -f ~/configs/vim/tags/cpp_wx.tags --recurse=yes --sort=yes --verbose=yes --append=no --language-force=C++ --extra=+q --fields=afiKmsSt /usr/include/wx-2.8/
+		wget http://www.vim.org/scripts/download_script.php?src_id=9178
+		tar xjf download_script.php\?src_id\=9178
+		ctags -f ~/configs/vim/tags/cpp_std.tags --recurse=yes --sort=yes --verbose=yes --append=no --language-force=C++ --extra=+q --fields=afiKmsSt ./cpp_src/
+		rm -rf cpp_src/ download_script.php\?src_id\=9178
 	bash:
 		ln -s ~/configs/bashrc ~/.bashrc
 	tmux:
