@@ -72,9 +72,8 @@
 	nmap <F3> :call Preserve("%s/\\s\\+$//e")<CR>
 	nmap <F5> :!xmllint --valid --noout %<CR>
 	nmap <F6> :set list!<CR>
-	set listchars=tab:⇾\ ,eol:↩
+	set listchars=tab:>-,eol:*,nbsp:-,trail:-,extends:>,precedes:<
 " }}
-
 " GENERAL{{
 	set nocompatible          " use vim defaults
 	filetype plugin indent on " load filetype settings
