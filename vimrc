@@ -64,14 +64,12 @@
 		echo "<F1> Show this help"
 		echo "<F2> Reindent"
 		echo "<F3> Remove whitespaces from EOL"
-		echo "<F4> Reindent with AStyle"
 		echo "<F5> Check xml syntax"
 		echo "<F6> Show invisible chars"
 	endfunction
 	nmap <F1> :call ShowHelp()<CR>
-	nmap <F2> :call Preserve("normal gg=G")<CR>
+	nmap <F2> :call Preserve("normal gg=G") \| echo "Internal"<CR>
 	nmap <F3> :call Preserve("%s/\\s\\+$//e")<CR>
-	nmap <F4> :%!astyle --indent=tab=4 --brackets=attach --indent-switches --indent-namespaces --indent-preprocessor --indent-col1-comments --break-blocks --pad-oper --pad-header --add-brackets --align-pointer=name --lineend=linux<CR>
 	nmap <F5> :!xmllint --valid --noout %<CR>
 	nmap <F6> :set list!<CR>
 	set listchars=tab:⇾\ ,eol:↩
@@ -170,6 +168,8 @@
 		autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 		" too slow
 		"autocmd Filetype java imap <buffer> . .<C-x><C-o>
+
+		autocmd FileType java nmap <buffer> <F2> :call Preserve('%!astyle -s4 -c -a -C -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Java"<CR>
 	" }}
 	" CPP{{
 		autocmd FileType cpp setlocal foldmethod=syntax foldnestmax=1
@@ -178,6 +178,8 @@
 		autocmd Filetype cpp imap <buffer> . .<C-x><C-o>
 		autocmd Filetype cpp imap <buffer> -> -><C-x><C-o>
 		autocmd Filetype cpp imap <buffer> :: ::<C-x><C-o>
+
+		autocmd FileType cpp nmap <buffer> <F2> :call Preserve('%!astyle -T4 -a -C -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Cpp"<CR>
 	" }}
 	endif
 " }}
