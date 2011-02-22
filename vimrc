@@ -191,15 +191,15 @@
 
 		autocmd FileType java call SetMakeForJava()
 	" }}
-	" CPP{{
-		autocmd FileType cpp setlocal foldmethod=syntax foldnestmax=1
+	" C/CPP{{
+		autocmd FileType c,cpp setlocal foldmethod=syntax foldnestmax=1
 
 		autocmd FileType cpp call LoadLangTags('cpp')
-		autocmd Filetype cpp imap <buffer> . .<C-x><C-o>
-		autocmd Filetype cpp imap <buffer> -> -><C-x><C-o>
-		autocmd Filetype cpp imap <buffer> :: ::<C-x><C-o>
+		autocmd Filetype c,cpp imap <buffer> . .<C-x><C-o>
+		autocmd Filetype c,cpp imap <buffer> -> -><C-x><C-o>
+		autocmd Filetype c,cpp imap <buffer> :: ::<C-x><C-o>
 
-		autocmd FileType cpp nmap <buffer> <F2> :call Preserve('%!astyle -T4 -a -C -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Cpp"<CR>
+		autocmd FileType c,cpp nmap <buffer> <F2> :call Preserve('%!astyle -T4 -a -C -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Cpp"<CR>
 
 		function! SetMakeForCpp()
 			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
@@ -213,7 +213,7 @@
 			endif
 		endfunction
 
-		autocmd FileType cpp call SetMakeForCpp()
+		autocmd FileType c,cpp call SetMakeForCpp()
 	" }}
 	endif
 " }}
