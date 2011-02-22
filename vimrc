@@ -64,13 +64,22 @@
 		echo "<F1> Show this help"
 		echo "<F2> Reindent"
 		echo "<F3> Remove whitespaces from EOL"
-		echo "<F5> Check xml syntax"
+		echo "<F4> Check xml syntax"
+		echo "<F5> Build"
 		echo "<F6> Show invisible chars"
 	endfunction
+
+	function! BuildFile()
+		silent make
+		copen
+		redraw!
+	endfunction
+
 	nmap <F1> :call ShowHelp()<CR>
 	nmap <F2> :call Preserve("normal gg=G") \| echo "Internal"<CR>
 	nmap <F3> :call Preserve("%s/\\s\\+$//e")<CR>
-	nmap <F5> :!xmllint --valid --noout %<CR>
+	nmap <F4> :!xmllint --valid --noout %<CR>
+	nmap <F5> :call BuildFile()<CR>
 	nmap <F6> :set list!<CR>
 	set listchars=tab:>-,eol:*,nbsp:-,trail:-,extends:>,precedes:<
 " }}
@@ -169,6 +178,18 @@
 		"autocmd Filetype java imap <buffer> . .<C-x><C-o>
 
 		autocmd FileType java nmap <buffer> <F2> :call Preserve('%!astyle -s4 -c -a -C -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Java"<CR>
+
+		function! SetMakeForJava()
+			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
+				setlocal makeprg=make\ $*
+				setlocal errorformat=%A%f:%l:\ %m,%+Z%p^,%+C%.%#,%-G%.%#
+			else
+				setlocal makeprg=javac\ %
+				setlocal errorformat=%A%f:%l:\ %m,%+Z%p^,%+C%.%#,%-G%.%#
+			endif
+		endfunction
+
+		autocmd FileType java call SetMakeForJava()
 	" }}
 	" CPP{{
 		autocmd FileType cpp setlocal foldmethod=syntax foldnestmax=1
@@ -179,6 +200,20 @@
 		autocmd Filetype cpp imap <buffer> :: ::<C-x><C-o>
 
 		autocmd FileType cpp nmap <buffer> <F2> :call Preserve('%!astyle -T4 -a -C -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Cpp"<CR>
+
+		function! SetMakeForCpp()
+			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
+				setlocal makeprg=make\ $*
+			elseif &ft ==? 'c'
+				setlocal makeprg=gcc\ -g\ -Wall\ -pedantic\ -std=c99\ -Wno-long-long\ $*\ %\ -o\ %:r
+			elseif &ft ==? 'cpp'
+				setlocal makeprg=g++\ -g\ -Wall\ -pedantic\ -std=c++98\ -Wno-long-long\ $*\ %\ -o\ %:r
+			else
+				setlocal makeprg=$*
+			endif
+		endfunction
+
+		autocmd FileType cpp call SetMakeForCpp()
 	" }}
 	endif
 " }}
