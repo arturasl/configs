@@ -30,3 +30,6 @@ Post installation:
 		cat ~/configs/XResourcesURxvt >> ~/.Xdefaults
 		you can also load settings manually with:
 		xrdb -merge ~/configs/XResourcesURxvt
+	dmenu:
+		fluxbox
+		echo -e -n '#CUSTOM\nMod4 p :exec ~/configs/dmenu_show.sh' >> ~/.fluxbox/keys
