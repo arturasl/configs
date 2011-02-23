@@ -102,8 +102,23 @@
 " COLORS{{
 	set background=dark " dark background (must be before syntax on)
 	syntax on           " syntax highlight
-	colorscheme lucius
 	set t_Co=256        " all colours :)
+
+	function! ShiftColors()
+		if !exists('g:nShifColors') || g:nShifColors == 0
+			let g:nShifColors  = 1
+			let g:lucius_style = 'dark'
+
+			colorscheme lucius
+		elseif g:nShifColors == 1
+			let g:nShifColors  = 0
+			let g:lucius_style = 'light'
+
+			colorscheme lucius
+		endif
+	endfunction
+
+	call ShiftColors()
 " }}
 " WRAPPING{{
 	set wrap      " yes, wrap lines
