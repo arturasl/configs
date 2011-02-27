@@ -3,13 +3,13 @@ snippet main
 		public static void main(String [] args) {
 			${1:/* code */}
 		}
-	};
+	}
 snippet class
 	class ${1:`Filename('', 'UNTITLED')`} {
 		public $1() {
 			${2:/* code */}
 		}
-	};
+	}
 snippet if
 	if (${1:/* condition */}) {
 		${2:/* code */}
@@ -31,6 +31,6 @@ snippet while
 snippet try
 	try {
 		${1:/* code */}
-	} catch(...) {
+	} catch(Exception e) {
 		${2:/* handle exception */}
 	}
