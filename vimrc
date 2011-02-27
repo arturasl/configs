@@ -194,7 +194,7 @@
 
 		" do not indent classes (-C) as it will result in double indention
 		" use for spaces (s4)
-		autocmd FileType java nmap <buffer> <F2> :call Preserve('%!astyle -s4 -c -aC -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Java"<CR>
+		autocmd FileType java nmap <buffer> <F2> :call Preserve('%!astyle -s4 -c -a -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Java"<CR>
 
 		function! SetMakeForJava()
 			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
