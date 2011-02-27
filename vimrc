@@ -99,6 +99,8 @@
 	set visualbell t_vb=      " no bell just blink
 	set virtualedit=all       " let cursor fly anythere
 	set hidden                " switch buffers without saving
+	set wildmenu              " show all matched, let narrow results, then let iterate through results
+	set wildmode=longest:full,full
 	let g:tex_flavor='latex'
 " }}
 " COLORS{{
