@@ -70,10 +70,13 @@
 	endfunction
 
 	function! BuildFile()
-		make!        " make current project, but do not jump to first error
-		cwindow      " open quickfix on error
+		" make current project, but do not jump to first error
+		make!
+		" open quickfix on error
+		cwindow
+		" run from quickfix window
 		if &buftype ==? 'quickfix'
-			wincmd p " run from quickfix window
+			wincmd p
 		endif
 	endfunction
 
@@ -101,7 +104,9 @@
 	set hidden                " switch buffers without saving
 	set wildmenu              " show all matched, let narrow results, then let iterate through results
 	set wildmode=longest:full,full
+
 	let g:tex_flavor='latex'
+	let mapleader=','
 " }}
 " COLORS{{
 	set background=dark " dark background (must be before syntax on)
