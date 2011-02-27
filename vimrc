@@ -70,9 +70,11 @@
 	endfunction
 
 	function! BuildFile()
-		silent make
-		copen
-		redraw!
+		make!        " make current project, but do not jump to first error
+		cwindow      " open quickfix on error
+		if &buftype ==? 'quickfix'
+			wincmd p " run from quickfix window
+		endif
 	endfunction
 
 	nmap <F1> :call ShowHelp()<CR>
