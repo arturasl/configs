@@ -13,8 +13,8 @@ URxvt.shading            : 20
 ! Scrollbar?
 URxvt.scrollBar          : false
 
-! Use xfontsel or xlsfonts
-URxvt.font               : xft:Bitstream Vera Sans Mono:pixelsize=12
+! Use xfontsel, xlsfonts, fc-list (xft), xfd -fa 'font to preview'
+URxvt.font               : xft:DejaVu Sans Mono:pixelsize=12
 
 ! URLs
 URxvt.urlLauncher        : firefox
