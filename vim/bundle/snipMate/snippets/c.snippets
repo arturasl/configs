@@ -1,29 +1,12 @@
-snippet class
-	class ${1:`Filename('', 'UNTITLED')`} {
-		public:
-			$1();
-			~$1();
-		private:
-			${2:/* data */}
-	};
 snippet main
 	int main(int argc, char **argv) {
 		${1:/* code */}
 		return 0;
 	}
-snippet u
-	using namespace std;
 snippet il
 	#include      "${1:localfile}"
 snippet ig
 	#include      <${1:globfile}>
-snippet fg
-	#ifndef ${1:`toupper(Filename('', 'UNTITLED'))`}
-	#define $1
-
-	${2:/* data */}
-
-	#endif /* end of $1 */
 snippet if
 	if (${1:/* condition */}) {
 		${2:/* code */}
@@ -41,10 +24,4 @@ snippet for
 snippet while
 	while (${1:/* condition */}) {
 		${2:/* code */}
-	}
-snippet try
-	try {
-		${1:/* code */}
-	} catch(...) {
-		${2:/* handle exception */}
 	}
