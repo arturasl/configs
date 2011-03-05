@@ -103,9 +103,7 @@
 	set cursorline            " show current line
 	set ruler                 " show the cursor position
 	set showcmd               " display incomplete commands
-	if has('mouse')
-		set mouse=a               " more mouse please :)
-	endif
+	set mouse=a               " more mouse please :)
 	set autochdir             " always switch to the current file directory
 	set visualbell t_vb=      " no bell just blink
 	set virtualedit=all       " let cursor fly anythere
