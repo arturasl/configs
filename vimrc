@@ -42,6 +42,12 @@
 		let OmniCpp_MayCompleteScope    = 0
 		let OmniCpp_LocalSearchDecl     = 0
 	" }}
+	" FUZZY_FINDER{{
+		nmap ,tb :FufBuffer<CR>
+		nmap ,tf :FufFile<CR>
+		nmap ,tq :FufQuickfix<CR>
+		nmap ,tt :FufBufferTag<CR>
+	" }}
 " }}
 
 " FUNCTION_KEYS{{
