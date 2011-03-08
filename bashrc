@@ -43,7 +43,7 @@ PS2=" └> "
 function atmux(){
 	cd
 
-	tmux -2 start-server
+	tmux start-server
 
 	tmux new-session -d -s arturasl_tmux -n 'bash'
 	tmux new-window -t arturasl_tmux:2 -n 'zsh' 'zsh'
@@ -52,5 +52,5 @@ function atmux(){
 	tmux new-window -t arturasl_tmux:5 -n 'htop' 'htop'
 
 	tmux select-window -t arturasl_tmux:1
-	tmux attach-session -t arturasl_tmux
+	tmux -2 attach-session -t arturasl_tmux
 }
