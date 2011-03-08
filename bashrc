@@ -31,6 +31,9 @@ else
 	echo "($BASH_SOURCE: $LINENO) Could not load extended completion files :(" 1>&2
 fi
 
+# Explicitly move to home directory
+cd
+
 #### Strings
 
 # Print before each cmd
