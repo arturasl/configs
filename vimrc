@@ -247,5 +247,16 @@
 
 		autocmd FileType c,cpp call SetMakeForCpp()
 	" }}
+	" DOT{{
+		function! SetMakeForDot()
+			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
+				setlocal makeprg=make\ $*
+			else
+				setlocal makeprg=dot\ %\ -Tpng\ -O
+			endif
+		endfunction
+
+		autocmd FileType dot call SetMakeForDot()
+	" }}
 	endif
 " }}
