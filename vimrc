@@ -6,8 +6,8 @@
 		filetype off
 		call pathogen#helptags()
 		call pathogen#runtime_append_all_bundles()
-   " }}
-   " TAGLIST{{
+	" }}
+	" TAGLIST{{
 		let Tlist_Auto_Open = 0            " let the tag list open automagically
 		let Tlist_Compact_Format = 0       " show small menu
 		let Tlist_Exist_OnlyWindow = 1     " close if last window
