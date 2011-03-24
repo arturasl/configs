@@ -48,6 +48,32 @@
 		nmap ,tq :FufQuickfix<CR>
 		nmap ,tt :FufBufferTag<CR>
 	" }}
+	" NERD_COMMENTER{{
+		let g:NERDCreateDefaultMappings=0
+
+		nnoremap ,ci :call NERDComment(0, "invert")<CR>
+		vnoremap ,ci <ESC>:call NERDComment(1, "invert")<CR>
+
+		nnoremap ,cs :call NERDComment(0, "sexy")<CR>
+		vnoremap ,cs <ESC>:call NERDComment(1, "sexy")<CR>
+
+
+		nnoremap ,c<space> :call NERDComment(0, "toggle")<CR>
+		vnoremap ,c<space> <ESC>:call NERDComment(1, "toggle")<CR>
+	" }}
+	" DBEXT{{
+		" execute paragraph
+		nmap ,dp :call Preserve('normal vip\se')<CR>
+		" execute statement
+		nmap ,de :DBExecSQLUnderCursor<CR>
+		" execute line
+		nmap ,dl :call Preserve('normal V\se')<CR>
+
+		" connect
+		nmap ,dc :DBPromptForBufferParameters<CR>
+		" describe
+		nmap ,dd :DBDescribeTable<CR>
+	" }}
 " }}
 
 " FUNCTION_KEYS{{
@@ -113,7 +139,7 @@
 	set wildignore=*.o,*.obj,*.class " do not show file in wildmenu
 
 	let g:tex_flavor='latex'
-	let mapleader=','
+	let mapleader='\'
 " }}
 " COLORS{{
 	set background=dark " dark background (must be before syntax on)
