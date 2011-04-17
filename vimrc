@@ -136,7 +136,9 @@
 	if has('mouse')
 		set mouse=a           " more mouse please :)
 	endif
-	set autochdir             " always switch to the current file directory
+	if exists('+autochdir')
+		set autochdir         " always switch to the current file directory
+	endif
 	set visualbell t_vb=      " no bell just blink
 	set virtualedit=all       " let cursor fly anythere
 	set hidden                " switch buffers without saving
