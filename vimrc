@@ -342,6 +342,58 @@
 
 		autocmd FileType tex call SetMakeForTex()
 	" }}
+	" PYTHON{{
+		" use spaces
+		autocmd FileType python setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
+
+		function! GetPythonFoldLvl(nLine)
+			let l:strLine         = getline(a:nLine)
+			let l:nCurIndentation = indent(a:nLine) / &tabstop
+			let l:nSetFoldTo      = 0
+			let l:chPrefix        = ''
+
+			if l:strLine =~ ':\s*$'
+				" we start block at any line ending with colon
+				let l:nSetFoldTo = l:nCurIndentation + 1
+				let l:chPrefix   = '>'
+			elseif l:strLine == ''
+				let l:nNextLine = nextnonblank(a:nLine + 1)
+
+				if l:nNextLine != 0
+					" empty lines mimics folding from next non empty line (by indentation level)
+					let l:nSetFoldTo = indent(l:nNextLine) / &tabstop
+				endif
+			else
+				let l:nSetFoldTo = l:nCurIndentation
+			endif
+
+			if l:nSetFoldTo <= &foldnestmax
+				" if folding is not to big return it
+				return l:chPrefix . l:nSetFoldTo
+			endif
+
+			" fall back to maximum folding allowed
+			return &foldnestmax
+		endfunction
+
+		" folding
+		autocmd FileType python setlocal foldmethod=expr foldexpr=GetPythonFoldLvl(v:lnum) foldnestmax=1
+
+		function! SetMakeForPython()
+			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
+				setlocal makeprg=make\ $*
+			else
+				setlocal makeprg=pylint\ --output-format=parseable\ --reports=n\ %
+				setlocal errorformat=%f:%l:\ [%t]%m,%f:%l:%m
+			endif
+		endfunction
+
+		" makeprg
+		autocmd FileType python call SetMakeForPython()
+
+		" formating
+		autocmd FileType python nnoremap <buffer> <F2> :call Preserve('%!PythonTidy.py') \| echo "PythonTidy"<CR>
+	" }}
 		augroup END
 	endif
 " }}
