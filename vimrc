@@ -3,9 +3,13 @@
 
 " PLUGINS{{
 	" PATHOGEN{{
-		filetype off
-		call pathogen#helptags()
-		call pathogen#runtime_append_all_bundles()
+		if !exists('g:bPathogenLoaded')
+			let g:bPathogenLoaded = 1
+
+			filetype off
+			call pathogen#helptags()
+			call pathogen#runtime_append_all_bundles()
+		endif
 	" }}
 	" TAGLIST{{
 		let Tlist_Auto_Open = 0            " let the tag list open automagically
@@ -147,8 +151,9 @@
 	syntax on           " syntax highlight
 	set t_Co=256        " all colours :)
 
+	let g:nShifColors = 0
 	function! ShiftColors()
-		if !exists('g:nShifColors') || g:nShifColors == 0
+		if g:nShifColors == 0
 			let g:nShifColors  = 1
 			let g:lucius_style = 'dark'
 
@@ -227,6 +232,8 @@
 
 " LANG_SPECIFIC{{
 	if has("autocmd")
+		augroup language_specific
+		autocmd!
 	" JAVA{{
 		autocmd FileType java setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
 		autocmd FileType java setlocal foldmethod=syntax foldnestmax=2
@@ -331,5 +338,6 @@
 
 		autocmd FileType tex call SetMakeForTex()
 	" }}
+		augroup END
 	endif
 " }}
