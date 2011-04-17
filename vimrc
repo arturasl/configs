@@ -16,17 +16,17 @@
 		let Tlist_Show_One_File = 1        " Displaying tags for only one file
 
 		" show taglist on ->
-		map <right> <ESC>:TlistToggle<RETURN>
+		nnoremap <right> <ESC>:TlistToggle<RETURN>
 	" }}
 	" LUSTYJUGLER{{
-		nmap ,b :LustyJuggler<CR>
+		nnoremap ,b :LustyJuggler<CR>
 	" }}
 	" NETRW{{
 		let g:netrw_browse_split = 4 " open new buffer in previous window
 		let g:netrw_liststyle = 3    " by default use tree view
 		let g:netrw_winsize = 25     " default window size
 		" show netrw on <-
-		map <left> <ESC>:Vexplore<CR>
+		nnoremap <left> <ESC>:Vexplore<CR>
 	" }}
 	" OMNICPPCOMPLETE{{
 		let OmniCpp_GlobalScopeSearch   = 1  " allow global scope search
@@ -43,10 +43,10 @@
 		let OmniCpp_LocalSearchDecl     = 0
 	" }}
 	" FUZZY_FINDER{{
-		nmap ,tb :FufBuffer<CR>
-		nmap ,tf :FufFile<CR>
-		nmap ,tq :FufQuickfix<CR>
-		nmap ,tt :FufBufferTag<CR>
+		nnoremap ,tb :FufBuffer<CR>
+		nnoremap ,tf :FufFile<CR>
+		nnoremap ,tq :FufQuickfix<CR>
+		nnoremap ,tt :FufBufferTag<CR>
 	" }}
 	" NERD_COMMENTER{{
 		let g:NERDCreateDefaultMappings=0
@@ -63,16 +63,16 @@
 	" }}
 	" DBEXT{{
 		" execute paragraph
-		nmap ,dp :call Preserve('normal vip\se')<CR>
+		nnoremap ,dp :call Preserve('normal vip\se')<CR>
 		" execute statement
-		nmap ,de :DBExecSQLUnderCursor<CR>
+		nnoremap ,de :DBExecSQLUnderCursor<CR>
 		" execute line
-		nmap ,dl :call Preserve('normal V\se')<CR>
+		nnoremap ,dl :call Preserve('normal V\se')<CR>
 
 		" connect
-		nmap ,dc :DBPromptForBufferParameters<CR>
+		nnoremap ,dc :DBPromptForBufferParameters<CR>
 		" describe
-		nmap ,dd :DBDescribeTable<CR>
+		nnoremap ,dd :DBDescribeTable<CR>
 	" }}
 " }}
 
@@ -112,12 +112,12 @@
 		endif
 	endfunction
 
-	nmap <F1> :call ShowHelp()<CR>
-	nmap <F2> :call Preserve("normal gg=G") \| echo "Internal"<CR>
-	nmap <F3> :call Preserve("%s/\\s\\+$//e")<CR>
-	nmap <F4> :!xmllint --valid --noout %<CR>
-	nmap <F5> :call BuildFile()<CR>
-	nmap <F6> :set list!<CR>
+	noremap <F1> :call ShowHelp()<CR>
+	noremap <F2> :call Preserve("normal gg=G") \| echo "Internal"<CR>
+	noremap <F3> :call Preserve("%s/\\s\\+$//e")<CR>
+	noremap <F4> :!xmllint --valid --noout %<CR>
+	noremap <F5> :call BuildFile()<CR>
+	noremap <F6> :set list!<CR>
 	set listchars=tab:>-,eol:*,nbsp:-,trail:-,extends:>,precedes:<
 " }}
 " GENERAL{{
@@ -167,11 +167,11 @@
 	set wrap      " yes, wrap lines
 	set linebreak " but do not cut in a middle of word
 	"move by screen lines not by file
-	nmap j gj
-	xmap j gj
+	nnoremap j gj
+	xnoremap j gj
 
-	nmap k gk
-	xmap k gk
+	nnoremap k gk
+	xnoremap k gk
 " }}
 " INDENTION{{
 	set autoindent             " copy indention from prev line
@@ -237,7 +237,7 @@
 
 		" do not indent classes (-C) as it will result in double indention
 		" use for spaces (s4)
-		autocmd FileType java nmap <buffer> <F2> :call Preserve('%!astyle -s4 -c -a -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Java"<CR>
+		autocmd FileType java nnoremap <buffer> <F2> :call Preserve('%!astyle -s4 -c -a -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Java"<CR>
 
 		function! SetMakeForJava()
 			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
@@ -255,11 +255,11 @@
 		autocmd FileType c,cpp setlocal foldmethod=syntax foldnestmax=1
 
 		autocmd FileType cpp call LoadLangTags('cpp')
-		autocmd Filetype c,cpp imap <buffer> . .<C-x><C-o>
-		autocmd Filetype c,cpp imap <buffer> -> -><C-x><C-o>
-		autocmd Filetype c,cpp imap <buffer> :: ::<C-x><C-o>
+		autocmd Filetype c,cpp inoremap <buffer> . .<C-x><C-o>
+		autocmd Filetype c,cpp inoremap <buffer> -> -><C-x><C-o>
+		autocmd Filetype c,cpp inoremap <buffer> :: ::<C-x><C-o>
 
-		autocmd FileType c,cpp nmap <buffer> <F2> :call Preserve('%!astyle -T4 -a -C -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Cpp"<CR>
+		autocmd FileType c,cpp nnoremap <buffer> <F2> :call Preserve('%!astyle -T4 -a -C -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Cpp"<CR>
 
 		function! SetMakeForCpp()
 			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
