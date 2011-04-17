@@ -52,14 +52,14 @@
 		let g:NERDCreateDefaultMappings=0
 
 		nnoremap ,ci :call NERDComment(0, "invert")<CR>
-		vnoremap ,ci <ESC>:call NERDComment(1, "invert")<CR>
+		xnoremap ,ci <ESC>:call NERDComment(1, "invert")<CR>
 
 		nnoremap ,cs :call NERDComment(0, "sexy")<CR>
-		vnoremap ,cs <ESC>:call NERDComment(1, "sexy")<CR>
+		xnoremap ,cs <ESC>:call NERDComment(1, "sexy")<CR>
 
 
 		nnoremap ,c<space> :call NERDComment(0, "toggle")<CR>
-		vnoremap ,c<space> <ESC>:call NERDComment(1, "toggle")<CR>
+		xnoremap ,c<space> <ESC>:call NERDComment(1, "toggle")<CR>
 	" }}
 	" DBEXT{{
 		" execute paragraph
@@ -168,10 +168,10 @@
 	set linebreak " but do not cut in a middle of word
 	"move by screen lines not by file
 	nmap j gj
-	vmap j gj
+	xmap j gj
 
 	nmap k gk
-	vmap k gk
+	xmap k gk
 " }}
 " INDENTION{{
 	set autoindent             " copy indention from prev line
@@ -192,7 +192,7 @@
 	set gdefault   " append g to substitution automatically
 	" use regex that is more like pcre by default
 	nnoremap / /\v
-	vnoremap / /\v
+	xnoremap / /\v
 " }}
 " TMP_FILES{{
 	set backup
