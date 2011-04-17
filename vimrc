@@ -137,6 +137,7 @@
 	set wildmenu              " show all matched, let narrow results, then let iterate through results
 	set wildmode=longest:full,full
 	set wildignore=*.o,*.obj,*.class " do not show file in wildmenu
+	set lazyredraw            " do not update screen while doing batch changes
 
 	let g:tex_flavor='latex'
 	let mapleader='\'
