@@ -151,9 +151,10 @@
 	let mapleader='\'
 " }}
 " COLORS{{
-	set background=dark " dark background (must be before syntax on)
-	syntax on           " syntax highlight
-	set t_Co=256        " all colours :)
+	set background=dark           " dark background (must be before syntax on)
+	syntax on                     " syntax highlight
+	let g:load_doxygen_syntax = 1 " if you can, highlight doxygen comments
+	set t_Co=256                  " all colours :)
 
 	let g:nShifColors = 0
 	function! ShiftColors()
