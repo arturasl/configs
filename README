@@ -33,3 +33,6 @@ Post installation:
 	dmenu:
 		fluxbox
 		echo -e -n '#CUSTOM\nMod4 p :exec ~/configs/dmenu_show.sh' >> ~/.fluxbox/keys
+	newsbeuter
+		ln -s  ~/configs/newsbeuter.conf ~/.newsbeuter/config
+		mkdir -p ~/.newsbeuter/podc/

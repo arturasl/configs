@@ -50,7 +50,8 @@ function atmux(){
 
 	tmux new-session -d -s arturasl_tmux -n 'bash'
 	tmux new-window -t arturasl_tmux:2 -n 'zsh' 'zsh'
-	tmux new-window -t arturasl_tmux:3 -n 'newsbeuter' 'newsbeuter'
+	tmux new-window -t arturasl_tmux:3 -n 'news' 'podbeuter'
+	tmux split-window -v -p 90 -t arturasl_tmux:3 'newsbeuter'
 	tmux new-window -t arturasl_tmux:4 -n 'irssi' 'irssi'
 	tmux new-window -t arturasl_tmux:5 -n 'htop' 'htop'
 
