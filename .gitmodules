@@ -1,0 +1,6 @@
+[submodule "vim/bundle/protodef"]
+	path = vim/bundle/protodef
+	url = https://github.com/ewiplayer/vim-protodef.git
+[submodule "vim/bundle/fswitch"]
+	path = vim/bundle/fswitch
+	url = https://github.com/ewiplayer/vim-fswitch.git

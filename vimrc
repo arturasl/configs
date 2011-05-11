@@ -78,6 +78,24 @@
 		" describe
 		nnoremap ,dd :DBDescribeTable<CR>
 	" }}
+	" FSWITCH{{
+	if has("autocmd")
+		augroup plugin_fswitch
+		autocmd!
+			autocmd BufEnter *.cpp,*.c let b:fswitchdst = 'h,hpp'
+			                       \ | let b:fswitchlocs = 'ifrel:!/\(src\|source\)/\?$!../include!,./'
+			autocmd BufEnter *.hpp,*.h let b:fswitchdst = 'cpp,c'
+			                       \ | let b:fswitchlocs = 'ifrel:!/inc\(lude\)\?/\?$!../src!,./'
+		augroup END
+	endif
+
+	nmap ,s :FSHere<CR>
+	" }}
+	" PROTODEF{{
+		let g:disable_protodef_mapping = 1 " I will define my own mappings
+		let g:protodefprotogetter = '~/configs/vim/bundle/protodef/pullproto.pl'
+        nmap ,i i<C-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({})<CR><ESC>='[
+	" }}
 " }}
 
 " FUNCTION_KEYS{{
