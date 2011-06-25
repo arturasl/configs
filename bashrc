@@ -11,6 +11,7 @@ alias vim='gvim -v'
 alias dirs='dirs -p -l -v'
 alias ll='ls --all --human-readable -l --color=auto'
 alias dosbox='dosbox -c "mount C ~/Projects/ASM/" -c "C:\\" -c "path=C:\\tasm\\bin\\" -c "cd projects/DIS/"'
+alias tmux='tmux -2'
 
 #### Additional setting
 
