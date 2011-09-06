@@ -164,6 +164,8 @@
 	set wildmode=longest:full,full
 	set wildignore=*.o,*.obj,*.class " do not show file in wildmenu
 	set lazyredraw            " do not update screen while doing batch changes
+	set fileformats=unix,dos,mac  " for new files use unix line endings. Choose between unix, dos or mac
+	set fileencodings=ucs-bom,utf-8,latin1 " encodings to try for existing files (for new one - utf-8)
 
 	let g:tex_flavor='latex'
 	let mapleader='\'
