@@ -256,6 +256,7 @@
 	if has("gui_running")
 		set guioptions-=T " remove toolbar
 		set guioptions-=t " do not allow to tear off menu items (float around as separate window)
+		set guioptions-=m " remove menu
 	endif
 " }}
 
