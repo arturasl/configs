@@ -397,6 +397,9 @@
 	" PHP{{
 		autocmd FileType php setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
 	" }}
+	" BNF{{
+		autocmd bufreadpre,bufnewfile *.bnf set ft=bnf
+	" }}
 		augroup END
 	endif
 " }}
