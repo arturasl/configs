@@ -9,7 +9,7 @@ alias _grep='grep --with-filename --line-number --initial-tab  --color=always'
 alias vim='gvim -v'
 # Show each directory in seperate line, show indexes and expand ~ or similar things
 alias dirs='dirs -p -l -v'
-alias ll='ls --all --human-readable -l --color=auto'
+alias ll='ls --all --human-readable -l --color=auto --group-directories-first -v'
 alias dosbox='dosbox -c "mount C ~/Projects/ASM/" -c "C:\\" -c "path=C:\\tasm\\bin\\" -c "cd projects/DIS/"'
 alias tmux='tmux -2'
 
