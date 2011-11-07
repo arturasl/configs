@@ -335,7 +335,7 @@
 											\ execute 'silent !evince %:r.pdf &>/dev/null &'|
 										\ endif
 
-				setlocal makeprg=pdflatex\ -file-line-error\ -interaction=nonstopmode\ %
+				setlocal makeprg=pdflatex\ -shell-escape\ -file-line-error\ -interaction=nonstopmode\ %
 				setlocal errorformat=%f:%l:\ %m
 			endif
 		endfunction
