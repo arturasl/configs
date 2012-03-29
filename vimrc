@@ -397,6 +397,17 @@
 	" PHP{{
 		autocmd FileType php setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
 	" }}
+	" M4{{
+		function! SetMakeForM4()
+			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
+				setlocal makeprg=make\ $*
+			else
+				setlocal makeprg=m4\ -P\ -g\ $*\ %\ >\ %:r
+			endif
+		endfunction
+
+		autocmd FileType m4 call SetMakeForM4()
+	" }}
 		augroup END
 	endif
 " }}
