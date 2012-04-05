@@ -121,6 +121,7 @@
 		echo "<F4> Check xml syntax"
 		echo "<F5> Build"
 		echo "<F6> Show invisible chars"
+		echo "<F7> Switch line number mode"
 	endfunction
 
 	function! BuildFile()
@@ -140,6 +141,7 @@
 	noremap <F4> :!xmllint --valid --noout %<CR>
 	noremap <F5> :call BuildFile()<CR>
 	noremap <F6> :set list!<CR>
+	noremap <F7> :if &rnu \| set nu \| else \| set rnu \| endif<CR>
 	set listchars=tab:>-,eol:*,nbsp:-,trail:-,extends:>,precedes:<
 " }}
 " GENERAL{{
