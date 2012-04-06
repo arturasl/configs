@@ -410,6 +410,9 @@
 
 		autocmd FileType m4 call SetMakeForM4()
 	" }}
+	" JSON{{
+		autocmd! BufRead,BufNewFile *.json set filetype=json 
+	" }}
 		augroup END
 	endif
 " }}
