@@ -400,6 +400,17 @@
 	" BNF{{
 		autocmd bufreadpre,bufnewfile *.bnf set ft=bnf
 	" }}
+	" JAVASCRIPT{{
+		function! SetMakeForJavaScript()
+			setlocal makeprg=jslint\ --continue\ --\ %
+			" http://stackoverflow.com/questions/3713015/vim-errorformat-and-jslint
+			setlocal errorformat=%-P%f,
+				\%E%>\ #%n\ %m,%Z%.%#Line\ %l\\,\ Pos\ %c,
+				\%-G%f\ is\ OK.,%-Q
+		endfunction
+
+		autocmd FileType javascript call SetMakeForJavaScript()
+	" }}
 		augroup END
 	endif
 " }}
