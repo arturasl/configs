@@ -337,7 +337,7 @@
 											\ execute 'silent !evince %:r.pdf &>/dev/null &'|
 										\ endif
 
-				setlocal makeprg=pdflatex\ -file-line-error\ -interaction=nonstopmode\ %
+				setlocal makeprg=pdflatex\ -shell-escape\ -file-line-error\ -interaction=nonstopmode\ %
 				setlocal errorformat=%f:%l:\ %m
 			endif
 		endfunction
@@ -411,7 +411,20 @@
 		autocmd FileType m4 call SetMakeForM4()
 	" }}
 	" JSON{{
-		autocmd! BufRead,BufNewFile *.json set filetype=json 
+		autocmd! BufRead,BufNewFile *.json set filetype=json
+	" BNF{{
+		autocmd bufreadpre,bufnewfile *.bnf set ft=bnf
+	" }}
+	" JAVASCRIPT{{
+		function! SetMakeForJavaScript()
+			setlocal makeprg=jslint\ --continue\ --\ %
+			" http://stackoverflow.com/questions/3713015/vim-errorformat-and-jslint
+			setlocal errorformat=%-P%f,
+				\%E%>\ #%n\ %m,%Z%.%#Line\ %l\\,\ Pos\ %c,
+				\%-G%f\ is\ OK.,%-Q
+		endfunction
+
+		autocmd FileType javascript call SetMakeForJavaScript()
 	" }}
 		augroup END
 	endif
