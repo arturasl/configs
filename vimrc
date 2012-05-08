@@ -412,6 +412,7 @@
 	" }}
 	" JSON{{
 		autocmd! BufRead,BufNewFile *.json set filetype=json
+	" }}
 	" BNF{{
 		autocmd bufreadpre,bufnewfile *.bnf set ft=bnf
 	" }}
