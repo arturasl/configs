@@ -427,6 +427,15 @@
 
 		autocmd FileType javascript call SetMakeForJavaScript()
 	" }}
+	" ASN.1 {{
+		autocmd bufreadpre,bufnewfile *.der
+			\ noremap <buffer> <F5> G:call Preserve('silent r!openssl asn1parse -inform DER -in %') \| setlocal readonly<CR>
+
+		autocmd bufreadpre,bufnewfile *.crt
+			\ noremap <buffer> <F5> G:call Preserve('silent r!openssl x509 -in % -noout -text') \| setlocal readonly<CR>
+		autocmd bufreadpre,bufnewfile *.key
+			\ noremap <buffer> <F5> G:call Preserve('silent r!openssl rsa -in % -noout -text') \| setlocal readonly<CR>
+	" }}
 		augroup END
 	endif
 " }}
