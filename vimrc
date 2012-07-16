@@ -412,6 +412,7 @@
 	" }}
 	" JSON{{
 		autocmd! BufRead,BufNewFile *.json set filetype=json
+	" }}
 	" BNF{{
 		autocmd bufreadpre,bufnewfile *.bnf set ft=bnf
 	" }}
@@ -425,6 +426,25 @@
 		endfunction
 
 		autocmd FileType javascript call SetMakeForJavaScript()
+	" }}
+	" ASN.1 {{
+		autocmd bufreadpre,bufnewfile *.der
+			\ noremap <buffer> <F5> G:call Preserve('silent r!openssl asn1parse -inform DER -in %') \| setlocal readonly<CR>
+
+		autocmd bufreadpre,bufnewfile *.crt
+			\ noremap <buffer> <F5> G:call Preserve('silent r!openssl x509 -in % -noout -text') \| setlocal readonly<CR>
+		autocmd bufreadpre,bufnewfile *.key
+			\ noremap <buffer> <F5> G:call Preserve('silent r!openssl rsa -in % -noout -text') \| setlocal readonly<CR>
+	" }}
+	" RST {{
+		function! SetMakeForRST()
+			setlocal makeprg=pandoc\ --standalone\ --latexmathml\ %\ >\ /tmp/%\ &&\ firefox\ /tmp/%
+		endfunction
+
+		autocmd! BufRead,BufNewFile *.rst,*.mkd
+			\ call SetMakeForRST() |
+			\ setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
+
 	" }}
 		augroup END
 	endif
