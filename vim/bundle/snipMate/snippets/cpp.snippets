@@ -33,48 +33,18 @@ snippet code
 	#include      <vector>
 	#include      <cstdarg>
 	#define endl '\n'
-
+	#define each(c, e) for (typeof(c.begin()) e = c.begin(); e != c.end(); ++e)
 	using namespace std;
-
 	//const int INFTY = numeric_limits<int>::max();
-	template<typename T1, typename T2> ostream& operator<<(ostream &o, const pair<T1, T2> &p) {
-		return o << '(' << p.first << ", " << p.second << ')';
+	template<typename T1, typename T2> ostream& operator<<(ostream &o, const pair<T1, T2> &p) {return o << '(' << p.first << ", " << p.second << ')';}
+	template<typename I> ostream& print(ostream &o, I s, I e, int w = 5, int prec = 2, const string &sep = ", ", const string &lhs = "", const string &rhs = "") {
+		o << lhs;
+		if (s != e) o << setw(w) << setprecision(prec) << *(s++);
+		for (; s != e; ++s) o << sep << setw(w) << setprecision(prec) << *s;
+		return o << rhs;
 	}
-	template<typename I> ostream& print(ostream &o, I s, I e) {
-		o << '[';
-		if (s != e) o << setw(5) << setprecision(2) << *(s++);
-		for (; s != e; ++s) o << ", " << setw(5) << setprecision(2) << *s;
-		return o << ']';
-	}
-	template<typename T> ostream& operator<<(ostream &o, const list<T> &c) {
-		return print(o, c.begin(), c.end());
-	}
-	template<typename T1, typename T2> ostream& operator<<(ostream &o, const map<T1, T2> &c) {
-		return print(o, c.begin(), c.end());
-	}
-	template<typename T> ostream& operator<<(ostream &o, const vector<T> &c) {
-		return print(o, c.begin(), c.end());
-	}
-	template<typename T> void print(T* v, int pad, list<int> &sizes) {
-		if (sizes.empty()) { cout << "[]" << endl; return; }
-		if (sizes.size() == 1) { cout << setw(pad) << ' ' << list<T>(v, v + sizes.front()) << endl; return; }
-		int sz = sizes.front(); sizes.pop_front();
-		cout << setw(pad) << '[' << endl;
-		for (int i = 0; i < sz; ++i) {
-			print(v, pad + 4, sizes);
-			v += sizes.front();
-		}
-		sizes.push_front(sz);
-		cout << setw(pad) << ']' << endl;
-	}
-	template<typename T> void print(T* v, int dim, ...) {
-		list<int> sizes;
-		va_list argp;
-		va_start(argp, dim);
-		for (int i = 0; i < dim; ++i) sizes.push_back(va_arg(argp, int));
-		va_end(argp);
-		print(v, 0, sizes);
-	}
+	template<typename T, template<typename E, typename A=std::allocator<E> > class C>
+	ostream& operator<<(ostream &o, const C<T>& c) {return print(o, c.begin(), c.end(), 5, 2, ", ", "[", "]");}
 
 	int main(int argc, char **argv) {
 		ios_base::sync_with_stdio(false), cin.tie(0);

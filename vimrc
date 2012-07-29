@@ -308,7 +308,13 @@
 			elseif &ft ==? 'c'
 				setlocal makeprg=gcc\ -g\ -Wall\ -pedantic\ -std=c99\ -Wno-long-long\ $*\ %\ -o\ %:r
 			elseif &ft ==? 'cpp'
-				setlocal makeprg=g++\ -g\ -Wall\ -pedantic\ -std=c++98\ -Wno-long-long\ $*\ %\ -o\ %:r
+				if expand('%:t') ==? 'code.cpp'
+					" less restrictive so that gnu specific keywords would be
+					" allowed
+					setlocal makeprg=g++\ -g\ -Wall\ -pedantic\ -std=gnu++98\ -Wno-long-long\ $*\ %\ -o\ %:r
+				else
+					setlocal makeprg=g++\ -g\ -Wall\ -pedantic\ -std=c++98\ -Wno-long-long\ $*\ %\ -o\ %:r
+				endif
 			else
 				setlocal makeprg=$*
 			endif
