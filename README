@@ -4,6 +4,8 @@ Installation:
 	git clone git://github.com/arturasl/configs.git ~/configs
 
 Post installation:
+	ctags:
+		ln -s ~/configs/ctags ~/.ctags
 	vim:
 		basic:
 		ln -s ~/configs/vimrc ~/.vimrc
@@ -36,3 +38,8 @@ Post installation:
 	newsbeuter
 		ln -s  ~/configs/newsbeuter.conf ~/.newsbeuter/config
 		mkdir -p ~/.newsbeuter/podc/
+
+	additional packages
+		jslint
+			sudo chown -R $USER /usr/local
+			npm install -g jslint

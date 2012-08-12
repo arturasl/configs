@@ -11,16 +11,25 @@
 			call pathogen#runtime_append_all_bundles()
 		endif
 	" }}
-	" TAGLIST{{
-		let Tlist_Auto_Open = 0            " let the tag list open automagically
-		let Tlist_Compact_Format = 0       " show small menu
-		let Tlist_Exist_OnlyWindow = 1     " close if last window
-		let Tlist_File_Fold_Auto_Close = 1 " fold closed other trees
-		let Tlist_Use_Right_Window = 1     " show on right side
-		let Tlist_Show_One_File = 1        " Displaying tags for only one file
+	" TAGBAR{{
+		let g:tagbar_compact = 1            " Do not show header and empty lines
+		let g:tagbar_singleclick = 1        " Use single mouse click to go to tag definition
+		let g:tagbar_iconchars = ['▶', '▼'] " Fold icons
+		" tags for latex
+		let g:tagbar_type_tex = {
+			\ 'ctagstype' : 'latex',
+			\ 'kinds' : [
+				\ 's:sections',
+				\ 'g:graphics:0:0',
+				\ 'l:labels',
+				\ 'r:refs:1:0',
+				\ 'p:pagerefs:1:0'
+			\ ],
+			\ 'sort' : 0,
+		\ }
 
-		" show taglist on ->
-		nnoremap <right> <ESC>:TlistToggle<RETURN>
+		" show tagbar on ->
+		nnoremap <right> <ESC>::TagbarToggle<RETURN>
 	" }}
 	" LUSTYJUGLER{{
 		nnoremap ,b :LustyJuggler<CR>
