@@ -47,8 +47,18 @@ snippet code
 	template<typename T, template<typename E, typename A=std::allocator<E> > class C>
 	ostream& operator<<(ostream &o, const C<T>& c) {return print(o, c.begin(), c.end(), 5, 2, ", ", "[", "]");}
 
+
 	int main(int argc, char **argv) {
 		ios_base::sync_with_stdio(false), cin.tie(0);
 		${1:/* code */}
 		return 0;
+	}
+snippet intreader
+	#define READ_HELPER(fnAccum, fnEnd, fnCheck) while (true) { for (; pos != end && (fnCheck); ++pos) fnAccum;\
+		if (pos != end) fnEnd; end = buffer + read(0, buffer, BUFF_SIZE), pos = buffer; }
+	template<typename R> R readNextNumber() {
+		const int BUFF_SIZE = 1024 * 256;
+		static char buffer[BUFF_SIZE], *pos = buffer, *end = buffer;
+		R rtn = 0;
+		READ_HELPER(;, break, *pos < '0' || *pos > '9'); READ_HELPER(rtn = rtn * 10 + *pos - '0', return rtn, *pos >= '0' && *pos <= '9');
 	}
