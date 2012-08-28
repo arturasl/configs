@@ -35,8 +35,14 @@ snippet code
 	#define endl '\n'
 	#define each(c, e) for (typeof(c.begin()) e = c.begin(); e != c.end(); ++e)
 	using namespace std;
-	//const int INFTY = numeric_limits<int>::max();
 	template<typename T> inline T ceilDiv(T l, T r) {return (l / r) + ((l % r) != 0);}
+	//const int INFTY = numeric_limits<int>::max();
+	int main(int argc, char **argv) {
+		ios_base::sync_with_stdio(false), cin.tie(0);
+		${1:/* code */}
+		return 0;
+	}
+snippet codeprinter
 	template<typename T1, typename T2> ostream& operator<<(ostream &o, const pair<T1, T2> &p) {return o << '(' << p.first << ", " << p.second << ')';}
 	template<typename I> ostream& print(ostream &o, I s, I e, int w = 5, int prec = 2, const string &sep = ", ", const string &lhs = "", const string &rhs = "") {
 		o << lhs;
@@ -46,19 +52,26 @@ snippet code
 	}
 	template<typename T, template<typename E, typename A=std::allocator<E> > class C>
 	ostream& operator<<(ostream &o, const C<T>& c) {return print(o, c.begin(), c.end(), 5, 2, ", ", "[", "]");}
-
-
-	int main(int argc, char **argv) {
-		ios_base::sync_with_stdio(false), cin.tie(0);
-		${1:/* code */}
-		return 0;
+snippet codereader
+	const int BUFF_SIZE = 1024 * 256;
+	char g_rbuffer[BUFF_SIZE], *g_rpos = g_rbuffer, *g_rend = g_rbuffer;
+	#define READ_HELPER(fnAccum, fnEnd, fnCheck) while (true) { for (; g_rpos != g_rend && (fnCheck); ++g_rpos) fnAccum;\
+		if (g_rpos != g_rend) fnEnd; g_rend = g_rbuffer + read(0, g_rbuffer, BUFF_SIZE), g_rpos = g_rbuffer; }
+	template<typename R> void readNumber(R &rtn) {
+		rtn = 0;
+		READ_HELPER(;, break, *g_rpos < '0' || *g_rpos > '9'); READ_HELPER(rtn = rtn * 10 + *g_rpos - '0', return, *g_rpos >= '0' && *g_rpos <= '9');
 	}
-snippet intreader
-	#define READ_HELPER(fnAccum, fnEnd, fnCheck) while (true) { for (; pos != end && (fnCheck); ++pos) fnAccum;\
-		if (pos != end) fnEnd; end = buffer + read(0, buffer, BUFF_SIZE), pos = buffer; }
-	template<typename R> R readNextNumber() {
-		const int BUFF_SIZE = 1024 * 256;
-		static char buffer[BUFF_SIZE], *pos = buffer, *end = buffer;
-		R rtn = 0;
-		READ_HELPER(;, break, *pos < '0' || *pos > '9'); READ_HELPER(rtn = rtn * 10 + *pos - '0', return rtn, *pos >= '0' && *pos <= '9');
+snippet codewriter
+	char g_wbuffer[BUFF_SIZE];
+	char *g_wpos = g_wbuffer, *g_wend = g_wbuffer + BUFF_SIZE;
+	inline void flushWBuffer() { write(1, g_wbuffer, g_wpos - g_wbuffer); g_wpos = g_wbuffer;}
+	inline void writeChar(char ch) { *(g_wpos++) = ch; if (g_wpos == g_wend) flushWBuffer(); }
+	void writeBuffer(char *start, char *end) { for (; start != end; start += 1) writeChar(*start); }
+	template<typename I> void writeNumber(I n) {
+		static char tmpBuffer[100];
+		char *cur = tmpBuffer, *start = tmpBuffer;
+		if (n == 0) { writeChar('0'); return; }
+		if (n < 0) *(cur++) = '-', n *= -1, start += 1;
+		while (n) *(cur++) = n % 10 + '0', n /= 10;
+		reverse(start, cur); writeBuffer(tmpBuffer, cur);
 	}
