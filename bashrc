@@ -1,4 +1,10 @@
+#### Constants
+
+test -z "$(uname -a | grep Darwin)"
+IS_MAC=$?
+
 ####  Source global definitions
+
 if [ -f /etc/bashrc ]; then
 	source /etc/bashrc
 fi
@@ -9,7 +15,9 @@ alias _grep='grep --with-filename --line-number --initial-tab  --color=always'
 alias vim='gvim -v'
 # Show each directory in seperate line, show indexes and expand ~ or similar things
 alias dirs='dirs -p -l -v'
-alias ll='ls --all --human-readable -l --color=auto --group-directories-first -v'
+# --color=auto -G
+# --humna-readable -h
+alias ll='ls -a --human-readable -l --color=auto --group-directories-first -v'
 alias dosbox='dosbox -c "mount C ~/Projects/ASM/" -c "C:\\" -c "path=C:\\tasm\\bin\\" -c "cd projects/DIS/"'
 alias tmux='tmux -2'
 
@@ -33,17 +41,19 @@ export LESS_TERMCAP_ue=$'\e[0m'
 shopt -s cdspell
 
 # Add completion for some programs
-if [ -f /etc/bash_completion ]; then
-	. /etc/bash_completion
-elif [[ -d "/etc/bash_completion.d/" ]]; then
-	nComplete=$(complete -p | wc --lines)
-	if [[ "$nComplete" < "5" ]]; then
-		for strFile in /etc/bash_completion.d/*; do
-			source $strFile
-		done
+if [ $IS_MAC != 1 ]; then
+	if [ -f /etc/bash_completion ]; then
+		. /etc/bash_completion
+	elif [[ -d "/etc/bash_completion.d/" ]]; then
+		nComplete=$(complete -p | wc --lines)
+		if [[ "$nComplete" < "5" ]]; then
+			for strFile in /etc/bash_completion.d/*; do
+				source $strFile
+			done
+		fi
+	else
+		echo "($BASH_SOURCE: $LINENO) Could not load extended completion files :(" 1>&2
 	fi
-else
-	echo "($BASH_SOURCE: $LINENO) Could not load extended completion files :(" 1>&2
 fi
 
 # Explicitly move to home directory
