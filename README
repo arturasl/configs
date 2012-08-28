@@ -21,10 +21,18 @@ Post installation:
 		tar xjf download_script.php\?src_id\=9178
 		ctags -f ~/configs/vim/tags/cpp_std.tags --recurse=yes --sort=yes --verbose=yes --append=no --language-force=C++ --extra=+q --fields=afiKmsSt ./cpp_src/
 		rm -rf cpp_src/ download_script.php\?src_id\=9178
+
+		# use macvim as gvim under mac
+		sudo ln -s /usr/local/bin/mvim /usr/bin/gvim
 	bash:
 		ln -s ~/configs/bashrc ~/.bashrc
+		# use bash_profile under mac
+		ln -s ~/configs/bashrc ~/.bash_profile
 	tmux:
 		ln -s  ~/configs/tmux.conf ~/.tmux.conf
+		# for non mac systems create dummy reattach-to-user-namespace (clipboard helper)
+		sudo touch /usr/bin/reattach-to-user-namespace
+		sudo chmod a+x /usr/bin/reattach-to-user-namespace
 	urxvt:
 		Write XResourcesURxvt to your ~/.Xresources (read on X startup):
 		cat ~/configs/XResourcesURxvt >> ~/.Xresources
