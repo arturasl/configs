@@ -91,10 +91,10 @@
 	if has("autocmd")
 		augroup plugin_fswitch
 		autocmd!
-			autocmd BufEnter *.cpp,*.c let b:fswitchdst = 'h,hpp'
-			                       \ | let b:fswitchlocs = 'ifrel:!/\(src\|source\)/\?$!../include!,./'
+			autocmd BufEnter *.cpp,*.c let b:fswitchdst = 'h,hpp' " companion file extension
+						\ | let b:fswitchlocs = 'reg:/src/include/,./' " if relative path end with src or source use ../include, else us current dirctory
 			autocmd BufEnter *.hpp,*.h let b:fswitchdst = 'cpp,c'
-			                       \ | let b:fswitchlocs = 'ifrel:!/inc\(lude\)\?/\?$!../src!,./'
+			                       \ | let b:fswitchlocs = 'reg:/include/src/,./'
 		augroup END
 	endif
 
