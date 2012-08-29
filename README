@@ -31,8 +31,7 @@ Post installation:
 	tmux:
 		ln -s  ~/configs/tmux.conf ~/.tmux.conf
 		# for non mac systems create dummy reattach-to-user-namespace (clipboard helper)
-		sudo touch /usr/bin/reattach-to-user-namespace
-		sudo chmod a+x /usr/bin/reattach-to-user-namespace
+		sudo bash -c 'fp=/usr/bin/reattach-to-user-namespace && touch $fp && chmod a+x $fp && echo -e "#!/bin/bash\nexec bash" > $fp'
 	urxvt:
 		Write XResourcesURxvt to your ~/.Xresources (read on X startup):
 		cat ~/configs/XResourcesURxvt >> ~/.Xresources
