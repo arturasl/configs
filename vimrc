@@ -427,6 +427,7 @@
 	" }}
 	" JSON{{
 		autocmd! BufRead,BufNewFile *.json set filetype=json
+		autocmd FileType json nnoremap <buffer> <F2> :call Preserve('%!python -mjson.tool')<CR>
 	" }}
 	" BNF{{
 		autocmd bufreadpre,bufnewfile *.bnf set ft=bnf
