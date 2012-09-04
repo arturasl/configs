@@ -34,6 +34,8 @@ Post installation:
 		ln -s ~/configs/bashrc ~/.bash_profile
 	tmux:
 		ln -s  ~/configs/tmux.conf ~/.tmux.conf
+		# for gnome to auto start
+		gnome-terminal --execute atmux
 	urxvt:
 		Write XResourcesURxvt to your ~/.Xresources (read on X startup):
 		cat ~/configs/XResourcesURxvt >> ~/.Xresources
