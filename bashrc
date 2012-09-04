@@ -66,23 +66,5 @@ PS1="\$ "
 # Print before each multiline cmd
 PS2=" └> "
 
-#### Tmux
-
-function atmux(){
-	cd
-
-	tmux start-server
-
-	tmux new-session -d -s arturasl_tmux -n 'bash'
-	tmux new-window -t arturasl_tmux:2 -n 'zsh' 'zsh'
-	tmux new-window -t arturasl_tmux:3 -n 'news' 'podbeuter'
-	tmux split-window -v -p 90 -t arturasl_tmux:3 'newsbeuter'
-	tmux new-window -t arturasl_tmux:4 -n 'irssi' 'irssi'
-	tmux new-window -t arturasl_tmux:5 -n 'htop' 'htop'
-
-	tmux select-window -t arturasl_tmux:1
-	tmux -2 attach-session -t arturasl_tmux
-}
-
 #### Private stuff
 source ~/.bashrc_private
