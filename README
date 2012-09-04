@@ -4,6 +4,10 @@ Installation:
 	git clone git://github.com/arturasl/configs.git ~/configs
 
 Post installation:
+	scripts:
+		ln -s ~/configs/scripts/atmux /usr/bin
+		# for non mac systems create dummy reattach-to-user-namespace (clipboard helper)
+		ln -s ~/configs/scripts/reattach-to-user-namespace /usr/bin
 	ctags:
 		ln -s ~/configs/ctags ~/.ctags
 	vim:
@@ -30,8 +34,6 @@ Post installation:
 		ln -s ~/configs/bashrc ~/.bash_profile
 	tmux:
 		ln -s  ~/configs/tmux.conf ~/.tmux.conf
-		# for non mac systems create dummy reattach-to-user-namespace (clipboard helper)
-		sudo bash -c 'fp=/usr/bin/reattach-to-user-namespace && touch $fp && chmod a+x $fp && echo -e "#!/bin/bash\nexec bash" > $fp'
 	urxvt:
 		Write XResourcesURxvt to your ~/.Xresources (read on X startup):
 		cat ~/configs/XResourcesURxvt >> ~/.Xresources
