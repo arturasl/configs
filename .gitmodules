@@ -4,3 +4,6 @@
 [submodule "vim/bundle/fswitch"]
 	path = vim/bundle/fswitch
 	url = git://github.com/derekwyatt/vim-fswitch.git
+[submodule "vim/bundle/tagbar"]
+	path = vim/bundle/tagbar
+	url = https://github.com/majutsushi/tagbar.git
