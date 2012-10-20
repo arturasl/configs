@@ -11,16 +11,25 @@
 			call pathogen#runtime_append_all_bundles()
 		endif
 	" }}
-	" TAGLIST{{
-		let Tlist_Auto_Open = 0            " let the tag list open automagically
-		let Tlist_Compact_Format = 0       " show small menu
-		let Tlist_Exist_OnlyWindow = 1     " close if last window
-		let Tlist_File_Fold_Auto_Close = 1 " fold closed other trees
-		let Tlist_Use_Right_Window = 1     " show on right side
-		let Tlist_Show_One_File = 1        " Displaying tags for only one file
+	" TAGBAR{{
+		let g:tagbar_compact = 1            " Do not show header and empty lines
+		let g:tagbar_singleclick = 1        " Use single mouse click to go to tag definition
+		let g:tagbar_iconchars = ['▶', '▼'] " Fold icons
+		" tags for latex
+		let g:tagbar_type_tex = {
+			\ 'ctagstype' : 'latex',
+			\ 'kinds' : [
+				\ 's:sections',
+				\ 'g:graphics:0:0',
+				\ 'l:labels',
+				\ 'r:refs:1:0',
+				\ 'p:pagerefs:1:0'
+			\ ],
+			\ 'sort' : 0,
+		\ }
 
-		" show taglist on ->
-		nnoremap <right> <ESC>:TlistToggle<RETURN>
+		" show tagbar on ->
+		nnoremap <right> <ESC>::TagbarToggle<RETURN>
 	" }}
 	" LUSTYJUGLER{{
 		nnoremap ,b :LustyJuggler<CR>
@@ -82,10 +91,10 @@
 	if has("autocmd")
 		augroup plugin_fswitch
 		autocmd!
-			autocmd BufEnter *.cpp,*.c let b:fswitchdst = 'h,hpp'
-			                       \ | let b:fswitchlocs = 'ifrel:!/\(src\|source\)/\?$!../include!,./'
+			autocmd BufEnter *.cpp,*.c let b:fswitchdst = 'h,hpp' " companion file extension
+						\ | let b:fswitchlocs = 'reg:/src/include/,./' " if relative path end with src or source use ../include, else us current dirctory
 			autocmd BufEnter *.hpp,*.h let b:fswitchdst = 'cpp,c'
-			                       \ | let b:fswitchlocs = 'ifrel:!/inc\(lude\)\?/\?$!../src!,./'
+			                       \ | let b:fswitchlocs = 'reg:/include/src/,./'
 		augroup END
 	endif
 
@@ -308,7 +317,13 @@
 			elseif &ft ==? 'c'
 				setlocal makeprg=gcc\ -g\ -Wall\ -pedantic\ -std=c99\ -Wno-long-long\ $*\ %\ -o\ %:r
 			elseif &ft ==? 'cpp'
-				setlocal makeprg=g++\ -g\ -Wall\ -pedantic\ -std=c++98\ -Wno-long-long\ $*\ %\ -o\ %:r
+				if expand('%:t') ==? 'code.cpp'
+					" less restrictive so that gnu specific keywords would be
+					" allowed
+					setlocal makeprg=g++\ -g\ -Wall\ -pedantic\ -std=gnu++98\ -Wno-long-long\ $*\ %\ -o\ %:r
+				else
+					setlocal makeprg=g++\ -g\ -Wall\ -pedantic\ -std=c++98\ -Wno-long-long\ $*\ %\ -o\ %:r
+				endif
 			else
 				setlocal makeprg=$*
 			endif
