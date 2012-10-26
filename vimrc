@@ -462,6 +462,21 @@
 			\ setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
 
 	" }}
+	" PASCAL {{
+		autocmd bufreadpre,bufnewfile *.PAS set ft=pascal
+	" }}
 		augroup END
 	endif
+" }}
+
+" ADDITIONAL_SETTING {{
+	function! LoadAdditionalSetting()
+		let l:configFile = findfile('vim_additional.vim', '.;') " search upwards
+		if l:configFile != ''
+			echo 'Using configuration file:' . l:configFile
+			sleep 1
+			exec 'source ' . l:configFile
+		endif
+	endfunction
+	autocmd! bufreadpre,bufnewfile * :call LoadAdditionalSetting()
 " }}
