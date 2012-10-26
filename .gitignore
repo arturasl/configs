@@ -2,3 +2,5 @@
 vim/tmp/
 vim/.netrwhist
 *.tags
+mutt/
+muttrc
