@@ -28,6 +28,7 @@ Post installation:
 
 		# use macvim as gvim under mac
 		sudo ln -s /usr/local/bin/mvim /usr/bin/gvim
+		sudo ln -s /usr/local/bin/mvimdiff /usr/bin/gvimdiff
 	bash:
 		ln -s ~/configs/bashrc ~/.bashrc
 		# use bash_profile under mac
