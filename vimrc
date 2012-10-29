@@ -105,6 +105,10 @@
 		let g:protodefprotogetter = '~/configs/vim/bundle/protodef/pullproto.pl'
         nmap ,i i<C-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({})<CR><ESC>='[
 	" }}
+	" GUNDO {{
+		nnoremap <down> :GundoToggle<CR>
+		let g:gundo_preview_bottom = 1
+	" }}
 " }}
 
 " FUNCTION_KEYS{{
