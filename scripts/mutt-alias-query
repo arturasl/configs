@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo 'Using grep as query command'
+grep -i "$1" ~/.mutt-alias | grep -v '^#\|^$' | cut -d' ' -f3-
