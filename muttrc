@@ -1,0 +1,39 @@
+source "$MUTT_MAILBOX"
+
+# address book
+set realname = "Artūras Lapinskas"
+
+# cache
+set header_cache=~/configs/mutt/cache/headers
+set message_cachedir=~/configs/mutt/cache/bodies
+set certificate_file=~/configs/mutt/certificates
+
+# timeouts
+set mail_check = 120 # check email after every keystroke, but not often then this value in seconds
+set timeout = 120 # automatically 'press' random key (for above)
+
+# more vim please
+set editor= "vim"
+
+# address book
+set alias_file=~/.mutt-alias
+set sort_alias = alias # sort aliases by alias name
+set reverse_alias = yes # from a to z
+set query_command = "~/configs/scripts/mutt-alias-query '%s'"
+bind editor <Tab> complete-query
+source ~/.mutt-alias # use currently saved aliases
+
+set imap_check_subscribed
+set imap_keepalive = 300
+set include
+set sort = 'threads'
+set sort_aux = 'reverse-last-date-received'
+set auto_tag = yes
+ignore "Authentication-Results:"
+ignore "DomainKey-Signature:"
+ignore "DKIM-Signature:"
+hdr_order Date From To Cc
+alternative_order text/plain text/html *
+auto_view text/html
+bind editor <space> noop
+bind editor ^T complete

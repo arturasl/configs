@@ -50,6 +50,9 @@ Post installation:
 	newsbeuter
 		ln -s  ~/configs/newsbeuter.conf ~/.newsbeuter/config
 		mkdir -p ~/.newsbeuter/podc/
+	mutt
+		ln -s ~/configs/muttrc ~/.muttrc
+		mkdir -p ~/configs/mutt/cache/
 
 	additional packages
 		jslint
