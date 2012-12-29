@@ -10,8 +10,8 @@ tmux new-window -t arturasl_tmux:2 -n 'zsh' 'zsh'
 tmux new-window -t arturasl_tmux:3 -n 'news' 'podbeuter'
 tmux split-window -v -p 90 -t arturasl_tmux:3 'newsbeuter'
 
-tmux new-window -t arturasl_tmux:4 -n 'mail' 'export MUTT_MAILBOX=$HOME/Dropbox/configs/mutt/gml; mutt'
-tmux split-window -v -p 50 -t arturasl_tmux:4 'export MUTT_MAILBOX=$HOME/Dropbox/configs/mutt/mit; mutt'
+tmux new-window -t arturasl_tmux:4 -n 'mail' 'sleep 300; export MUTT_MAILBOX=$HOME/Dropbox/configs/mutt/gml; mutt'
+tmux split-window -v -p 50 -t arturasl_tmux:4 'sleep 300; export MUTT_MAILBOX=$HOME/Dropbox/configs/mutt/mit; mutt'
 
 tmux new-window -t arturasl_tmux:5 -n 'irssi' 'irssi'
 tmux new-window -t arturasl_tmux:6 -n 'htop' 'htop'
