@@ -467,7 +467,13 @@
 
 	" }}
 	" PASCAL {{
+		function! SetMakeForPascal()
+			setlocal makeprg=fpc\ %
+			setlocal errorformat=%f(%l\\,%c)\ %m
+		endfunction
+
 		autocmd bufreadpre,bufnewfile *.PAS set ft=pascal
+		autocmd FileType pascal call SetMakeForPascal()
 	" }}
 		augroup END
 	endif
