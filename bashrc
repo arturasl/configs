@@ -21,6 +21,16 @@ alias ll='ls -a --human-readable -l --color=auto --group-directories-first -v'
 alias dosbox='dosbox -c "mount C ~/Projects/ASM/" -c "C:\\" -c "path=C:\\tasm\\bin\\" -c "cd projects/DIS/"'
 alias tmux='tmux -2'
 
+#### History
+
+# save as much history as we can
+export HISTFILESIZE=1000000
+export HISTSIZE=1000000
+export HISTCONTROL=ignoredups               # ignore same lines if they go successively
+export HISTTIMEFORMAT='%y-%m-%d %H:%M:%S> ' # add timestamps near all commands
+shopt -s histappend                         # do not overwrite history files from different sessions - append
+shopt -s cmdhist                            # combine lines of multiline command by adding semicolons there necessary
+
 #### Colors for less
 
 # http://nion.modprobe.de/blog/archives/572-less-colors-for-man-pages.html
