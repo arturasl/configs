@@ -58,3 +58,5 @@ Post installation:
 		jslint
 			sudo chown -R $USER /usr/local
 			npm install -g jslint
+	git submodules
+		git submodule init && git submodule update
