@@ -24,24 +24,29 @@ snippet try
 snippet code
 	#include      <algorithm>
 	#include      <cmath>
+	#include      <cstdarg>
+	#include      <cstdio>
+	#include      <cstdlib>
 	#include      <iomanip>
 	#include      <iostream>
 	#include      <iterator>
 	#include      <limits>
 	#include      <list>
 	#include      <map>
+	#include      <set>
 	#include      <vector>
-	#include      <cstdarg>
 	#define endl '\n'
 	#define each(c, e) for (typeof(c.begin()) e = c.begin(); e != c.end(); ++e)
+	typedef long long ll;
 	using namespace std;
-	template<typename T> inline T ceilDiv(T l, T r) {return (l / r) + ((l % r) != 0);}
-	//const int INFTY = numeric_limits<int>::max();
 	int main(int argc, char **argv) {
 		ios_base::sync_with_stdio(false), cin.tie(0);
 		${1:/* code */}
 		return 0;
 	}
+snippet math
+	template<typename T> inline T ceilDiv(T l, T r) {return (l / r) + ((l % r) != 0);}
+	const int INFTY = numeric_limits<int>::max();
 snippet codeprinter
 	template<typename T1, typename T2> ostream& operator<<(ostream &o, const pair<T1, T2> &p) {return o << '(' << p.first << ", " << p.second << ')';}
 	template<typename I> ostream& print(ostream &o, I s, I e, int w = 5, int prec = 2, const string &sep = ", ", const string &lhs = "", const string &rhs = "") {
