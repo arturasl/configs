@@ -457,13 +457,74 @@
 			\ noremap <buffer> <F5> G:call Preserve('silent r!openssl rsa -in % -noout -text') \| setlocal readonly<CR>
 	" }}
 	" RST {{
+		function! RSTEnter()
+			let c_col = col('.')
+			let c_line = line('.')
+			let line = getline('.')
+
+			let cstart = c_col - 1
+			while cstart >= 0
+				if line[cstart] == '[' | break | endif
+				if line[cstart] == ']' | let cstart = -1 | break | endif
+				let cstart -= 1
+			endwhile
+
+			let cend = c_col - 1
+			while cend < len(line)
+				if line[cend] == ']' | break | endif
+				if line[cend] == '[' | let cend = len(line) | break | endif
+				let cend += 1
+			endwhile
+
+			if cstart == -1 || cend == len(line)
+				return
+			endif
+
+			let matched = strpart(line, cstart + 1, cend - cstart - 1)
+
+			if matched == ' '
+				" finishes todo
+				" put date into braces and cut it to register
+				exec 'normal i ' . strftime('%y-%m-%d %H:%M') . "\e"
+				normal dd
+				"
+				" go to first empty line after todo paragraph (if non - create one)
+				if getline('.') != ''
+					normal }
+				endif
+				if line('$') == line('.') && getline('.') != ''
+					call append('.', '')
+					+1
+				endif
+				"
+				" if there are no done header create one
+				if line('$') == line('.') || getline(line('.') + 1) != 'Done:'
+					call append('.', '')
+					call append('.', '')
+					call append(line('.') - 1, '')
+					normal iDone:
+					-1 " we are still on empty line before header
+				endif
+				"
+				" put item in done block
+				+2
+				normal p
+				"
+				" go back to the previous position
+				call cursor(c_line, c_col)
+			else
+				exec 'normal :e ' . escape(matched, ' \') . "\e"
+			endif
+		endfunction
+
 		function! SetMakeForRST()
-			setlocal makeprg=pandoc\ --standalone\ --latexmathml\ %\ >\ /tmp/%\ &&\ firefox\ /tmp/%
+			setlocal makeprg=pandoc\ --to=html5\ --highlight-style=pygments\ --standalone\ --normalize\ --tab-stop=2\ '--output=/tmp/%.html'\ '%'\ &&\ firefox\ '/tmp/%.html'
 		endfunction
 
 		autocmd! BufRead,BufNewFile *.rst,*.mkd
 			\ call SetMakeForRST() |
-			\ setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
+			\ setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab |
+			\ nnoremap <buffer> <ENTER> :call RSTEnter()<CR>
 
 	" }}
 	" PASCAL {{
