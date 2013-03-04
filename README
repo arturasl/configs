@@ -50,6 +50,7 @@ Post installation:
 	newsbeuter
 		ln -s  ~/configs/newsbeuter.conf ~/.newsbeuter/config
 		mkdir -p ~/.newsbeuter/podc/
+		# migth need export LC_ALL='en_US.UTF-8' on mac
 	mutt
 		ln -s ~/configs/muttrc ~/.muttrc
 		mkdir -p ~/configs/mutt/cache/
