@@ -476,14 +476,15 @@
 				let cend += 1
 			endwhile
 
-			if cstart == -1 || cend == len(line)
-				return
+			let matched = ' '
+			if cstart != -1 && cend != len(line)
+				let matched = strpart(line, cstart + 1, cend - cstart - 1)
 			endif
 
-			let matched = strpart(line, cstart + 1, cend - cstart - 1)
-
-			if matched == ' '
-				" finishes todo
+			if matched != ' '
+				exec 'normal :e ' . escape(matched, ' \') . "\e"
+			elseif match(line, '\[ \]') != -1
+				call cursor(c_line, match(line, '\[ \]') + 2)
 				" put date into braces and cut it to register
 				exec 'normal i ' . strftime('%y-%m-%d %H:%M') . "\e"
 				normal dd
@@ -512,8 +513,6 @@
 				"
 				" go back to the previous position
 				call cursor(c_line, c_col)
-			else
-				exec 'normal :e ' . escape(matched, ' \') . "\e"
 			endif
 		endfunction
 
