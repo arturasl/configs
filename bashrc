@@ -11,7 +11,7 @@ fi
 
 #### Aliases
 
-alias _grep='grep --with-filename --line-number --initial-tab  --color=always'
+alias _grep='grep --with-filename --line-number --color=always'
 alias vim='gvim -v'
 # Show each directory in seperate line, show indexes and expand ~ or similar things
 alias dirs='dirs -p -l -v'
