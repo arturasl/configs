@@ -1,0 +1,121 @@
+These are basic configuration files to set up on new machines.
+
+# Installation
+
+```bash
+	git clone git://github.com/arturasl/configs.git ~/configs
+```
+
+# Post installation
+
+## Scripts
+
+```bash
+    ln -s ~/configs/scripts/atmux /usr/bin
+    # for non mac systems create dummy reattach-to-user-namespace (clipboard helper)
+    ln -s ~/configs/scripts/reattach-to-user-namespace /usr/bin
+```
+
+## ctags
+
+```bash
+    ln -s ~/configs/ctags ~/.ctags # latex
+```
+
+## vim
+
+```bash
+    # basic:
+    ln -s ~/configs/vimrc ~/.vimrc
+    ln -s ~/configs/vim ~/.vim
+
+    # directories for temporal files:
+    mkdir --parent ~/configs/vim/tmp/undo/ ~/configs/vim/tmp/backups/ ~/configs/vim/tmp/swap/
+
+    # ctags:
+    mkdir ~/configs/vim/tags
+    ctags -f ~/configs/vim/tags/cpp_wx.tags --recurse=yes --sort=yes --verbose=yes --append=no --language-force=C++ --extra=+q --fields=afiKmsSt /usr/include/wx-2.8/
+    wget http://www.vim.org/scripts/download_script.php?src_id=9178
+    tar xjf download_script.php\?src_id\=9178
+    ctags -f ~/configs/vim/tags/cpp_std.tags --recurse=yes --sort=yes --verbose=yes --append=no --language-force=C++ --extra=+q --fields=afiKmsSt ./cpp_src/
+    rm -rf cpp_src/ download_script.php\?src_id\=9178
+
+    # use macvim as gvim under mac
+    sudo ln -s /usr/local/bin/mvim /usr/bin/gvim
+    sudo ln -s /usr/local/bin/mvimdiff /usr/bin/gvimdiff
+```
+
+## mc
+
+```bash
+    MCDIR=$(( test -d ~/.mc && echo ~/.mc ) || echo ~/.config/mc)
+    if [ ! -d "$MCDIR" ]; then echo 'Could not detect mc directory' 1>&2; fi
+    mkdir -p "$MCDIR/skins/"
+    sed -i'' -e 's/^skin=.*/'$(echo "skin=$HOME/.config/mc/skins/custom.ini" | sed -e 's/[\/&]/\\&/g')'/' "$MCDIR/ini"
+    sed -i'' -e 's/^navigate_with_arrows=.*/navigate_with_arrows=1/' "$MCDIR/ini"
+    sed -i'' -e 's/^drop_menus=.*/drop_menus=1/' "$MCDIR/ini"
+```
+
+## bash
+
+```bash
+		ln -s ~/configs/bashrc ~/.bashrc
+		# use bash_profile under mac
+		ln -s ~/configs/bashrc ~/.bash_profile
+```
+
+## tmux:
+
+```bash
+		ln -s  ~/configs/tmux.conf ~/.tmux.conf
+		# for gnome to auto start
+		gnome-terminal --execute atmux
+```
+
+## urxvt
+
+```bash
+    # Write XResourcesURxvt to your ~/.Xresources (read on X startup):
+    cat ~/configs/XResourcesURxvt >> ~/.Xresources
+    # or to ~/.Xdefaults (read on demand):
+    cat ~/configs/XResourcesURxvt >> ~/.Xdefaults
+    # you can also load settings manually with:
+    xrdb -merge ~/configs/XResourcesURxvt
+```
+
+## dmenu
+
+```bash
+    # fluxbox
+    echo -e -n '#CUSTOM\nMod4 p :exec ~/configs/dmenu_show.sh' >> ~/.fluxbox/keys
+```
+
+## newsbeuter
+
+```bash
+    ln -s  ~/configs/newsbeuter.conf ~/.newsbeuter/config
+    mkdir -p ~/.newsbeuter/podc/
+    # migth need export LC_ALL='en_US.UTF-8' on mac
+```
+
+## mutt
+
+```bash
+    ln -s ~/configs/muttrc ~/.muttrc
+    mkdir -p ~/configs/mutt/cache/
+```
+
+# Additional packages
+
+## jslint
+
+```bash
+    sudo chown -R $USER /usr/local
+    npm install -g jslint
+```
+
+## git submodules
+
+```bash
+    git submodule init && git submodule update
+```
