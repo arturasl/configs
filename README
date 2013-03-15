@@ -30,11 +30,12 @@ Post installation:
 		sudo ln -s /usr/local/bin/mvim /usr/bin/gvim
 		sudo ln -s /usr/local/bin/mvimdiff /usr/bin/gvimdiff
 	mc:
-		mkdir -p ~/.mc/skins/
-		ln -s ~/configs/mc/skins/custom.ini ~/.mc/skins/
-		sed -i'' -e 's/^skin=.*/skin=custom/' ~/.mc/ini
-		sed -i'' -e 's/^navigate_with_arrows=.*/navigate_with_arrows=1/' ~/.mc/ini
-		sed -i'' -e 's/^drop_menus=.*/drop_menus=1/' ~/.mc/ini
+		MCDIR=$(( test -d ~/.mc && echo ~/.mc ) || echo ~/.config/mc)
+		if [ ! -d "$MCDIR" ]; then echo 'Could not detect mc directory' 1>&2; fi
+		mkdir -p "$MCDIR/skins/"
+		sed -i'' -e 's/^skin=.*/'$(echo "skin=$HOME/.config/mc/skins/custom.ini" | sed -e 's/[\/&]/\\&/g')'/' "$MCDIR/ini"
+		sed -i'' -e 's/^navigate_with_arrows=.*/navigate_with_arrows=1/' "$MCDIR/ini"
+		sed -i'' -e 's/^drop_menus=.*/drop_menus=1/' "$MCDIR/ini"
 	bash:
 		ln -s ~/configs/bashrc ~/.bashrc
 		# use bash_profile under mac
