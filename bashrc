@@ -20,6 +20,13 @@ alias dirs='dirs -p -l -v'
 alias ll='ls -a --human-readable -l --color=auto --group-directories-first -v'
 alias dosbox='dosbox -c "mount C ~/Projects/ASM/" -c "C:\\" -c "path=C:\\tasm\\bin\\" -c "cd projects/DIS/"'
 alias tmux='tmux -2'
+function psqlf() {
+	database=''
+	if [ ! -z "$2" ]; then
+		database="-d $2"
+	fi
+	echo psql -U postgres -f $1 $database
+}
 
 #### History
 
