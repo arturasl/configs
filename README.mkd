@@ -87,7 +87,7 @@ These are basic configuration files to set up on new machines.
 
 ```bash
     # fluxbox
-    echo -e -n '#CUSTOM\nMod4 p :exec ~/configs/dmenu_show.sh' >> ~/.fluxbox/keys
+    echo -e -n '#CUSTOM\nMod4 p :exec ~/configs/scripts/dmenu_show.sh' >> ~/.fluxbox/keys
 ```
 
 ## newsbeuter
