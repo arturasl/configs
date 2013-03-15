@@ -46,7 +46,7 @@ snippet code
 	}
 snippet math
 	template<typename T> inline T ceilDiv(T l, T r) {return (l / r) + ((l % r) != 0);}
-	const int INFTY = numeric_limits<int>::max();
+	const int oo = numeric_limits<int>::max();
 snippet codeprinter
 	template<typename T1, typename T2> ostream& operator<<(ostream &o, const pair<T1, T2> &p) {return o << '(' << p.first << ", " << p.second << ')';}
 	template<typename I> ostream& print(ostream &o, I s, I e, int w = 5, int prec = 2, const string &sep = ", ", const string &lhs = "", const string &rhs = "") {
