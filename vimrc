@@ -3,13 +3,8 @@
 
 " PLUGINS{{
 	" PATHOGEN{{
-		if !exists('g:bPathogenLoaded')
-			let g:bPathogenLoaded = 1
-
-			filetype off
-			call pathogen#helptags()
-			call pathogen#runtime_append_all_bundles()
-		endif
+		runtime bundle/vim-pathogen/autoload/pathogen.vim
+		execute pathogen#infect()
 	" }}
 	" TAGBAR{{
 		let g:tagbar_compact = 1            " Do not show header and empty lines
