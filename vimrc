@@ -197,6 +197,8 @@
 		if g:nShifColors == 0
 			let g:nShifColors  = 1
 			LuciusBlackLowContrast
+			" do not hide cursor
+			hi MatchParen cterm=bold ctermbg=none ctermfg=67
 		elseif g:nShifColors == 1
 			let g:nShifColors  = 0
 			LuciusLightHighContrast
