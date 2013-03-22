@@ -239,7 +239,8 @@
 	set backupdir=~/.vim/tmp/backups/
 
 	set swapfile
-	set directory=~/.vim/tmp/swap/
+	" use double // to use full path as swap file name
+	set directory=~/.vim/tmp/swap//
 
 	if has('persistent_undo')
 		set undofile
