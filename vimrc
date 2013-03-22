@@ -188,16 +188,15 @@
 
 	let g:nShifColors = 0
 	function! ShiftColors()
+		colorscheme lucius
 		if g:nShifColors == 0
 			let g:nShifColors  = 1
-			let g:lucius_style = 'dark'
-
-			colorscheme lucius
+			LuciusBlackLowContrast
+			" do not hide cursor
+			hi MatchParen cterm=bold ctermbg=none ctermfg=67
 		elseif g:nShifColors == 1
 			let g:nShifColors  = 0
-			let g:lucius_style = 'light'
-
-			colorscheme lucius
+			LuciusLightHighContrast
 		endif
 	endfunction
 
