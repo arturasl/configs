@@ -56,7 +56,11 @@ snippet codeprinter
 		return o << rhs;
 	}
 	template<typename T, template<typename E, typename A=std::allocator<E> > class C>
-	ostream& operator<<(ostream &o, const C<T>& c) {return print(o, c.begin(), c.end(), 5, 2, ", ", "[", "]");}
+	ostream& operator<<(ostream &o, const C<T>& c) {return print(o, c.begin(), c.end(), 0, 2, ", ", "[", "]");}
+	template<typename T, template<typename E, typename Compare = less<E>, typename Alloc = allocator<E> > class C>
+	ostream& operator<<(ostream &o, const C<T>& c) {return print(o, c.begin(), c.end(), 0, 2, ", ", "{", "}");}
+	template<typename K, typename T, template<typename E1, typename E2, typename Compare = std::less<E1>, class Allocator = std::allocator<std::pair<const E1, E2> > > class C>
+	ostream& operator<<(ostream &o, const C<K, T>& c) {return print(o, c.begin(), c.end(), 0, 2, ", ", "{", "}");}
 snippet codereader
 	const int BUFF_SIZE = 1024 * 256;
 	char g_rbuffer[BUFF_SIZE], *g_rpos = g_rbuffer, *g_rend = g_rbuffer;
