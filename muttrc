@@ -18,7 +18,6 @@ set editor= "vim"
 
 # address book
 set query_command = "~/configs/scripts/mutt-alias-query.bash '%s'"
-bind editor <Tab> complete-query
 # will use only custom query
 # set alias_file=~/.mutt-alias
 # set sort_alias = alias # sort aliases by alias name
@@ -30,6 +29,39 @@ set status_format="/home/arturas/configs/scripts/mutt-notification.bash '%r %f (
 
 # adds "!" in tmux
 set beep_new
+
+# keybindings
+
+# Generic
+bind generic l select-entry
+bind generic h exit
+
+## index (initial screen where all emails are listed)
+bind index h change-folder
+bind index j next-entry # does not jump over deleted messages (default is "next-undeleted")
+bind index k previous-entry
+bind index l display-message
+bind index J next-unread
+bind index K previous-unread
+bind index / limit
+
+## pager (help window, viewing messages, etc)
+bind pager h exit
+bind pager j next-line
+bind pager k previous-line
+bind pager l view-attachments
+
+## attachments
+bind attach h exit
+bind attach l view-attach
+
+## editor
+bind editor <Tab> complete-query # call alias query command
+
+# compose (view which is shown after finishing writing email)
+bind compose h exit
+bind compose l view-attach
+bind compose L edit-file
 
 set imap_check_subscribed
 set imap_keepalive = 300
