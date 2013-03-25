@@ -3,13 +3,8 @@
 
 " PLUGINS{{
 	" PATHOGEN{{
-		if !exists('g:bPathogenLoaded')
-			let g:bPathogenLoaded = 1
-
-			filetype off
-			call pathogen#helptags()
-			call pathogen#runtime_append_all_bundles()
-		endif
+		runtime bundle/vim-pathogen/autoload/pathogen.vim
+		execute pathogen#infect()
 	" }}
 	" TAGBAR{{
 		let g:tagbar_compact = 1            " Do not show header and empty lines
@@ -244,7 +239,8 @@
 	set backupdir=~/.vim/tmp/backups/
 
 	set swapfile
-	set directory=~/.vim/tmp/swap/
+	" use double // to use full path as swap file name
+	set directory=~/.vim/tmp/swap//
 
 	if has('persistent_undo')
 		set undofile
@@ -422,11 +418,37 @@
 			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
 				setlocal makeprg=make\ $*
 			else
-				setlocal makeprg=m4\ -P\ -g\ $*\ %\ >\ %:r
+				setlocal makeprg=m4\ -P\ $*\ %\ >\ %:r
 			endif
 		endfunction
 
-		autocmd FileType m4 call SetMakeForM4()
+		" for m4 use syntax of original file if possible
+		function! SetSyntaxForM4()
+			let l:pathComponents = split(expand('%:t'), '\.')
+			if len(l:pathComponents) < 3
+				return
+			endif
+
+			let s:mapSyntaxForM4Extensions = {'css': 1} " put here extensions of files that we need to support
+			let l:ext = l:pathComponents[-2]
+
+			if get(s:mapSyntaxForM4Extensions, l:ext, 0) == 0
+				return
+			endif
+
+			execute 'set syntax=' . l:ext
+
+			syntax match M4Keyword display 'm4_[a-zA-Z0-9_]\+'
+			highlight link M4Keyword Special
+
+			syntax match M4Constant display '\<C_[A-Z0-9_]\+\>'
+			highlight link M4Constant Constant
+
+			syntax match M4Quotes display "`.\{-}'"
+			highlight link M4Quotes Identifier
+		endfunction
+
+		autocmd FileType m4 call SetMakeForM4() | call SetSyntaxForM4()
 	" }}
 	" JSON{{
 		autocmd! BufRead,BufNewFile *.json set filetype=json
