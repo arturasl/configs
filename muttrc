@@ -80,4 +80,4 @@ ignore "Authentication-Results:"
 ignore "DomainKey-Signature:"
 ignore "DKIM-Signature:"
 hdr_order Date From To Cc
-set sleep_time 0
+set sleep_time = 0
