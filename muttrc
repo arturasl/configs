@@ -17,6 +17,12 @@ set pop_reconnect = yes
 set edit_headers # show header (from, to, subject) in vim
 set editor= "vim -c \"set spell | set ft=mail | normal '}'\""
 
+# viewing messages
+# first show one of these attachments
+alternative_order text/plain text text/html
+auto_view text/html
+set mailcap_path=~/configs/mailcap
+
 # address book
 set query_command = "~/configs/scripts/mutt-alias-query.bash '%s'"
 # will use only custom query
