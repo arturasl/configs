@@ -13,9 +13,10 @@ set mail_check = 120 # check email after every keystroke, but not often then thi
 set timeout = 120 # automatically 'press' random key (for above)
 set pop_reconnect = yes
 
-# more vim please
+# composing
 set edit_headers # show header (from, to, subject) in vim
-set editor= "vim -c \"set spell | set ft=mail | normal '}'\""
+set editor= "vim -c \"set spell | set ft=mail | set formatoptions+=aw | startinsert | normal }o\""
+set text_flowed # allow receivers to reformat messages (wrapped paragraphs should end with whitespace!)
 
 # viewing messages
 # first show one of these attachments
