@@ -13,6 +13,9 @@
 [submodule "vim/bundle/vim-markdown"]
 	path = vim/bundle/vim-markdown
 	url = git://github.com/tpope/vim-markdown.git
+[submodule "vim/bundle/vim-pathogen"]
+	path = vim/bundle/vim-pathogen
+	url = git://github.com/tpope/vim-pathogen
 [submodule "vim/bundle/vim-lucius"]
 	path = vim/bundle/vim-lucius
 	url = https://github.com/jonathanfilip/vim-lucius.git
