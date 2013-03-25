@@ -14,7 +14,8 @@ set timeout = 120 # automatically 'press' random key (for above)
 set pop_reconnect = yes
 
 # more vim please
-set editor= "vim"
+set edit_headers # show header (from, to, subject) in vim
+set editor= "vim -c \"set spell | set ft=mail | normal '}'\""
 
 # address book
 set query_command = "~/configs/scripts/mutt-alias-query.bash '%s'"
@@ -56,9 +57,9 @@ bind attach h exit
 bind attach l view-attach
 
 ## editor
-bind editor <Tab> complete-query # call alias query command
+bind editor <tab> complete-query # call alias query command
 
-# compose (view which is shown after finishing writing email)
+## compose (view which is shown after finishing writing email)
 bind compose h exit
 bind compose l view-attach
 bind compose L edit-file
