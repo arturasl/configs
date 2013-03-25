@@ -418,11 +418,37 @@
 			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
 				setlocal makeprg=make\ $*
 			else
-				setlocal makeprg=m4\ -P\ -g\ $*\ %\ >\ %:r
+				setlocal makeprg=m4\ -P\ $*\ %\ >\ %:r
 			endif
 		endfunction
 
-		autocmd FileType m4 call SetMakeForM4()
+		" for m4 use syntax of original file if possible
+		function! SetSyntaxForM4()
+			let l:pathComponents = split(expand('%:t'), '\.')
+			if len(l:pathComponents) < 3
+				return
+			endif
+
+			let s:mapSyntaxForM4Extensions = {'css': 1} " put here extensions of files that we need to support
+			let l:ext = l:pathComponents[-2]
+
+			if get(s:mapSyntaxForM4Extensions, l:ext, 0) == 0
+				return
+			endif
+
+			execute 'set syntax=' . l:ext
+
+			syntax match M4Keyword display 'm4_[a-zA-Z0-9_]\+'
+			highlight link M4Keyword Special
+
+			syntax match M4Constant display '\<C_[A-Z0-9_]\+\>'
+			highlight link M4Constant Constant
+
+			syntax match M4Quotes display "`.\{-}'"
+			highlight link M4Quotes Identifier
+		endfunction
+
+		autocmd FileType m4 call SetMakeForM4() | call SetSyntaxForM4()
 	" }}
 	" JSON{{
 		autocmd! BufRead,BufNewFile *.json set filetype=json
