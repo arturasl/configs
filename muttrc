@@ -15,7 +15,7 @@ set pop_reconnect = yes
 
 # composing
 set edit_headers # show header (from, to, subject) in vim
-set editor= "vim -c \"set spell | set ft=mail | set formatoptions+=aw | startinsert | normal }o\""
+set editor= "vim -c \"set ft=mail | startinsert | normal }o\""
 set text_flowed # allow receivers to reformat messages (wrapped paragraphs should end with whitespace!)
 
 # viewing messages
