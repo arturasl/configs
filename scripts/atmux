@@ -13,7 +13,7 @@ tmux split-window -v -p 90 -t arturasl_tmux:3 'newsbeuter'
 tmux new-window -t arturasl_tmux:4 -n 'mail' 'sleep 300; export MUTT_MAILBOX=$HOME/Dropbox/configs/mutt/gml; mutt'
 tmux split-window -v -p 50 -t arturasl_tmux:4 'sleep 300; export MUTT_MAILBOX=$HOME/Dropbox/configs/mutt/mit; mutt'
 
-tmux new-window -t arturasl_tmux:5 -n 'todo' 'vim ~/Dropbox/TODO.mkd --cmd "set autoread | set updatetime=1000 | au CursorHold * :checktime"'
+tmux new-window -t arturasl_tmux:5 -n 'todo' 'vim ~/Dropbox/TODO.mkd --cmd "set autoread | set updatetime=1000 | set spell | au CursorHold * :checktime"'
 tmux split-window -v -p 40 -t arturasl_tmux:5 'calcurse'
 
 tmux new-window -t arturasl_tmux:6 -n 'irssi' 'irssi'
