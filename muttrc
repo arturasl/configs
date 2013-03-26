@@ -21,6 +21,7 @@ set alias_file=~/.mutt-alias
 set sort_alias = alias # sort aliases by alias name
 set reverse_alias = yes # from a to z
 set query_command = "~/configs/scripts/mutt-alias-query '%s'"
+set alias_format="%4n %t %a %r"
 bind editor <Tab> complete-query
 source ~/.mutt-alias # use currently saved aliases
 
@@ -29,6 +30,9 @@ set status_format="/home/arturas/configs/scripts/mutt-notification '%r %f (%L) [
 
 # adds "!" in tmux
 set beep_new
+
+# pass each message thgouth given command
+set display_filter=~/configs/scripts/mutt-message-filter.bash
 
 set imap_check_subscribed
 set imap_keepalive = 300
