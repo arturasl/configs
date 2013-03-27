@@ -1,1 +1,5 @@
+application/pdf; evince %s;
+application/postscript; evince %s;
+application/zip; zip --show-files %s; copiousoutput;
+image/*; feh %s;
 text/html; pandoc -f html -t markdown; copiousoutput;

@@ -556,6 +556,9 @@
 		autocmd bufreadpre,bufnewfile *.PAS set ft=pascal
 		autocmd FileType pascal call SetMakeForPascal()
 	" }}
+	" MAIL {{
+		autocmd FileType mail setlocal spell formatoptions+=aw
+	" }}
 		augroup END
 	endif
 " }}
