@@ -33,7 +33,8 @@ set query_command = "~/configs/scripts/mutt-alias-query.bash '%s'"
 # source ~/.mutt-alias # use currently saved aliases
 
 # notifications
-set status_format="/home/arturas/configs/scripts/mutt-notification.bash '%r %f (%L) [Msgs:%?M?%M/?%m%?n? New:%n?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? Inc:%b?]'|"
+set status_chars = " $!A" # characters for %r - unchanged, changed and needs synchronization, read only, attach message
+set status_format = "/home/arturas/configs/scripts/mutt-notification.bash '%r %f %L [Msgs:%?M?%M/?%m%?n? New:%n?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?V? Limit:%V?]'|"
 
 # adds "!" in tmux
 set beep_new
