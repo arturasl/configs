@@ -4,9 +4,9 @@ source "$MUTT_MAILBOX"
 set realname = "Artūras Lapinskas"
 
 # cache
-set header_cache=~/configs/mutt/cache/headers
-set message_cachedir=~/configs/mutt/cache/bodies
-set certificate_file=~/configs/mutt/certificates
+set header_cache=~/configs/mutt/tmp/headers
+set message_cachedir=~/configs/mutt/tmp/bodies
+set certificate_file=~/configs/mutt/tmp/certificates
 
 # timeouts
 set mail_check = 120 # check email after every keystroke, but not often then this value in seconds
@@ -22,7 +22,7 @@ set text_flowed # allow receivers to reformat messages (wrapped paragraphs shoul
 # first show one of these attachments
 alternative_order text/plain text text/html *
 auto_view text/html
-set mailcap_path=~/configs/mailcap
+set mailcap_path=~/configs/mutt/mailcap
 
 # address book
 set query_command = "~/configs/scripts/mutt-alias-query.bash '%s'"
