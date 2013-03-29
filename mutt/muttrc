@@ -1,5 +1,9 @@
 source "$MUTT_MAILBOX"
 
+# some reading:
+# * http://tools.ietf.org/html/rfc3676
+# * man muttrc
+
 # address book
 set realname = "Artūras Lapinskas"
 
