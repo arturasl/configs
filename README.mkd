@@ -108,6 +108,17 @@ These are basic configuration files to set up on new machines.
     touch ~/configs/mutt/tmp/certificates
 ```
 
+## git
+
+```bash
+    git config --global merge.tool git-vim-mergetool # define new tool
+    git config --global mergetool.git-vim-mergetool.cmd '~/configs/scripts/git-vim-mergetool.bash $BASE $LOCAL $REMOTE $MERGED' # command line to execute
+    git config --global mergetool.git-vim-mergetool.trustExitCode false # ask me if I finished merging explicitly
+    git config --global mergetool.git-vim-mergetool.keepBackup false # remove .orig files
+
+    git config --global diff.external ~/configs/scripts/git-vim-diff.bash
+```
+
 # Additional packages
 
 ## jslint
