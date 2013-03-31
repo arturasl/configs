@@ -1,5 +1,8 @@
-application/pdf; evince %s;
-application/postscript; evince %s;
-application/zip; zip --show-files %s; copiousoutput;
-image/*; feh %s;
-text/html; pandoc -f html -t markdown; copiousoutput;
+text/html; ~/configs/scripts/showme.bash %s --view-text-stream --check-file 0 --mime %t; copiousoutput; test=~/configs/scripts/showme.bash %s --view-text-stream --check-file 0 --mime %t --only-check
+
+# auto generated
+application/* ; ~/configs/scripts/showme.bash %s --check-file 0 --mime %t ; test=~/configs/scripts/showme.bash %s --check-file 0 --mime %t --only-check
+audio/*       ; ~/configs/scripts/showme.bash %s --check-file 0 --mime %t ; test=~/configs/scripts/showme.bash %s --check-file 0 --mime %t --only-check
+image/*       ; ~/configs/scripts/showme.bash %s --check-file 0 --mime %t ; test=~/configs/scripts/showme.bash %s --check-file 0 --mime %t --only-check
+text/*        ; ~/configs/scripts/showme.bash %s --check-file 0 --mime %t ; test=~/configs/scripts/showme.bash %s --check-file 0 --mime %t --only-check
+video/*       ; ~/configs/scripts/showme.bash %s --check-file 0 --mime %t ; test=~/configs/scripts/showme.bash %s --check-file 0 --mime %t --only-check
