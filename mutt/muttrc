@@ -7,6 +7,7 @@ set realname = "Artūras Lapinskas"
 set header_cache=~/configs/mutt/tmp/headers
 set message_cachedir=~/configs/mutt/tmp/bodies
 set certificate_file=~/configs/mutt/tmp/certificates
+set tmpdir=~/configs/mutt/tmp/tmp
 
 # timeouts
 set mail_check = 120 # check email after every keystroke, but not often then this value in seconds
@@ -34,10 +35,10 @@ set query_command = "~/configs/scripts/mutt-alias-query.bash '%s'"
 
 # notifications
 set status_chars = " $!A" # characters for %r - unchanged, changed and needs synchronization, read only, attach message
-set status_format = "/home/arturas/configs/scripts/mutt-notification.bash '%r %f %L [Msgs:%?M?%M/?%m%?n? New:%n?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?V? Limit:%V?]'|"
+set status_format = "/home/arturas/configs/scripts/mutt-notification.bash '%r %f %L [Msgs:%?M?%M/?%m%?n? New:%n?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?V? Limit:%V?] "`echo Settings:$(basename $MUTT_MAILBOX)`"'|"
 
-# adds "!" in tmux
-set beep_new
+set beep_new # adds "!" in tmux (bell character?)
+set beep # bepp on errors
 
 # pass each message thgouth given command
 set display_filter=~/configs/scripts/mutt-message-filter.bash
@@ -56,6 +57,7 @@ bind index l display-message
 bind index J next-unread
 bind index K previous-unread
 bind index / limit
+bind index <space> collapse-thread
 
 ## pager (help window, viewing messages, etc)
 bind pager h exit
@@ -75,14 +77,24 @@ bind compose h exit
 bind compose l view-attach
 bind compose L edit-file
 
-set imap_check_subscribed
-set imap_keepalive = 300
+set forward_format = "Fwd: %s" # default subject for forwarded emails
+set forward_quote # add ">" (indent_string) before every line of forwarded email
+
+set fast_reply # skip questions when replying and go directrly to compose
+
 set include
-set sort = 'threads'
-set sort_aux = 'reverse-last-date-received'
-set auto_tag = yes
+
+unhdr_order * # just in case it was set before
+hdr_order Date From To Cc # order in which headers will be shown (from first)
+# headers that will be hidden
 ignore "Authentication-Results:"
 ignore "DomainKey-Signature:"
 ignore "DKIM-Signature:"
-hdr_order Date From To Cc
+
+
+set imap_check_subscribed
+set imap_keepalive = 300
+set sort = 'threads'
+set sort_aux = 'reverse-last-date-received'
+set auto_tag = yes
 set sleep_time = 0
