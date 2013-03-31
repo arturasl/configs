@@ -18,6 +18,7 @@ read -r -d '' capabilities <<EOF
 ^http://|^ftp://|\.html?$	text/html	capWebBrowser	pandoc -f html -t markdown	50
 \.mp[3-4]$|\.flv	video/.+|audio/.+	mplayer	file	50
 \.pdf	application/pdf	capPDFViewer	pdftotext FILENAME -	50
+\.jpe?g$|\.png$|\.gif$	image/.+	feh --draw-actions	cacaview	50
 EOF
 
 FIELD_NAME_PATTERN=1
