@@ -10,8 +10,8 @@ tmux new-window -t arturasl_tmux:2 -n 'zsh' 'zsh'
 tmux new-window -t arturasl_tmux:3 -n 'news' 'podbeuter'
 tmux split-window -v -p 90 -t arturasl_tmux:3 'newsbeuter'
 
-tmux new-window -t arturasl_tmux:4 -n 'mail' 'export MUTT_MAILBOX=$HOME/Dropbox/configs/mutt/gml; ~/configs/scripts/exec-on-connection.bash mutt'
-tmux split-window -v -p 50 -t arturasl_tmux:4 'export MUTT_MAILBOX=$HOME/Dropbox/configs/mutt/mit; ~/configs/scripts/exec-on-connection.bash mutt'
+tmux new-window -t arturasl_tmux:4 -n 'mail' 'TERM=xterm-256color; export MUTT_MAILBOX=$HOME/Dropbox/configs/mutt/gml; ~/configs/scripts/exec-on-connection.bash mutt'
+tmux split-window -v -p 50 -t arturasl_tmux:4 'TERM=xterm-256color; export MUTT_MAILBOX=$HOME/Dropbox/configs/mutt/mit; ~/configs/scripts/exec-on-connection.bash mutt'
 
 tmux new-window -t arturasl_tmux:5 -n 'todo' 'vim ~/Dropbox/TODO.mkd --cmd "set autoread | set updatetime=1000 | set spell | au CursorHold * :checktime"'
 tmux split-window -v -p 40 -t arturasl_tmux:5 'calcurse'
