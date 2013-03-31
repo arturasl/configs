@@ -81,7 +81,7 @@ bind compose L edit-file
 
 set imap_check_subscribed
 set imap_keepalive = 300
-set include
+set include # then replying include copy of original message
 set sort = 'threads'
 set sort_aux = 'reverse-last-date-received'
 set auto_tag = yes
@@ -90,3 +90,5 @@ ignore "DomainKey-Signature:"
 ignore "DKIM-Signature:"
 hdr_order Date From To Cc
 set sleep_time = 0
+
+source ~/configs/mutt/colors.muttrc
