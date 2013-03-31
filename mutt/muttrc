@@ -35,7 +35,8 @@ set query_command = "~/configs/scripts/mutt-alias-query.bash '%s'"
 
 # notifications
 set status_chars = " $!A" # characters for %r - unchanged, changed and needs synchronization, read only, attach message
-set status_format = "/home/arturas/configs/scripts/mutt-notification.bash '%r %f %L [Msgs:%?M?%M/?%m%?n? New:%n?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?V? Limit:%V?] "`echo Settings:$(basename $MUTT_MAILBOX)`"'|"
+set status_format = "$HOME/configs/scripts/mutt-notification.bash '%r %f %L [Msgs:%?M?%M/?%m%?n? New:%n?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?V? Limit:%V?] "`echo Settings:$(basename $MUTT_MAILBOX)`"'|"
+set status_format = "$HOME/configs/scripts/mutt-notification.bash '%r %f %L [Msgs:%?M?%M/?%m%?n? New:%n?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?V? Limit:%V?]'|"
 
 set beep_new # adds "!" in tmux (bell character?)
 set beep # bepp on errors
