@@ -104,3 +104,4 @@ set auto_tag = yes
 set sleep_time = 0
 
 source ~/configs/mutt/colors.muttrc
+source ~/configs/mutt/colors_ex.muttrc
