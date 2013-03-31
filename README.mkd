@@ -102,8 +102,6 @@ These are basic configuration files to set up on new machines.
 
 ```bash
     ln -s ~/configs/mutt/muttrc ~/.muttrc
-    mkdir -p ~/configs/mutt/tmp/bodies/
-    mkdir -p ~/configs/mutt/tmp/tmp/
     touch ~/configs/mutt/tmp/headers
     touch ~/configs/mutt/tmp/certificates
 ```
