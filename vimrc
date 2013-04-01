@@ -348,7 +348,7 @@
 			else
 				autocmd QuickFixCmdPost make
 										\ if &ft ==? 'tex'|
-											\ execute 'silent !evince %:r.pdf &>/dev/null &'|
+											\ execute 'silent !~/configs/scripts/showme.bash --silent-detached %:r.pdf &>/dev/null &'|
 										\ endif
 
 				setlocal makeprg=pdflatex\ -shell-escape\ -file-line-error\ -interaction=nonstopmode\ %
@@ -538,7 +538,7 @@
 		endfunction
 
 		function! SetMakeForRST()
-			setlocal makeprg=pandoc\ --to=html5\ --highlight-style=pygments\ --standalone\ --normalize\ --tab-stop=2\ '--output=/tmp/%.html'\ '%'\ &&\ firefox\ '/tmp/%.html'
+			setlocal makeprg=pandoc\ --to=html5\ --highlight-style=pygments\ --standalone\ --normalize\ --tab-stop=2\ '--output=/tmp/%.html'\ '%'\ &&\ ~/configs/scripts/showme.bash\ '/tmp/%.html'
 		endfunction
 
 		autocmd! BufRead,BufNewFile *.rst,*.mkd
