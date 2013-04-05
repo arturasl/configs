@@ -19,3 +19,6 @@
 [submodule "vim/bundle/vim-lucius"]
 	path = vim/bundle/vim-lucius
 	url = https://github.com/jonathanfilip/vim-lucius.git
+[submodule "vim/bundle/NrrwRgn"]
+	path = vim/bundle/NrrwRgn
+	url = https://github.com/chrisbra/NrrwRgn.git
