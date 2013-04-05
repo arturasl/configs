@@ -12,3 +12,12 @@ function utilDebugShowArguments() {
 function utilSedEscapeReplacement() {
 	echo "$1" | sed -e 's/[\/&]/\\&/g'
 }
+
+function utilShowError() {
+	echo "$1" >&2
+}
+
+function utilCommandExists() {
+	which "$1" &>/dev/null
+	return "$?"
+}
