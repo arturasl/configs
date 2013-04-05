@@ -56,18 +56,11 @@
 		nnoremap ,tq :FufQuickfix<CR>
 		nnoremap ,tt :FufBufferTag<CR>
 	" }}
-	" NERD_COMMENTER{{
-		let g:NERDCreateDefaultMappings=0
+	" TCOMMENT{{
+		let g:tcommentMaps = 0
 
-		nnoremap ,ci :call NERDComment(0, "invert")<CR>
-		xnoremap ,ci <ESC>:call NERDComment(1, "invert")<CR>
-
-		nnoremap ,cs :call NERDComment(0, "sexy")<CR>
-		xnoremap ,cs <ESC>:call NERDComment(1, "sexy")<CR>
-
-
-		nnoremap ,c<space> :call NERDComment(0, "toggle")<CR>
-		xnoremap ,c<space> <ESC>:call NERDComment(1, "toggle")<CR>
+		nnoremap ,ci :TComment<CR>
+		xnoremap ,ci :TComment<CR>
 	" }}
 	" DBEXT{{
 		" execute paragraph
