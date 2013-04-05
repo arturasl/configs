@@ -104,6 +104,14 @@
 		nnoremap <down> :GundoToggle<CR>
 		let g:gundo_preview_bottom = 1
 	" }}
+	" NRV {{
+		xnoremap ,nw :NR<CR>
+		xnoremap ,nb :NR!<CR>
+		xnoremap ,np :NRP<CR>
+		nnoremap ,np :NRP<CR>
+		"nnoremap ,ns :call Preserve(['g/<C-R>//NRP', 'NRM!'])<CR> - reset position in wrong buffer
+		nnoremap ,ns :g/<C-R>//NRP<CR>:NRM<CR>
+	" }}
 " }}
 
 " FUNCTION_KEYS{{
@@ -115,7 +123,13 @@
 		let l = line(".")
 		let c = col(".")
 		" Do the business:
-		execute a:command
+		if type(a:command) == type([])
+			for l:cmd in a:command
+				execute l:cmd
+			endfor
+		else
+			execute a:command
+		endif
 		" Clean up: restore previous search history, and cursor position
 		let @/=_s
 		call cursor(l, c)
