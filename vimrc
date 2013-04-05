@@ -183,9 +183,13 @@
 	set lazyredraw            " do not update screen while doing batch changes
 	set fileformats=unix,dos,mac  " for new files use unix line endings. Choose between unix, dos or mac
 	set fileencodings=ucs-bom,utf-8,latin1 " encodings to try for existing files (for new one - utf-8)
+	" paste from clipboard without reformatting text
+	noremap ,p :set invpaste<CR>
+	noremap ,p+ :silent! set paste<CR>"+p:set nopaste<CR>
+	noremap ,p* :silent! set paste<CR>"*p:set nopaste<CR>
 
 	let g:tex_flavor='latex'
-	let mapleader='\'
+	let mapleader='\' " map leader to something I do not use (in case some plugin maps keys without my permission)
 " }}
 " COLORS{{
 	set background=dark           " dark background (must be before syntax on)
@@ -239,6 +243,9 @@
 	" use regex that is more like pcre by default
 	nnoremap / /\v
 	xnoremap / /\v
+	" show match in the center of window (and open folds)
+	nnoremap n nzzzR
+	nnoremap N NzzzR
 " }}
 " TMP_FILES{{
 	set backup
@@ -270,6 +277,13 @@
 			execute 'setlocal tags+='.l:strTag
 		endfor
 	endfunction
+" }}
+" WINDOWS{{
+	" resizing windows
+	nnoremap <C-j> :resize -2<CR>
+	nnoremap <C-k> :resize +2<CR>
+	nnoremap <C-h> 2<C-w><
+	nnoremap <C-l> 2<C-w>>
 " }}
 " GUI{{
 	if has("gui_running")
