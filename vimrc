@@ -175,6 +175,7 @@
 		echo "<F5> Build"
 		echo "<F6> Show invisible chars"
 		echo "<F7> Switch line number mode"
+		echo "<F8> Show indentent blocks"
 	endfunction
 
 	function! BuildFile()
@@ -188,6 +189,34 @@
 		endif
 	endfunction
 
+	let g:toogleShowIndententBlocksIds = []
+	function! ToogleShowIndententBlocks()
+		let l:MAX_DEPTH = 9 " no more than 9
+		let l:space = ' '
+		let l:spaceMulti = &shiftwidth
+		let l:BG = 233
+
+		if &expandtab == 0 " no more than 9
+			let l:space = '\t'
+			let l:spaceMulti = 1
+		endif
+
+		if empty(g:toogleShowIndententBlocksIds)
+			for i in range(1, l:MAX_DEPTH)
+				execute 'highlight def BlockColor' . i . ' guibg=#22222' . i . ' ctermbg=' . (l:BG + i)
+				call add(g:toogleShowIndententBlocksIds, matchadd(
+					\ 'BlockColor' . i
+					\ , '^' . l:space . '\{' . (i * l:spaceMulti) . '}'
+					\ , i ))
+			endfor
+		else
+			for l:id in g:toogleShowIndententBlocksIds
+				call matchdelete(l:id)
+			endfor
+			let g:toogleShowIndententBlocksIds = []
+		endif
+	endfunction
+
 	noremap <F1> :call ShowHelp()<CR>
 	noremap <F2> :call Preserve("normal gg=G") \| echo "Internal"<CR>
 	noremap <F3> :call Preserve("%s/\\s\\+$//e")<CR>
@@ -195,6 +224,7 @@
 	noremap <F5> :call BuildFile()<CR>
 	noremap <F6> :set list!<CR>
 	noremap <F7> :if &rnu \| set nu \| else \| set rnu \| endif<CR>
+	noremap <F8> :call ToogleShowIndententBlocks()<CR>
 	set listchars=tab:>-,eol:*,nbsp:-,trail:-,extends:>,precedes:<
 " }}
 " GENERAL{{
