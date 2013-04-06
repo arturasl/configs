@@ -23,13 +23,14 @@
 		nohl
 	endfunction
 
-	function UtilToogleWindow(windowName, openCmd)
+	function! UtilToogleWindow(windowName, openCmd)
 		let l:win = bufwinnr(a:windowName)
 		if l:win != -1
 			execute l:win . ' wincmd w'
 			silent! close
 		else
 			execute a:openCmd
+			return bufnr('%')
 		endif
 	endfunction
 " }}
@@ -67,7 +68,8 @@
 		let g:netrw_liststyle = 3    " by default use tree view
 		let g:netrw_winsize = 25     " default window size
 		" show netrw on <-
-		nnoremap <left> <ESC>:Vexplore<CR>
+		let g:netrw_buffer_nr = -1
+		nnoremap <left> :let g:netrw_buffer_nr = UtilToogleWindow(g:netrw_buffer_nr, ':Vexplore')<CR>
 	" }}
 	" OMNICPPCOMPLETE{{
 		let OmniCpp_GlobalScopeSearch   = 1  " allow global scope search
