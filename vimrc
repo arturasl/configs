@@ -1,6 +1,39 @@
 " vim: foldmethod=marker
 " vim: foldmarker={{,}}
 
+" UTIL {{
+	" Author of this function:
+	" http://technotales.wordpress.com/2010/03/31/preserve-a-vim-function-that-keeps-your-state/
+	function! Preserve(command)
+		" Preparation: save last search, and cursor position.
+		let _s=@/
+		let l = line(".")
+		let c = col(".")
+		" Do the business:
+		if type(a:command) == type([])
+			for l:cmd in a:command
+				execute l:cmd
+			endfor
+		else
+			execute a:command
+		endif
+		" Clean up: restore previous search history, and cursor position
+		let @/=_s
+		call cursor(l, c)
+		nohl
+	endfunction
+
+	function UtilToogleWindow(windowName, openCmd)
+		let l:win = bufwinnr(a:windowName)
+		if l:win != -1
+			execute l:win . ' wincmd w'
+			silent! close
+		else
+			execute a:openCmd
+		endif
+	endfunction
+" }}
+
 " PLUGINS{{
 	" PATHOGEN{{
 		runtime bundle/vim-pathogen/autoload/pathogen.vim
@@ -122,30 +155,16 @@
 		let g:syntastic_javascript_checkers=['jslint']
 		let g:syntastic_javascript_jslint_conf = "--continue"
 	" }}
+	" MRU {{
+		nnoremap <up> :call UtilToogleWindow('__MRU_Files__', ':MRU')<CR>
+
+		let MRU_Max_Entries = 1000
+		let MRU_Exclude_Files = '.*/tmp/.*'
+		let MRU_Max_Menu_Entries = 100
+	" }}
 " }}
 
 " FUNCTION_KEYS{{
-	" Author of this function:
-	" http://technotales.wordpress.com/2010/03/31/preserve-a-vim-function-that-keeps-your-state/
-	function! Preserve(command)
-		" Preparation: save last search, and cursor position.
-		let _s=@/
-		let l = line(".")
-		let c = col(".")
-		" Do the business:
-		if type(a:command) == type([])
-			for l:cmd in a:command
-				execute l:cmd
-			endfor
-		else
-			execute a:command
-		endif
-		" Clean up: restore previous search history, and cursor position
-		let @/=_s
-		call cursor(l, c)
-		nohl
-	endfunction
-
 	function! ShowHelp()
 		echo "<F1> Show this help"
 		echo "<F2> Reindent"
