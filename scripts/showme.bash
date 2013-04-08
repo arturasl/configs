@@ -10,7 +10,7 @@ function capWebBrowser() {
 
 function capPDFViewer() {
 	( program='/Applications/Preview.app' && [ $(which open) -a -d "$program" ] && echo "open -a '${program}'" ) \
-	|| ( program='evince' && [ $(which "$viewe"r ) ] && echo "$program" )
+	|| ( program='evince' && [ $(which "$program" ) ] && echo "$program" )
 }
 
 # regex for file name \t regex for mime type \t command for viewing gui \t command for viewing as text stream \t priority
