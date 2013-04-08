@@ -647,7 +647,26 @@
 		autocmd FileType pascal call SetMakeForPascal()
 	" }}
 	" MAIL {{
+		" a - automatically reformat paragraph if text changed
+		" w - trailing whitespace means that paragraph continues in next line
 		autocmd FileType mail setlocal spell formatoptions+=aw
+
+		function! GetMailFoldLvl(nLine)
+			let l:strLine    = getline(a:nLine)
+			let l:nSetFoldTo = 0
+
+			for l:i in range(0, len(l:strLine))
+				if l:strLine[l:i] == '>'
+					let l:nSetFoldTo += 1
+				else
+					break
+				endif
+			endfor
+
+			return min([l:nSetFoldTo, &foldnestmax])
+		endfunction
+
+		autocmd FileType mail setlocal foldmethod=expr foldexpr=GetMailFoldLvl(v:lnum) foldnestmax=10
 	" }}
 		augroup END
 	endif
