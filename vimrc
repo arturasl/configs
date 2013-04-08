@@ -319,6 +319,7 @@
 	set backup
 	set backupext=.bak
 	set backupdir=~/.vim/tmp/backups/
+	set backupcopy=yes " make backup by copying original file
 
 	set swapfile
 	" use double // to use full path as swap file name
