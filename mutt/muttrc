@@ -54,6 +54,8 @@ bind generic l select-entry
 bind generic h exit
 
 ## index (initial screen where all emails are listed)
+bind index gg first-entry
+bind index G last-entry
 bind index h change-folder
 bind index j next-entry # does not jump over deleted messages (default is "next-undeleted")
 bind index k previous-entry
@@ -64,6 +66,8 @@ bind index / limit
 bind index <space> collapse-thread
 
 ## pager (help window, viewing messages, etc)
+bind pager gg top
+bind pager G bottom
 bind pager h exit
 bind pager j next-line
 bind pager k previous-line
