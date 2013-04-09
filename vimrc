@@ -58,10 +58,10 @@
 		\ }
 
 		" show tagbar on ->
-		nnoremap <right> <ESC>::TagbarToggle<RETURN>
+		nnoremap <right> <esc>::TagbarToggle<cr>
 	" }}
 	" LUSTYJUGLER{{
-		nnoremap ,b :LustyJuggler<CR>
+		nnoremap ,b :LustyJuggler<cr>
 	" }}
 	" NETRW{{
 		let g:netrw_browse_split = 4 " open new buffer in previous window
@@ -69,7 +69,7 @@
 		let g:netrw_winsize = 25     " default window size
 		" show netrw on <-
 		let g:netrw_buffer_nr = -1
-		nnoremap <left> :let g:netrw_buffer_nr = UtilToogleWindow(g:netrw_buffer_nr, ':Vexplore')<CR>
+		nnoremap <left> :let g:netrw_buffer_nr = UtilToogleWindow(g:netrw_buffer_nr, ':Vexplore')<cr>
 	" }}
 	" OMNICPPCOMPLETE{{
 		let OmniCpp_GlobalScopeSearch   = 1  " allow global scope search
@@ -86,29 +86,29 @@
 		let OmniCpp_LocalSearchDecl     = 0
 	" }}
 	" FUZZY_FINDER{{
-		nnoremap ,tb :FufBuffer<CR>
-		nnoremap ,tf :FufFile<CR>
-		nnoremap ,tq :FufQuickfix<CR>
-		nnoremap ,tt :FufBufferTag<CR>
+		nnoremap ,tb :FufBuffer<cr>
+		nnoremap ,tf :FufFile<cr>
+		nnoremap ,tq :FufQuickfix<cr>
+		nnoremap ,tt :FufBufferTag<cr>
 	" }}
 	" TCOMMENT{{
 		let g:tcommentMaps = 0
 
-		nnoremap ,ci :TComment<CR>
-		xnoremap ,ci :TComment<CR>
+		nnoremap ,ci :TComment<cr>
+		xnoremap ,ci :TComment<cr>
 	" }}
 	" DBEXT{{
 		" execute paragraph
-		nnoremap ,dp :call Preserve('normal vip\se')<CR>
+		nnoremap ,dp :call Preserve('normal vip\se')<cr>
 		" execute statement
-		nnoremap ,de :DBExecSQLUnderCursor<CR>
+		nnoremap ,de :DBExecSQLUnderCursor<cr>
 		" execute line
-		nnoremap ,dl :call Preserve('normal V\se')<CR>
+		nnoremap ,dl :call Preserve('normal V\se')<cr>
 
 		" connect
-		nnoremap ,dc :DBPromptForBufferParameters<CR>
+		nnoremap ,dc :DBPromptForBufferParameters<cr>
 		" describe
-		nnoremap ,dd :DBDescribeTable<CR>
+		nnoremap ,dd :DBDescribeTable<cr>
 	" }}
 	" FSWITCH{{
 	if has("autocmd")
@@ -121,24 +121,24 @@
 		augroup END
 	endif
 
-	nmap ,s :FSHere<CR>
+	nmap ,s :FSHere<cr>
 	" }}
 	" PROTODEF{{
 		let g:disable_protodef_mapping = 1 " I will define my own mappings
 		let g:protodefprotogetter = '~/configs/vim/bundle/protodef/pullproto.pl'
-        nmap ,i i<C-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({})<CR><ESC>='[
+        nmap ,i i<c-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({})<cr><esc>='[
 	" }}
 	" GUNDO {{
-		nnoremap <down> :GundoToggle<CR>
+		nnoremap <down> :GundoToggle<cr>
 		let g:gundo_preview_bottom = 1
 	" }}
 	" NRV {{
-		xnoremap ,nw :NR<CR>
-		xnoremap ,nb :NR!<CR>
-		xnoremap ,np :NRP<CR>
-		nnoremap ,np :NRP<CR>
-		"nnoremap ,ns :call Preserve(['g/<C-R>//NRP', 'NRM!'])<CR> - reset position in wrong buffer
-		nnoremap ,ns :g/<C-R>//NRP<CR>:NRM<CR>
+		xnoremap ,nw :NR<cr>
+		xnoremap ,nb :NR!<cr>
+		xnoremap ,np :NRP<cr>
+		nnoremap ,np :NRP<cr>
+		"nnoremap ,ns :call Preserve(['g/<c-r>//NRP', 'NRM!'])<cr> - reset position in wrong buffer
+		nnoremap ,ns :g/<c-r>//NRP<cr>:NRM<cr>
 	" }}
 	" SYNTASTIC {{
 		let g:syntastic_check_on_open=1
@@ -158,7 +158,7 @@
 		let g:syntastic_javascript_jslint_conf = "--continue"
 	" }}
 	" MRU {{
-		nnoremap <up> :call UtilToogleWindow('__MRU_Files__', ':MRU')<CR>
+		nnoremap <up> :call UtilToogleWindow('__MRU_Files__', ':MRU')<cr>
 
 		let MRU_Max_Entries = 1000
 		let MRU_Exclude_Files = '.*/tmp/.*'
@@ -217,14 +217,14 @@
 		endif
 	endfunction
 
-	noremap <F1> :call ShowHelp()<CR>
-	noremap <F2> :call Preserve("normal gg=G") \| echo "Internal"<CR>
-	noremap <F3> :call Preserve("%s/\\s\\+$//e")<CR>
-	noremap <F4> :!xmllint --valid --noout %<CR>
-	noremap <F5> :call BuildFile()<CR>
-	noremap <F6> :set list!<CR>
-	noremap <F7> :if &rnu \| set nu \| else \| set rnu \| endif<CR>
-	noremap <F8> :call ToogleShowIndententBlocks()<CR>
+	noremap <f1> :call ShowHelp()<cr>
+	noremap <f2> :call Preserve("normal gg=G") \| echo "Internal"<cr>
+	noremap <f3> :call Preserve("%s/\\s\\+$//e")<cr>
+	noremap <f4> :!xmllint --valid --noout %<cr>
+	noremap <f5> :call BuildFile()<cr>
+	noremap <f6> :set list!<cr>
+	noremap <f7> :if &rnu \| set nu \| else \| set rnu \| endif<cr>
+	noremap <f8> :call ToogleShowIndententBlocks()<cr>
 	set listchars=tab:>-,eol:*,nbsp:-,trail:-,extends:>,precedes:<
 " }}
 " GENERAL{{
@@ -252,9 +252,9 @@
 	set fileformats=unix,dos,mac  " for new files use unix line endings. Choose between unix, dos or mac
 	set fileencodings=ucs-bom,utf-8,latin1 " encodings to try for existing files (for new one - utf-8)
 	" paste from clipboard without reformatting text
-	noremap ,p :set invpaste<CR>
-	noremap ,p+ :silent! set paste<CR>"+p:set nopaste<CR>
-	noremap ,p* :silent! set paste<CR>"*p:set nopaste<CR>
+	noremap ,p :set invpaste<cr>
+	noremap ,p+ :silent! set paste<cr>"+p:set nopaste<cr>
+	noremap ,p* :silent! set paste<cr>"*p:set nopaste<cr>
 
 	let g:tex_flavor='latex'
 	let mapleader='\' " map leader to something I do not use (in case some plugin maps keys without my permission)
@@ -349,10 +349,10 @@
 " }}
 " WINDOWS{{
 	" resizing windows
-	nnoremap <C-j> :resize -2<CR>
-	nnoremap <C-k> :resize +2<CR>
-	nnoremap <C-h> 2<C-w><
-	nnoremap <C-l> 2<C-w>>
+	nnoremap <c-j> :resize -2<cr>
+	nnoremap <c-k> :resize +2<cr>
+	nnoremap <c-h> 2<c-w><
+	nnoremap <c-l> 2<c-w>>
 " }}
 " GUI{{
 	if has("gui_running")
@@ -372,11 +372,11 @@
 
 		autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 		" too slow
-		"autocmd Filetype java imap <buffer> . .<C-x><C-o>
+		"autocmd Filetype java imap <buffer> . .<c-x><c-o>
 
 		" do not indent classes (-C) as it will result in double indention
 		" use for spaces (s4)
-		autocmd FileType java nnoremap <buffer> <F2> :call Preserve('%!astyle -s4 -c -a -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Java"<CR>
+		autocmd FileType java nnoremap <buffer> <f2> :call Preserve('%!astyle -s4 -c -a -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Java"<cr>
 
 		function! SetMakeForJava()
 			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
@@ -394,11 +394,11 @@
 		autocmd FileType c,cpp setlocal foldmethod=syntax foldnestmax=1
 
 		autocmd FileType cpp call LoadLangTags('cpp')
-		autocmd Filetype c,cpp inoremap <buffer> . .<C-x><C-o>
-		autocmd Filetype c,cpp inoremap <buffer> -> -><C-x><C-o>
-		autocmd Filetype c,cpp inoremap <buffer> :: ::<C-x><C-o>
+		autocmd Filetype c,cpp inoremap <buffer> . .<c-x><c-o>
+		autocmd Filetype c,cpp inoremap <buffer> -> -><c-x><c-o>
+		autocmd Filetype c,cpp inoremap <buffer> :: ::<c-x><c-o>
 
-		autocmd FileType c,cpp nnoremap <buffer> <F2> :call Preserve('%!astyle -T4 -a -C -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Cpp"<CR>
+		autocmd FileType c,cpp nnoremap <buffer> <f2> :call Preserve('%!astyle -T4 -a -C -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Cpp"<cr>
 
 		function! SetMakeForCpp()
 			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
@@ -498,7 +498,7 @@
 		autocmd FileType python call SetMakeForPython()
 
 		" formating
-		autocmd FileType python nnoremap <buffer> <F2> :call Preserve('%!PythonTidy.py') \| echo "PythonTidy"<CR>
+		autocmd FileType python nnoremap <buffer> <f2> :call Preserve('%!PythonTidy.py') \| echo "PythonTidy"<cr>
 	" }}
 	" PHP{{
 		autocmd FileType php setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
@@ -542,7 +542,7 @@
 	" }}
 	" JSON{{
 		autocmd! BufRead,BufNewFile *.json set filetype=json
-		autocmd FileType json nnoremap <buffer> <F2> :call Preserve('%!python -mjson.tool')<CR>
+		autocmd FileType json nnoremap <buffer> <f2> :call Preserve('%!python -mjson.tool')<cr>
 	" }}
 	" BNF{{
 		autocmd bufreadpre,bufnewfile *.bnf set ft=bnf
@@ -560,12 +560,12 @@
 	" }}
 	" ASN.1 {{
 		autocmd bufreadpre,bufnewfile *.der
-			\ noremap <buffer> <F5> G:call Preserve('silent r!openssl asn1parse -inform DER -in %') \| setlocal readonly<CR>
+			\ noremap <buffer> <f5> G:call Preserve('silent r!openssl asn1parse -inform DER -in %') \| setlocal readonly<cr>
 
 		autocmd bufreadpre,bufnewfile *.crt
-			\ noremap <buffer> <F5> G:call Preserve('silent r!openssl x509 -in % -noout -text') \| setlocal readonly<CR>
+			\ noremap <buffer> <f5> G:call Preserve('silent r!openssl x509 -in % -noout -text') \| setlocal readonly<cr>
 		autocmd bufreadpre,bufnewfile *.key
-			\ noremap <buffer> <F5> G:call Preserve('silent r!openssl rsa -in % -noout -text') \| setlocal readonly<CR>
+			\ noremap <buffer> <f5> G:call Preserve('silent r!openssl rsa -in % -noout -text') \| setlocal readonly<cr>
 	" }}
 	" RST {{
 		function! RSTEnter()
@@ -631,10 +631,10 @@
 			setlocal makeprg=pandoc\ --to=html5\ --highlight-style=pygments\ --standalone\ --normalize\ --tab-stop=2\ '--output=/tmp/%.html'\ '%'\ &&\ ~/configs/scripts/showme.bash\ '/tmp/%.html'
 		endfunction
 
-		autocmd! BufRead,BufNewFile *.rst,*.mkd
+		autocmd BufRead,BufNewFile *.rst,*.mkd
 			\ call SetMakeForRST() |
 			\ setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab |
-			\ nnoremap <buffer> <ENTER> :call RSTEnter()<CR>
+			\ nnoremap <buffer> <enter> :call RSTEnter()<cr>
 
 	" }}
 	" PASCAL {{
