@@ -37,6 +37,8 @@ argFileMime=''
 argCheckFile='1'
 argCheckMime='0'
 argFieldToExec="$FIELD_VIEW_GUI"
+argOpenCopy='0'
+argOpenMoved='0'
 
 while [ "$#" -ne '0' ]; do
 	case "$1" in
@@ -77,6 +79,13 @@ cat <<EOF
 \`--debug\`
 :	if present additional debuging information will be shown
 
+\`--open-copy\`
+:	if present copies original file to tmp directory and opens generated
+	copy
+
+\`--open-moved\`
+:	similar to \`open-copy\`, but moves file instead of copying
+
 EOF
 echo "Example usage: $0 --view-gui --silent-detached test.pdf"
 			exit 0
@@ -104,9 +113,16 @@ echo "Example usage: $0 --view-gui --silent-detached test.pdf"
 			argCheckMime='1'
 			;;
 		--debug)
-			argDEBUG="1" && shift 1
+			argDEBUG='1' && shift 1
+			;;
+		--open-copy)
+			argOpenCopy='1' && shift 1
+			;;
+		--open-moved)
+			argOpenMoved='1' && shift 1
 			;;
 		*)
+			[ -n "$argFileName" ] && utilShowError "File specified multiple time (old value = \"${argFileName}\", new value = \"${1}\")"
 			argFileName="$1" && shift 1
 			;;
 	esac
@@ -147,20 +163,32 @@ for capability in $capabilities; do
 done
 IFS="$OLDIFS"
 
-# take executable with highest priority
+# take executable with highest priority and put to `execute`
 applicable=$(echo "${applicable}" | sort --numeric-sort --reverse)
 utilDebugPrint "Applicable:\n${applicable}"
 execute=$(echo "${applicable}" | head -n 1 | cut -f 2)
 
 # check if we managed to find executable
 if [ -z "$execute" ]; then
-	utilDebugPrint "Could not find/run executable"
+	utilShowError "Could not find/run executable"
 	exit 1
+fi
+
+if [ "$argOpenCopy" -eq '1' -o "$argOpenMoved" -eq '1' ]; then
+	tmpFile="/tmp/showme-$((RANDOM))-$(basename "$argFileName")"
+	tmpFileMoveAction=$( ( [ "$argOpenCopy" -eq '1' ] && echo 'cp' ) || echo 'mv' )
+	utilDebugPrint "Making file copy or moving it (using \"${tmpFileMoveAction}\") to: ${tmpFile}"
+	"$tmpFileMoveAction" "$argFileName" "$tmpFile"
+	argFileName="$tmpFile"
 fi
 
 # append argument (or replace FILENAME) and run executable
 execute=$( ( [[ "$execute" =~ FILENAME ]] && echo "$execute" | sed -e "s/FILENAME/'"$(utilSedEscapeReplacement "$argFileName")"'/g" ) || echo "${execute} '${argFileName}'" )
+
+# if running in silent mode, run program from bash
 [ "$argSilentDetached" -eq '1' ] && execute="bash -c \"${execute} &>/dev/null &\""
+
+# execute program (or return success if only needed to check if applicable program exists)
 utilDebugPrint "Will execute: ${execute}"
 if [ "$argOnlyCheck" -eq '1' ]; then
 	exit 0
