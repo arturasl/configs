@@ -164,6 +164,12 @@
 		let MRU_Exclude_Files = '.*/tmp/.*'
 		let MRU_Max_Menu_Entries = 100
 	" }}
+	" DELIMITMATE {{
+		let g:delimitMate_excluded_regions = "String"
+        let g:delimitMate_expand_space = 1
+		let g:delimitMate_expand_cr = 1
+		let g:delimitMate_matchpairs = "(:),[:],{:},<:>"
+	" }}
 " }}
 
 " FUNCTION_KEYS{{
