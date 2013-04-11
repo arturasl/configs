@@ -29,9 +29,6 @@ These are basic configuration files to set up on new machines.
     ln -s ~/configs/vimrc ~/.vimrc
     ln -s ~/configs/vim ~/.vim
 
-    # directories for temporal files:
-    mkdir --parent ~/configs/vim/tmp/undo/ ~/configs/vim/tmp/backups/ ~/configs/vim/tmp/swap/
-
     # ctags:
     mkdir ~/configs/vim/tags
     ctags -f ~/configs/vim/tags/cpp_wx.tags --recurse=yes --sort=yes --verbose=yes --append=no --language-force=C++ --extra=+q --fields=afiKmsSt /usr/include/wx-2.8/
