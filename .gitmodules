@@ -31,3 +31,6 @@
 [submodule "vim/bundle/syntastic"]
 	path = vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
+[submodule "vim/bundle/vim-xpath"]
+	path = vim/bundle/vim-xpath
+	url = https://github.com/actionshrimp/vim-xpath.git
