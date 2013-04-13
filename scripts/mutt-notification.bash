@@ -7,10 +7,11 @@ have_new=$(echo "$1" | grep 'New:')
 
 if [ -n "$have_new" ]; then
 	mails=$(echo "$1" | sed -e 's/.*New:[[:space:]]*\([[:digit:]]*\).*/\1/g' ) # number of new messages
-	msg="New mails: $mails"
+	settings=$(echo "$1" | sed -e 's/.*Settings:[[:space:]]*\([[:alnum:]]*\).*/\1/g' )
+	msg="${settings}: ${mails}"
 	title='New mail'
 	if [ -x /Applications/CocoaDialog.app/Contents/MacOS/CocoaDialog ]; then
-		/Applications/CocoaDialog.app/Contents/MacOS/CocoaDialog bubble --timeout 10 --text "$msg" --title "$title" &
+		/Applications/CocoaDialog.app/Contents/MacOS/CocoaDialog bubble --icon document --timeout 10 --text "$msg" --title "$title" &
 	elif utilCommandExists 'notify-send'; then
 		notify-send -u normal -t 10000 "$title" "$msg"
 	else
