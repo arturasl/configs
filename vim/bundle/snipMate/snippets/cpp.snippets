@@ -84,3 +84,37 @@ snippet codewriter
 		while (n) *(cur++) = n % 10 + '0', n /= 10;
 		reverse(start, cur); writeBuffer(tmpBuffer, cur);
 	}
+snippet codejobs
+	#include      <pthread.h>
+	#include      <unistd.h>
+	#include      <queue>
+	template<typename T> class JobQueue {
+		private:
+			queue<T> m_queueJobs;
+			pthread_mutex_t m_lock;
+		public:
+			JobQueue() { pthread_mutex_init(&m_lock, NULL); }
+			~JobQueue() { pthread_mutex_destroy(&m_lock); }
+			void addJob(const T &job) {
+				pthread_mutex_lock(&m_lock); m_queueJobs.push(job); pthread_mutex_unlock(&m_lock);
+			}
+			bool getJob(T &job, int nWaitInterval = -1) {
+				bool bGot = false;
+				while (true) {
+					pthread_mutex_lock(&m_lock);
+					if (!m_queueJobs.empty()) { job = m_queueJobs.front(); m_queueJobs.pop(); bGot = true; }
+					pthread_mutex_unlock(&m_lock);
+					if (bGot) return true;
+					else if (nWaitInterval != -1) sleep(nWaitInterval);
+					else return false;
+				}
+			}
+			int jobCount() {
+				int cnt = 0;
+				pthread_mutex_lock(&m_lock); cnt = m_queueJobs.size(); pthread_mutex_unlock(&m_lock);
+				return cnt;
+			}
+			void getAll(queue<T> &queueJobs) { pthread_mutex_lock(&m_lock); queueJobs = m_queueJobs; pthread_mutex_unlock(&m_lock); }
+	};
+	// void* solve(void*) {}
+	// for (int t = 1; t <= THREADS; t += 1) { pthread_t thread; pthread_create(&thread, NULL, solve, NULL); }
