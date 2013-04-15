@@ -1,3 +1,10 @@
 #!/bin/sh
 
+if [ "$1" = "-l" ]; then
+	# execute command (with arguments) specified after -l
+	shift
+	exec "${@}"
+fi
+
+# have no idea that to do :/ - call bash
 exec bash
