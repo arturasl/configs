@@ -269,6 +269,9 @@
 	noremap ,p+ :silent! set paste<cr>"+p:set nopaste<cr>
 	noremap ,p* :silent! set paste<cr>"*p:set nopaste<cr>
 
+	" force vim to save file as root
+	cnoremap w!! w !sudo tee %
+
 	let g:tex_flavor='latex'
 	let mapleader='\' " map leader to something I do not use (in case some plugin maps keys without my permission)
 " }}
