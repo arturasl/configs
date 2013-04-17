@@ -182,6 +182,7 @@
 		echo "<F6> Show invisible chars"
 		echo "<F7> Switch line number mode"
 		echo "<F8> Show indentent blocks"
+		echo "<F10> Show highlighing group"
 	endfunction
 
 	function! BuildFile()
@@ -231,6 +232,12 @@
 	noremap <f6> :set list!<cr>
 	noremap <f7> :if &rnu \| set nu \| else \| set rnu \| endif<cr>
 	noremap <f8> :call ToogleShowIndententBlocks()<cr>
+
+	" original idea: http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
+	noremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+		\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+		\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 	set listchars=tab:>-,eol:*,nbsp:-,trail:-,extends:>,precedes:<
 " }}
 " GENERAL{{
@@ -277,11 +284,20 @@
 		if g:nShifColors == 0
 			let g:nShifColors  = 1
 			LuciusBlackLowContrast
+
+			if has('conceal')
+				highlight Conceal ctermbg=None ctermfg=white
+			endif
+
 			" do not hide cursor
-			hi MatchParen cterm=bold ctermbg=none ctermfg=67
+			highlight MatchParen cterm=bold ctermbg=none ctermfg=67
 		elseif g:nShifColors == 1
 			let g:nShifColors  = 0
 			LuciusLightHighContrast
+
+			if has('conceal')
+				highlight Conceal ctermbg=None ctermfg=black
+			endif
 		endif
 	endfunction
 
@@ -453,6 +469,21 @@
 		endfunction
 
 		autocmd FileType tex call SetMakeForTex()
+
+		if has('conceal') && &enc == 'utf-8'
+			" keep syntax elements sorted!
+			autocmd FileType tex
+				\ | setlocal conceallevel=2
+				\ | syntax match texStatement '\\item\>' contained conceal cchar=•
+				\ | syntax match texStatement '\\not=' contained conceal cchar=≠
+				\ | syntax match texStatement '\\not\\in' contained conceal cchar=∉
+				\ | syntax match texStatement '\\not\\subset' contained conceal cchar=⊄
+				\ | syntax match texStatement '\\not\\subseteq' contained conceal cchar=⊈
+				\ | syntax match texStatement '\\not\\supset' contained conceal cchar=⊅
+				\ | syntax match texStatement '\\not\\supseteq' contained conceal cchar=⊉
+		endif
+
+		let g:tex_conceal="adgm" " conceal Acents Delimiters Greak letters and Math symbols
 	" }}
 	" PYTHON{{
 		" use spaces
