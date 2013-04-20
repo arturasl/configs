@@ -114,7 +114,7 @@ These are basic configuration files to set up on new machines.
     git config --global diff.external ~/configs/scripts/git-vim-diff.bash
 
     git config --global alias.lg "log --graph --pretty=format:'%C(cyan)%h%C(bold magenta)%d%Creset %s %C(green)(%cr) %C(bold blue) %an%Creset'"
-```                                                                                                                       k
+```
 
 # Additional packages
 
