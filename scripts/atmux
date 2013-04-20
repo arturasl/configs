@@ -1,25 +1,36 @@
 #!/bin/sh
 
+function nextwindownr () {
+	let 'windownr = windownr + 1'
+}
+
 cd
 
 tmux start-server
-
 tmux new-session -d -s arturasl_tmux -n 'bash'
-tmux new-window -t arturasl_tmux:2 -n 'zsh' 'zsh'
 
-tmux new-window -t arturasl_tmux:3 -n 'news' 'podbeuter'
-tmux split-window -v -p 90 -t arturasl_tmux:3 'newsbeuter'
+windownr=6
+tmux new-window -t arturasl_tmux:${windownr} -n 'zsh' 'zsh'
 
-tmux new-window -t arturasl_tmux:4 -n 'mail' '~/configs/scripts/mutt-run.bash gml'
-tmux split-window -v -p 50 -t arturasl_tmux:4 '~/configs/scripts/mutt-run.bash mit'
-tmux select-pane -U -t arturasl_tmux:4
+nextwindownr
+tmux new-window -t arturasl_tmux:${windownr} -n 'news' 'podbeuter'
+tmux split-window -v -p 90 -t arturasl_tmux:${windownr} 'newsbeuter'
 
-tmux new-window -t arturasl_tmux:5 -n 'todo' 'vim ~/Dropbox/TODO.mkd --cmd "set autoread | set updatetime=1000 | set spell | au CursorHold * :checktime"'
-tmux split-window -v -p 40 -t arturasl_tmux:5 'calcurse'
-tmux select-pane -U -t arturasl_tmux:5
+nextwindownr
+tmux new-window -t arturasl_tmux:${windownr} -n 'mail' '~/configs/scripts/mutt-run.bash gml'
+tmux split-window -v -p 50 -t arturasl_tmux:${windownr} '~/configs/scripts/mutt-run.bash mit'
+tmux select-pane -U -t arturasl_tmux:${windownr}
 
-tmux new-window -t arturasl_tmux:6 -n 'irssi' 'irssi'
-tmux new-window -t arturasl_tmux:7 -n 'htop' 'htop'
+nextwindownr
+tmux new-window -t arturasl_tmux:${windownr} -n 'todo' 'vim ~/Dropbox/TODO.mkd --cmd "set autoread | set updatetime=1000 | set spell | au CursorHold * :checktime"'
+tmux split-window -v -p 40 -t arturasl_tmux:${windownr} 'calcurse'
+tmux select-pane -U -t arturasl_tmux:${windownr}
+
+nextwindownr
+tmux new-window -t arturasl_tmux:${windownr} -n 'irssi' 'irssi'
+
+nextwindownr
+tmux new-window -t arturasl_tmux:${windownr} -n 'htop' 'htop'
 
 tmux select-window -t arturasl_tmux:1
 tmux -2 attach-session -t arturasl_tmux
