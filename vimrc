@@ -354,6 +354,21 @@
 		set undofile
 		set undodir=~/.vim/tmp/undo/
 	endif
+
+	if has('viminfo')
+		set viminfo='20,<0,/0,:20,h,n~/configs/vim/tmp/viminfo
+		augroup viminfo
+		autocmd!
+			" restore cursor position (and open folds so that it would be visible)
+			autocmd BufWinEnter *
+				\ if line("'\"") >= 1 && line("'\"") <= line('$')
+					\ | execute 'normal! g`"'
+					\ | if &foldenable && foldlevel(line('.')) > 0
+						\ | execute 'normal! zO'
+					\ | endif
+				\ | endif
+		augroup END
+	endif
 "}}
 " COMPLETION{{
 	" pop-up menu settings
