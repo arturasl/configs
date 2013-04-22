@@ -723,6 +723,12 @@
 
 		autocmd FileType mail setlocal foldmethod=expr foldexpr=GetMailFoldLvl(v:lnum) foldnestmax=10
 	" }}
+	" COMMIT MESSAGES {{
+		" then editing commit messages enable spell checking
+		" and jump to first line of buffer (overrides cursor restoring
+		" behaviour)
+		autocmd BufWinEnter COMMIT_EDITMSG setlocal spell | normal gg
+	" }}
 		augroup END
 	endif
 " }}
