@@ -1,7 +1,7 @@
 #!/bin/sh
 
 nextwindownr () {
-	let 'windownr = windownr + 1'
+	windownr=`expr $windownr + 1`
 }
 
 cd
