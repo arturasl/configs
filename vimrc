@@ -729,6 +729,9 @@
 		" behaviour)
 		autocmd BufWinEnter COMMIT_EDITMSG setlocal spell | normal gg
 	" }}
+	" VIMRC {{
+		autocmd FileType vim setlocal keywordprg=:help
+	" }}
 		augroup END
 	endif
 " }}
