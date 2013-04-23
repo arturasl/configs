@@ -170,6 +170,13 @@
 		let g:delimitMate_expand_cr = 1
 		let g:delimitMate_matchpairs = "(:),[:],{:},<:>"
 	" }}
+	" BUFKILL {{
+		let g:BufKillCreateMappings = 0
+		let g:BufKillCommandPrefix = "BufKill"
+		cabbrev bun BufKillUN
+		cabbrev bw BufKillW
+		cabbrev bd BufKillD
+	" }}
 " }}
 
 " FUNCTION_KEYS{{
@@ -727,7 +734,8 @@
 		" then editing commit messages enable spell checking
 		" and jump to first line of buffer (overrides cursor restoring
 		" behaviour)
-		autocmd FileType gitcommit setlocal spell | normal gg
+		autocmd FileType gitcommit setlocal spell
+		autocmd BufWinEnter COMMIT_EDITMSG normal gg
 	" }}
 	" VIMRC {{
 		autocmd FileType vim setlocal keywordprg=:help
