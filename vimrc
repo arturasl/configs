@@ -727,7 +727,7 @@
 		" then editing commit messages enable spell checking
 		" and jump to first line of buffer (overrides cursor restoring
 		" behaviour)
-		autocmd BufWinEnter COMMIT_EDITMSG setlocal spell | normal gg
+		autocmd FileType gitcommit setlocal spell | normal gg
 	" }}
 	" VIMRC {{
 		autocmd FileType vim setlocal keywordprg=:help
