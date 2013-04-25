@@ -279,6 +279,9 @@
 	" force vim to save file as root
 	cnoremap w!! w !sudo tee %
 
+	" use spell check for english and lithuanian languages
+	set spelllang=en,lt
+
 	let g:tex_flavor='latex'
 	let mapleader='\' " map leader to something I do not use (in case some plugin maps keys without my permission)
 " }}
@@ -493,7 +496,9 @@
 			endif
 		endfunction
 
-		autocmd FileType tex call SetMakeForTex()
+		autocmd FileType tex
+			\ call SetMakeForTex()
+			\ | set spell
 
 		if has('conceal') && &enc == 'utf-8'
 			" keep syntax elements sorted!
@@ -694,9 +699,10 @@
 		endfunction
 
 		autocmd BufRead,BufNewFile *.rst,*.mkd
-			\ call SetMakeForRST() |
-			\ setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab |
-			\ nnoremap <buffer> <enter> :call RSTEnter()<cr>
+			\ call SetMakeForRST()
+			\ | setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
+			\ | nnoremap <buffer> <enter> :call RSTEnter()<cr>
+			\ | set spell
 
 	" }}
 	" PASCAL {{
