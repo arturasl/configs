@@ -503,7 +503,7 @@
 		if has('conceal') && &enc == 'utf-8'
 			" keep syntax elements sorted!
 			autocmd FileType tex
-				\ | setlocal conceallevel=2
+				\ setlocal conceallevel=2
 				\ | syntax match texStatement '\\item\>' contained conceal cchar=•
 				\ | syntax match texStatement '\\not=' contained conceal cchar=≠
 				\ | syntax match texStatement '\\not\\in' contained conceal cchar=∉
