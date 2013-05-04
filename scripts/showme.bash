@@ -4,18 +4,32 @@
 source "$(dirname "$0")/util.bash"
 
 capWebBrowser() {
-	( program='/Applications/Firefox.app' && [ $(which open) -a -d "$program" ] && echo "open -a '${program}'" ) \
-	|| ( program='firefox' && [ $(which $program ) ] && echo "$program" )
+	{ program='/Applications/Firefox.app' && [ $(which open) -a -d "$program" ] && echo "open -a '${program}'"; } \
+	|| { program='firefox' && utilCommandExists "$program" && echo "$program"; }
 }
 
 capPDFViewer() {
-	( program='/Applications/Preview.app' && [ $(which open) -a -d "$program" ] && echo "open -a '${program}'" ) \
-	|| ( program='evince' && [ $(which "$program" ) ] && echo "$program" )
+	{ program='/Applications/Preview.app' && [ $(which open) -a -d "$program" ] && echo "open -a '${program}'"; } \
+	|| { program='evince' && utilCommandExists "$program" && echo "$program"; }
+}
+
+capGUIEditor() {
+	{ program='mvim' && utilCommandExists "$program"; } \
+	|| { program='gvim' && utilCommandExists "$program"; } \
+	|| program=''
+
+	[ -z "$program" ] && return
+
+	if [ -t 0 ]; then # stdin is availabe
+		echo "$program -v"
+	else
+		echo "$program"
+	fi
 }
 
 # regex for file name \t regex for mime type \t command for viewing gui \t command for viewing as text stream \t priority
 read -r -d '' capabilities <<EOF
-^https?://|^ftps?://|\.html?$	text/html	capWebBrowser	pandoc -f html -t markdown	50
+^https?://|^ftps?://|\.html?$|^www\.	text/html	capWebBrowser	pandoc -f html -t markdown	50
 \.mp[3-4]$|\.flv|\.mov	video/.+|audio/.+	mplayer	file	50
 \.pdf	application/pdf	capPDFViewer	pdftotext FILENAME -	50
 \.jpe?g$|\.png$|\.gif$	image/.+	feh --draw-actions	cacaview	50
@@ -23,6 +37,7 @@ read -r -d '' capabilities <<EOF
 \.tar	application/x-tar		tar -tvf	50
 \.tar.gz	multipart/x-gzip		tar -tzvf	50
 \.tar.bz2		tar -tjvf	50
+.	.	capGUIEditor	cat	25
 EOF
 
 FIELD_NAME_PATTERN=1
