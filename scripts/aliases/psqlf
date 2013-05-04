@@ -1,11 +1,9 @@
 #!/bin/bash
 
-function psqlf() {
-	database=''
-	if [ ! -z "$2" ]; then
-		database="-d $2"
-	fi
-	execute="psql -U postgres -f $1 $database"
-	echo "$execute"
-	exec $execute
-}
+database=''
+if [ ! -z "$2" ]; then
+	database="-d $2"
+fi
+execute="psql -U postgres -f $1 $database"
+echo "$execute"
+exec $execute
