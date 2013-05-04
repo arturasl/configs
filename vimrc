@@ -121,12 +121,12 @@
 		augroup END
 	endif
 
-	nmap ,s :FSHere<cr>
+	nnoremap ,s :FSHere<cr>
 	" }}
 	" PROTODEF{{
 		let g:disable_protodef_mapping = 1 " I will define my own mappings
 		let g:protodefprotogetter = '~/configs/vim/bundle/protodef/pullproto.pl'
-        nmap ,i i<c-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({})<cr><esc>='[
+        nnoremap ,i i<c-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({})<cr><esc>='[
 	" }}
 	" GUNDO {{
 		nnoremap <down> :GundoToggle<cr>
@@ -231,17 +231,17 @@
 		endif
 	endfunction
 
-	noremap <f1> :call ShowHelp()<cr>
-	noremap <f2> :call Preserve("normal gg=G") \| echo "Internal"<cr>
-	noremap <f3> :call Preserve("%s/\\s\\+$//e")<cr>
-	noremap <f4> :!xmllint --valid --noout %<cr>
-	noremap <f5> :call BuildFile()<cr>
-	noremap <f6> :set list!<cr>
-	noremap <f7> :if &rnu \| set nu \| else \| set rnu \| endif<cr>
-	noremap <f8> :call ToogleShowIndententBlocks()<cr>
+	nnoremap <f1> :call ShowHelp()<cr>
+	nnoremap <f2> :call Preserve("normal gg=G") \| echo "Internal"<cr>
+	nnoremap <f3> :call Preserve("%s/\\s\\+$//e")<cr>
+	nnoremap <f4> :!xmllint --valid --noout %<cr>
+	nnoremap <f5> :call BuildFile()<cr>
+	nnoremap <f6> :set list!<cr>
+	nnoremap <f7> :if &rnu \| set nu \| else \| set rnu \| endif<cr>
+	nnoremap <f8> :call ToogleShowIndententBlocks()<cr>
 
 	" original idea: http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
-	noremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+	nnoremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 		\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 		\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
@@ -272,9 +272,9 @@
 	set fileformats=unix,dos,mac  " for new files use unix line endings. Choose between unix, dos or mac
 	set fileencodings=ucs-bom,utf-8,latin1 " encodings to try for existing files (for new one - utf-8)
 	" paste from clipboard without reformatting text
-	noremap ,p :set invpaste<cr>
-	noremap ,p+ :silent! set paste<cr>"+p:set nopaste<cr>
-	noremap ,p* :silent! set paste<cr>"*p:set nopaste<cr>
+	nnoremap ,p :set invpaste<cr>
+	nnoremap ,p+ :silent! set paste<cr>"+p:set nopaste<cr>
+	nnoremap ,p* :silent! set paste<cr>"*p:set nopaste<cr>
 
 	" force vim to save file as root
 	cnoremap w!! w !sudo tee %
@@ -627,12 +627,12 @@
 	" }}
 	" ASN.1 {{
 		autocmd bufreadpre,bufnewfile *.der
-			\ noremap <buffer> <f5> G:call Preserve('silent r!openssl asn1parse -inform DER -in %') \| setlocal readonly<cr>
+			\ nnoremap <buffer> <f5> G:call Preserve('silent r!openssl asn1parse -inform DER -in %') \| setlocal readonly<cr>
 
 		autocmd bufreadpre,bufnewfile *.crt
-			\ noremap <buffer> <f5> G:call Preserve('silent r!openssl x509 -in % -noout -text') \| setlocal readonly<cr>
+			\ nnoremap <buffer> <f5> G:call Preserve('silent r!openssl x509 -in % -noout -text') \| setlocal readonly<cr>
 		autocmd bufreadpre,bufnewfile *.key
-			\ noremap <buffer> <f5> G:call Preserve('silent r!openssl rsa -in % -noout -text') \| setlocal readonly<cr>
+			\ nnoremap <buffer> <f5> G:call Preserve('silent r!openssl rsa -in % -noout -text') \| setlocal readonly<cr>
 	" }}
 	" RST {{
 		function! RSTEnter()
