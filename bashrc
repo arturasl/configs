@@ -9,25 +9,6 @@ if [ -f /etc/bashrc ]; then
 	source /etc/bashrc
 fi
 
-#### Aliases
-
-alias _grep='grep --with-filename --line-number --color=always'
-alias vim='gvim -v'
-# Show each directory in seperate line, show indexes and expand ~ or similar things
-alias dirs='dirs -p -l -v'
-# --color=auto -G
-# --humna-readable -h
-alias ll='ls -a --human-readable -l --color=auto --group-directories-first -v'
-alias dosbox='dosbox -c "mount C ~/Projects/ASM/" -c "C:\\" -c "path=C:\\tasm\\bin\\" -c "cd projects/DIS/"'
-alias tmux='tmux -2'
-function psqlf() {
-	database=''
-	if [ ! -z "$2" ]; then
-		database="-d $2"
-	fi
-	echo psql -U postgres -f $1 $database
-}
-
 #### History
 
 # save as much history as we can
@@ -56,6 +37,7 @@ export LESS_TERMCAP_ue=$'\e[0m'
 
 # Fix minor erros in path while using cd builtin
 shopt -s cdspell
+export CDPATH=.
 
 # Add completion for some programs
 if [ $IS_MAC != 1 ]; then
@@ -83,5 +65,24 @@ PS1="\$ "
 # Print before each multiline cmd
 PS2=" └> "
 
+#### External programs
+
+export EDITOR=vim
+export BROWSER=~/configs/scripts/showme.bash
+
 #### Private stuff
-source ~/.bashrc_private
+
+[ -f ~/.bashrc_private ] && source ~/.bashrc_private
+
+#### Aliases
+
+alias grep='grep --with-filename --line-number --color=always'
+# this might override existing programs...
+export PATH=~/configs/scripts/aliases:$PATH
+
+#### Fish shell
+
+# if we have fish shell use it
+# yes, it can be set as default shell...
+which fish &>/dev/null
+[ "$?" -eq 0 ] && exec fish

@@ -15,10 +15,14 @@ function capPDFViewer() {
 
 # regex for file name \t regex for mime type \t command for viewing gui \t command for viewing as text stream \t priority
 read -r -d '' capabilities <<EOF
-^http://|^ftp://|\.html?$	text/html	capWebBrowser	pandoc -f html -t markdown	50
-\.mp[3-4]$|\.flv	video/.+|audio/.+	mplayer	file	50
+^https?://|^ftps?://|\.html?$	text/html	capWebBrowser	pandoc -f html -t markdown	50
+\.mp[3-4]$|\.flv|\.mov	video/.+|audio/.+	mplayer	file	50
 \.pdf	application/pdf	capPDFViewer	pdftotext FILENAME -	50
 \.jpe?g$|\.png$|\.gif$	image/.+	feh --draw-actions	cacaview	50
+\.zip	application/zip		unzip -l	50
+\.tar	application/x-tar		tar -tvf	50
+\.tar.gz	multipart/x-gzip		tar -tzvf	50
+\.tar.bz2		tar -tjvf	50
 EOF
 
 FIELD_NAME_PATTERN=1
@@ -109,7 +113,10 @@ echo "Example usage: $0 --view-gui --silent-detached test.pdf"
 			argCheckMime="$2" && shift 2
 			;;
 		--mime)
-			argFileMime="$2" && shift 2
+			if [[ ! "$2" =~ \/unknown ]]; then
+				argFileMime="$2"
+			fi
+			shift 2
 			argCheckMime='1'
 			;;
 		--debug)
