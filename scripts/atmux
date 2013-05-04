@@ -6,13 +6,10 @@ nextwindownr () {
 
 cd
 
-tmux start-server
+tmux -2 start-server
 tmux new-session -d -s arturasl_tmux -n 'bash'
 
 windownr=6
-tmux new-window -t arturasl_tmux:${windownr} -n 'zsh' 'zsh'
-
-nextwindownr
 tmux new-window -t arturasl_tmux:${windownr} -n 'news' 'podbeuter'
 tmux split-window -v -p 90 -t arturasl_tmux:${windownr} 'newsbeuter'
 
