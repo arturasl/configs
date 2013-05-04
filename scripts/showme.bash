@@ -3,12 +3,12 @@
 
 source "$(dirname "$0")/util.bash"
 
-function capWebBrowser() {
+capWebBrowser() {
 	( program='/Applications/Firefox.app' && [ $(which open) -a -d "$program" ] && echo "open -a '${program}'" ) \
 	|| ( program='firefox' && [ $(which $program ) ] && echo "$program" )
 }
 
-function capPDFViewer() {
+capPDFViewer() {
 	( program='/Applications/Preview.app' && [ $(which open) -a -d "$program" ] && echo "open -a '${program}'" ) \
 	|| ( program='evince' && [ $(which "$program" ) ] && echo "$program" )
 }
