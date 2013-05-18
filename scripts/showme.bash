@@ -31,7 +31,7 @@ capGUIEditor() {
 read -r -d '' capabilities <<EOF
 ^https?://|^ftps?://|\.html?$|^www\.	text/html	capWebBrowser	pandoc -f html -t markdown	50
 \.mp[3-4]$|\.flv|\.mov	video/.+|audio/.+	mplayer	file	50
-\.pdf	application/pdf	capPDFViewer	pdftotext FILENAME -	50
+\.pdf|\.eps|\.ps	application/pdf	capPDFViewer	pdftotext FILENAME -	50
 \.jpe?g$|\.png$|\.gif$	image/.+	feh --draw-actions	cacaview	50
 \.zip	application/zip		unzip -l	50
 \.tar	application/x-tar		tar -tvf	50
