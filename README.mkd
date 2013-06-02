@@ -135,5 +135,5 @@ These are basic configuration files to set up on new machines.
 ## git submodules
 
 ```bash
-    git submodule init && git submodule update
+    git submodule update --init --recursive && git submodule update --recursive
 ```

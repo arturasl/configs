@@ -177,6 +177,14 @@
 		cabbrev bw BufKillW
 		cabbrev bd BufKillD
 	" }}
+	" JEDI-VIM {{
+		let g:jedi#goto_command = "<c-]>"
+		let g:jedi#popup_on_dot = 1
+		let g:jedi#popup_select_first = 1
+		let g:jedi#pydoc = "K"
+		let g:jedi#show_function_definition = 1
+		let g:jedi#use_tabs_not_buffers = 0
+	" }}
 " }}
 
 " FUNCTION_KEYS{{
