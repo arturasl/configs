@@ -168,7 +168,10 @@
 		let g:delimitMate_excluded_regions = "String"
         let g:delimitMate_expand_space = 1
 		let g:delimitMate_expand_cr = 1
-		let g:delimitMate_matchpairs = "(:),[:],{:},<:>"
+		let g:delimitMate_matchpairs = "(:),[:],{:}"
+		autocmd!
+			autocmd FileType xml,html let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
+		augroup END
 	" }}
 	" BUFKILL {{
 		let g:BufKillCreateMappings = 0
