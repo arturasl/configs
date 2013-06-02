@@ -410,10 +410,14 @@
 " }}
 " WINDOWS{{
 	" resizing windows
-	nnoremap <c-j> :resize -2<cr>
-	nnoremap <c-k> :resize +2<cr>
-	nnoremap <c-h> 2<c-w><
-	nnoremap <c-l> 2<c-w>>
+	" if shell (:!sleep 10) does not eat input (press anything while sleeping)
+	" from user, this input is sent to vim. Enter (<cr>) is interpreted as c-j. So
+	" pressing enter (and having `nnoremap <c-j> :resize -2<cr>`) while in shell may
+	" resize window in vim...
+	nnoremap <c-w><s-j> :resize -2<cr>
+	nnoremap <c-w><s-k> :resize +2<cr>
+	nnoremap <c-w><s-h> 2<c-w><
+	nnoremap <c-w><s-l> 2<c-w>>
 " }}
 " GUI{{
 	if has("gui_running")
