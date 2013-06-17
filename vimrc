@@ -730,9 +730,12 @@
 		autocmd FileType pascal call SetMakeForPascal()
 	" }}
 	" MAIL {{
+		autocmd bufreadpre,bufnewfile *.mail set ft=mail
+		" not so fancy formatting options for mail files - we want to allow receivers to reformat emails
 		" a - automatically reformat paragraph if text changed
 		" w - trailing whitespace means that paragraph continues in next line
-		autocmd FileType mail setlocal spell formatoptions+=aw
+		autocmd FileType mail setlocal spell formatoptions=aw
+		autocmd FileType mail setlocal nosmartindent nocindent noautoindent indentexpr=
 
 		function! GetMailFoldLvl(nLine)
 			let l:strLine    = getline(a:nLine)
