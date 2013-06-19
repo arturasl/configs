@@ -64,6 +64,7 @@ bind index J next-unread
 bind index K previous-unread
 bind index / limit
 bind index <space> collapse-thread
+bind index r group-reply
 
 ## pager (help window, viewing messages, etc)
 bind pager gg top
@@ -72,6 +73,7 @@ bind pager h exit
 bind pager j next-line
 bind pager k previous-line
 bind pager l view-attachments
+bind pager r group-reply
 
 ## attachments
 bind attach h exit
