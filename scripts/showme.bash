@@ -14,7 +14,8 @@ capPDFViewer() {
 }
 
 capWordViewer() {
-	{ program='/Applications/LibreOffice.app' && [ $(which open) -a -d "$program" ] && echo "open -a '${program}'"; }
+	{ program='/Applications/LibreOffice.app' && [ $(which open) -a -d "$program" ] && echo "open -a '${program}'"; } \
+	|| { program='libreoffice' && utilCommandExists "$program" && echo "$program"; }
 }
 
 capGUIEditor() {
@@ -38,10 +39,11 @@ read -r -d '' capabilities <<EOF
 \.pdf|\.eps|\.ps	application/pdf	capPDFViewer	pdftotext FILENAME -	50
 \.jpe?g$|\.png$|\.gif$	image/.+	feh --draw-actions	cacaview	50
 \.docx?|\.odt	application/vnd.openxml.*	capWordViewer		50
-\.zip	application/zip		unzip -l	50
-\.tar	application/x-tar		tar -tvf	50
-\.tar.gz	multipart/x-gzip		tar -tzvf	50
-\.tar.bz2		tar -tjvf	50
+\.zip$	application/zip		unzip -l	50
+\.rar$		unrar l	unrar l	50
+\.tar$	application/x-tar	tar -tvf	tar -tvf	50
+\.tar.gz$	multipart/x-gzip	tar -tzvf	tar -tzvf	50
+\.tar.bz2$		tar -tjvf	tar -tjvf	50
 .	.	capGUIEditor	cat	25
 EOF
 
