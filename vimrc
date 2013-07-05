@@ -293,6 +293,12 @@
 	" use spell check for english and lithuanian languages
 	set spelllang=en,lt
 
+	" status line
+	set statusline=
+	set statusline+=%F%m%r
+	set statusline+=%=\ %Y\ [FORMAT=%{&ff},%{&encoding}]\ [CHAR=\%03.3b/0x\%02.2B]\ [%p%%]
+	set laststatus=2 " always show status line
+
 	let g:tex_flavor='latex'
 	let mapleader='\' " map leader to something I do not use (in case some plugin maps keys without my permission)
 " }}
