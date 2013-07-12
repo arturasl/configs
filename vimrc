@@ -156,6 +156,9 @@
 		" JAVASCRIPT
 		let g:syntastic_javascript_checkers=['jslint']
 		let g:syntastic_javascript_jslint_conf = "--continue"
+
+		"CSS
+		let g:syntastic_csslint_options = "--ignore=box-model,adjoining-classes,unique-headings,qualified-headings"
 	" }}
 	" MRU {{
 		nnoremap <up> :call UtilToogleWindow('__MRU_Files__', ':MRU')<cr>
