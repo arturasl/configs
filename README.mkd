@@ -3,7 +3,7 @@ These are basic configuration files to set up on new machines.
 # Installation
 
 ```bash
-	git clone git://github.com/arturasl/configs.git ~/configs
+    git clone git://github.com/arturasl/configs.git ~/configs
 ```
 
 # Post installation
@@ -45,6 +45,7 @@ These are basic configuration files to set up on new machines.
 ## mc
 
 ```bash
+    xterm -e mc & pid="$!" && sleep 5 && kill "$pid" # lazy load mc settings
     MCDIR=$(( test -d ~/.mc && echo ~/.mc ) || echo ~/.config/mc)
     if [ ! -d "$MCDIR" ]; then echo 'Could not detect mc directory' 1>&2; fi
     mkdir -p "$MCDIR/skins/"
@@ -56,17 +57,17 @@ These are basic configuration files to set up on new machines.
 ## bash
 
 ```bash
-		ln -s ~/configs/bashrc ~/.bashrc
-		# use bash_profile under mac
-		ln -s ~/configs/bashrc ~/.bash_profile
+    ln -s ~/configs/bashrc ~/.bashrc
+    # use bash_profile under mac
+    ln -s ~/configs/bashrc ~/.bash_profile
 ```
 
 ## tmux:
 
 ```bash
-		ln -s  ~/configs/tmux.conf ~/.tmux.conf
-		# for gnome to auto start
-		gnome-terminal --execute atmux
+    ln -s  ~/configs/tmux.conf ~/.tmux.conf
+    # for gnome to auto start
+    gnome-terminal --execute atmux
 ```
 
 ## urxvt
@@ -90,6 +91,7 @@ These are basic configuration files to set up on new machines.
 ## newsbeuter
 
 ```bash
+    xterm -e newsbeuter & pid="$!" && sleep 5 && kill "$pid" # lazy load settings
     ln -s  ~/configs/newsbeuter.conf ~/.newsbeuter/config
     mkdir -p ~/.newsbeuter/podc/
     # migth need export LC_ALL='en_US.UTF-8' on mac
