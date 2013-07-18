@@ -3,31 +3,38 @@
 nextwindownr () {
 	windownr=`expr $windownr + 1`
 }
+session='arturasl_tmux'
 
 cd
 
 tmux -2 start-server
-tmux new-session -d -s arturasl_tmux -n 'bash'
+tmux new-session -d -s ${session}
 
-windownr=6
-tmux new-window -t arturasl_tmux:${windownr} -n 'news' 'podbeuter'
-tmux split-window -v -p 90 -t arturasl_tmux:${windownr} 'newsbeuter'
-
-nextwindownr
-tmux new-window -t arturasl_tmux:${windownr} -n 'mail' '~/configs/scripts/mutt-run.bash gml'
-tmux split-window -v -p 50 -t arturasl_tmux:${windownr} '~/configs/scripts/mutt-run.bash mit'
-tmux select-pane -U -t arturasl_tmux:${windownr}
+windownr=1
+for i in `seq 1 4`; do
+	nextwindownr
+	tmux new-window -t ${session}:${windownr}
+done
 
 nextwindownr
-tmux new-window -t arturasl_tmux:${windownr} -n 'todo' 'vim ~/Dropbox/TODO.mkd --cmd "set autoread | set updatetime=1000 | set spell | au CursorHold * :checktime"'
-tmux split-window -v -p 40 -t arturasl_tmux:${windownr} 'calcurse'
-tmux select-pane -U -t arturasl_tmux:${windownr}
+tmux new-window -t ${session}:${windownr} -n 'news' 'podbeuter'
+tmux split-window -v -p 90 -t ${session}:${windownr} 'newsbeuter'
 
 nextwindownr
-tmux new-window -t arturasl_tmux:${windownr} -n 'irssi' 'irssi'
+tmux new-window -t ${session}:${windownr} -n 'mail' '~/configs/scripts/mutt-run.bash gml'
+tmux split-window -v -p 50 -t ${session}:${windownr} '~/configs/scripts/mutt-run.bash mit'
+tmux select-pane -U -t ${session}:${windownr}
 
 nextwindownr
-tmux new-window -t arturasl_tmux:${windownr} -n 'htop' 'htop'
+tmux new-window -t ${session}:${windownr} -n 'todo' 'vim ~/Dropbox/TODO.mkd --cmd "set autoread | set updatetime=1000 | set spell | au CursorHold * :checktime"'
+tmux split-window -v -p 40 -t ${session}:${windownr} 'calcurse'
+tmux select-pane -U -t ${session}:${windownr}
 
-tmux select-window -t arturasl_tmux:1
-tmux -2 attach-session -t arturasl_tmux
+nextwindownr
+tmux new-window -t ${session}:${windownr} -n 'irssi' 'irssi'
+
+nextwindownr
+tmux new-window -t ${session}:${windownr} -n 'htop' 'htop'
+
+tmux select-window -t ${session}:1
+tmux -2 attach-session -t ${session}
