@@ -37,7 +37,6 @@ export LESS_TERMCAP_ue=$'\e[0m'
 
 # Fix minor erros in path while using cd builtin
 shopt -s cdspell
-export CDPATH=.
 
 # Add completion for some programs
 if [ $IS_MAC != 1 ]; then
@@ -85,4 +84,7 @@ export PATH=~/configs/scripts/aliases:$PATH
 # if we have fish shell use it
 # yes, it can be set as default shell...
 which fish &>/dev/null
-[ "$?" -eq 0 ] && exec fish
+if [ "$?" -eq 0 ]; then
+	export CDPATH=.
+	exec fish
+fi
