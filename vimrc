@@ -764,6 +764,25 @@
 	" VIMRC {{
 		autocmd FileType vim setlocal keywordprg=:help
 	" }}
+	" HTML {{
+		" https://groups.google.com/forum/#!topic/vim_use/-SMIZaur74Y
+		" folding for html
+		autocmd FileType html
+			\ syntax region SynFold
+			\ start="\v\<%(html|body|head|param|link|input|hr|frame|br|base|area|img|meta)@!\z([a-z]+)%(\_s[^>]*[^>/])*\>"
+			\ end="</\z1>"
+			\ transparent fold keepend extend
+			\ containedin=ALLBUT,htmlComment
+			\ | setlocal foldmethod=syntax foldnestmax=1
+
+		" open all folds by default
+		autocmd BufEnter *.html,*.htm silent! %foldopen!
+
+		" do not underline white spaces in links
+		autocmd FileType html
+			\ syntax match htmlLinkWhite '\v\s' contained containedin=htmlLink
+			\ | highlight default link htmlLinkWhite Ignore
+	" }}
 		augroup END
 	endif
 " }}
