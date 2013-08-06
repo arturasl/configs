@@ -171,7 +171,10 @@ for capability in $capabilities; do
 	patternForName=$(echo "$capability" | cut -f "$FIELD_NAME_PATTERN")
 	patternForMime=$(echo "$capability" | cut -f "$FIELD_MIME_PATTERN")
 
-	if [[ ( "$argCheckFile" -eq '1' && "$argFileName" =~ $patternForName ) || ( "$argCheckMime" -eq '1' && "$argFileMime" =~ $patternForMime ) ]]; then
+	if [[
+		( "$argCheckFile" -eq '1' && -n "$patternForName" && "$argFileName" =~ $patternForName )
+		|| ( "$argCheckMime" -eq '1' && -n "$patternForMime" && "$argFileMime" =~ $patternForMime )
+	]]; then
 		execute=$(echo "$capability" | cut -f "$argFieldToExec")
 		priority=$(echo "$capability" | cut -f "$FIELD_PRIORITY")
 
