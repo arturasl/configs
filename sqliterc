@@ -1,0 +1,5 @@
+.headers on
+.nullvalue null
+.mode line
+
+PRAGMA foreign_keys=ON;
