@@ -131,15 +131,26 @@ These are basic configuration files to set up on new machines.
 
 # Additional packages
 
-## jslint
+## from npm
 
 ```bash
     sudo chown -R $USER /usr/local
     npm install -g jslint
+    npm install -g csslint
+    npm install -g uglifycss
+    npm install -g uglifyjs
+    npm install -g jsctags
 ```
 
 ## git submodules
 
 ```bash
+    # for updates: git pull --recurse-submodules
     git submodule update --init --recursive && git submodule update --recursive
+```
+
+## sqlite
+
+```bash
+    ln -s ~/configs/sqliterc ~/.sqliterc
 ```
