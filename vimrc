@@ -58,7 +58,7 @@
 		\ }
 
 		" show tagbar on ->
-		nnoremap <right> <esc>::TagbarToggle<cr>
+		nnoremap <right> <esc>:TagbarToggle<cr>
 	" }}
 	" LUSTYJUGLER{{
 		nnoremap ,b :LustyJuggler<cr>
@@ -157,7 +157,7 @@
 		let g:syntastic_javascript_checkers=['jslint']
 		let g:syntastic_javascript_jslint_conf = "--continue"
 
-		"CSS
+		" CSS
 		let g:syntastic_csslint_options = "--ignore=box-model,adjoining-classes,unique-headings,qualified-headings"
 	" }}
 	" MRU {{
@@ -172,6 +172,7 @@
         let g:delimitMate_expand_space = 1
 		let g:delimitMate_expand_cr = 1
 		let g:delimitMate_matchpairs = "(:),[:],{:}"
+
 		autocmd!
 			autocmd FileType xml,html let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
 		augroup END
@@ -264,7 +265,7 @@
 " GENERAL{{
 	set nocompatible          " use vim defaults
 	filetype plugin indent on " load filetype settings
-	set number                " show line numbers
+	set relativenumber        " show relative line numbers by default
 	set scrolloff=5           " try to show atleast num lines
 	set showmatch             " show matching brackets
 	set cursorline            " show current line
@@ -304,6 +305,17 @@
 
 	let g:tex_flavor='latex'
 	let mapleader='\' " map leader to something I do not use (in case some plugin maps keys without my permission)
+
+	" line numbers
+	if has("autocmd")
+		augroup line_numbers
+		autocmd!
+		autocmd FocusLost * :set number
+		autocmd FocusGained * :set relativenumber
+		autocmd InsertEnter * :set number
+		autocmd InsertLeave * :set relativenumber
+		augroup END
+	endif
 " }}
 " COLORS{{
 	set background=dark           " dark background (must be before syntax on)
