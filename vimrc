@@ -60,8 +60,14 @@
 		" show tagbar on ->
 		nnoremap <right> <esc>:TagbarToggle<cr>
 	" }}
-	" LUSTYJUGLER{{
-		nnoremap ,b :LustyJuggler<cr>
+	" UNITE {{
+		let g:unite_data_directory = expand('~/configs/vim/tmp/unite')
+		let g:unite_split_rule     = 'botright'
+		call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
+		nnoremap ,b :Unite -quick-match buffer<cr>
+		" ! - search from parent directory with .git/.svn/.hg subdirectory
+		nnoremap ,t :Unite -start-insert file_rec/async:!<cr>
 	" }}
 	" NETRW{{
 		let g:netrw_browse_split = 4 " open new buffer in previous window
@@ -84,12 +90,6 @@
 		let OmniCpp_MayCompleteArrow    = 0
 		let OmniCpp_MayCompleteScope    = 0
 		let OmniCpp_LocalSearchDecl     = 0
-	" }}
-	" FUZZY_FINDER{{
-		nnoremap ,tb :FufBuffer<cr>
-		nnoremap ,tf :FufFile<cr>
-		nnoremap ,tq :FufQuickfix<cr>
-		nnoremap ,tt :FufBufferTag<cr>
 	" }}
 	" TCOMMENT{{
 		let g:tcommentMaps = 0
