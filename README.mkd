@@ -60,9 +60,9 @@ These are basic configuration files to set up on new machines.
 ## bash
 
 ```bash
-    ln -s ~/configs/bashrc ~/.bashrc
+    ln -s ~/configs/shells/bashrc ~/.bashrc
     # use bash_profile under mac
-    ln -s ~/configs/bashrc ~/.bash_profile
+    ln -s ~/configs/shells/bashrc ~/.bash_profile
 ```
 
 ## tmux:
@@ -128,7 +128,7 @@ These are basic configuration files to set up on new machines.
 ## fish
 
 ```bash
-    bash -c '( test -d ~/.config/fish/ && ln -s ~/configs/config.fish ~/.config/fish/config.fish ) || echo "could not find fish"'
+    bash -c '( test -d ~/.config/fish/ && ln -s ~/configs/shells/config.fish ~/.config/fish/config.fish ) || echo "could not find fish"'
     fish_update_completions
 ```
 
