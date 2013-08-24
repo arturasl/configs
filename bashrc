@@ -75,7 +75,6 @@ export BROWSER=~/configs/scripts/showme.bash
 
 #### Aliases
 
-alias grep='grep --with-filename --line-number --color=always'
 # this might override existing programs...
 export PATH=~/configs/scripts/aliases:$PATH
 
