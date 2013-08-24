@@ -40,6 +40,9 @@ These are basic configuration files to set up on new machines.
     # use macvim as gvim under mac
     sudo ln -s /usr/local/bin/mvim /usr/bin/gvim
     sudo ln -s /usr/local/bin/mvimdiff /usr/bin/gvimdiff
+
+    # compile vimproc
+    ( cd vim/bundle/vimproc/ && make )
 ```
 
 ## mc
