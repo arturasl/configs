@@ -126,7 +126,7 @@
 	" PROTODEF{{
 		let g:disable_protodef_mapping = 1 " I will define my own mappings
 		let g:protodefprotogetter = '~/configs/vim/bundle/protodef/pullproto.pl'
-        nnoremap ,i i<c-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({})<cr><esc>='[
+		nnoremap ,i i<c-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({})<cr><esc>='[
 	" }}
 	" GUNDO {{
 		nnoremap <down> :GundoToggle<cr>
@@ -169,7 +169,7 @@
 	" }}
 	" DELIMITMATE {{
 		let g:delimitMate_excluded_regions = "String"
-        let g:delimitMate_expand_space = 1
+		let g:delimitMate_expand_space = 1
 		let g:delimitMate_expand_cr = 1
 		let g:delimitMate_matchpairs = "(:),[:],{:}"
 
@@ -191,6 +191,12 @@
 		let g:jedi#pydoc = "K"
 		let g:jedi#show_function_definition = 1
 		let g:jedi#use_tabs_not_buffers = 0
+	" }}
+	" AIRLINE {{
+		set ttimeoutlen=50
+		let g:airline_exclude_preview = 1
+		let g:airline_left_sep = ''
+		let g:airline_right_sep = ''
 	" }}
 " }}
 
