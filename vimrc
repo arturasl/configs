@@ -60,8 +60,14 @@
 		" show tagbar on ->
 		nnoremap <right> <esc>:TagbarToggle<cr>
 	" }}
-	" LUSTYJUGLER{{
-		nnoremap ,b :LustyJuggler<cr>
+	" UNITE {{
+		let g:unite_data_directory = expand('~/configs/vim/tmp/unite')
+		let g:unite_split_rule     = 'botright'
+		call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
+		nnoremap ,b :Unite -quick-match buffer<cr>
+		" ! - search from parent directory with .git/.svn/.hg subdirectory
+		nnoremap ,t :Unite -start-insert file_rec/async:!<cr>
 	" }}
 	" NETRW{{
 		let g:netrw_browse_split = 4 " open new buffer in previous window
@@ -84,12 +90,6 @@
 		let OmniCpp_MayCompleteArrow    = 0
 		let OmniCpp_MayCompleteScope    = 0
 		let OmniCpp_LocalSearchDecl     = 0
-	" }}
-	" FUZZY_FINDER{{
-		nnoremap ,tb :FufBuffer<cr>
-		nnoremap ,tf :FufFile<cr>
-		nnoremap ,tq :FufQuickfix<cr>
-		nnoremap ,tt :FufBufferTag<cr>
 	" }}
 	" TCOMMENT{{
 		let g:tcommentMaps = 0
@@ -126,7 +126,7 @@
 	" PROTODEF{{
 		let g:disable_protodef_mapping = 1 " I will define my own mappings
 		let g:protodefprotogetter = '~/configs/vim/bundle/protodef/pullproto.pl'
-        nnoremap ,i i<c-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({})<cr><esc>='[
+		nnoremap ,i i<c-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({})<cr><esc>='[
 	" }}
 	" GUNDO {{
 		nnoremap <down> :GundoToggle<cr>
@@ -169,7 +169,7 @@
 	" }}
 	" DELIMITMATE {{
 		let g:delimitMate_excluded_regions = "String"
-        let g:delimitMate_expand_space = 1
+		let g:delimitMate_expand_space = 1
 		let g:delimitMate_expand_cr = 1
 		let g:delimitMate_matchpairs = "(:),[:],{:}"
 
@@ -191,6 +191,12 @@
 		let g:jedi#pydoc = "K"
 		let g:jedi#show_function_definition = 1
 		let g:jedi#use_tabs_not_buffers = 0
+	" }}
+	" AIRLINE {{
+		set ttimeoutlen=50
+		let g:airline_exclude_preview = 1
+		let g:airline_left_sep = ''
+		let g:airline_right_sep = ''
 	" }}
 " }}
 
