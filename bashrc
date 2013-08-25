@@ -60,7 +60,19 @@ cd
 #### Strings
 
 # Print before each cmd
-PS1="\$ "
+COLOR_OFF="\e[00m"
+RED="\e[0;31m"
+
+promptCommand() {
+	EXIT_STATUS="$?"
+	PS1=''
+
+	[ "$EXIT_STATUS" -ne 0 ] && PS1+="\[${RED}\]"
+	PS1+="\$\[${COLOR_OFF}\]"
+	PS1+=' '
+}
+
+PROMPT_COMMAND=promptCommand
 # Print before each multiline cmd
 PS2=" └> "
 
