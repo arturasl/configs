@@ -122,7 +122,15 @@ These are basic configuration files to set up on new machines.
     git config --global alias.lg "log --graph --pretty=format:'%C(cyan)%h%C(bold magenta)%d%Creset %s %C(green)(%cr) %C(bold blue) %an%Creset'"
 
     git config --global core.excludesfile ~/.gitignore
-    echo .DS_Store >> ~/.gitignore
+    ln -s ~/configs/ignores ~/.gitignore
+```
+
+## svn
+
+```bash
+    tmp="$(mktemp)"
+    awk -- "/^global-ignores/{print \"$(echo -n 'global-ignores = ' && sed -e '/^#\|^$/d' ~/configs/ignores | tr '\n' ' '' ')\"; next} {print}" ~/.subversion/config > "$tmp"
+    cat "$tmp" > ~/.subversion/config
 ```
 
 ## fish
