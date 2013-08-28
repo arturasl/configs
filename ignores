@@ -1,0 +1,18 @@
+# version control
+.git/
+.svn/
+
+# java
+*.class
+*.war
+*.jar
+
+# C
+*.o
+*.exe
+
+# editors/ide
+*.swp
+
+# mac stuff
+.DS_Store
