@@ -456,6 +456,22 @@
 
 " LANG_SPECIFIC{{
 	if has("autocmd")
+
+		function! SetMakePRGToMake()
+			let l:makeFile = findfile('makefile', '.;')
+			if getftype(l:makeFile) !=? 'file'
+				let l:makeFile = findfile('Makefile', '.;')
+			endif
+
+			if getftype(l:makeFile) ==? 'file'
+				let l:makeDir = fnamemodify(l:makeFile, ':p:h')
+				execute 'setlocal makeprg=make\ -C\ ' . l:makeDir . '\ $*'
+				return 1
+			endif
+
+			return 0
+		endfunction
+
 		augroup language_specific
 		autocmd!
 	" JAVA{{
@@ -471,13 +487,10 @@
 		autocmd FileType java nnoremap <buffer> <f2> :call Preserve('%!astyle -s4 -c -a -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Java"<cr>
 
 		function! SetMakeForJava()
-			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
-				setlocal makeprg=make\ $*
-				setlocal errorformat=%A%f:%l:\ %m,%+Z%p^,%+C%.%#,%-G%.%#
-			else
+			if !SetMakePRGToMake()
 				setlocal makeprg=javac\ %
-				setlocal errorformat=%A%f:%l:\ %m,%+Z%p^,%+C%.%#,%-G%.%#
 			endif
+			setlocal errorformat=%A%f:%l:\ %m,%+Z%p^,%+C%.%#,%-G%.%#
 		endfunction
 
 		autocmd FileType java call SetMakeForJava()
@@ -493,8 +506,8 @@
 		autocmd FileType c,cpp nnoremap <buffer> <f2> :call Preserve('%!astyle -T4 -a -C -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Cpp"<cr>
 
 		function! SetMakeForCpp()
-			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
-				setlocal makeprg=make\ $*
+			if SetMakePRGToMake()
+				" do nothing
 			elseif &ft ==? 'c'
 				setlocal makeprg=gcc\ -g\ -Wall\ -pedantic\ -std=c99\ -Wno-long-long\ $*\ %\ -o\ %:r
 			elseif &ft ==? 'cpp'
@@ -514,9 +527,7 @@
 	" }}
 	" DOT{{
 		function! SetMakeForDot()
-			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
-				setlocal makeprg=make\ $*
-			else
+			if !SetMakePRGToMake()
 				setlocal makeprg=dot\ %\ -Tpng\ -O
 			endif
 		endfunction
@@ -525,17 +536,15 @@
 	" }}
 	" TEX{{
 		function! SetMakeForTex()
-			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
-				setlocal makeprg=make\ $*
-			else
+			if !SetMakePRGToMake()
 				autocmd QuickFixCmdPost make
 										\ if &ft ==? 'tex'|
 											\ execute 'silent !~/configs/scripts/showme.bash --silent-detached %:r.pdf &>/dev/null &'|
 										\ endif
 
 				setlocal makeprg=pdflatex\ -shell-escape\ -file-line-error\ -interaction=nonstopmode\ %
-				setlocal errorformat=%f:%l:\ %m
 			endif
+			setlocal errorformat=%f:%l:\ %m
 		endfunction
 
 		autocmd FileType tex
@@ -595,9 +604,7 @@
 		autocmd FileType python setlocal foldmethod=expr foldexpr=GetPythonFoldLvl(v:lnum) foldnestmax=1
 
 		function! SetMakeForPython()
-			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
-				setlocal makeprg=make\ $*
-			else
+			if !SetMakePRGToMake()
 				setlocal makeprg=pylint\ --output-format=parseable\ --reports=n\ %
 				setlocal errorformat=%f:%l:\ [%t]%m,%f:%l:%m
 			endif
@@ -614,9 +621,7 @@
 	" }}
 	" M4{{
 		function! SetMakeForM4()
-			if getftype('makefile') ==? 'file' || getftype('Makefile') ==? 'file'
-				setlocal makeprg=make\ $*
-			else
+			if !SetMakePRGToMake()
 				setlocal makeprg=m4\ -P\ $*\ %\ >\ %:r
 			endif
 		endfunction
