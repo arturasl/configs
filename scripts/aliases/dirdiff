@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# use directories from global excludes
+excludes="$(awk -- "/^#|^$/{next}/\/$/{printf \"-x=%s \", substr(\$0, 0, length(\$0) - 1)}" ~/configs/ignores)"
+
+diff -r -q "$1" "$2" $excludes \
+	| sed -e 's/^Only in \(.*\): \(.*\)/Only in \1: \1\/\2/g'
