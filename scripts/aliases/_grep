@@ -4,8 +4,8 @@ CLEAR="$(printf '\e[0m')"
 GREEN="$(printf '\e[1;32m')"
 PURPLE="$(printf '\e[0;35m')"
 
-excludes="$(awk -- "/^#|^$/{next}/\/$/{printf \"--exclude-dir=%s \", \$0;next}{printf \"--exclude=%s \", \$0}" ~/configs/ignores)"
+excludes="$(awk -- "/^#|^$/{next}/\/$/{printf \"--exclude-dir=%s \", substr(\$0, 0, length(\$0) - 1);next}{printf \"--exclude=%s \", \$0}" ~/configs/ignores)"
 
-grep --with-filename --line-number --color=always $excludes "$@" \
+grep --with-filename --line-number --color=always --ignore-case -I $excludes "$@" \
 	| sed -e 's/^(standard input):[[:digit:]]*://g' \
 	| sed -e 's/^\([^[:space:]]*\):\([[:digit:]]*\):/'"$GREEN"'\1'"$CLEAR"':'"$PURPLE"'\2'"$CLEAR"': /g' # filename is not colored on all platforms
