@@ -19,6 +19,7 @@
 # editors/ide
 *.swp
 .idea/
+*.xcuserdatad/
 
 # mac stuff
 .DS_Store
