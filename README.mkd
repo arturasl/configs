@@ -128,9 +128,10 @@ These are basic configuration files to set up on new machines.
 ## svn
 
 ```bash
-    tmp="$(mktemp)"
-    awk -- "/^global-ignores/{print \"$(echo -n 'global-ignores = ' && sed -e '/^#\|^$/d' ~/configs/ignores | tr '\n' ' '' ')\"; next} {print}" ~/.subversion/config > "$tmp"
-    cat "$tmp" > ~/.subversion/config
+    # set up global ignores
+    tmp="$(mktemp -t tmp.XXXXXXXXX)"
+    awk -- "/^global-ignores/{print \"$(echo -n 'global-ignores = ' && sed -E -e '/^#|^$/d' ~/configs/ignores | tr '\n' ' '' ')\"; next} {print}" ~/.subversion/config > "$tmp"
+    mv "$tmp" ~/.subversion/config
 ```
 
 ## fish
