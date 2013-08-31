@@ -130,7 +130,7 @@ These are basic configuration files to set up on new machines.
 ```bash
     # set up global ignores
     tmp="$(mktemp -t tmp.XXXXXXXXX)"
-    awk -- "/^global-ignores/{print \"$(echo -n 'global-ignores = ' && sed -E -e '/^#|^$/d' ~/configs/ignores | tr '\n' ' '' ')\"; next} {print}" ~/.subversion/config > "$tmp"
+    awk -- "/^global-ignores/{print \"global-ignores = $(sed -e 's/\/$//g' ~/configs/ignores | sed -E -e '/^#|^$/d' | tr '\n' ' '' ')\"; next} {print}" ~/.subversion/config > "$tmp"
     mv "$tmp" ~/.subversion/config
 ```
 
