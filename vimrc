@@ -898,11 +898,11 @@
 
 " ADDITIONAL_SETTING {{
 	function! LoadAdditionalSetting()
-		let l:configFile = findfile('vim_additional.vim', '.;') " search upwards
-		if l:configFile != ''
-			echo 'Using configuration file:' . l:configFile
-			sleep 1
-			exec 'source ' . l:configFile
+		let l:configFile = FindRoot([
+			\ {'name' : 'local.vim'}
+		\ ])
+		if !empty(l:configFile)
+			execute 'source ' . l:configFile
 		endif
 	endfunction
 	autocmd! bufreadpre,bufnewfile * :call LoadAdditionalSetting()
