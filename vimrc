@@ -138,8 +138,14 @@
 		call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 		nnoremap ,b :Unite -quick-match buffer<cr>
-		" ! - search from parent directory with .git/.svn/.hg subdirectory
-		nnoremap ,t :Unite -start-insert file_rec/async:!<cr>
+
+		" while it is possible to use ! to indicate 'projects root' use internal
+		" function as it might be used in other plases
+		nnoremap ,t :execute ':Unite -start-insert file_rec/async:' . FindProjectsRoot()<cr>
+
+		call unite#util#set_default('g:unite_source_grep_command', 'g')
+		call unite#util#set_default('g:unite_source_grep_default_opts', '--color=never')
+		nnoremap ,g :execute ':Unite -no-split -auto-preview grep:' . FindProjectsRoot()<cr>
 	" }}
 	" NETRW{{
 		let g:netrw_browse_split = 4 " open new buffer in previous window
