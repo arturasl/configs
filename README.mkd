@@ -151,7 +151,6 @@ These are basic configuration files to set up on new machines.
     npm install -g csslint
     npm install -g uglifycss
     npm install -g uglifyjs
-    npm install -g jsctags
 ```
 
 ## git submodules
