@@ -140,6 +140,11 @@ These are basic configuration files to set up on new machines.
     bash -c '( test -d ~/.config/fish/ && ln -s ~/configs/shells/config.fish ~/.config/fish/config.fish ) || echo "could not find fish"'
     fish_update_completions
 ```
+## vimperator
+
+```bash
+    ln -s ~/configs/vimperatorrc ~/.vimperatorrc
+```
 
 # Additional packages
 
