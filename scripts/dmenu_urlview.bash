@@ -86,7 +86,7 @@ numberOfAvailableUrls="$(echo "$availableUrls" | awk '/./{l+=1}END{print l+0}')"
 
 # open selection menu
 if [ -x /Applications/CocoaDialog.app/Contents/MacOS/CocoaDialog ]; then
-	availableUrls="$(echo 'quit' && echo "$availableUrls")"
+	availableUrls="$(echo "$availableUrls" && echo 'quit')"
 	/Applications/CocoaDialog.app/Contents/MacOS/CocoaDialog dropdown --items $(echo "$availableUrls" | tr "\n" ' ') --button1 ">" --float --exit-onchange >"$tmpFile" &
 	pidCocoaDialog="$!"
 	osascript <<EOF
