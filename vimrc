@@ -94,10 +94,16 @@
 	endfunction
 
 	function! FindProjectsRoot()
-		return FindRoot([
+		let l:projectsDirecoty = FindRoot([
 			\ {'name': '.git', 'isDir': 1}
 			\ , {'name': '.svn', 'isDir': 1, 'findLast': 1}
 		\ ], 1)
+
+		if empty(l:projectsDirecoty)
+			return './'
+		else
+			return l:projectsDirecoty
+		endif
 	endfunction
 " }}
 
