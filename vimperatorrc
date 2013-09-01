@@ -1,0 +1,12 @@
+" vim: ft=vim
+
+" faster movement
+nnoremap j 5j
+nnoremap k 5k
+
+" copying should be more similar to tmux
+nnoremap v cv
+vnoremap y y<esc><esc>
+
+" search engine
+set defsearch=duckduckgo
