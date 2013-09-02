@@ -1,0 +1,13 @@
+#!/bin/bash
+
+excludes="$(awk -- "/^#|^$/{next}/\/$/{printf \"%s-name %s\", (f?\" -o \":\"\"), substr(\$0, 0, length(\$0) - 1);f=1}" ~/configs/ignores)"
+
+action='-print'
+for arg in "$@"; do
+	if [[ "$arg" = -print* || "$arg" = '-exec' ]]; then
+		action='-true'
+		break
+	fi
+done
+
+find . '(' -type d '(' $excludes ')' -prune ')' -o '(' '(' -true "$@" ')' $action ')' | cut -c3- | sed -e '/^$/d'
