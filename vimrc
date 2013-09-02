@@ -33,6 +33,78 @@
 			return bufnr('%')
 		endif
 	endfunction
+
+	" Searches for given items in parent directories
+	" @param withOneOfItems arrays of items to search for items are objects what
+	"        must contain `name` key (indicating item to search for), and may have
+	"        on of the following keys:
+	"        `isDir` - indicates that item is a directory not regular file
+	"        `findLast` - indicates that this function should not stop searching
+	"        and try to find additional item in parent directory
+	" @param giveDirectory (=0) if this parameter is set this function will return
+	"        directory in which item lies not the item itself
+	" @param startFromDirectory (='.') indicates from which directory begin
+	"        searching
+	function! FindRoot(withOneOfItems, ...)
+		let l:giveDirectory = 0
+		let l:startFromDirectory = '.'
+		if a:0 > 0 | let l:giveDirectory = a:1 | endif
+		if a:0 > 1 | let l:startFromDirectory = a:2 | endif
+
+		for l:item in a:withOneOfItems
+			let l:found = ''
+			if has_key(l:item, 'isDir') && l:item.isDir
+				let l:found = finddir(l:item.name, l:startFromDirectory . ';')
+			else
+				let l:found = findfile(l:item.name, l:startFromDirectory . ';')
+			endif
+
+			if empty(l:found)
+				continue
+			endif
+
+			let l:found = fnamemodify(l:found, ':p')
+
+			if has_key(l:item, 'isDir') && l:item.isDir
+				" :h will remove trailing slash from directory name and
+				" additional :h will give actual parent directory without
+				" slash.
+				let l:foundInDir = fnamemodify(l:found, ':h:h')
+			else
+				let l:foundInDir = fnamemodify(l:found, ':h')
+			endif
+			" always add a trailing slash for directories
+			let l:foundInDir = fnamemodify(l:foundInDir . '/', ':p')
+
+			if has_key(l:item, 'findLast') && l:item.findLast
+				let l:foundRecursively = FindRoot(a:withOneOfItems, l:giveDirectory, fnamemodify(l:foundInDir, ':h:h'))
+				if !empty(l:foundRecursively)
+					return l:foundRecursively
+				endif
+			endif
+
+			if l:giveDirectory
+				return l:foundInDir
+			else
+				return l:found
+			endif
+		endfor
+
+		return ''
+	endfunction
+
+	function! FindProjectsRoot()
+		let l:projectsDirecoty = FindRoot([
+			\ {'name': '.git', 'isDir': 1}
+			\ , {'name': '.svn', 'isDir': 1, 'findLast': 1}
+		\ ], 1)
+
+		if empty(l:projectsDirecoty)
+			return './'
+		else
+			return l:projectsDirecoty
+		endif
+	endfunction
 " }}
 
 " PLUGINS{{
@@ -66,8 +138,14 @@
 		call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
 		nnoremap ,b :Unite -quick-match buffer<cr>
-		" ! - search from parent directory with .git/.svn/.hg subdirectory
-		nnoremap ,t :Unite -start-insert file_rec/async:!<cr>
+
+		" while it is possible to use ! to indicate 'projects root' use internal
+		" function as it might be used in other plases
+		nnoremap ,t :execute ':Unite -start-insert file_rec/async:' . FindProjectsRoot()<cr>
+
+		call unite#util#set_default('g:unite_source_grep_command', 'g')
+		call unite#util#set_default('g:unite_source_grep_default_opts', '--color=never')
+		nnoremap ,g :execute ':Unite -no-split -auto-preview grep:' . FindProjectsRoot()<cr>
 	" }}
 	" NETRW{{
 		let g:netrw_browse_split = 4 " open new buffer in previous window
@@ -458,14 +536,13 @@
 	if has("autocmd")
 
 		function! SetMakePRGToMake()
-			let l:makeFile = findfile('makefile', '.;')
-			if getftype(l:makeFile) !=? 'file'
-				let l:makeFile = findfile('Makefile', '.;')
-			endif
+			let l:directoryWithMakeFile = FindRoot([
+				\ {'name': 'makefile'}
+				\, {'name': 'Makefile'}
+			\ ], 1)
 
-			if getftype(l:makeFile) ==? 'file'
-				let l:makeDir = fnamemodify(l:makeFile, ':p:h')
-				execute 'setlocal makeprg=make\ -C\ ' . l:makeDir . '\ $*'
+			if !empty(l:directoryWithMakeFile)
+				execute 'setlocal makeprg=make\ -C\ ' . l:directoryWithMakeFile . '\ $*'
 				return 1
 			endif
 
@@ -821,11 +898,11 @@
 
 " ADDITIONAL_SETTING {{
 	function! LoadAdditionalSetting()
-		let l:configFile = findfile('vim_additional.vim', '.;') " search upwards
-		if l:configFile != ''
-			echo 'Using configuration file:' . l:configFile
-			sleep 1
-			exec 'source ' . l:configFile
+		let l:configFile = FindRoot([
+			\ {'name' : 'local.vim'}
+		\ ])
+		if !empty(l:configFile)
+			execute 'source ' . l:configFile
 		endif
 	endfunction
 	autocmd! bufreadpre,bufnewfile * :call LoadAdditionalSetting()

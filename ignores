@@ -1,3 +1,7 @@
+# try not to use special symbols (just alphanumeric dot and dash are truly supported)
+# directory entries must end with `/`
+# `*` - matches anything
+
 # version control
 .git/
 .svn/
@@ -10,9 +14,12 @@
 # C
 *.o
 *.exe
+*.pch
 
 # editors/ide
 *.swp
+.idea/
+*.xcuserdatad/
 
 # mac stuff
 .DS_Store

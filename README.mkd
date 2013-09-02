@@ -128,9 +128,10 @@ These are basic configuration files to set up on new machines.
 ## svn
 
 ```bash
-    tmp="$(mktemp)"
-    awk -- "/^global-ignores/{print \"$(echo -n 'global-ignores = ' && sed -e '/^#\|^$/d' ~/configs/ignores | tr '\n' ' '' ')\"; next} {print}" ~/.subversion/config > "$tmp"
-    cat "$tmp" > ~/.subversion/config
+    # set up global ignores
+    tmp="$(mktemp -t tmp.XXXXXXXXX)"
+    awk -- "/^global-ignores/{print \"global-ignores = $(sed -e 's/\/$//g' ~/configs/ignores | sed -E -e '/^#|^$/d' | tr '\n' ' '' ')\"; next} {print}" ~/.subversion/config > "$tmp"
+    mv "$tmp" ~/.subversion/config
 ```
 
 ## fish
@@ -138,6 +139,11 @@ These are basic configuration files to set up on new machines.
 ```bash
     bash -c '( test -d ~/.config/fish/ && ln -s ~/configs/shells/config.fish ~/.config/fish/config.fish ) || echo "could not find fish"'
     fish_update_completions
+```
+## vimperator
+
+```bash
+    ln -s ~/configs/vimperatorrc ~/.vimperatorrc
 ```
 
 # Additional packages
@@ -150,7 +156,6 @@ These are basic configuration files to set up on new machines.
     npm install -g csslint
     npm install -g uglifycss
     npm install -g uglifyjs
-    npm install -g jsctags
 ```
 
 ## git submodules
