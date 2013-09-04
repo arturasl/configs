@@ -112,6 +112,9 @@
 		runtime bundle/vim-pathogen/autoload/pathogen.vim
 		execute pathogen#infect()
 	" }}
+	" RAINBOW PARENTHESIS{{
+
+	" }}
 	" TAGBAR{{
 		let g:tagbar_compact = 1            " Do not show header and empty lines
 		let g:tagbar_singleclick = 1        " Use single mouse click to go to tag definition
@@ -891,6 +894,9 @@
 		autocmd FileType html
 			\ syntax match htmlLinkWhite '\v\s' contained containedin=htmlLink
 			\ | highlight default link htmlLinkWhite Ignore
+	" }}
+	" LISP {{
+		autocmd FileType lisp :RainbowParenthesesToggle
 	" }}
 		augroup END
 	endif
