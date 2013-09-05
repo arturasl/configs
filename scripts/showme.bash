@@ -38,7 +38,7 @@ read -r -d '' capabilities <<EOF
 \.mp[3-4]$|\.flv|\.mov|\.ogv	video/.+|audio/.+	mplayer	file	50
 \.pdf|\.eps|\.ps	application/pdf	capPDFViewer	pdftotext FILENAME -	50
 \.jpe?g$|\.png$|\.gif$	image/.+	feh --draw-actions	cacaview	50
-\.docx?|\.odt	application/vnd.openxml.*	capWordViewer		50
+\.docx?|\.odt|\.xlsx?	application/(vnd.openxml.*|excel)	capWordViewer		50
 \.zip$	application/zip		unzip -l	50
 \.rar$		unrar l	unrar l	50
 \.tar$	application/x-tar	tar -tvf	tar -tvf	50
