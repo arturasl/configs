@@ -147,6 +147,22 @@
 		call unite#util#set_default('g:unite_source_grep_default_opts', '--color=never')
 		nnoremap ,g :execute ':Unite -no-split -auto-preview grep:' . FindProjectsRoot()<cr>
 	" }}
+	" SLIME {{
+		let g:slime_target = "tmux"
+		let g:slime_no_mappings  = 1
+		let g:slime_paste_file = expand('~/configs/vim/tmp/slime')
+
+		" execute paragrap
+		nmap ,ep <Plug>SlimeParagraphSend
+		" " execute line
+		nmap ,el <plug>SlimeLineSend
+		" " execute custom prompt
+		" use execute in order to ignore white space errors
+		execute('nnoremap ,ee :SlimeSend1 ')
+
+		" " connect
+		nnoremap ,ec :SlimeConfig<cr>
+	" }}
 	" NETRW{{
 		let g:netrw_browse_split = 4 " open new buffer in previous window
 		let g:netrw_liststyle = 3    " by default use tree view
