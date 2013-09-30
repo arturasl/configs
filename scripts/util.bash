@@ -1,5 +1,5 @@
 utilDebugPrint() {
-	[ "$argDEBUG" -eq '1' ] && echo -e "[$(date)] $1"
+	[ "$argDEBUG" -eq '1' ] && echo -e "[$(date '+%Y-%m-%d %H:%M:%S %z')] $1"
 }
 
 utilDebugShowArguments() {
