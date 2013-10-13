@@ -63,7 +63,7 @@ compressPNG () {
 
 	if [ "$(utilGetFileSize "$in")" -gt "$argInterlaceTreshold" ]; then
 		# if interlacing is applicable then replace $in with interlaced image
-		tmp=$(mktemp) && convert "$in" -interlace PNG "$tmp" && in="$tmp"
+		tmp="$(utilCreateTmpFile)" && convert "$in" -interlace PNG "$tmp" && in="$tmp"
 	fi
 
 	rm "$out" && optipng -quiet -o7 -out "$out" "$in"
@@ -71,7 +71,7 @@ compressPNG () {
 }
 
 compressFile () {
-	out="$(mktemp)"
+	out="$(utilCreateTmpFile)"
 
 	case "$1" in
 		*.png)
