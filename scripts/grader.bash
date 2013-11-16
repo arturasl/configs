@@ -25,16 +25,11 @@
 # FOR MAC USERS:
 #  * install gnu-time: brew install gnu-time
 
-TESTS_FILE='tests.in'
-TESTS_DIRECTORY='tests'
-TESTS_TO_MAKE='*' # possible values '*', '{2,3,8}', 3 (will be used in bash expansion)
-TMP_DIR='/tmp'
-EXECUTABLE=''
-CWD='.'
-TLE='10'
-MLE='1024'
-TIMEEXECUTABLE='time'
-which gtime &>/dev/null && TIMEEXECUTABLE='gtime'
+
+onExit () {
+	[ -n "$TMP_DIR" ] && rm -rf "$TMP_DIR"
+}
+trap onExit EXIT
 
 # COLORS
 COLOR_TEXTGREEN=$'\e[0;32m'
@@ -42,7 +37,20 @@ COLOR_TEXTRESET=$'\e[0m'
 COLOR_TEXTRED=$'\e[0;31m'
 COLOR_TEXTBLUE=$'\e[0;34m'
 
-# read arguments
+# CONSTANTS
+TIME_EXECUTABLE='time'
+which gtime &>/dev/null && TIME_EXECUTABLE='gtime'
+TMP_DIR="/tmp/${0}" && mkdir -p "$TMP_DIR"
+
+# ARGUMENTS
+argTestsFile='tests.in'
+argTestsDirectory='tests'
+argTestsToRun='*' # possible values '*', '{2,3,8}', 3 (will be used in bash expansion)
+argExecutable=''
+argCWD='.'
+argTLE='10'
+argMLE='1024'
+
 while [ "$#" -ne '0' ]; do
 	case "$1" in
 		--help)
@@ -77,22 +85,22 @@ EOF
 			exit 0
 			;;
 		--executable)
-			EXECUTABLE="$2" && shift 2
+			argExecutable="$2" && shift 2
 			;;
 		--tests-file)
-			TESTS_FILE="$2" && shift 2
+			argTestsFile="$2" && shift 2
 			;;
 		--tests-directory)
-			TESTS_DIRECTORY="$2" && shift 2
+			argTestsDirectory="$2" && shift 2
 			;;
 		--tests-to-run)
-			TESTS_TO_MAKE="$2" && shift 2
+			argTestsToRun="$2" && shift 2
 			;;
 		--cwd)
-			CWD="$2" && shift 2
+			argCWD="$2" && shift 2
 			;;
 		--tle)
-			TLE="${2}" && shift 2
+			argTLE="${2}" && shift 2
 			;;
 		*)
 			echo "Unknown parameter $1" 1>&2
@@ -101,18 +109,18 @@ EOF
 	esac
 done
 
-cd "$CWD"
+cd "$argCWD"
 
 # expand tests.in file to tests directory
-if [ -f "$TESTS_FILE" ]; then
+if [ -f "$argTestsFile" ]; then
 	echo "${COLOR_TEXTBLUE}# Recreating tests directory${COLOR_TEXTRESET}"
 	# recreate tests directory
-	mkdir -p "$TESTS_DIRECTORY"
-	rm -rf "${TESTS_DIRECTORY}/"*.{sol,in}
+	mkdir -p "$argTestsDirectory"
+	rm -rf "${argTestsDirectory}/"*.{sol,in}
 	awk -- '
 	function output() {
-		if (inContents) print inContents > "'"$TESTS_DIRECTORY"'/"test".in"
-		if (solContents) print solContents > "'"$TESTS_DIRECTORY"'/"test".sol"
+		if (inContents) print inContents > "'"$argTestsDirectory"'/"test".in"
+		if (solContents) print solContents > "'"$argTestsDirectory"'/"test".sol"
 		inContents = solContents = ""
 	}
 	{
@@ -124,41 +132,41 @@ if [ -f "$TESTS_FILE" ]; then
 	inBlock { inContents = inContents$0 }
 	solBlock { solContents = solContents$0 }
 	END { output() }
-' "$TESTS_FILE"
+' "$argTestsFile"
 fi
 
 # find executable
-[ -z "$EXECUTABLE" ] && EXECUTABLE="$(find . -perm +0111 -type f | head -n 1)"
-echo "${COLOR_TEXTBLUE}# Running ${EXECUTABLE}${COLOR_TEXTRESET}"
-[ ! -x "$EXECUTABLE" ] && echo "${COLOR_TEXTRED}\"$EXECUTABLE\" is not an executable file${COLOR_TEXTRESET}" 1>&2 && exit 1
+[ -z "$argExecutable" ] && argExecutable="$(find . -perm +0111 -type f | head -n 1)"
+echo "${COLOR_TEXTBLUE}# Running ${argExecutable}${COLOR_TEXTRESET}"
+[ ! -x "$argExecutable" ] && echo "${COLOR_TEXTRED}\"$argExecutable\" is not an executable file${COLOR_TEXTRESET}" 1>&2 && exit 1
 
 # go through needed tests
 outputFp="${TMP_DIR}/$(basename "$0").out"
 outputTimeFp="${TMP_DIR}/$(basename "$0").time"
-TLEWithEpsilon=$(echo "$TLE" | awk '{printf("%d\n",$1 + 1.5)}')
-for testFp in "${TESTS_DIRECTORY}/"$TESTS_TO_MAKE'.in'; do
+TLEWithEpsilon=$(echo "$argTLE" | awk '{printf("%d\n",$1 + 1.5)}')
+for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 	[ ! -f "$testFp" ] && echo "${COLOR_TEXTRED}Could not find test files${COLOR_TEXTRESET}" 1>&2 && exit 1
 
 	testFpBaseName="$(basename "$testFp")"
 	testFpBaseName="${testFpBaseName::$((${#testFpBaseName} - 3))}"
 
-	"$TIMEEXECUTABLE" "--format=%e %K" "--output=${outputTimeFp}" perl -e 'alarm shift; exec @ARGV' "$TLEWithEpsilon" "$EXECUTABLE" < "$testFp" > "$outputFp"
+	"$TIME_EXECUTABLE" "--format=%e %K" "--output=${outputTimeFp}" perl -e 'alarm shift; exec @ARGV' "$TLEWithEpsilon" "$argExecutable" < "$testFp" > "$outputFp"
 
 	runningTime=$(tail -n 1 "$outputTimeFp" | cut -d' ' -f1)
 	runningMemory=$(tail -n 1 "$outputTimeFp" | cut -d' ' -f2)
 
 	echo -n "Testing ${testFpBaseName}: "
-	if diff --ignore-blank-lines --ignore-all-space "${TESTS_DIRECTORY}/${testFpBaseName}.sol" "$outputFp" &>/dev/null; then
+	if diff --ignore-blank-lines --ignore-all-space "${argTestsDirectory}/${testFpBaseName}.sol" "$outputFp" &>/dev/null; then
 		echo -n "${COLOR_TEXTGREEN}OK${COLOR_TEXTRESET}"
 	else
 		echo -n "${COLOR_TEXTRED}FAIL${COLOR_TEXTRESET}"
 	fi
 
 	echo -n " ellapsed: "
-	[ "$(echo "${runningTime} > ${TLE}" | bc -l)" -eq "1" ] && echo -n "$COLOR_TEXTRED"
+	[ "$(echo "${runningTime} > ${argTLE}" | bc -l)" -eq "1" ] && echo -n "$COLOR_TEXTRED"
 	echo -n "${runningTime}s${COLOR_TEXTRESET}"
 
-	[ "$(echo "${runningMemory} > ${MLE}" | bc -l)" -eq "1" ] && echo -n "$COLOR_TEXTRED"
+	[ "$(echo "${runningMemory} > ${argMLE}" | bc -l)" -eq "1" ] && echo -n "$COLOR_TEXTRED"
 	echo -n " ${runningMemory}KB${COLOR_TEXTRESET}"
 	echo ''
 done
