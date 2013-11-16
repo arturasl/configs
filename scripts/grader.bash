@@ -2,7 +2,7 @@
 
 # The MIT License (MIT)
 #
-# Copyright (c) 2013 ArtÅ«ras Lapinskas
+# Copyright (c) 2013 Artūras Lapinskas
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,7 @@ argExecutable=''
 argCWD='.'
 argTLE='10'
 argMLE='1024'
+argShowIOOnError=0
 
 while [ "$#" -ne '0' ]; do
 	case "$1" in
@@ -81,6 +82,10 @@ cat <<EOF
 \`--mle\` *kilobytes* default \`1024.0\`
 :	sets maximum number of memory application is allowed to use
 	in kylobytes
+
+\`--show-io-on-error\` *0 or 1* default \`0\`
+:	indicates whatever it is needed to show input/output information
+	if error occured
 EOF
 			exit 0
 			;;
@@ -101,6 +106,9 @@ EOF
 			;;
 		--tle)
 			argTLE="${2}" && shift 2
+			;;
+		--show-io-on-error)
+			argShowIOOnError="${2}" && shift 2
 			;;
 		*)
 			echo "Unknown parameter $1" 1>&2
@@ -144,23 +152,30 @@ echo "${COLOR_TEXTBLUE}# Running ${argExecutable}${COLOR_TEXTRESET}"
 outputFp="${TMP_DIR}/$(basename "$0").out"
 outputTimeFp="${TMP_DIR}/$(basename "$0").time"
 TLEWithEpsilon=$(echo "$argTLE" | awk '{printf("%d\n",$1 + 1.5)}')
+totalFailures=0
 for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 	[ ! -f "$testFp" ] && echo "${COLOR_TEXTRED}Could not find test files${COLOR_TEXTRESET}" 1>&2 && exit 1
 
 	testFpBaseName="$(basename "$testFp")"
 	testFpBaseName="${testFpBaseName::$((${#testFpBaseName} - 3))}"
+	solutionFp="${argTestsDirectory}/${testFpBaseName}.sol"
 
 	"$TIME_EXECUTABLE" "--format=%e %K" "--output=${outputTimeFp}" perl -e 'alarm shift; exec @ARGV' "$TLEWithEpsilon" "$argExecutable" < "$testFp" > "$outputFp"
 
-	runningTime=$(tail -n 1 "$outputTimeFp" | cut -d' ' -f1)
-	runningMemory=$(tail -n 1 "$outputTimeFp" | cut -d' ' -f2)
+	wrongOutput=0
 
 	echo -n "Testing ${testFpBaseName}: "
-	if diff --ignore-blank-lines --ignore-all-space "${argTestsDirectory}/${testFpBaseName}.sol" "$outputFp" &>/dev/null; then
+	if diff --ignore-blank-lines --ignore-all-space "$solutionFp" "$outputFp" &>/dev/null; then
 		echo -n "${COLOR_TEXTGREEN}OK${COLOR_TEXTRESET}"
 	else
 		echo -n "${COLOR_TEXTRED}FAIL${COLOR_TEXTRESET}"
+		wrongOutput=1
+		totalFailures=$((totalFailures + 1))
 	fi
+
+	# get time and memory usage
+	runningTime=$(tail -n 1 "$outputTimeFp" | cut -d' ' -f1)
+	runningMemory=$(tail -n 1 "$outputTimeFp" | cut -d' ' -f2)
 
 	echo -n " ellapsed: "
 	[ "$(echo "${runningTime} > ${argTLE}" | bc -l)" -eq "1" ] && echo -n "$COLOR_TEXTRED"
@@ -168,5 +183,18 @@ for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 
 	[ "$(echo "${runningMemory} > ${argMLE}" | bc -l)" -eq "1" ] && echo -n "$COLOR_TEXTRED"
 	echo -n " ${runningMemory}KB${COLOR_TEXTRESET}"
+
+	# finished running this program
 	echo ''
+
+	if [ "$wrongOutput" -eq 1 -a "$argShowIOOnError" -eq 1 ]; then
+		echo "${COLOR_TEXTBLUE}Input file${COLOR_TEXTRESET}"
+		cat "$testFp"
+		echo "${COLOR_TEXTBLUE}Programs output${COLOR_TEXTRESET}"
+		cat "$outputFp"
+		echo "${COLOR_TEXTBLUE}Correct output${COLOR_TEXTRESET}"
+		cat "$solutionFp"
+	fi
 done
+
+[ "$totalFailures" -ne 0 ] && echo "${COLOR_TEXTRED}Total failures: ${totalFailures}${COLOR_TEXTRED}"
