@@ -51,6 +51,8 @@ argCWD='.'
 argTLE='10'
 argMLE='1024'
 argShowIOOnError=0
+argOutputFile=''
+argInputFile=''
 
 while [ "$#" -ne '0' ]; do
 	case "$1" in
@@ -86,6 +88,14 @@ cat <<EOF
 \`--show-io-on-error\` *0 or 1* default \`0\`
 :	indicates whatever it is needed to show input/output information
 	if error occured
+
+\`--output-file\` *name of file* default \`\`
+:	indicates file to which program will put its results. Empty string
+	is used as an alias for standart output
+
+\`--input-file\` *name of file* default \`\`
+:	indicates file from which program will read its data. Empty string
+	is used as an alias for standart input
 EOF
 			exit 0
 			;;
@@ -110,6 +120,12 @@ EOF
 		--show-io-on-error)
 			argShowIOOnError="${2}" && shift 2
 			;;
+		--output-file)
+			argOutputFile="${2}" && shift 2
+			;;
+		--input-file)
+			argInputFile="${2}" && shift 2
+			;;
 		*)
 			echo "Unknown parameter $1" 1>&2
 			exit 1
@@ -117,10 +133,19 @@ EOF
 	esac
 done
 
-cd "$argCWD"
+# find executable
+[ -z "$argExecutable" ] && argExecutable="$(find . -perm +0111 -type f | head -n 1)"
+echo "${COLOR_TEXT_BLUE}# Running ${argExecutable}${COLOR_TEXT_RESET}"
+[ ! -x "$argExecutable" ] && echo "${COLOR_TEXT_RED}\"$argExecutable\" is not an executable file${COLOR_TEXT_RESET}" 1>&2 && exit 1
+
+# keep all paths absolute
+cd "$argCWD" && argCWD="$(pwd)"
+argTestsFile="${argCWD}/${argTestsFile}"
+argTestsDirectory="${argCWD}/${argTestsDirectory}"
+argExecutable="${argCWD}/${argExecutable}"
 
 # expand tests.in file to tests directory
-if [ -f "$argTestsFile" ]; then
+if [ -f "${argTestsFile}" ]; then
 	echo "${COLOR_TEXT_BLUE}# Recreating tests directory${COLOR_TEXT_RESET}"
 	# recreate tests directory
 	mkdir -p "$argTestsDirectory"
@@ -143,10 +168,6 @@ if [ -f "$argTestsFile" ]; then
 ' "$argTestsFile"
 fi
 
-# find executable
-[ -z "$argExecutable" ] && argExecutable="$(find . -perm +0111 -type f | head -n 1)"
-echo "${COLOR_TEXT_BLUE}# Running ${argExecutable}${COLOR_TEXT_RESET}"
-[ ! -x "$argExecutable" ] && echo "${COLOR_TEXT_RED}\"$argExecutable\" is not an executable file${COLOR_TEXT_RESET}" 1>&2 && exit 1
 
 # go through needed tests
 outputFp="${TMP_DIR}/$(basename "$0").out"
@@ -160,7 +181,12 @@ for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 	testFpBaseName="${testFpBaseName::$((${#testFpBaseName} - 3))}"
 	solutionFp="${argTestsDirectory}/${testFpBaseName}.sol"
 
-	"$TIME_EXECUTABLE" "--format=%e %K" "--output=${outputTimeFp}" perl -e 'alarm shift; exec @ARGV' "$TLEWithEpsilon" "$argExecutable" < "$testFp" > "$outputFp"
+	(
+		cd "$TMP_DIR"
+		[ -n "$argInputFile" ] && cat "$testFp" > "$argInputFile"
+		"$TIME_EXECUTABLE" "--format=%e %K" "--output=${outputTimeFp}" perl -e 'alarm shift; exec @ARGV' "$TLEWithEpsilon" "$argExecutable" < "$testFp" > "$outputFp"
+		[ -n "$argOutputFile" ] && cat "$argOutputFile" > "$outputFp"
+	)
 
 	wrongOutput=0
 
