@@ -3,10 +3,6 @@
 TESTS_FILE='tests.in'
 TESTS_DIRECTORY='tests'
 TESTS_TO_MAKE='*' # possible values '*', '{2,3,8}', 3 (will be used in bash expansion)
-TEXT_GREEN='\e[0;32m'
-TEXT_RESET='\e[0m'
-TEXT_RED='\e[0;31m'
-TEXT_BLUE='\e[0;34m'
 TMP_DIR='/tmp'
 EXECUTABLE=''
 CWD='.'
@@ -14,6 +10,12 @@ TLE='10'
 MLE='1024'
 TIMEEXECUTABLE='time'
 which gtime &>/dev/null && TIMEEXECUTABLE='gtime'
+
+# COLORS
+COLOR_TEXTGREEN='\e[0;32m'
+COLOR_TEXTRESET='\e[0m'
+COLOR_TEXTRED='\e[0;31m'
+COLOR_TEXTBLUE='\e[0;34m'
 
 # For mac users:
 #  * install gnu-time: brew install gnu-time
@@ -81,7 +83,7 @@ cd "$CWD"
 
 # expand tests.in file to tests directory
 if [ -f "$TESTS_FILE" ]; then
-	echo -e "${TEXT_BLUE}# Recreating tests directory${TEXT_RESET}"
+	echo -e "${COLOR_TEXTBLUE}# Recreating tests directory${COLOR_TEXTRESET}"
 	# recreate tests directory
 	mkdir -p "$TESTS_DIRECTORY"
 	rm -rf "${TESTS_DIRECTORY}/"*.{sol,in}
@@ -105,15 +107,15 @@ fi
 
 # find executable
 [ -z "$EXECUTABLE" ] && EXECUTABLE="$(find . -perm +0111 -type f | head -n 1)"
-echo -e "${TEXT_BLUE}# Running ${EXECUTABLE}${TEXT_RESET}"
-[ ! -x "$EXECUTABLE" ] && echo -e "${TEXT_RED}\"$EXECUTABLE\" is not an executable file${TEXT_RESET}" 1>&2 && exit 1
+echo -e "${COLOR_TEXTBLUE}# Running ${EXECUTABLE}${COLOR_TEXTRESET}"
+[ ! -x "$EXECUTABLE" ] && echo -e "${COLOR_TEXTRED}\"$EXECUTABLE\" is not an executable file${COLOR_TEXTRESET}" 1>&2 && exit 1
 
 # go through needed tests
 outputFp="${TMP_DIR}/$(basename "$0").out"
 outputTimeFp="${TMP_DIR}/$(basename "$0").time"
 TLEWithEpsilon=$(echo "$TLE" | awk '{printf("%d\n",$1 + 1.5)}')
 for testFp in "${TESTS_DIRECTORY}/"$TESTS_TO_MAKE'.in'; do
-	[ ! -f "$testFp" ] && echo -e "${TEXT_RED}Could not find test files${TEXT_RESET}" 1>&2 && exit 1
+	[ ! -f "$testFp" ] && echo -e "${COLOR_TEXTRED}Could not find test files${COLOR_TEXTRESET}" 1>&2 && exit 1
 
 	testFpBaseName="$(basename "$testFp")"
 	testFpBaseName="${testFpBaseName::$((${#testFpBaseName} - 3))}"
@@ -125,16 +127,16 @@ for testFp in "${TESTS_DIRECTORY}/"$TESTS_TO_MAKE'.in'; do
 
 	echo -n -e "Testing ${testFpBaseName}: "
 	if diff --ignore-blank-lines --ignore-all-space "${TESTS_DIRECTORY}/${testFpBaseName}.sol" "$outputFp" &>/dev/null; then
-		echo -n -e "${TEXT_GREEN}OK${TEXT_RESET}"
+		echo -n -e "${COLOR_TEXTGREEN}OK${COLOR_TEXTRESET}"
 	else
-		echo -n -e "${TEXT_RED}FAIL${TEXT_RESET}"
+		echo -n -e "${COLOR_TEXTRED}FAIL${COLOR_TEXTRESET}"
 	fi
 
 	echo -n " ellapsed: "
-	[ "$(echo "${runningTime} > ${TLE}" | bc -l)" -eq "1" ] && echo -n -e "$TEXT_RED"
-	echo -n -e "${runningTime}s${TEXT_RESET}"
+	[ "$(echo "${runningTime} > ${TLE}" | bc -l)" -eq "1" ] && echo -n -e "$COLOR_TEXTRED"
+	echo -n -e "${runningTime}s${COLOR_TEXTRESET}"
 
-	[ "$(echo "${runningMemory} > ${MLE}" | bc -l)" -eq "1" ] && echo -n -e "$TEXT_RED"
-	echo -n -e " ${runningMemory}KB${TEXT_RESET}"
+	[ "$(echo "${runningMemory} > ${MLE}" | bc -l)" -eq "1" ] && echo -n -e "$COLOR_TEXTRED"
+	echo -n -e " ${runningMemory}KB${COLOR_TEXTRESET}"
 	echo ''
 done
