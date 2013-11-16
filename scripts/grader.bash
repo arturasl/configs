@@ -32,10 +32,10 @@ onExit () {
 trap onExit EXIT
 
 # COLORS
-COLOR_TEXTGREEN=$'\e[0;32m'
-COLOR_TEXTRESET=$'\e[0m'
-COLOR_TEXTRED=$'\e[0;31m'
-COLOR_TEXTBLUE=$'\e[0;34m'
+COLOR_TEXT_GREEN=$'\e[0;32m'
+COLOR_TEXT_RESET=$'\e[0m'
+COLOR_TEXT_RED=$'\e[0;31m'
+COLOR_TEXT_BLUE=$'\e[0;34m'
 
 # CONSTANTS
 TIME_EXECUTABLE='time'
@@ -121,7 +121,7 @@ cd "$argCWD"
 
 # expand tests.in file to tests directory
 if [ -f "$argTestsFile" ]; then
-	echo "${COLOR_TEXTBLUE}# Recreating tests directory${COLOR_TEXTRESET}"
+	echo "${COLOR_TEXT_BLUE}# Recreating tests directory${COLOR_TEXT_RESET}"
 	# recreate tests directory
 	mkdir -p "$argTestsDirectory"
 	rm -rf "${argTestsDirectory}/"*.{sol,in}
@@ -145,8 +145,8 @@ fi
 
 # find executable
 [ -z "$argExecutable" ] && argExecutable="$(find . -perm +0111 -type f | head -n 1)"
-echo "${COLOR_TEXTBLUE}# Running ${argExecutable}${COLOR_TEXTRESET}"
-[ ! -x "$argExecutable" ] && echo "${COLOR_TEXTRED}\"$argExecutable\" is not an executable file${COLOR_TEXTRESET}" 1>&2 && exit 1
+echo "${COLOR_TEXT_BLUE}# Running ${argExecutable}${COLOR_TEXT_RESET}"
+[ ! -x "$argExecutable" ] && echo "${COLOR_TEXT_RED}\"$argExecutable\" is not an executable file${COLOR_TEXT_RESET}" 1>&2 && exit 1
 
 # go through needed tests
 outputFp="${TMP_DIR}/$(basename "$0").out"
@@ -154,7 +154,7 @@ outputTimeFp="${TMP_DIR}/$(basename "$0").time"
 TLEWithEpsilon=$(echo "$argTLE" | awk '{printf("%d\n",$1 + 1.5)}')
 totalFailures=0
 for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
-	[ ! -f "$testFp" ] && echo "${COLOR_TEXTRED}Could not find test files${COLOR_TEXTRESET}" 1>&2 && exit 1
+	[ ! -f "$testFp" ] && echo "${COLOR_TEXT_RED}Could not find test files${COLOR_TEXT_RESET}" 1>&2 && exit 1
 
 	testFpBaseName="$(basename "$testFp")"
 	testFpBaseName="${testFpBaseName::$((${#testFpBaseName} - 3))}"
@@ -166,9 +166,9 @@ for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 
 	echo -n "Testing ${testFpBaseName}: "
 	if diff --ignore-blank-lines --ignore-all-space "$solutionFp" "$outputFp" &>/dev/null; then
-		echo -n "${COLOR_TEXTGREEN}OK${COLOR_TEXTRESET}"
+		echo -n "${COLOR_TEXT_GREEN}OK${COLOR_TEXT_RESET}"
 	else
-		echo -n "${COLOR_TEXTRED}FAIL${COLOR_TEXTRESET}"
+		echo -n "${COLOR_TEXT_RED}FAIL${COLOR_TEXT_RESET}"
 		wrongOutput=1
 		totalFailures=$((totalFailures + 1))
 	fi
@@ -178,23 +178,23 @@ for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 	runningMemory=$(tail -n 1 "$outputTimeFp" | cut -d' ' -f2)
 
 	echo -n " ellapsed: "
-	[ "$(echo "${runningTime} > ${argTLE}" | bc -l)" -eq "1" ] && echo -n "$COLOR_TEXTRED"
-	echo -n "${runningTime}s${COLOR_TEXTRESET}"
+	[ "$(echo "${runningTime} > ${argTLE}" | bc -l)" -eq "1" ] && echo -n "$COLOR_TEXT_RED"
+	echo -n "${runningTime}s${COLOR_TEXT_RESET}"
 
-	[ "$(echo "${runningMemory} > ${argMLE}" | bc -l)" -eq "1" ] && echo -n "$COLOR_TEXTRED"
-	echo -n " ${runningMemory}KB${COLOR_TEXTRESET}"
+	[ "$(echo "${runningMemory} > ${argMLE}" | bc -l)" -eq "1" ] && echo -n "$COLOR_TEXT_RED"
+	echo -n " ${runningMemory}KB${COLOR_TEXT_RESET}"
 
 	# finished running this program
 	echo ''
 
 	if [ "$wrongOutput" -eq 1 -a "$argShowIOOnError" -eq 1 ]; then
-		echo "${COLOR_TEXTBLUE}Input file${COLOR_TEXTRESET}"
+		echo "${COLOR_TEXT_BLUE}Input file${COLOR_TEXT_RESET}"
 		cat "$testFp"
-		echo "${COLOR_TEXTBLUE}Programs output${COLOR_TEXTRESET}"
+		echo "${COLOR_TEXT_BLUE}Programs output${COLOR_TEXT_RESET}"
 		cat "$outputFp"
-		echo "${COLOR_TEXTBLUE}Correct output${COLOR_TEXTRESET}"
+		echo "${COLOR_TEXT_BLUE}Correct output${COLOR_TEXT_RESET}"
 		cat "$solutionFp"
 	fi
 done
 
-[ "$totalFailures" -ne 0 ] && echo "${COLOR_TEXTRED}Total failures: ${totalFailures}${COLOR_TEXTRED}"
+[ "$totalFailures" -ne 0 ] && echo "${COLOR_TEXT_RED}Total failures: ${totalFailures}${COLOR_TEXT_RED}"
