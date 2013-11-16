@@ -12,6 +12,11 @@ EXECUTABLE=''
 CWD='.'
 TLE='10'
 MLE='1024'
+TIMEEXECUTABLE='time'
+which gtime &>/dev/null && TIMEEXECUTABLE='gtime'
+
+# For mac users:
+#  * install gnu-time: brew install gnu-time
 
 # read arguments
 while [ "$#" -ne '0' ]; do
@@ -111,9 +116,9 @@ for testFp in "${TESTS_DIRECTORY}/"$TESTS_TO_MAKE'.in'; do
 	[ ! -f "$testFp" ] && echo -e "${TEXT_RED}Could not find test files${TEXT_RESET}" 1>&2 && exit 1
 
 	testFpBaseName="$(basename "$testFp")"
-	testFpBaseName="${testFpBaseName::-3}"
+	testFpBaseName="${testFpBaseName::$((${#testFpBaseName} - 3))}"
 
-	/usr/bin/time "--format=%e %K" "--output=${outputTimeFp}" perl -e 'alarm shift; exec @ARGV' "$TLEWithEpsilon" "$EXECUTABLE" < "$testFp" > "$outputFp"
+	"$TIMEEXECUTABLE" "--format=%e %K" "--output=${outputTimeFp}" perl -e 'alarm shift; exec @ARGV' "$TLEWithEpsilon" "$EXECUTABLE" < "$testFp" > "$outputFp"
 
 	runningTime=$(tail -n 1 "$outputTimeFp" | cut -d' ' -f1)
 	runningMemory=$(tail -n 1 "$outputTimeFp" | cut -d' ' -f2)
