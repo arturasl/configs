@@ -48,7 +48,7 @@ argTestsDirectory='tests'
 argTestsToRun='*' # possible values '*', '{2,3,8}', 3 (will be used in bash expansion)
 argExecutable=''
 argCWD='.'
-argTLE='10'
+argTLE='2'
 argMLE='1024'
 argShowIOOnError=0
 argOutputFile=''
@@ -78,7 +78,7 @@ cat <<EOF
 \`--cwd\` *path* default \`.\`
 :	current working directory
 
-\`--tle\` *seconds* default \`10.0\`
+\`--tle\` *seconds* default \`2.0\`
 :	sets maximum number of seconds application is able to run
 
 \`--mle\` *kilobytes* default \`1024.0\`
