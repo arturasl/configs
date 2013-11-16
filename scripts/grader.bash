@@ -99,7 +99,7 @@ if [ -f "$TESTS_FILE" ]; then
 fi
 
 # find executable
-[ -z "$EXECUTABLE" ] && EXECUTABLE="$(find . -executable -type f | head -n 1)"
+[ -z "$EXECUTABLE" ] && EXECUTABLE="$(find . -perm +0111 -type f | head -n 1)"
 echo -e "${TEXT_BLUE}# Running ${EXECUTABLE}${TEXT_RESET}"
 [ ! -x "$EXECUTABLE" ] && echo -e "${TEXT_RED}\"$EXECUTABLE\" is not an executable file${TEXT_RESET}" 1>&2 && exit 1
 
