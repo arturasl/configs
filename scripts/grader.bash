@@ -22,6 +22,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# FOR MAC USERS:
+#  * install gnu-time: brew install gnu-time
+
 TESTS_FILE='tests.in'
 TESTS_DIRECTORY='tests'
 TESTS_TO_MAKE='*' # possible values '*', '{2,3,8}', 3 (will be used in bash expansion)
@@ -38,9 +41,6 @@ COLOR_TEXTGREEN='\e[0;32m'
 COLOR_TEXTRESET='\e[0m'
 COLOR_TEXTRED='\e[0;31m'
 COLOR_TEXTBLUE='\e[0;34m'
-
-# For mac users:
-#  * install gnu-time: brew install gnu-time
 
 # read arguments
 while [ "$#" -ne '0' ]; do
