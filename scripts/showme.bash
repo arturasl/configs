@@ -35,7 +35,7 @@ capGUIEditor() {
 # regex for file name \t regex for mime type \t command for viewing gui \t command for viewing as text stream \t priority
 read -r -d '' capabilities <<EOF
 ^https?://|^ftps?://|\.html?$|^www\.	text/html	capWebBrowser	pandoc -f html -t markdown	50
-\.mp[3-4]$|\.flv|\.mov|\.ogv	video/.+|audio/.+	mplayer	file	50
+\.mp[3-4]$|\.m4v$|\.flv|\.mov|\.ogv	video/.+|audio/.+	mplayer	file	50
 \.pdf|\.eps|\.ps	application/pdf	capPDFViewer	pdftotext FILENAME -	50
 \.jpe?g$|\.png$|\.gif$	image/.+	feh --draw-actions	cacaview	50
 \.docx?|\.odt|\.ods|\.xlsx?	application/(vnd.openxml.*|.*excel.*|.*oasis.*)	capWordViewer		50
