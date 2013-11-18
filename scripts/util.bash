@@ -26,6 +26,13 @@ utilGetFileSize () {
 	if [ "$1" = '--exact' ]; then
 		wc -c < "$2"
 	else
-		ls -l "$1" | cut -d' ' -f5
+		ls -l "$1" | awk '{print $5}'
 	fi
+}
+
+utilCreateTmpFile () {
+	# $1 - optional postfix
+	file="$(mktemp "${0}.XXXXXX${1}")"
+	touch "$file"
+	echo "$file"
 }
