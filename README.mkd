@@ -3,7 +3,7 @@ These are basic configuration files to set up on new machines.
 # Installation
 
 ```bash
-    git clone git://github.com/arturasl/configs.git ~/configs
+git clone git://github.com/arturasl/configs.git ~/configs
 ```
 
 # Post installation
@@ -11,139 +11,139 @@ These are basic configuration files to set up on new machines.
 ## Scripts
 
 ```bash
-    ln -s ~/configs/scripts/atmux /usr/bin
-    # for non mac systems create dummy reattach-to-user-namespace (clipboard helper)
-    ln -s ~/configs/scripts/reattach-to-user-namespace /usr/bin
+ln -s ~/configs/scripts/atmux /usr/bin
+# for non mac systems create dummy reattach-to-user-namespace (clipboard helper)
+ln -s ~/configs/scripts/reattach-to-user-namespace /usr/bin
 ```
 
 ## ctags
 
 ```bash
-    ln -s ~/configs/ctags ~/.ctags # latex
+ln -s ~/configs/ctags ~/.ctags # latex
 ```
 
 ## vim
 
 ```bash
-    # basic:
-    ln -s ~/configs/vimrc ~/.vimrc
-    ln -s ~/configs/vim ~/.vim
+# basic:
+ln -s ~/configs/vimrc ~/.vimrc
+ln -s ~/configs/vim ~/.vim
 
-    # ctags:
-    mkdir ~/configs/vim/tags
-    ctags -f ~/configs/vim/tags/cpp_wx.tags --recurse=yes --sort=yes --verbose=yes --append=no --language-force=C++ --extra=+q --fields=afiKmsSt /usr/include/wx-2.8/
-    wget http://www.vim.org/scripts/download_script.php?src_id=9178
-    tar xjf download_script.php\?src_id\=9178
-    ctags -f ~/configs/vim/tags/cpp_std.tags --recurse=yes --sort=yes --verbose=yes --append=no --language-force=C++ --extra=+q --fields=afiKmsSt ./cpp_src/
-    rm -rf cpp_src/ download_script.php\?src_id\=9178
+# ctags:
+mkdir ~/configs/vim/tags
+ctags -f ~/configs/vim/tags/cpp_wx.tags --recurse=yes --sort=yes --verbose=yes --append=no --language-force=C++ --extra=+q --fields=afiKmsSt /usr/include/wx-2.8/
+wget http://www.vim.org/scripts/download_script.php?src_id=9178
+tar xjf download_script.php\?src_id\=9178
+ctags -f ~/configs/vim/tags/cpp_std.tags --recurse=yes --sort=yes --verbose=yes --append=no --language-force=C++ --extra=+q --fields=afiKmsSt ./cpp_src/
+rm -rf cpp_src/ download_script.php\?src_id\=9178
 
-    # use macvim as gvim under mac
-    sudo ln -s /usr/local/bin/mvim /usr/bin/gvim
-    sudo ln -s /usr/local/bin/mvimdiff /usr/bin/gvimdiff
+# use macvim as gvim under mac
+sudo ln -s /usr/local/bin/mvim /usr/bin/gvim
+sudo ln -s /usr/local/bin/mvimdiff /usr/bin/gvimdiff
 
-    # compile vimproc
-    ( cd vim/bundle/vimproc/ && make )
+# compile vimproc
+( cd vim/bundle/vimproc/ && make )
 ```
 
 ## mc
 
 ```bash
-    xterm -e mc & pid="$!" && sleep 5 && kill "$pid" # lazy load mc settings
-    MCDIR=$(( test -d ~/.mc && echo ~/.mc ) || echo ~/.config/mc)
-    if [ ! -d "$MCDIR" ]; then echo 'Could not detect mc directory' 1>&2; fi
-    mkdir -p "$MCDIR/skins/"
-    sed -i'' -e 's/^skin=.*/'$(echo "skin=$HOME/.config/mc/skins/custom.ini" | sed -e 's/[\/&]/\\&/g')'/' "$MCDIR/ini"
-    sed -i'' -e 's/^navigate_with_arrows=.*/navigate_with_arrows=1/' "$MCDIR/ini"
-    sed -i'' -e 's/^drop_menus=.*/drop_menus=1/' "$MCDIR/ini"
+xterm -e mc & pid="$!" && sleep 5 && kill "$pid" # lazy load mc settings
+MCDIR=$(( test -d ~/.mc && echo ~/.mc ) || echo ~/.config/mc)
+if [ ! -d "$MCDIR" ]; then echo 'Could not detect mc directory' 1>&2; fi
+mkdir -p "$MCDIR/skins/"
+sed -i'' -e 's/^skin=.*/'$(echo "skin=$HOME/.config/mc/skins/custom.ini" | sed -e 's/[\/&]/\\&/g')'/' "$MCDIR/ini"
+sed -i'' -e 's/^navigate_with_arrows=.*/navigate_with_arrows=1/' "$MCDIR/ini"
+sed -i'' -e 's/^drop_menus=.*/drop_menus=1/' "$MCDIR/ini"
 ```
 
 ## bash
 
 ```bash
-    ln -s ~/configs/shells/bashrc ~/.bashrc
-    # use bash_profile under mac
-    ln -s ~/configs/shells/bashrc ~/.bash_profile
+ln -s ~/configs/shells/bashrc ~/.bashrc
+# use bash_profile under mac
+ln -s ~/configs/shells/bashrc ~/.bash_profile
 ```
 
 ## tmux:
 
 ```bash
-    ln -s  ~/configs/tmux.conf ~/.tmux.conf
-    # for gnome to auto start
-    gnome-terminal --execute atmux
+ln -s  ~/configs/tmux.conf ~/.tmux.conf
+# for gnome to auto start
+gnome-terminal --execute atmux
 ```
 
 ## urxvt
 
 ```bash
-    # Write XResourcesURxvt to your ~/.Xresources (read on X startup):
-    cat ~/configs/XResourcesURxvt >> ~/.Xresources
-    # or to ~/.Xdefaults (read on demand):
-    cat ~/configs/XResourcesURxvt >> ~/.Xdefaults
-    # you can also load settings manually with:
-    xrdb -merge ~/configs/XResourcesURxvt
+# Write XResourcesURxvt to your ~/.Xresources (read on X startup):
+cat ~/configs/XResourcesURxvt >> ~/.Xresources
+# or to ~/.Xdefaults (read on demand):
+cat ~/configs/XResourcesURxvt >> ~/.Xdefaults
+# you can also load settings manually with:
+xrdb -merge ~/configs/XResourcesURxvt
 ```
 
 ## dmenu
 
 ```bash
-    # fluxbox
-    echo -e -n '#CUSTOM\nMod4 p :exec ~/configs/scripts/dmenu_show.sh' >> ~/.fluxbox/keys
+# fluxbox
+echo -e -n '#CUSTOM\nMod4 p :exec ~/configs/scripts/dmenu_show.sh' >> ~/.fluxbox/keys
 ```
 
 ## newsbeuter
 
 ```bash
-    xterm -e newsbeuter & pid="$!" && sleep 5 && kill "$pid" # lazy load settings
-    ln -s  ~/configs/newsbeuter.conf ~/.newsbeuter/config
-    mkdir -p ~/.newsbeuter/podc/
-    # migth need export LC_ALL='en_US.UTF-8' on mac
+xterm -e newsbeuter & pid="$!" && sleep 5 && kill "$pid" # lazy load settings
+ln -s  ~/configs/newsbeuter.conf ~/.newsbeuter/config
+mkdir -p ~/.newsbeuter/podc/
+# migth need export LC_ALL='en_US.UTF-8' on mac
 ```
 
 ## mutt
 
 ```bash
-    ln -s ~/configs/mutt/muttrc ~/.muttrc
-    touch ~/configs/mutt/tmp/headers
-    touch ~/configs/mutt/tmp/certificates
+ln -s ~/configs/mutt/muttrc ~/.muttrc
+touch ~/configs/mutt/tmp/headers
+touch ~/configs/mutt/tmp/certificates
 ```
 
 ## git
 
 ```bash
-    git config --global merge.tool git-vim-mergetool # define new tool
-    git config --global mergetool.git-vim-mergetool.cmd '~/configs/scripts/git-vim-mergetool.bash $BASE $LOCAL $REMOTE $MERGED' # command line to execute
-    git config --global mergetool.git-vim-mergetool.trustExitCode false # ask me if I finished merging explicitly
-    git config --global mergetool.git-vim-mergetool.keepBackup false # remove .orig files
+git config --global merge.tool git-vim-mergetool # define new tool
+git config --global mergetool.git-vim-mergetool.cmd '~/configs/scripts/git-vim-mergetool.bash $BASE $LOCAL $REMOTE $MERGED' # command line to execute
+git config --global mergetool.git-vim-mergetool.trustExitCode false # ask me if I finished merging explicitly
+git config --global mergetool.git-vim-mergetool.keepBackup false # remove .orig files
 
-    git config --global diff.external ~/configs/scripts/git-vim-diff.bash
-    git config --global pager.diff '' # do not pipe diff output to page as we are using "graphical" diff tool
+git config --global diff.external ~/configs/scripts/git-vim-diff.bash
+git config --global pager.diff '' # do not pipe diff output to page as we are using "graphical" diff tool
 
-    git config --global alias.lg "log --graph --pretty=format:'%C(cyan)%h%C(bold magenta)%d%Creset %s %C(green)(%cr) %C(bold blue) %an%Creset'"
+git config --global alias.lg "log --graph --pretty=format:'%C(cyan)%h%C(bold magenta)%d%Creset %s %C(green)(%cr) %C(bold blue) %an%Creset'"
 
-    git config --global core.excludesfile ~/.gitignore
-    ln -s ~/configs/ignores ~/.gitignore
+git config --global core.excludesfile ~/.gitignore
+ln -s ~/configs/ignores ~/.gitignore
 ```
 
 ## svn
 
 ```bash
-    # set up global ignores
-    tmp="$(mktemp -t tmp.XXXXXXXXX)"
-    awk -- "/^global-ignores/{print \"global-ignores = $(sed -e 's/\/$//g' ~/configs/ignores | sed -E -e '/^#|^$/d' | tr '\n' ' '' ')\"; next} {print}" ~/.subversion/config > "$tmp"
-    mv "$tmp" ~/.subversion/config
+# set up global ignores
+tmp="$(mktemp -t tmp.XXXXXXXXX)"
+awk -- "/^global-ignores/{print \"global-ignores = $(sed -e 's/\/$//g' ~/configs/ignores | sed -E -e '/^#|^$/d' | tr '\n' ' '' ')\"; next} {print}" ~/.subversion/config > "$tmp"
+mv "$tmp" ~/.subversion/config
 ```
 
 ## fish
 
 ```bash
-    bash -c '( test -d ~/.config/fish/ && ln -s ~/configs/shells/config.fish ~/.config/fish/config.fish ) || echo "could not find fish"'
-    fish_update_completions
+bash -c '( test -d ~/.config/fish/ && ln -s ~/configs/shells/config.fish ~/.config/fish/config.fish ) || echo "could not find fish"'
+fish_update_completions
 ```
 ## vimperator
 
 ```bash
-    ln -s ~/configs/vimperatorrc ~/.vimperatorrc
+ln -s ~/configs/vimperatorrc ~/.vimperatorrc
 ```
 
 # Additional packages
@@ -151,22 +151,22 @@ These are basic configuration files to set up on new machines.
 ## from npm
 
 ```bash
-    sudo chown -R $USER /usr/local
-    npm install -g jslint
-    npm install -g csslint
-    npm install -g uglifycss
-    npm install -g uglify-js
+sudo chown -R $USER /usr/local
+npm install -g jslint
+npm install -g csslint
+npm install -g uglifycss
+npm install -g uglify-js
 ```
 
 ## git submodules
 
 ```bash
-    # for updates: git pull --recurse-submodules
-    git submodule update --init --recursive && git submodule update --recursive
+# for updates: git pull --recurse-submodules
+git submodule update --init --recursive && git submodule update --recursive
 ```
 
 ## sqlite
 
 ```bash
-    ln -s ~/configs/sqliterc ~/.sqliterc
+ln -s ~/configs/sqliterc ~/.sqliterc
 ```
