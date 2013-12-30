@@ -72,3 +72,16 @@ snippet get
 # Get Element
 snippet gett
 	getElementBy${1:Id}('${2}')${3}
+snippet code
+	/*global
+	$: false
+	*/
+	'use strict';
+
+	var m${1:`Filename('', 'UNTITLED')`} = (function () {
+		var MODULE_NAME = 'm$1';
+
+		return {
+			MODULE_NAME: MODULE_NAME
+		};
+	}());
