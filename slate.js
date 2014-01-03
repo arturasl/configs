@@ -16,4 +16,5 @@ slate.bindAll({
 
 	'q:cmd' : slate.op('hint', { characters : 'asdfghjkl' }),
 	'g:cmd' : slate.op('grid', {}),
+	'a:cmd' : slate.op('move', {x : 'screenOriginX', y : 'screenOriginY', width : 'screenSizeX', height : 'screenSizeY' }),
 });
