@@ -203,7 +203,7 @@ for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 	(
 		cd "$TMP_DIR"
 		[ -n "$argInputFile" ] && cat "$testFp" > "$argInputFile"
-		"$TIME_EXECUTABLE" "--format=%e %K" "--output=${outputTimeFp}" perl -e 'alarm shift; exec @ARGV' "$TLEWithEpsilon" "$argExecutable" < "$testFp" > "$outputFp"
+		"$TIME_EXECUTABLE" "--format=%e %K" "--output=${outputTimeFp}" perl -e 'alarm shift; exec @ARGV' "$TLEWithEpsilon" bash -c "'$argExecutable'" < "$testFp" > "$outputFp"
 		[ -n "$argOutputFile" ] && cat "$argOutputFile" > "$outputFp"
 	)
 
