@@ -367,7 +367,7 @@
 		\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 		\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-	set listchars=tab:>-,eol:*,nbsp:-,trail:-,extends:>,precedes:<
+	set listchars=tab:·\ ,nbsp:•,trail:•,extends:»,precedes:«
 " }}
 " GENERAL{{
 	set nocompatible          " use vim defaults
@@ -380,6 +380,7 @@
 	set showmatch             " show matching brackets
 	set cursorline            " show current line
 	set ruler                 " show the cursor position
+	set list                  " show invisible characters by default
 	set showcmd               " display incomplete commands
 	if has('mouse')
 		set mouse=a           " more mouse please :)
@@ -433,6 +434,9 @@
 				highlight Conceal ctermbg=None ctermfg=white
 			endif
 
+			" less visible tab characters
+			highlight SpecialKey ctermfg=8 guifg=#4F4F4F
+
 			" do not hide cursor
 			highlight MatchParen cterm=bold ctermbg=none ctermfg=67
 		elseif g:nShifColors == 1
@@ -464,9 +468,6 @@
 	set softtabstop=4          " if someone uses spaces delete them with backspace
 	set tabstop=4              " numbers of spaces of tab character
 	set noexpandtab            " use tab character
-	" show me then tabs are used for alignment
-	" show whitespaces which are at the end of file
-	match Error /\s\+$\|[^\t]\zs\t\+/
 " }}
 " SEARCHING_SETTINGS{{
 	set ignorecase " case insensetive search
