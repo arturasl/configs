@@ -299,6 +299,14 @@
 		let g:localvimrc_persistent = 2 " store all decisions
 		let g:localvimrc_persistence_file = expand('~/configs/vim/tmp/localvimrc_persistent')
 	" }}
+	" NEOCOMPLETE {{
+		let g:neocomplete#enable_at_startup = 1
+		let g:neocomplete#auto_completion_start_length = 4
+		let g:neocomplete#min_keyword_length = g:neocomplete#auto_completion_start_length
+		let g:neocomplete#enable_smart_case = 0
+		let g:neocomplete#enable_fuzzy_completion = 1
+		let g:neocomplete#data_directory = expand('~/configs/vim/tmp/neocomplete')
+	" }}
 " }}
 
 " FUNCTION_KEYS{{
@@ -590,12 +598,7 @@
 	" }}
 	" C/CPP{{
 		autocmd FileType c,cpp setlocal foldmethod=syntax foldnestmax=1
-
 		autocmd FileType cpp call LoadLangTags('cpp')
-		autocmd Filetype c,cpp inoremap <buffer> . .<c-x><c-o>
-		autocmd Filetype c,cpp inoremap <buffer> -> -><c-x><c-o>
-		autocmd Filetype c,cpp inoremap <buffer> :: ::<c-x><c-o>
-
 		autocmd FileType c,cpp nnoremap <buffer> <f2> :call Preserve('%!astyle -T4 -a -C -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Cpp"<cr>
 
 		function! SetMakeForCpp()
