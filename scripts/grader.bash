@@ -242,4 +242,4 @@ for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 	fi
 done
 
-[ "$totalFailures" -ne 0 ] && echo "${COLOR_TEXT_RED}Total failures: ${totalFailures}${COLOR_TEXT_RED}"
+[ "$totalFailures" -ne 0 ] && echo "${COLOR_TEXT_RED}Total failures: ${totalFailures}${COLOR_TEXT_RESET}"
