@@ -65,6 +65,12 @@ ln -s ~/configs/shells/bashrc ~/.bashrc
 ln -s ~/configs/shells/bashrc ~/.bash_profile
 ```
 
+## slate
+
+```bash
+ln -s ~/configs/slate.js ~/.slate.js
+```
+
 ## tmux:
 
 ```bash
