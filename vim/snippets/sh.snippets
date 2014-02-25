@@ -1,0 +1,19 @@
+snippet for
+for (( ${2:i} = 0; $2 < ${1:count}; $2++ )); do
+	${VISUAL}
+done
+endsnippet
+
+snippet while
+while true; do
+	${VISUAL}
+done
+endsnippet
+
+snippet switch
+case ${1:word} in
+	${2:pattern})
+		${3}
+		;;
+esac
+endsnippet

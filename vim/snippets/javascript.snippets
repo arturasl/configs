@@ -1,0 +1,38 @@
+snippet if
+if ($1) {
+	${VISUAL}
+}
+endsnippet
+
+snippet while
+while ($1) {
+	${VISUAL}
+}
+endsnippet
+
+snippet for
+for (${1}; ${2}; ${3}) {
+	${VISUAL}
+}
+endsnippet
+
+snippet scope
+(function () {
+	${VISUAL}
+}());
+endsnippet
+
+snippet code
+/*global
+$: false
+*/
+'use strict';
+
+var m${1:`!v Filename('', 'UNTITLED')`} = (function () {
+	var MODULE_NAME = 'm$1';
+
+	return {
+		MODULE_NAME: MODULE_NAME
+	};
+}());
+endsnippet
