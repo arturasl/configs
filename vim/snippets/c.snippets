@@ -1,0 +1,25 @@
+snippet il
+#include      "${1:localfile}"
+endsnippet
+
+snippet ig
+#include      <${1:globfile}>
+endsnippet
+
+snippet if
+if ($1) {
+	${VISUAL}
+}
+endsnippet
+
+snippet for
+for ($1; $2; $3) {
+	${VISUAL}
+}
+endsnippet
+
+snippet while
+while (${1:true}) {
+	${VISUAL}
+}
+endsnippet
