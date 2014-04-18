@@ -81,6 +81,11 @@ PS2=" └> "
 export EDITOR=vim
 export BROWSER=~/configs/scripts/showme.bash
 
+#### Python
+
+export PIP_REQUIRE_VIRTUALENV=true
+export PIP_DOWNLOAD_CACHE=~/.pip/cache
+
 #### Private stuff
 
 [ -f ~/.bashrc_private ] && source ~/.bashrc_private
