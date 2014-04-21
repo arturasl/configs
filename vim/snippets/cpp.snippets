@@ -44,11 +44,15 @@ snippet code
 #include      <list>
 #include      <map>
 #include      <set>
+#include      <queue>
 #include      <vector>
 #define endl '\n'
 #define each(c, e) for (typeof(c.begin()) e = c.begin(); e != c.end(); ++e)
-typedef long long ll;
 using namespace std;
+typedef long long ll;
+typedef long double ld;
+typedef pair<int, int> pii;
+
 int main(int argc, char **argv) {
 	ios_base::sync_with_stdio(false), cin.tie(0);
 	$1
@@ -105,20 +109,73 @@ template<typename I> void writeNumber(I n) {
 endsnippet
 
 snippet codejobs
+#include      <algorithm>
+#include      <cmath>
+#include      <cstdarg>
+#include      <cstdio>
+#include      <cstdlib>
+#include      <iomanip>
+#include      <iostream>
+#include      <iterator>
+#include      <limits>
+#include      <list>
+#include      <map>
+#include      <set>
+#include      <vector>
 #include      <pthread.h>
 #include      <unistd.h>
 #include      <queue>
-template<typename T> class JobQueue {
+#define endl '\n'
+#define each(c, e) for (typeof(c.begin()) e = c.begin(); e != c.end(); ++e)
+using namespace std;
+typedef long long ll;
+typedef long double ld;
+typedef pair<int, int> pii;
+
+template<typename T, typename R> class JobQueue {
 	private:
-		queue<T> m_queueJobs;
+		template<typename D>
+		struct DataWithNumber {
+			int num;
+			D data;
+			DataWithNumber(int num = -1, const D &data = D()) : num(num), data(data) {}
+			bool operator<(const DataWithNumber &o) const { return num < o.num; }
+		};
+
+		queue< DataWithNumber<T> > m_queueJobs;
+		vector< DataWithNumber<R> > m_solutions;
+		int m_jobNumber;
 		pthread_mutex_t m_lock;
-	public:
-		JobQueue() { pthread_mutex_init(&m_lock, NULL); }
-		~JobQueue() { pthread_mutex_destroy(&m_lock); }
-		void addJob(const T &job) {
-			pthread_mutex_lock(&m_lock); m_queueJobs.push(job); pthread_mutex_unlock(&m_lock);
+		void (*m_solvingFunction)(T &job, R &solution);
+		void (*m_printingFunction)(int jobNumber, const R &solution);
+
+		static void* waitAndSolve(void *voidSelf) {
+			JobQueue *self = (JobQueue*)voidSelf;
+			DataWithNumber<T> job;
+			while (self->jobCount()) {
+				bool bGot = self->getJob(job, SLEEP);
+				if (bGot) {
+					R result;
+					self->m_solvingFunction(job.data, result);
+					const int left = self->jobCount();
+					// race
+					pthread_mutex_lock(&self->m_lock);
+					cerr << "Finished: " << job.num << ", left: " << left << endl;
+					self->m_solutions.push_back(DataWithNumber<R>(job.num, result));
+					pthread_mutex_unlock(&self->m_lock);
+				}
+			}
+			return NULL;
 		}
-		bool getJob(T &job, int nWaitInterval = -1) {
+	public:
+		JobQueue(void (*solvingFunction)(T &job, R &solution), void (*printingFunction)(int jobNumber, const R &solution)) : m_jobNumber(0), m_solvingFunction(solvingFunction), m_printingFunction(printingFunction) {
+			pthread_mutex_init(&m_lock, NULL);
+		}
+		~JobQueue() { pthread_mutex_destroy(&m_lock); }
+		static const int THREADS = 5;
+		static const int SLEEP = 1;
+		void addJob(const T &job) { pthread_mutex_lock(&m_lock); m_queueJobs.push(DataWithNumber<T>(++m_jobNumber, job)); pthread_mutex_unlock(&m_lock); }
+		bool getJob(DataWithNumber<T> &job, int nWaitInterval = -1) {
 			bool bGot = false;
 			while (true) {
 				pthread_mutex_lock(&m_lock);
@@ -135,7 +192,35 @@ template<typename T> class JobQueue {
 			return cnt;
 		}
 		void getAll(queue<T> &queueJobs) { pthread_mutex_lock(&m_lock); queueJobs = m_queueJobs; pthread_mutex_unlock(&m_lock); }
+		void waitToFinish() {
+			bool bDone = false;
+			while (!bDone) {
+				pthread_mutex_lock(&m_lock); bDone = m_solutions.size() == m_jobNumber; pthread_mutex_unlock(&m_lock);
+				sleep(SLEEP);
+			}
+			sort(m_solutions.begin(), m_solutions.end());
+			for (size_t i = 0; i < m_solutions.size(); i += 1) m_printingFunction(i + 1, m_solutions[i].data);
+		}
+		void startSolvingAll() { for (int t = 1; t <= THREADS; t += 1) { pthread_t thread; pthread_create(&thread, NULL, &JobQueue::waitAndSolve, this); } }
 };
-// void* solve(void*) {}
-// for (int t = 1; t <= THREADS; t += 1) { pthread_t thread; pthread_create(&thread, NULL, solve, NULL); }
+
+void solve(int &job, int &solution) {
+	solution = job;
+}
+void print(int jobNumber, const int &solution) {
+	cout << "Case #" << jobNumber << ": " << solution << endl;
+}
+
+int main(int argc, char **argv) {
+	ios_base::sync_with_stdio(false), cin.tie(0);
+
+	JobQueue<int, int> test(solve, print);
+	test.addJob(5);
+	test.addJob(6);
+	test.startSolvingAll();
+	test.waitToFinish();
+
+	return 0;
+}
+
 endsnippet
