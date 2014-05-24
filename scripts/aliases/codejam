@@ -1,0 +1,55 @@
+#!/bin/bash
+
+UTIL='/Users/arturas/Builds/codejam-commandline-1.2-beta1'
+CONTEST="$(date +"%Y-%m-%d")"
+NAME="$(basename "$(pwd)")"
+
+check() {
+	echo "Running unit test"
+	say "Running unit test"
+	expectedTestCases="$(head -n 1 in)"
+	gotTestCases="$(grep '^Case #' out | wc -l)"
+	if [ "$expectedTestCases" -ne "$gotTestCases" ]; then
+		say "Test failed"
+		return 1
+	fi
+}
+genoutput() {
+	run="./code < in > out"
+	if [ -f 'code.py' ]; then
+		run="python3 code.py < in > out"
+		executable='python3'
+		file='code.py'
+	fi
+	echo "$run"
+	eval "$run"
+	return $?
+}
+
+if [ "$1" = 'start' ]; then
+	read -p 'Enter contest code: ' code
+	if [ -z "$code" ]; then
+		exit
+	fi
+	mkdir "$CONTEST" && cd "$CONTEST" && mkdir "A" "B" "C" "D"
+	"${UTIL}/gcj_init_contest.py" "$code"
+elif [ "$1" = 's' -o "$1" = 'l' ]; then
+	size="small"
+	[ "$1" == 'l' ] && size='large'
+	( \
+		say "Downloading input for problem ${NAME} ${size}"      && \
+		"${UTIL}/gcj_download_input.py" "$NAME" "$size" 0        && \
+		say "Generating solution"                                && \
+		genoutput                                                && \
+		check                                                    && \
+		say "Submmiting"                                         && \
+		"${UTIL}/gcj_submit_solution.py" "$NAME" "$size" 0 | tee /dev/stderr | tail -n 1 | say \
+	) || for i in $(seq 1 5); do
+		say "Failure"
+		sleep 1
+	done
+elif [ "$1" = 'finish' ]; then
+	"${UTIL}/gcj_clear_contest.py"
+else
+	"${UTIL}/gcj_get_status.py"
+fi
