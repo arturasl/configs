@@ -20,6 +20,7 @@
 *.swp
 .idea/
 *.xcuserdatad/
+*.iml
 
 # mac stuff
 .DS_Store
