@@ -107,11 +107,56 @@
 	endfunction
 " }}
 
+" BUNDLES{{
+	if has('vim_starting')
+		set nocompatible
+		set runtimepath+=~/.vim/bundle/neobundle.vim
+	endif
+	call neobundle#begin(expand('~/.vim/neobundle/'))
+
+	NeoBundle 'Shougo/vimproc.vim', {'build': {'unix': 'make'}}
+
+	NeoBundle 'Raimondi/delimitMate'
+	NeoBundle 'Shougo/neocomplete.vim'
+	NeoBundle 'Shougo/unite.vim'
+	NeoBundle 'SirVer/ultisnips'
+	NeoBundle 'bling/vim-airline'
+	NeoBundle 'chrisbra/NrrwRgn'
+	NeoBundle 'davidhalter/jedi-vim'
+	NeoBundle 'derekwyatt/vim-fswitch'
+	NeoBundle 'derekwyatt/vim-protodef'
+	NeoBundle 'embear/vim-localvimrc'
+	NeoBundle 'godlygeek/tabular'
+	NeoBundle 'jonathanfilip/vim-lucius'
+	NeoBundle 'jpalardy/vim-slime'
+	NeoBundle 'kien/rainbow_parentheses.vim'
+	NeoBundle 'majutsushi/tagbar'
+	NeoBundle 'mattn/emmet-vim'
+	NeoBundle 'scrooloose/syntastic'
+	NeoBundle 'sjl/gundo.vim'
+	NeoBundle 'tomtom/tcomment_vim'
+	NeoBundle 'tpope/vim-repeat'
+	NeoBundle 'tpope/vim-sleuth'
+	NeoBundle 'tpope/vim-surround'
+	NeoBundle 'vim-scripts/matchit.zip.git'
+	NeoBundle 'yegappan/mru'
+
+	NeoBundle '~/configs/vim/bundle/bufkill/'
+	NeoBundle '~/.vim/bundle/Spelling/'
+
+	" Languages
+	NeoBundle 'leshill/vim-json'
+	NeoBundle 'tpope/vim-markdown'
+	NeoBundle 'nelstrom/vim-markdown-folding'
+	NeoBundle 'groenewege/vim-less'
+	NeoBundle 'alunny/pegjs-vim'
+	NeoBundle 'Shirk/vim-gas'
+	NeoBundle 'vim-scripts/bnf.vim'
+
+	call neobundle#end()
+" }}
+
 " PLUGINS{{
-	" PATHOGEN{{
-		runtime bundle/vim-pathogen/autoload/pathogen.vim
-		execute pathogen#infect()
-	" }}
 	" RAINBOW PARENTHESIS{{
 
 	" }}
@@ -194,19 +239,6 @@
 		nnoremap ,ci :TComment<cr>
 		xnoremap ,ci :TComment<cr>
 	" }}
-	" DBEXT{{
-		" execute paragraph
-		nnoremap ,dp :call Preserve('normal vip\se')<cr>
-		" execute statement
-		nnoremap ,de :DBExecSQLUnderCursor<cr>
-		" execute line
-		nnoremap ,dl :call Preserve('normal V\se')<cr>
-
-		" connect
-		nnoremap ,dc :DBPromptForBufferParameters<cr>
-		" describe
-		nnoremap ,dd :DBDescribeTable<cr>
-	" }}
 	" FSWITCH{{
 	if has("autocmd")
 		augroup plugin_fswitch
@@ -252,7 +284,7 @@
 
 		" JAVASCRIPT
 		let g:syntastic_javascript_checkers=['jslint']
-		let g:syntastic_javascript_jslint_conf = "--continue --regexp"
+		let g:syntastic_javascript_jslint_conf = "--continue --regexp --white"
 
 		" CSS
 		let g:syntastic_csslint_options = "--ignore=box-model,adjoining-classes,unique-headings,qualified-headings"
@@ -282,11 +314,11 @@
 		cabbrev bd BufKillD
 	" }}
 	" JEDI-VIM {{
-		let g:jedi#goto_command = "<c-]>"
+		let g:jedi#goto_assignments_command = "<c-]>"
 		let g:jedi#popup_on_dot = 1
 		let g:jedi#popup_select_first = 1
-		let g:jedi#pydoc = "K"
-		let g:jedi#show_function_definition = 1
+		let g:jedi#documentation_command = "K"
+		let g:jedi#show_call_signatures = 1
 		let g:jedi#use_tabs_not_buffers = 0
 	" }}
 	" AIRLINE {{
@@ -308,7 +340,7 @@
 		let g:neocomplete#data_directory = expand('~/configs/vim/tmp/neocomplete')
 	" }}
 	" ULTISNIPS {{
-		let g:UltiSnipsSnippetsDir = expand('~/configs/vim/snippets')
+		let g:UltiSnipsSnippetsDir = expand('~/configs/vim/snips')
 		let g:UltiSnipsSnippetDirectories = ['UltiSnips', g:UltiSnipsSnippetsDir]
 		let g:UltiSnipsExpandTrigger = '<tab>'
 		let g:UltiSnipsJumpForwardTrigger = '<tab>'
@@ -620,6 +652,7 @@
 					" less restrictive so that gnu specific keywords would be
 					" allowed
 					setlocal makeprg=g++\ -g\ -Wall\ -pedantic\ -std=gnu++98\ -Wno-long-long\ $*\ %\ -o\ %:r
+
 				else
 					setlocal makeprg=g++\ -g\ -Wall\ -pedantic\ -std=c++98\ -Wno-long-long\ $*\ %\ -o\ %:r
 				endif

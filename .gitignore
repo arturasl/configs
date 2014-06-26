@@ -1,6 +1,8 @@
 *.swp
 vim/tmp/
 vim/.netrwhist
+vim/neobundle/
+vim/bundle/neobundle.vim/
 *.tags
 
 mutt/tmp/

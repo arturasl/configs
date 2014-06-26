@@ -672,4 +672,3 @@ augroup END
 let &cpo = s:save_cpo
 
 " vim:ft=vim:fdm=marker:fen:fmr={{{,}}}:
-
