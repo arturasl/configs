@@ -145,7 +145,7 @@
 	NeoBundle '~/.vim/bundle/Spelling/'
 
 	" Languages
-	NeoBundle 'leshill/vim-json'
+	NeoBundle 'elzr/vim-json'
 	NeoBundle 'tpope/vim-markdown'
 	NeoBundle 'nelstrom/vim-markdown-folding'
 	NeoBundle 'groenewege/vim-less'
@@ -607,7 +607,7 @@
 			\ ], 1)
 
 			if !empty(l:directoryWithMakeFile)
-				execute 'setlocal makeprg=make\ -C\ ' . l:directoryWithMakeFile . '\ $*'
+				execute 'setlocal makeprg=make\ -C\ ' . shellescape(escape(l:directoryWithMakeFile, ' ()\')) . '"\ $*'
 				return 1
 			endif
 
