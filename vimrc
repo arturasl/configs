@@ -140,6 +140,7 @@
 	NeoBundle 'tpope/vim-surround'
 	NeoBundle 'vim-scripts/matchit.zip.git'
 	NeoBundle 'yegappan/mru'
+	NeoBundle 'junegunn/limelight.vim'
 
 	NeoBundle '~/configs/vim/bundle/bufkill/'
 	NeoBundle '~/.vim/bundle/Spelling/'
@@ -157,8 +158,21 @@
 " }}
 
 " PLUGINS{{
+	" LIMELIGHT{{
+		if has("autocmd")
+			augroup plugin_limelight
+			autocmd!
+			autocmd FileType tex :Limelight 0.4
+			augroup END
+		endif
+	" }}
 	" RAINBOW PARENTHESIS{{
-
+		if has("autocmd")
+			augroup plugin_rainbow_parenthesis
+			autocmd!
+			autocmd FileType lisp :RainbowParenthesesToggle
+			augroup END
+		endif
 	" }}
 	" TAGBAR{{
 		let g:tagbar_compact = 1            " Do not show header and empty lines
@@ -666,6 +680,11 @@
 	" DOT{{
 		function! SetMakeForDot()
 			if !SetMakePRGToMake()
+				autocmd QuickFixCmdPost make
+										\ if &ft ==? 'dot'|
+											\ execute 'silent !~/configs/scripts/showme.bash --silent-detached %.png &>/dev/null &'|
+										\ endif
+
 				setlocal makeprg=dot\ %\ -Tpng\ -O
 			endif
 		endfunction
@@ -952,9 +971,6 @@
 		autocmd FileType html
 			\ syntax match htmlLinkWhite '\v\s' contained containedin=htmlLink
 			\ | highlight default link htmlLinkWhite Ignore
-	" }}
-	" LISP {{
-		autocmd FileType lisp :RainbowParenthesesToggle
 	" }}
 		augroup END
 	endif
