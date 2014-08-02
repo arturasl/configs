@@ -3,6 +3,7 @@ vim/tmp/
 vim/.netrwhist
 vim/neobundle/
 vim/bundle/neobundle.vim/
+vim/bundle/.neobundle/
 *.tags
 
 mutt/tmp/
