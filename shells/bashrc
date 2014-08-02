@@ -102,5 +102,6 @@ export PATH=~/configs/scripts/aliases:$PATH
 which fish &>/dev/null
 if [ "$?" -eq 0 ]; then
 	export CDPATH=.
+	export SHELL=fish
 	exec fish
 fi
