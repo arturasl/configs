@@ -460,6 +460,7 @@
 	set lazyredraw            " do not update screen while doing batch changes
 	set fileformats=unix,dos,mac  " for new files use unix line endings. Choose between unix, dos or mac
 	set fileencodings=ucs-bom,utf-8,latin1 " encodings to try for existing files (for new one - utf-8)
+	set shell=bash            " use bash as default shell for vim
 	" paste from clipboard without reformatting text
 	nnoremap ,p :set invpaste<cr>
 	nnoremap ,p+ :silent! set paste<cr>"+p:set nopaste<cr>
