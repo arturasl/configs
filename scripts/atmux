@@ -8,9 +8,9 @@ session='arturasl_tmux'
 cd
 
 tmux -2 start-server
-tmux new-session -d -s ${session}
-
 windownr=1
+tmux new-session -d -s ${session} -n 'files' 'ranger'
+
 for i in `seq 1 4`; do
 	nextwindownr
 	tmux new-window -t ${session}:${windownr}
@@ -26,9 +26,7 @@ tmux split-window -v -p 50 -t ${session}:${windownr} '~/configs/scripts/mutt-run
 tmux select-pane -U -t ${session}:${windownr}
 
 nextwindownr
-tmux new-window -t ${session}:${windownr} -n 'todo' 'vim ~/Dropbox/TODO.mkd --cmd "set autoread | set updatetime=1000 | set spell | au CursorHold * :checktime"'
-tmux split-window -v -p 40 -t ${session}:${windownr} 'calcurse'
-tmux select-pane -U -t ${session}:${windownr}
+tmux new-window -t ${session}:${windownr} -n 'todo' '~/configs/scripts/exec-on-connection.bash rtm'
 
 nextwindownr
 tmux new-window -t ${session}:${windownr} -n 'irssi' 'irssi'
