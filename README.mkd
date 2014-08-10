@@ -155,6 +155,21 @@ ln -s ~/configs/vimperatorrc ~/.vimperatorrc
 bach -c 'ranger & sleep 5; kill %1; ranger --copy-config=all & sleep 5; kill %1; cat ~/configs/ranger/rc.conf >> .config/ranger/rc.conf'
 ```
 
+## rtm
+
+```bash
+export PIP_REQUIRE_VIRTUALENV=
+pip2 install pyrtm
+
+rtmdir="$(mktemp -d tmp.XXX)"
+cd "$rtmdir"
+hg clone https://bitbucket.org/dwaring87/rtm-cli
+cd "rtm-cli/"
+chmod a+x rtm
+sudo mv rtm /usr/bin
+rm -rf "$rtmdir"
+```
+
 # Additional packages
 
 ## from npm
