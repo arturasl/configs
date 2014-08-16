@@ -10,3 +10,6 @@ vnoremap y y<esc><esc>
 
 " search engine
 set defsearch=duckduckgo
+
+set gui toolbars+=nonavigation
+nnoremap <c-l> o
