@@ -147,8 +147,13 @@
 
 	" Languages
 	NeoBundle 'elzr/vim-json'
-	NeoBundle 'tpope/vim-markdown'
-	NeoBundle 'nelstrom/vim-markdown-folding'
+
+	" NeoBundle 'tpope/vim-markdown'
+	" NeoBundle 'nelstrom/vim-markdown-folding'
+	NeoBundle 'vim-pandoc/vim-pandoc'
+	NeoBundle 'vim-pandoc/vim-pandoc-syntax'
+	NeoBundle 'vim-pandoc/vim-pandoc-after'
+
 	NeoBundle 'groenewege/vim-less'
 	NeoBundle 'alunny/pegjs-vim'
 	NeoBundle 'Shirk/vim-gas'
@@ -361,6 +366,10 @@
 		let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 		let g:UltiSnipsNoPythonWarning = 1
 		let g:UltiSnipsUsePythonVersion = 2
+	" }}
+	" PANDOC {{
+		let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby", "python", "sql", "bash=sh", "tex"]
+		let g:pandoc#syntax#conceal#blacklist = ['codeblock_delim']
 	" }}
 " }}
 
