@@ -140,7 +140,8 @@
 	NeoBundle 'tpope/vim-surround'
 	NeoBundle 'vim-scripts/matchit.zip.git'
 	NeoBundle 'yegappan/mru'
-	NeoBundle 'junegunn/limelight.vim'
+	" NeoBundle 'junegunn/limelight.vim'
+	NeoBundle 'haya14busa/incsearch.vim'
 
 	NeoBundle '~/configs/vim/bundle/bufkill/'
 	NeoBundle '~/.vim/bundle/Spelling/'
@@ -163,13 +164,18 @@
 " }}
 
 " PLUGINS{{
-	" LIMELIGHT{{
-		if has("autocmd")
-			augroup plugin_limelight
+	" INCSHEARCH{{
+		map /  <Plug>(incsearch-forward)
+		map ?  <Plug>(incsearch-backward)
+		let g:incsearch#magic = '\v'
+		augroup incsearch-keymap
 			autocmd!
-			autocmd FileType tex :Limelight 0.4
-			augroup END
-		endif
+			autocmd VimEnter call s:incsearch_keymap()
+		augroup END
+		function! s:incsearch_keymap()
+			IncSearchNoreMap <C-f> <Right>
+			IncSearchNoreMap <C-b> <Left>
+		endfunction
 	" }}
 	" RAINBOW PARENTHESIS{{
 		if has("autocmd")
@@ -549,8 +555,8 @@
 	set hlsearch   " show all results
 	set gdefault   " append g to substitution automatically
 	" use regex that is more like pcre by default
-	nnoremap / /\v
-	xnoremap / /\v
+	" nnoremap / /\v " done by INCSHEARCH
+	" xnoremap / /\v " done by INCSHEARCH
 	" show match in the center of window (and open folds)
 	nnoremap n nzzzR
 	nnoremap N NzzzR
