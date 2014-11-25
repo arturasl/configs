@@ -9,7 +9,8 @@ capWebBrowser() {
 }
 
 capPDFViewer() {
-	{ program='/Applications/Preview.app' && [ $(which open) -a -d "$program" ] && echo "open -a '${program}'"; } \
+	{ program='/Applications/Skim.app' && [ $(which open) -a -d "$program" ] && echo "open -a '${program}'"; } \
+	|| { program='/Applications/Preview.app' && [ $(which open) -a -d "$program" ] && echo "open -a '${program}'"; } \
 	|| { program='evince' && utilCommandExists "$program" && echo "$program"; }
 }
 
