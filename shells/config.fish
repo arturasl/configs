@@ -11,3 +11,7 @@ end
 function fish_user_key_bindings
 	fish_vi_key_bindings
 end
+
+function date -d "more readable date"
+	/bin/date '+%Y-%m-%d %H:%M:%ST%z'
+end
