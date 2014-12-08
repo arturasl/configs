@@ -339,6 +339,7 @@
 		cabbrev bd BufKillD
 	" }}
 	" JEDI-VIM {{
+		let g:jedi#completions_enabled = 0 " will use neocomplete for that
 		let g:jedi#goto_assignments_command = "<c-]>"
 		let g:jedi#popup_on_dot = 1
 		let g:jedi#popup_select_first = 1
