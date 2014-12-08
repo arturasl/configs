@@ -375,7 +375,7 @@
 		let g:UltiSnipsUsePythonVersion = 2
 	" }}
 	" PANDOC {{
-		let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby", "python", "sql", "bash=sh", "tex"]
+		let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby", "python", "sql", "bash=sh", "tex", "cpp"]
 		let g:pandoc#syntax#conceal#blacklist = ['codeblock_delim']
 	" }}
 " }}
