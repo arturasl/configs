@@ -831,6 +831,9 @@
 		autocmd! BufRead,BufNewFile *.json set filetype=json
 		autocmd FileType json nnoremap <buffer> <f2> :call Preserve('%!python -mjson.tool')<cr>
 	" }}
+	" XML{{
+		autocmd FileType xml nnoremap <buffer> <f2> :call Preserve('%!python -c "import xml.dom.minidom; import sys; xml = xml.dom.minidom.parse(sys.stdin); print(xml.toprettyxml())"')<cr>
+	" }}
 	" BNF{{
 		autocmd bufreadpre,bufnewfile *.bnf set ft=bnf
 	" }}
