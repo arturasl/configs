@@ -919,7 +919,7 @@
 		endfunction
 
 		function! SetMakeForRST()
-			setlocal makeprg=pandoc\ --to=html5\ --highlight-style=pygments\ --standalone\ --normalize\ --tab-stop=2\ '--output=/tmp/%.html'\ '%'\ &&\ ~/configs/scripts/showme.bash\ '/tmp/%.html'
+			setlocal makeprg=pandoc\ --latex-engine=xelatex\ --highlight-style=pygments\ -V\ geometry:margin=0.5in\ --standalone\ --tab-stop=2\ '--output=/tmp/%.pdf'\ '%'\ &&\ ~/configs/scripts/showme.bash\ '/tmp/%.pdf'
 		endfunction
 
 		autocmd BufRead,BufNewFile *.rst,*.mkd
