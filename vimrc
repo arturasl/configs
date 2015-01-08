@@ -109,6 +109,9 @@
 
 " BUNDLES{{
 	if has('vim_starting')
+		if empty(glob('~/.vim/bundle/neobundle.vim'))
+			execute '!curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh'
+		endif
 		set nocompatible
 		set runtimepath+=~/.vim/bundle/neobundle.vim
 	endif
