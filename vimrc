@@ -674,7 +674,23 @@
 	" C/CPP{{
 		autocmd FileType c,cpp setlocal foldmethod=syntax foldnestmax=1
 		autocmd FileType cpp call LoadLangTags('cpp')
-		autocmd FileType c,cpp nnoremap <buffer> <f2> :call Preserve('%!astyle -T4 -a -C -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2') \| echo "AStyle Cpp"<cr>
+		autocmd FileType c,cpp nnoremap <buffer> <f2> :call Preserve('%!astyle -T4 -C -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2 --style=attach') \| echo "AStyle Cpp"<cr>
+		" T4 - 4 space tab
+		" -C - indent inner part of classes
+		" -S - indent inner part of switches
+		" -N - indent inner poart of namespaces
+		" -L - gives single tab for labels
+		" -w - indent defines
+		" -Y - indent comments same as code
+		" -f - empty line between for/if/while blocks
+		" -p - pad operators with single space
+		" -H - insert space after if/while
+		" -U - remove indentation inside of if ( a ) -> if(a)
+		" -j - always use {}
+		" -k3 - pointer alignment
+		" -q - no output
+		" -z2 - use \n as line ending
+		" --style=attach - add {} on same line
 
 		function! SetMakeForCpp()
 			if SetMakePRGToMake()
