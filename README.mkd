@@ -183,6 +183,12 @@ npm install -g uglifycss
 npm install -g uglify-js
 ```
 
+## from pip
+
+```bash
+sudo syspip install --upgrade language-check
+```
+
 ## git submodules
 
 ```bash
