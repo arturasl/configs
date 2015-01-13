@@ -1,0 +1,9 @@
+#!/bin/bash
+
+/usr/local/bin/language-check <(\
+	cat "$1" \
+		| awk '/``/{i++;print"";next}{if(i%2){print""}else{print}}' `# markdown fences` \
+		| sed -E -e 's/^(Date|From|To|Subject|X-Mailer): .*$//g' `# mail headers` \
+		| sed -e 's/^>.*//g' `# mail comments` \
+		| detex -cn `# latex stuff` \
+	) | sed -e 's/^[^:]*:/'"$(echo "$1" | sed -e 's/[\/&]/\\&/g')"':/g'
