@@ -117,7 +117,7 @@
 	endif
 	call neobundle#begin(expand('~/.vim/neobundle/'))
 
-	NeoBundle 'Shougo/vimproc.vim', {'build': {'unix': 'make'}}
+	NeoBundle 'Shougo/vimproc.vim', { 'build': {'unix': 'make'} }
 
 	NeoBundle 'Raimondi/delimitMate'
 	NeoBundle 'Shougo/neocomplete.vim'
