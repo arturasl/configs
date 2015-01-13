@@ -29,7 +29,7 @@ nextwindownr
 tmux new-window -t ${session}:${windownr} -n 'todo' '~/configs/scripts/exec-on-connection.bash rtm'
 
 nextwindownr
-tmux new-window -t ${session}:${windownr} -n 'irssi' 'irssi'
+tmux new-window -t ${session}:${windownr} -n 'weechat' 'weechat'
 
 nextwindownr
 tmux new-window -t ${session}:${windownr} -n 'htop' 'htop'
