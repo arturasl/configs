@@ -310,6 +310,14 @@
 			\ 'passive_filetypes': ['tex']
 		\ }
 
+		" language-check
+		let g:syntastic_filetype_map = {
+			\ 'pandoc': 'text',
+			\ 'mail': 'text',
+			\ 'gitcommit': 'text'
+		\ }
+		let g:syntastic_text_checkers=['language_check']
+
 		" JAVASCRIPT
 		let g:syntastic_javascript_checkers=['jslint']
 		let g:syntastic_javascript_jslint_conf = "--continue --regexp --white"
