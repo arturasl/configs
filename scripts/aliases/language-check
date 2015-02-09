@@ -3,14 +3,14 @@
 input_file="$1"
 lang=EN-US
 
-if grep --quiet ' \(ir\|,kad\|,nes\|bei\|arba\|,bet|tačiau\) ' "$input_file"; then
+if grep --quiet ' \(ir\|bei\|arba\|tačiau\|Pagarbiai\) \|, \(kad\|nes|bet\|o\) ' "$input_file"; then
 	lang=LT
 fi
 
 /usr/local/bin/language-check -l "$lang" -d WHITESPACE_RULE <(\
 	cat "$input_file" \
 		| awk '/``/{i++;print"";next}{if(i%2){print""}else{print}}' `# markdown fences` \
-		| sed -E -e 's/^(Date|From|To|Subject|X-Mailer): .*$//g' `# mail headers` \
+		| sed -E -e 's/^(Date|CC|BCC|From|To|Subject|X-Mailer): .*$//g' `# mail headers` \
 		| sed -e 's/^>.*//g' `# mail comments` \
 		| detex -cn `# latex stuff` \
 	) | sed -e 's/^[^:]*:/'"$(echo "$1" | sed -e 's/[\/&]/\\&/g')"':/g'
