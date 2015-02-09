@@ -3,7 +3,7 @@
 color error color193 color124
 color markers color142 color233
 color tilde color142 color233
-color status color172 color233
+color status color172 default
 
 # header stuff
 color hdrdefault color248 color233
