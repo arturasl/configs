@@ -75,6 +75,14 @@ bind pager k previous-line
 bind pager l view-attachments
 bind pager r group-reply
 
+## sidebar
+set sidebar_delim = '  │'
+set sidebar_visible = yes
+set sidebar_width = 24
+bind index,pager <down> sidebar-next
+bind index,pager <up> sidebar-prev
+bind index,pager <right> sidebar-open
+
 ## attachments
 bind attach h exit
 bind attach l view-attach
@@ -100,7 +108,6 @@ hdr_order Date From To Cc # order in which headers will be shown (from first)
 ignore "Authentication-Results:"
 ignore "DomainKey-Signature:"
 ignore "DKIM-Signature:"
-
 
 set imap_check_subscribed
 set imap_keepalive = 300
