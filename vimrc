@@ -306,15 +306,15 @@
 		let g:syntastic_auto_loc_list=0 " do not open/close error window automatically
 
 		let g:syntastic_mode_map = {
-			\ 'mode': 'active',
-			\ 'passive_filetypes': ['tex']
+			\ 'mode': 'active'
 		\ }
 
 		" language-check
 		let g:syntastic_filetype_map = {
 			\ 'pandoc': 'text',
 			\ 'mail': 'text',
-			\ 'gitcommit': 'text'
+			\ 'gitcommit': 'text',
+			\ 'tex': 'text'
 		\ }
 		let g:syntastic_text_checkers=['language_check']
 
