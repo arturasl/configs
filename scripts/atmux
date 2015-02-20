@@ -23,6 +23,7 @@ tmux split-window -v -p 90 -t ${session}:${windownr} 'newsbeuter'
 nextwindownr
 tmux new-window -t ${session}:${windownr} -n 'mail' '~/configs/scripts/mutt-run.bash gml'
 tmux split-window -v -p 50 -t ${session}:${windownr} '~/configs/scripts/mutt-run.bash mit'
+tmux split-window -h -p 50 -t ${session}:${windownr} '~/configs/scripts/mutt-run.bash lap'
 tmux select-pane -U -t ${session}:${windownr}
 
 nextwindownr
