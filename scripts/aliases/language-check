@@ -3,9 +3,46 @@
 input_file="$1"
 lang=EN-US
 
-if grep --quiet ' \(ir\|bei\|arba\|tačiau\|Pagarbiai\) \|, \(kad\|nes|bet\|o\) ' "$input_file"; then
+if grep --quiet ' \(ir\|bei\|arba\|tačiau\|Pagarbiai\) \|, \(kad\|nes|bet\|o\) \|[ąčęėįšųūž]' "$input_file"; then
 	lang=LT
 fi
+
+run_language_tool_server_if_needed() {
+    if lsof -i tcp@localhost:8081 &>/dev/null; then
+        return
+    fi
+
+    language_check_path=''
+    for py in python python3 python2; do
+        language_check_path="$(
+        "$py" <<EOF
+try:
+    import language_check
+    print(language_check.__file__)
+except:
+    pass
+EOF
+    )"
+        if [ -n "$language_check_path" ]; then
+            language_check_path="$(dirname "$language_check_path")"
+            break
+        fi
+    done
+
+    if [ -z "$language_check_path" ]; then
+        echo "could not find language check" &1>&2
+        exit 1
+    fi
+
+    language_tool_path="$(echo "${language_check_path}/LanguageTool-"*)"
+    java \
+        -cp /usr/local/lib/python3.4/site-packages/language_check/LanguageTool-2.7/languagetool-server.jar \
+        org.languagetool.server.HTTPServer \
+        --port 8081 &>/dev/null &
+    disown %1
+}
+
+run_language_tool_server_if_needed
 
 /usr/local/bin/language-check -l "$lang" -d WHITESPACE_RULE <(\
 	cat "$input_file" \
