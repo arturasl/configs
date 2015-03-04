@@ -151,6 +151,7 @@
 
 	" Languages
 	NeoBundle 'elzr/vim-json'
+	NeoBundle 'rust-lang/rust.vim'
 
 	" NeoBundle 'tpope/vim-markdown'
 	" NeoBundle 'nelstrom/vim-markdown-folding'
