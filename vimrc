@@ -885,6 +885,10 @@
 			\ nnoremap <buffer> <f5> G:call Preserve('silent r!openssl x509 -in % -noout -text') \| setlocal readonly<cr>
 		autocmd bufreadpre,bufnewfile *.key
 			\ nnoremap <buffer> <f5> G:call Preserve('silent r!openssl rsa -in % -noout -text') \| setlocal readonly<cr>
+		autocmd bufreadpre,bufnewfile *.p12
+			\ nnoremap <buffer> <f5> G:call Preserve('silent r!openssl pkcs12 -info -in %') \| setlocal readonly<cr>
+		autocmd bufreadpre,bufnewfile *.pem
+			\ nnoremap <buffer> <f5> G:call Preserve('silent r!openssl x509 -outform der -in a.pem -out /dev/fd/1 \| openssl asn1parse -inform DER -in /dev/fd/0') \| setlocal readonly<cr>
 	" }}
 	" RST {{
 		function! RSTEnter()
