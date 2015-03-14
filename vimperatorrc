@@ -9,7 +9,7 @@ nnoremap v cv
 vnoremap y y<esc><esc>
 
 " search engine
-set defsearch=duckduckgo
+set defsearch=duckduckgohtml
 
 set gui+=nonavigation,notabs
 nnoremap <c-l> o
