@@ -45,7 +45,7 @@ set beep_new # adds "!" in tmux (bell character?)
 set beep # bepp on errors
 
 # pass each message thgouth given command
-set display_filter=~/configs/scripts/mutt-message-filter.bash
+set display_filter=~/configs/scripts/mutt-message-filter.py
 
 # keybindings
 
