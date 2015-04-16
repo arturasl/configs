@@ -489,6 +489,10 @@
 	set fileformats=unix,dos,mac  " for new files use unix line endings. Choose between unix, dos or mac
 	set fileencodings=ucs-bom,utf-8,latin1 " encodings to try for existing files (for new one - utf-8)
 	set shell=bash            " use bash as default shell for vim
+	set modeline              " use first few lines of opened file as modeline. That is, it should be
+	                          " possible to write `// vim: set expandtab` (on top of file) to expand
+							  " tab only for current file
+	set modelines=5
 	" paste from clipboard without reformatting text
 	nnoremap ,p :set invpaste<cr>
 	nnoremap ,p+ :silent! set paste<cr>"+p:set nopaste<cr>
