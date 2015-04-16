@@ -1024,6 +1024,20 @@
 			\ syntax match htmlLinkWhite '\v\s' contained containedin=htmlLink
 			\ | highlight default link htmlLinkWhite Ignore
 	" }}
+	" RUST {{
+		function! SetMakeForRust()
+			let l:directoryWithCargoFile = FindRoot([{'name': 'Cargo.toml'}], 1)
+			if !empty(l:directoryWithCargoFile)
+				setlocal makeprg=cargo\ test
+			elseif SetMakePRGToMake()
+				" do nothing
+			else
+				setlocal makeprg=rustc\ $*\ %
+			endif
+		endfunction
+
+		autocmd FileType rust call SetMakeForRust()
+	" }}
 		augroup END
 	endif
 " }}
