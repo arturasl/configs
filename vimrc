@@ -564,6 +564,7 @@
 	set softtabstop=4          " if someone uses spaces delete them with backspace
 	set tabstop=4              " numbers of spaces of tab character
 	set noexpandtab            " use tab character
+	set backspace=indent,eol,start " allow backspace over anything"
 " }}
 " SEARCHING_SETTINGS{{
 	set ignorecase " case insensetive search
