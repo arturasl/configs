@@ -114,6 +114,7 @@ touch ~/configs/mutt/tmp/certificates
 ## git
 
 ```bash
+# diffing and merging
 git config --global merge.tool git-vim-mergetool # define new tool
 git config --global mergetool.git-vim-mergetool.cmd '~/configs/scripts/git-vim-mergetool.bash $BASE $LOCAL $REMOTE $MERGED' # command line to execute
 git config --global mergetool.git-vim-mergetool.trustExitCode false # ask me if I finished merging explicitly
@@ -122,10 +123,16 @@ git config --global mergetool.git-vim-mergetool.keepBackup false # remove .orig 
 git config --global diff.external ~/configs/scripts/git-vim-diff.bash
 git config --global pager.diff '' # do not pipe diff output to page as we are using "graphical" diff tool
 
+# nice aliases
 git config --global alias.lg "log --graph --pretty=format:'%C(cyan)%h%C(bold magenta)%d%Creset %s %C(green)(%cr) %C(bold blue) %an%Creset'"
 
+# ignores
 git config --global core.excludesfile ~/.gitignore
 ln -s ~/configs/ignores ~/.gitignore
+
+# ctags hooks
+git config --global init.templatedir '~/configs/vcs/git/git_template'
+git config --global alias.ctags '!.git/hooks/ctags'
 ```
 
 ## svn

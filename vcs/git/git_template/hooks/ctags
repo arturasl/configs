@@ -1,0 +1,16 @@
+#!/bin/bash -ex
+
+HIDDEN_GIT_DIR="$(git rev-parse --git-dir)"
+PID="$$"
+TMP_TAGS_FILE="${HIDDEN_GIT_DIR}/${PID}.tags"
+TAGS_FILE="${HIDDEN_GIT_DIR}/tags"
+
+clean_up() {
+  rm -f "$TMP_TAGS_FILE"
+}
+trap clean_up EXIT
+
+git ls-files \
+  | ctags --tag-relative -L - -f"$TMP_TAGS_FILE"
+
+mv "$TMP_TAGS_FILE" "$TAGS_FILE"
