@@ -99,9 +99,8 @@ export PATH=~/configs/scripts/aliases:$PATH
 
 # if we have fish shell use it
 # yes, it can be set as default shell...
-which fish &>/dev/null
-if [ "$?" -eq 0 ]; then
+if which fish &>/dev/null; then
 	export CDPATH=.
-	export SHELL=fish
-	exec fish
+	export SHELL="$(which fish)"
+	exec "$SHELL"
 fi
