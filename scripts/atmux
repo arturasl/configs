@@ -30,7 +30,13 @@ nextwindownr
 tmux new-window -t ${session}:${windownr} -n 'todo' '~/configs/scripts/exec-on-connection.bash rtm'
 
 nextwindownr
-tmux new-window -t ${session}:${windownr} -n 'weechat' 'weechat'
+host='lapinskas'
+host="${host}."
+host="${host}net"
+url='arturas'
+url="${url}@"
+url="${url}${host}"
+tmux new-window -t ${session}:${windownr} -n "$host" "mosh ${url} -- screen -dr"
 
 nextwindownr
 tmux new-window -t ${session}:${windownr} -n 'htop' 'htop'
