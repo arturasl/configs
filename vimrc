@@ -152,6 +152,12 @@
 	" Languages
 	NeoBundle 'elzr/vim-json'
 	NeoBundle 'rust-lang/rust.vim'
+	NeoBundle 'phildawes/racer', {
+	\   'build' : {
+	\     'mac': 'cargo build --release',
+	\     'unix': 'cargo build --release',
+	\   }
+	\ }
 
 	" NeoBundle 'tpope/vim-markdown'
 	" NeoBundle 'nelstrom/vim-markdown-folding'
@@ -389,6 +395,10 @@
 	" PANDOC {{
 		let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby", "python", "sql", "bash=sh", "tex", "cpp", "java"]
 		let g:pandoc#syntax#conceal#blacklist = ['codeblock_delim']
+	" }}
+	" RACER {{
+		" let $RUST_SRC_PATH = join(globpath('~/Builds/rust-packages/*/src/', '', 0, 1), ':')
+		let $RUST_SRC_PATH = globpath('~/Builds/rust-packages/rust/src/', '')
 	" }}
 " }}
 
