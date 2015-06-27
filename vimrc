@@ -621,6 +621,13 @@
 	" load tags, specific to the language defined by strLang parameter
 	function! LoadLangTags(strLang)
 		let l:files = split(globpath('~/.vim/tags/', a:strLang . '_*.tags'), '\n')
+
+		" load tags from .git directory
+		let l:gitDirectory = FindRoot([{'name': '.git', 'isDir': 1}], 1)
+		if !empty(l:gitDirectory) && filereadable(l:gitDirectory . '/.git/tags')
+			call add(l:files, l:gitDirectory . '/.git/tags')
+		endif
+
 		for l:strTag in l:files
 			execute 'setlocal tags+='.l:strTag
 		endfor
@@ -688,6 +695,7 @@
 	" C/CPP{{
 		autocmd FileType c,cpp setlocal foldmethod=syntax foldnestmax=1
 		autocmd FileType cpp call LoadLangTags('cpp')
+		autocmd FileType c call LoadLangTags('c')
 		autocmd FileType c,cpp nnoremap <buffer> <f2> :call Preserve('%!astyle -T4 -C -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2 --style=attach') \| echo "AStyle Cpp"<cr>
 		" T4 - 4 space tab
 		" -C - indent inner part of classes
