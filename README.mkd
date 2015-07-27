@@ -148,7 +148,7 @@ mv "$tmp" ~/.subversion/config
 
 ```bash
 bash -c '( test -d ~/.config/fish/ && ln -s ~/configs/shells/config.fish ~/.config/fish/config.fish ) || echo "could not find fish"'
-chsh -s /usr/local/bin/fish
+chsh -s "$(which fish)"
 fish_update_completions
 ```
 ## vimperator
