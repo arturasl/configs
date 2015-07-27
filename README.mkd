@@ -180,16 +180,6 @@ rm -rf "$rtmdir"
 
 # Additional packages
 
-## from npm
-
-```bash
-sudo chown -R $USER /usr/local
-npm install -g jslint
-npm install -g csslint
-npm install -g uglifycss
-npm install -g uglify-js
-```
-
 ## from pip
 
 ```bash
