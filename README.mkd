@@ -13,7 +13,7 @@ git clone git://github.com/arturasl/configs.git ~/configs
 ```bash
 ln -s ~/configs/scripts/atmux /usr/bin
 # for non mac systems create dummy reattach-to-user-namespace (clipboard helper)
-ln -s ~/configs/scripts/reattach-to-user-namespace /usr/bin
+sudo ln -s ~/configs/scripts/reattach-to-user-namespace /usr/bin
 ```
 
 ## ctags
@@ -46,10 +46,10 @@ sudo ln -s /usr/local/bin/mvimdiff /usr/bin/gvimdiff
 
 ```bash
 xterm -e mc & pid="$!" && sleep 5 && kill "$pid" # lazy load mc settings
-MCDIR=$(( test -d ~/.mc && echo ~/.mc ) || echo ~/.config/mc)
+MCDIR=$(( test -d ~/.mc && echo ~/.mc ) || echo ~/.config/filemanagers/mc)
 if [ ! -d "$MCDIR" ]; then echo 'Could not detect mc directory' 1>&2; fi
 mkdir -p "$MCDIR/skins/"
-sed -i'' -e 's/^skin=.*/'$(echo "skin=$HOME/.config/mc/skins/custom.ini" | sed -e 's/[\/&]/\\&/g')'/' "$MCDIR/ini"
+sed -i'' -e 's/^skin=.*/'$(echo "skin=$HOME/.config/filemanagers/mc/skins/custom.ini" | sed -e 's/[\/&]/\\&/g')'/' "$MCDIR/ini"
 sed -i'' -e 's/^navigate_with_arrows=.*/navigate_with_arrows=1/' "$MCDIR/ini"
 sed -i'' -e 's/^drop_menus=.*/drop_menus=1/' "$MCDIR/ini"
 ```
@@ -160,7 +160,7 @@ ln -s ~/configs/vimperatorrc ~/.vimperatorrc
 ## ranger
 
 ```bash
-bach -c 'ranger & sleep 5; kill %1; ranger --copy-config=all & sleep 5; kill %1; cat ~/configs/ranger/rc.conf >> .config/ranger/rc.conf'
+bach -c 'ranger & sleep 5; kill %1; ranger --copy-config=all & sleep 5; kill %1; cat ~/configs/filemanagers/ranger/rc.conf >> .config/ranger/rc.conf'
 ```
 
 ## rtm
