@@ -60,7 +60,6 @@ firefox *.xpi
 cd
 
 $apti libreoffice         # document editor
-$apti feh                 # image previewing
 ## }}
 ## multimedia  {{
 $apti gimp                # image editor
@@ -76,5 +75,9 @@ $apti calibre             # epub reader/converter
 $apti i3lock              # screen locker
 echo -e '#!/bin/bash\ni3lock -c 000000' | sudo tee /usr/local/bin/lock && sudo chmod a+x /usr/local/bin/lock
 $apti dmenu               # general menu (using for program selection)
+$apti trayer              # tray
+$apti dzen2               # top panel
+$apti feh                 # image previewing
+$apti conky               # shows various information about system
 ## }}
 #  }}
