@@ -18,6 +18,7 @@ $apti fpc                      # pascal
 $apti openjdk-{6,7}-jre        # java
 $apti nodejs npm \
 	&& sudo npm install -g jslint csslint uglifycss uglify-js # javascript
+$apti texlive-full             # latex
 ## }}
 ## virtual machines {{
 $apti linux-{,image-}generic linux-{signed,headers}-generic
