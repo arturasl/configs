@@ -178,6 +178,12 @@ sudo mv rtm /usr/bin
 rm -rf "$rtmdir"
 ```
 
+## sqlite
+
+```bash
+ln -s ~/configs/sqliterc ~/.sqliterc
+```
+
 # Additional packages
 
 ## from pip
@@ -193,8 +199,3 @@ sudo syspip install --upgrade language-check
 git submodule update --init --recursive && git submodule update --recursive
 ```
 
-## sqlite
-
-```bash
-ln -s ~/configs/sqliterc ~/.sqliterc
-```
