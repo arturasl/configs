@@ -184,6 +184,14 @@ rm -rf "$rtmdir"
 ln -s ~/configs/sqliterc ~/.sqliterc
 ```
 
+## dwm
+
+```bash
+sudo ln -s ~/configs/dwm/startdwm.bash /usr/bin/
+sudo cp ~/configs/dwm/dwm.desktop /usr/share/xsessions/
+sudo chown root:root /usr/share/xsessions/dwm.desktop
+```
+
 # Additional packages
 
 ## from pip
