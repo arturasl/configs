@@ -104,6 +104,8 @@ $apti trayer              # tray
 $apti dzen2               # top panel
 $apti feh                 # image previewing
 $apti conky               # shows various information about system
+$apti xbacklight          # allows to change brightness
+sudo dpkg-divert  --rename --add /etc/init/gdm.conf # disable gdm
 ## }}
 ## fonts {{
 $apti ttf-mscorefonts-installer

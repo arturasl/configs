@@ -17,3 +17,5 @@ st -e 'atmux' &
 
 # remove dwm version information
 xsetroot -name ' '
+# set brightness
+xbacklight -set 75
