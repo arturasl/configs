@@ -50,6 +50,7 @@ $apti htop         # process monitor
 ## general {{
 $apti keepassx            # password manager
 $apti dropbox             # simple file syncing
+$apti skype               # dont ask
 $apti firefox             # internet browser
 
 mkdir -p ~/Tmp/firefoxaddons && cd ~/Tmp/firefoxaddons
