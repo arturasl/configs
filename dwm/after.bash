@@ -19,3 +19,5 @@ st -e 'atmux' &
 xsetroot -name ' '
 # set brightness
 xbacklight -set 75
+# set wallpaper
+feh --bg-scale "$(find ~/Pictures/Wallpapers/ | sort -r | head -n 1)"
