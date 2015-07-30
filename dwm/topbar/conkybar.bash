@@ -52,8 +52,11 @@ while read -r conky_line; do
 			cur="$(cat "$f")"
 			total_mails=$(( total_mails + cur ))
 		done
+
+		if [ "$total_mails" -ne 0 ]; then
+			title+="$(makeConkyVal "$total_mails" 0 '' mail '')"
+		fi
 	fi
-	title+="$(makeConkyVal "$total_mails" 0 '' mail '')"
 
 	# conky
 	OLDIFS="$IFS"; IFS='|'; conky_arr=($conky_line); IFS="$OLDIFS"
