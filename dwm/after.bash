@@ -19,6 +19,6 @@ dropbox start
 # remove dwm version information
 xsetroot -name ' '
 # set brightness
-xbacklight -set 75
+xbacklight -set 25
 # set wallpaper
 feh --bg-scale "$(find ~/Pictures/Wallpapers/ | sort -r | head -n 1)"
