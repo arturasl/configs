@@ -9,21 +9,28 @@ conky_temp=2
 conky_down=3
 conky_up=4
 conky_bat=5
+conky_wireless=6
 
 makeImgVal() {
 	echo -n "^i(${xbmdir}/${1}.xbm)"
 }
 
 makeConkyVal() {
-	conky_index="$1"
-	maxval=$( ( [ -n "$2" ] && echo "$2" ) || echo 0)
-	minval=$( ( [ -n "$3" ] && echo "$3" ) || echo 0)
+	val="$1"
+	maxval=$( ( [ -n "$2" ] && echo "$2" ) || echo -1)
+	minval=$( ( [ -n "$3" ] && echo "$3" ) || echo -1)
 	img="$4"
-	val="${conky_arr[${conky_index}]}"
+	postfix="$5"
 	val=$( ( [ -n "$val" ] && echo "$val" ) || echo 0)
 	intval="$(echo $val | cut -d'.' -f1)"
 
-	if [ \( "$maxval" -ne "0" -a "$intval" -gt "$maxval" \) -o \( "$minval" -ne "0" -a "$intval" -lt "$minval" \) ]; then
+	if [[ ! "$intval" =~ [[:digit:]]+ ]]; then
+		return
+	fi
+
+	echo -n ' '
+
+	if [ \( "$maxval" -ne "-1" -a "$intval" -gt "$maxval" \) -o \( "$minval" -ne "-1" -a "$intval" -lt "$minval" \) ]; then
 		echo -n "^fg(${fg_hi})"
 	fi
 
@@ -32,19 +39,33 @@ makeConkyVal() {
 		echo -n ' '
 	fi
 
-	echo -n "$val"
+	echo -n "${val}${postfix}^fg()"
 }
 
 while true; do
-	OLDIFS="$IFS"; IFS='|'; conky_arr=($(conky 2>/dev/null)); IFS="$OLDIFS"
 	title=""
-	title+="$(makeImgVal mail)"
-	title+=" $(makeConkyVal ${conky_bat} '' 10 bat_full_02)%^fg()"
-	title+=" $(makeConkyVal ${conky_cpu} 95 '' cpu)%^fg()"
-	title+=" $(makeConkyVal ${conky_mem} 95 '' mem)%^fg()"
-	title+=" $(makeConkyVal ${conky_temp} '' '' temp)°^fg()"
-	title+=" $(makeConkyVal ${conky_down} '' '' net_down_03)^fg()"
-	title+=" $(makeConkyVal ${conky_up} '' '' net_up_03)^fg()"
+
+	# mail
+	total_mails=0
+	if [ -d ~/Tmp/mail_stats ]; then
+		for f in ~/Tmp/mail_stats/*; do
+			cur="$(cat "$f")"
+			total_mails=$(( total_mails + cur ))
+		done
+	fi
+	title+="$(makeConkyVal "$total_mails" 0 '' mail '')"
+
+	# conky
+	OLDIFS="$IFS"; IFS=$'\n'; conky_arr=($(conky "--config=${SCRIPT_DIR}/conky.rc" 2>/dev/null)); IFS="$OLDIFS"
+	title+="$(makeConkyVal "${conky_arr[${conky_bat}]}" '' 10 bat_full_02 '%')"
+	title+="$(makeConkyVal "${conky_arr[${conky_cpu}]}" 95 '' cpu '%')"
+	title+="$(makeConkyVal "${conky_arr[${conky_mem}]}" 95 '' mem '%')"
+	title+="$(makeConkyVal "${conky_arr[${conky_temp}]}" '' '' temp '°')"
+	title+="$(makeConkyVal "${conky_arr[${conky_down}]}" '' '' net_down_03 '')"
+	title+="$(makeConkyVal "${conky_arr[${conky_up}]}" '' '' net_up_03 '')"
+	title+="$(makeConkyVal "${conky_arr[${conky_wireless}]}" '' 5 dish '%')"
+
+	# time
 	title+="     $(makeImgVal clock) $(date '+%H:%M %Y-%m-%d')"
 
 	echo "$title"
