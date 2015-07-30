@@ -122,6 +122,7 @@ while [ true ]; do
 			esac
 
 			line=''
+			sleep 5
 		done <>"$commandFile"
 	done
 done > >(dzen2 $@)

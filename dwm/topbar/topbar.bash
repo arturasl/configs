@@ -24,8 +24,8 @@ trap fnOnFinish EXIT
 playerbar_pid="$!"
 
 # conkybar
-# "${SCRIPT_DIR}/conkybar.bash" -h "${bar_height}" -x "$((screen_width - trayer_width - conky_bar_width))" -w "${conky_bar_width}" $dzen_options &
-# conkybar_pid="$!"
+"${SCRIPT_DIR}/conkybar.bash" -h "${bar_height}" -x "$((screen_width - trayer_width - conky_bar_width))" -w "${conky_bar_width}" $dzen_options &
+conkybar_pid="$!"
 
 [ -n "$trayer_pid" ] && wait "$trayer_pid"
 [ -n "$playerbar_pid" ] && wait "$playerbar_pid"
