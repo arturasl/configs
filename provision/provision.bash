@@ -15,10 +15,15 @@ $apti exuberant-ctags          # generates tag file for pretty much every langua
 ## language specifc {{
 $apti python{,3}{,-pip}        # python
 $apti fpc                      # pascal
-$apti openjdk-{6,7}-jre        # java
+$apti openjdk-{6,7}-jdk        # java
 $apti nodejs npm \
 	&& sudo npm install -g jslint csslint uglifycss uglify-js # javascript
 $apti texlive-full             # latex
+## idea {{
+$apti geany
+$apti code{blocks,lite}
+./build/intellij.bash
+## }}
 ## }}
 ## virtual machines {{
 $apti linux-{,image-}generic linux-{signed,headers}-generic
