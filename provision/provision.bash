@@ -47,7 +47,7 @@ $apti tmux         # multiplexer
 $apti vim-gtk      # editor
 $apti newsbeuter   # news aggregator (rss/atom)
 $apti vifm ranger  # file manager
-$apti mutt         # mail reader
+./build/mutt.bash  # mail reader
 $apti mosh         # somewhat more persistant ssh
 $apti htop         # process monitor
 ## }}
@@ -102,6 +102,7 @@ $apti zathura{,-djvu,-ps} # document preview (pdf, djvu, ps)
 $apti calibre             # epub reader/converter
 ## }}
 ## window manager{{
+./build/dwm/dwm.bash
 $apti i3lock              # screen locker
 echo -e '#!/bin/bash\ni3lock -c 000000' | sudo tee /usr/local/bin/lock && sudo chmod a+x /usr/local/bin/lock
 $apti dmenu               # general menu (using for program selection)
