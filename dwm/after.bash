@@ -11,9 +11,10 @@ nm-applet &
 kill "$trayer_pid"
 
 # start other software
-skype &
-firefox &
 st -e 'atmux' &
+firefox &
+skype &
+dropbox start
 
 # remove dwm version information
 xsetroot -name ' '
