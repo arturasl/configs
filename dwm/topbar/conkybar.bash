@@ -42,7 +42,7 @@ makeConkyVal() {
 	echo -n "${val}${postfix}^fg()"
 }
 
-while true; do
+while read -r conky_line; do
 	title=""
 
 	# mail
@@ -56,7 +56,7 @@ while true; do
 	title+="$(makeConkyVal "$total_mails" 0 '' mail '')"
 
 	# conky
-	OLDIFS="$IFS"; IFS=$'\n'; conky_arr=($(conky "--config=${SCRIPT_DIR}/conky.rc" 2>/dev/null)); IFS="$OLDIFS"
+	OLDIFS="$IFS"; IFS='|'; conky_arr=($conky_line); IFS="$OLDIFS"
 	title+="$(makeConkyVal "${conky_arr[${conky_bat}]}" '' 10 bat_full_02 '%')"
 	title+="$(makeConkyVal "${conky_arr[${conky_cpu}]}" 95 '' cpu '%')"
 	title+="$(makeConkyVal "${conky_arr[${conky_mem}]}" 95 '' mem '%')"
@@ -66,8 +66,7 @@ while true; do
 	title+="$(makeConkyVal "${conky_arr[${conky_wireless}]}" '' 5 dish '%')"
 
 	# time
-	title+="     $(makeImgVal clock) $(date '+%H:%M %Y-%m-%d')"
+	title+="   $(makeImgVal clock) $(date '+%H:%M %Y-%m-%d')"
 
 	echo "$title"
-	sleep 5
-done > >(dzen2 $@)
+done > >(dzen2 $@) < <(conky "--config=${SCRIPT_DIR}/conky.rc")
