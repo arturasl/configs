@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -xe
 
 mkdir ~/Builds/intellij && cd ~/Builds/intellij
 wget -O idea.tar.gz https://download.jetbrains.com/idea/ideaIU-14.1.4.tar.gz
