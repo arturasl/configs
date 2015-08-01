@@ -10,6 +10,7 @@ conky_down=3
 conky_up=4
 conky_bat=5
 conky_wireless=6
+conky_fs_used=7
 
 makeImgVal() {
 	echo -n "^i(${xbmdir}/${1}.xbm)"
@@ -68,6 +69,7 @@ while read -r conky_line; do
 	title+="$(makeConkyVal "${conky_arr[${conky_bat}]}" '' 10 bat_full_02 '%')"
 	title+="$(makeConkyVal "${conky_arr[${conky_cpu}]}" 95 '' cpu '%')"
 	title+="$(makeConkyVal "${conky_arr[${conky_mem}]}" 95 '' mem '%')"
+	title+="$(makeConkyVal "${conky_arr[${conky_fs_used}]}" 95 '' diskette '%')"
 	title+="$(makeConkyVal "${conky_arr[${conky_temp}]}" 50 '' temp '°')"
 	title+="$(makeConkyVal "${conky_arr[${conky_down}]}" '' '' net_down_03 '')"
 	title+="$(makeConkyVal "${conky_arr[${conky_up}]}" '' '' net_up_03 '')"
