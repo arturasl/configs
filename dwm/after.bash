@@ -22,3 +22,5 @@ xsetroot -name ' '
 xbacklight -set 25
 # set wallpaper
 feh --bg-scale "$(find ~/Pictures/Wallpapers/ | sort -r | head -n 1)"
+# keyboard
+setxkbmap -layout us,lt setxkbmap -option grp:alt_shift_toggle
