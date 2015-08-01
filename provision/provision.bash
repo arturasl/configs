@@ -4,10 +4,12 @@
 
 apt='sudo apt-get -y'
 apti="${apt} install"
+
+# directory structure {{
 mkdir -p ~/Builds/ ~/Tmp
-
+mkdir -p ~/Projects/{Professional,Personal,Tmp}
+# }}
 $apt update
-
 # development {{
 $apti build-essential autoconf libncurses5-dev
 $apti git subversion mercurial # version controll
