@@ -1,33 +1,37 @@
-#!/bin/sh
+#!/bin/bash -e
 
 nextwindownr () {
 	windownr=`expr $windownr + 1`
 }
-session='arturasl_tmux'
+session='arturasl'
 
 cd
 
+if tmux list-sessions -F '#{session_name}' | fgrep --quiet --line-regexp "$session"; then
+	exec tmux -2 attach-session -t "${session}"
+fi
+
 tmux -2 start-server
 windownr=1
-tmux new-session -d -s ${session} -n 'files' 'ranger'
+tmux new-session -d -s "${session}" -n 'files' 'ranger'
 
 for i in `seq 1 4`; do
 	nextwindownr
-	tmux new-window -t ${session}:${windownr}
+	tmux new-window -t "${session}:${windownr}"
 done
 
 nextwindownr
-tmux new-window -t ${session}:${windownr} -n 'news' 'podbeuter'
-tmux split-window -v -p 90 -t ${session}:${windownr} 'newsbeuter'
+tmux new-window -t "${session}:${windownr}" -n 'news' 'podbeuter'
+tmux split-window -v -p 90 -t "${session}:${windownr}" 'newsbeuter'
 
 nextwindownr
-tmux new-window -t ${session}:${windownr} -n 'mail' '~/configs/scripts/mutt-run.bash gml'
-tmux split-window -v -p 50 -t ${session}:${windownr} '~/configs/scripts/mutt-run.bash mit'
-tmux split-window -h -p 50 -t ${session}:${windownr} '~/configs/scripts/mutt-run.bash lap'
-tmux select-pane -U -t ${session}:${windownr}
+tmux new-window -t "${session}:${windownr}" -n 'mail' '~/configs/scripts/mutt-run.bash gml'
+tmux split-window -v -p 50 -t "${session}:${windownr}" '~/configs/scripts/mutt-run.bash mit'
+tmux split-window -h -p 50 -t "${session}:${windownr}" '~/configs/scripts/mutt-run.bash lap'
+tmux select-pane -U -t "${session}:${windownr}"
 
 nextwindownr
-tmux new-window -t ${session}:${windownr} -n 'todo' '~/configs/scripts/exec-on-connection.bash rtm'
+tmux new-window -t "${session}:${windownr}" -n 'todo' '~/configs/scripts/exec-on-connection.bash rtm'
 
 nextwindownr
 host='lapinskas'
@@ -36,10 +40,10 @@ host="${host}net"
 url='arturas'
 url="${url}@"
 url="${url}${host}"
-tmux new-window -t ${session}:${windownr} -n "$host" "~/configs/scripts/exec-on-connection.bash mosh ${url} -- screen -dr"
+tmux new-window -t "${session}:${windownr}" -n "$host" "~/configs/scripts/exec-on-connection.bash mosh ${url} -- screen -dr"
 
 nextwindownr
-tmux new-window -t ${session}:${windownr} -n 'htop' 'htop'
+tmux new-window -t "${session}:${windownr}" -n 'htop' 'htop'
 
-tmux select-window -t ${session}:1
-tmux -2 attach-session -t ${session}
+tmux select-window -t "${session}:1"
+tmux -2 attach-session -t "${session}"
