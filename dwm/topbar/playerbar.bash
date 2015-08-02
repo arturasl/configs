@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -xe
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/constants.bash"
@@ -10,12 +10,12 @@ IFS=$'\n' # evil
 
 #### Cleanup
 
-fnOnFinish() {
+finish() {
 	rm -f "$mplayer_pipe" &>/dev/null || true
 	rm -f "$commandFile" &>/dev/null || true
-	[ -n "$mplayer_pid" ] && kill "$mplayer_pid"
+	kill -TERM 0 && wait && exit 0
 }
-trap fnOnFinish EXIT
+trap finish EXIT
 
 #### helpers for extracting files to play
 
@@ -91,7 +91,7 @@ while [ true ]; do
 		fi
 
 		playingIsPaused=false
-		rm "$mplayer_pipe" && mkfifo "$mplayer_pipe"
+		rm -f "$mplayer_pipe" && mkfifo "$mplayer_pipe"
 		mplayer -vo null -slave -input "file=${mplayer_pipe}" "$file" 1>/dev/null &
 		mplayer_pid="$!"
 
