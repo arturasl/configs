@@ -16,5 +16,8 @@ patch < "${stname}-no-bold-colors.diff"
 wget http://st.suckless.org/patches/st-solarized-dark.diff
 patch < st-solarized-dark.diff
 
+# font
+sed -i'' -e 's/^static char font.*$/static char font[] = "DejaVu Sans Mono:pixelsize=10:antialias=true:autohint=false";/g' config.def.h
+
 # install
 sudo make install && make clean
