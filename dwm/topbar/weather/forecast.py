@@ -99,4 +99,4 @@ if args.forecast:
         for data in day_data[1]:
             print('{:2d}h {:2.0f}° - {}'.format(data['time'].hour, data['temp'], data['text'].lower()))
 else:
-    print('{} {}°'.format(data['position']['place'], closest_forecast_data['temp']), end = '')
+    print('{} {:.0f}°'.format(data['position']['place'], closest_forecast_data['temp']), end = '')
