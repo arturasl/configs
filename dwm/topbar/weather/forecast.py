@@ -16,6 +16,11 @@ positions = {
     'vilnius': {'place': 'vilnius', 'lat': 54.638037, 'lng': 25.286558}
 }
 
+EPOCH = datetime.datetime.utcfromtimestamp(0).replace(tzinfo = tz.tzutc())
+
+def epochTimeInS(date):
+    return int((date - EPOCH).total_seconds())
+
 def utcToLocal(utc):
     return utc.replace(tzinfo = tz.tzutc()).astimezone(tz.tzlocal())
 
@@ -73,6 +78,13 @@ if not data:
 
 grouped_data_items = sorted(data['grouped_data'].items())
 
+cur_epoch_time = epochTimeInS(datetime.datetime.now(tz.tzutc()))
+closest_forecast_diff, closest_forecast_data = min([(abs(epochTimeInS(item['time']) - cur_epoch_time), item) for item in sum([item[1] for item in grouped_data_items], [])])
+
+if closest_forecast_diff > 2 * 60 * 60:
+    print('?°', end = '')
+    sys.exit(0)
+
 if args.forecast:
     hi_color = '#D8599B'
     local_creation_time = utcToLocal(data['created'])
@@ -87,4 +99,4 @@ if args.forecast:
         for data in day_data[1]:
             print('{:2d}h {:2.0f}° - {}'.format(data['time'].hour, data['temp'], data['text'].lower()))
 else:
-    print('{} {}°'.format(data['position']['place'], grouped_data_items[0][1][0]['temp']), end = '')
+    print('{} {}°'.format(data['position']['place'], closest_forecast_data['temp']), end = '')
