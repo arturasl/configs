@@ -5,7 +5,7 @@ source "$SCRIPT_DIR/constants.bash"
 
 dwm_bar_width=202
 trayer_width=80
-conky_bar_width=400
+conky_bar_width=600
 screen_width=$(xrandr | grep '*' | grep -o '[[:digit:]]\+x[[:digit:]]\+' | cut -d'x' -f1)
 
 fnOnFinish() {
