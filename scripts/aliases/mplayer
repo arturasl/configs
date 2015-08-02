@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mplayer -softvol -softvol-max 300 "$@"
