@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-import forecastio, datetime, collections, argparse, pickle, os, sys
+import forecastio, datetime, collections, argparse, pickle, os, sys, contextlib, urllib2, json
 from dateutil import tz
+from __future__ import print_function
 
 # syspip2 install python-forecastio
 
@@ -12,11 +13,24 @@ parser.add_argument('--forecast', action = 'store_true')
 args = parser.parse_args()
 
 positions = {
-    'vilnius': {'lat': 54.638037, 'lng': 25.286558}
+    'vilnius': {'place': 'vilnius', 'lat': 54.638037, 'lng': 25.286558}
 }
 
 def utcToLocal(utc):
     return utc.replace(tzinfo = tz.tzutc()).astimezone(tz.tzlocal())
+
+def getCurrentPosition():
+    try:
+        with contextlib.closing(urllib2.urlopen('http://ip-api.com/json')) as response:
+            location = json.loads(response.read())
+            return {
+                'place': location['city'],
+                'lat': location['lat'],
+                'lng': location['lon']
+            }
+    except (urllib2.URLError, ValueError):
+        print('Could not detect current position', file = sys.stderr)
+        return None
 
 data = None
 
@@ -24,29 +38,33 @@ if os.path.isfile(args.cache_file):
     with open(args.cache_file, 'rb') as fp_cache:
         data = pickle.load(fp_cache)
 
-if not data or data['created'] + datetime.timedelta(hours = 2) < datetime.datetime.utcnow():
+if not data or data['created'] + datetime.timedelta(hours = 2) < datetime.datetime.utcnow() or data['place_requested'] != args.place:
     try:
-        forecast = forecastio.load_forecast(args.api_key, positions[args.place]['lat'], positions[args.place]['lng'], units = 'si').hourly()
+        position = getCurrentPosition() if args.place == 'detect' else positions[position]
+        if position:
+            forecast = forecastio.load_forecast(args.api_key, position['lat'], position['lng'], units = 'si').hourly()
 
-        grouped_data = collections.defaultdict(list)
-        for data in forecast.data:
-            time = utcToLocal(data.time)
-            grouped_data[time.date()].append({
-                'time': time,
-                'temp': data.temperature,
-                'text': data.summary,
-            })
+            grouped_data = collections.defaultdict(list)
+            for data in forecast.data:
+                time = utcToLocal(data.time)
+                grouped_data[time.date()].append({
+                    'time': time,
+                    'temp': data.temperature,
+                    'text': data.summary,
+                })
 
-        for key in grouped_data.keys():
-            grouped_data[key] = sorted(grouped_data[key], key = lambda x: x['time'])
+            for key in grouped_data.keys():
+                grouped_data[key] = sorted(grouped_data[key], key = lambda x: x['time'])
 
-        data = {
-            'created': datetime.datetime.utcnow(),
-            'grouped_data': grouped_data
-        }
+            data = {
+                'created': datetime.datetime.utcnow(),
+                'place_requested': args.place,
+                'position': position,
+                'grouped_data': grouped_data
+            }
 
-        with open(args.cache_file, 'wb') as fp_cache:
-            pickle.dump(data, fp_cache)
+            with open(args.cache_file, 'wb') as fp_cache:
+                pickle.dump(data, fp_cache)
     except:
         pass
 
@@ -60,7 +78,7 @@ if args.forecast:
     local_creation_time = utcToLocal(data['created'])
     print('^fg({}){} ({} {})^fg()'.format(
         hi_color,
-        args.place,
+        data['position']['place'],
         local_creation_time.date(),
         local_creation_time.time().hour))
 
@@ -69,4 +87,4 @@ if args.forecast:
         for data in day_data[1]:
             print('{:2d}h {:2.0f}° - {}'.format(data['time'].hour, data['temp'], data['text'].lower()))
 else:
-    print '{} {}°'.format(args.place, grouped_data_items[0][1][0]['temp']),
+    print('{} {}°'.format(data['position']['place'], grouped_data_items[0][1][0]['temp']), end = '')
