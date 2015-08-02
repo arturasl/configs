@@ -15,4 +15,4 @@ SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 	source "${SCRIPT_DIR}/after.bash"
 	wait "$wm"
 	sleep 2
-} 2>> ~/Tmp/dwm_errors.log
+} 2>&1 1>/dev/null | grep -v '^+' >> ~/Tmp/dwm_errors.log
