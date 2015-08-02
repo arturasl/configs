@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -xe
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/constants.bash"
@@ -8,12 +8,10 @@ trayer_width=80
 conky_bar_width=600
 screen_width=$(xrandr | grep '*' | grep -o '[[:digit:]]\+x[[:digit:]]\+' | cut -d'x' -f1)
 
-fnOnFinish() {
-	[ -n "$trayer_pid" ] && kill "$trayer_pid"
-	[ -n "$playerbar_pid" ] && kill "$playerbar_pid"
-	[ -n "$conkybar_pid" ] && kill "$conkybar_pid"
+finish() {
+	kill -TERM 0 && wait && exit 0
 }
-trap fnOnFinish EXIT
+trap finish EXIT
 
 # trayer
 # trayer --edge top --align right --height ${bar_height} --SetDockType true --SetPartialStrut true --expand false --widthtype pixel --width "$trayer_width" --transparent true --alpha 0 --tint "0x${bar_bg_hex}" &

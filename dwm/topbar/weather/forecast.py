@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 import forecastio, datetime, collections, argparse, pickle, os, sys, contextlib, urllib2, json
 from dateutil import tz
-from __future__ import print_function
 
 # syspip2 install python-forecastio
 

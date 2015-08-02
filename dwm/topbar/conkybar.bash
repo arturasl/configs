@@ -3,6 +3,11 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/constants.bash"
 
+finish() {
+	kill -TERM 0 && wait && exit 0
+}
+trap finish EXIT
+
 conky_cpu=0
 conky_mem=1
 conky_temp=2

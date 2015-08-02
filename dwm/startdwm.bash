@@ -8,6 +8,11 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
+finish() {
+	kill -TERM 0 && wait && exit 0
+}
+trap finish EXIT
+
 {
 	source "${SCRIPT_DIR}/before.bash"
 	dwm &
