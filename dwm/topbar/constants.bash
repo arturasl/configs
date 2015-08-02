@@ -1,7 +1,6 @@
 #!/bin/bash
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-xbmdir="${SCRIPT_DIR}/xbm8x8/"
+xbmdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/xbm8x8/"
 fg_hi=red
 bar_bg_hex='2E2E2E'
 bar_fg_hex='BEBEBE'

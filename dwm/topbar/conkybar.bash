@@ -47,8 +47,8 @@ while read -r conky_line; do
 	title=""
 
 	# weather
-	title+="^ca(1, '${SCRIPT_DIR}/dzen_popup.bash')"
-	title+="$(python2 "${SCRIPT_DIR}/weather.py" --place "$weather_place" --api-key "$(cat "${HOME}/Dropbox/configs/forecast.io.api.key" | tr -d '\n')" --cache-file "${HOME}/Tmp/weather_cache.pickle")"
+	title+="^ca(1, '${SCRIPT_DIR}/weather/forecast_popup.bash')"
+	title+="$("${SCRIPT_DIR}/weather/forecast_default.bash")"
 	title+="^ca()"
 
 	# mail
