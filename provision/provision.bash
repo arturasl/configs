@@ -12,10 +12,10 @@ mkdir -p ~/Projects/{Professional,Personal,Tmp}
 $apt update
 # development {{
 $apti build-essential autoconf libncurses5-dev
-$apti git subversion mercurial # version controll
+$apti git subversion mercurial # version control
 $apti exuberant-ctags          # generates tag file for pretty much every language
 $apti xdotool xautomation      # x automation tools (particularly cool is xte for mouse and keyboard stuff)
-## language specifc {{
+## language specific {{
 $apti python{,3}{,-pip}        # python
 $apti fpc                      # pascal
 $apti openjdk-{6,7}-jdk        # java
@@ -39,7 +39,7 @@ $apti vagrant
 ## utilities {{
 $apti curl xsel xclip
 $apti highlight caca-utils w3m-img
-$apti graphviz     # graph drwing utility
+$apti graphviz     # graph drawing utility
 $apti imagemagick  # converts between various image formats (screen capture, filters, etc.)
 $apti pandoc       # converts between various document formats (mkd, latex, rst, etc.)
 $apti sshfs curlftpfs # fuse
@@ -52,7 +52,7 @@ $apti vim-gtk      # editor
 $apti newsbeuter   # news aggregator (rss/atom)
 $apti vifm ranger  # file manager
 ./build/mutt.bash  # mail reader
-$apti mosh         # somewhat more persistant ssh
+$apti mosh         # somewhat more persistent ssh
 $apti htop         # process monitor
 ## }}
 # }}
