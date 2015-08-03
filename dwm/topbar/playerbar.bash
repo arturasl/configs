@@ -85,8 +85,12 @@ while [ true ]; do
 
 	breakFilePlaying=false
 
+	if [ -z "$filesToPlay" ]; then
+		sleep 10
+	fi
+
 	for file in $filesToPlay; do
-        if "$breakFilePlaying"; then
+		if "$breakFilePlaying"; then
 			break;
 		fi
 
