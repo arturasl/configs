@@ -14,6 +14,7 @@ $apt update
 $apti build-essential autoconf libncurses5-dev
 $apti git subversion mercurial # version controll
 $apti exuberant-ctags          # generates tag file for pretty much every language
+$apti xdotool xautomation      # x automation tools (particularly cool is xte for mouse and keyboard stuff)
 ## language specifc {{
 $apti python{,3}{,-pip}        # python
 $apti fpc                      # pascal
