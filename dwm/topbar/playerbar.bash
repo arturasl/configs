@@ -25,7 +25,7 @@ fnShuffleLines() {
 
 fnGetFilesToPlayFromDirectory() {
 	directory="$1"
-	find "$directory" -type f -regextype posix-extended -iregex '.*\.(mp3|mp4|flv)$'
+	find "${directory}/" -type f -regextype posix-extended -iregex '.*\.(mp3|mp4|flv)$'
 }
 
 fnGetFilesToPlayFromPlaylistItem() {
