@@ -57,9 +57,18 @@ $apti mosh         # somewhat more persistent ssh
 $apti htop         # process monitor
 ## }}
 # }}
+# security {{
+$apti keepassx                 # password manager
+## gnome keyring {{
+$apti gnome-keyring            # daemon for handling sensitive information
+$apti libgnome-keyring-{common,dev}     # library which is used by third party software to interact with gnome-keyring
+$apti seahorse                 # gui to gnome keyring
+$apti secret-tools             # cli to gnome keyring
+./build/git-gnome-keyring.bash # integrates gnome-keyring with git
+## }}
+# }}
 # user level programs {{
 ## general {{
-$apti keepassx            # password manager
 $apti dropbox             # simple file syncing
 $apti skype               # dont ask
 $apti chromium-browser opera # internet browser
