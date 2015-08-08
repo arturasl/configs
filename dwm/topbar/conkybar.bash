@@ -16,6 +16,7 @@ conky_up=4
 conky_bat=5
 conky_wireless=6
 conky_fs_used=7
+conky_bat_state=8
 
 makeImgVal() {
 	echo -n "^i(${xbmdir}/${1}.xbm)"
@@ -69,9 +70,18 @@ while read -r conky_line; do
 		fi
 	fi
 
-	# conky
+	# parse conky values to array
 	OLDIFS="$IFS"; IFS='|'; conky_arr=($conky_line); IFS="$OLDIFS"
-	title+="$(makeConkyVal "${conky_arr[${conky_bat}]}" '' 10 bat_full_02 '%')"
+
+	# battery icon
+	bat_icon='bat_full_02'
+	bat_state="$(echo "${conky_arr[${conky_bat_state}]}" | cut -d' ' -f 1)"
+	if [ "$bat_state" = "C" ]; then
+		bat_icon='bat_full_01'
+	fi
+
+	# conky values
+	title+="$(makeConkyVal "${conky_arr[${conky_bat}]}" '' 10 "$bat_icon" '%')"
 	title+="$(makeConkyVal "${conky_arr[${conky_cpu}]}" 95 '' cpu '%')"
 	title+="$(makeConkyVal "${conky_arr[${conky_mem}]}" 95 '' mem '%')"
 	title+="$(makeConkyVal "${conky_arr[${conky_fs_used}]}" 95 '' diskette '%')"

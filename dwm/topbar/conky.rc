@@ -6,4 +6,4 @@ total_run_times 0
 use_spacer none
 
 TEXT
-${cpu}|${memperc}|${acpitemp}|${downspeedf}|${upspeedf}|${battery_percent}|${wireless_link_qual_perc}|${fs_used_perc}
+${cpu}|${memperc}|${acpitemp}|${downspeedf}|${upspeedf}|${battery_percent}|${wireless_link_qual_perc}|${fs_used_perc}|${battery_short}
