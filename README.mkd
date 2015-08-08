@@ -160,7 +160,7 @@ ln -s ~/configs/vimperatorrc ~/.vimperatorrc
 ## ranger
 
 ```bash
-bach -c 'ranger & sleep 5; kill %1; ranger --copy-config=all & sleep 5; kill %1; cat ~/configs/filemanagers/ranger/rc.conf >> .config/ranger/rc.conf'
+bash -c 'ranger & sleep 5; kill %1; ranger --copy-config=all & sleep 5; kill %1; cat ~/configs/filemanagers/ranger/rc.conf >> .config/ranger/rc.conf'
 ```
 
 ## rtm
