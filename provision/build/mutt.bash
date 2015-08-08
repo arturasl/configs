@@ -23,13 +23,13 @@ rm -f $tmp_keyring mutt.key sig.tar.gz.asc
 # extract and patch
 tar xzf mutt.tar.gz && mv mutt-*/* . && rm -f mutt.tar.gz
 
+wget -O trash.patch http://scie.nti.st/dist/trash-1.5.16.patch
+echo 'ed71aee8a637c6327d9e888b1cc9d8f20918b454  trash.patch' | sha1sum --status --check -
+patch -p1 < trash.patch
+
 wget -O sidebar.patch https://raw.github.com/nedos/mutt-sidebar-patch/7ba0d8db829fe54c4940a7471ac2ebc2283ecb15/mutt-sidebar.patch
 echo '1e151d4ff3ce83d635cf794acf0c781e1b748ff1 sidebar.patch' | sha1sum --status --check -
 patch -p1 < sidebar.patch
-
-wget -O trash.patch http://cedricduval.free.fr/mutt/patches/download/patch-1.5.5.1.cd.trash_folder.3.4
-echo 'b0dd5e04ab1bf5970adcde0d5ee7ef62bd04c137  trash.patch' | sha1sum --status --check -
-patch -p1 < trash.patch
 
 # build
 ./configure --enable-pop --enable-imap --enable-smtp --with-ssl --enable-hcache --with-gss --with-sasl
