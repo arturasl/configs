@@ -11,7 +11,7 @@ git clone git://github.com/arturasl/configs.git ~/configs
 ## Scripts
 
 ```bash
-ln -s ~/configs/scripts/atmux /usr/bin
+sudo ln -s ~/configs/scripts/atmux /usr/bin
 # for non mac systems create dummy reattach-to-user-namespace (clipboard helper)
 sudo ln -s ~/configs/scripts/reattach-to-user-namespace /usr/bin
 ```
