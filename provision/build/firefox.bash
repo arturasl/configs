@@ -3,6 +3,7 @@
 sudo apt-get -y install firefox
 mkdir -p ~/Tmp/firefoxaddons && cd ~/Tmp/firefoxaddons
 
+i=1
 for addon in \
 	$(`# Security addons`) \
 	"Addblock_plus:latest/1865/addon-1865-latest.xpi" \
@@ -27,9 +28,10 @@ for addon in \
 	"Update_Scanner:latest/3362/addon-3362-latest.xpi" \
 	"Download_Helper:latest/3006/addon-3006-latest.xpi" \
 ; do
-	name="$(echo "$addon" | cut -d: -f 1)"
+	name="$(printf "%02d" "$i")_$(echo "$addon" | cut -d: -f 1)"
+	i=$((i + 1))
 	url="https://addons.mozilla.org/firefox/downloads/$(echo "$addon" | cut -d: -f 2)"
 	wget -O "${name}.xpi" "$url"
 done
 
-#firefox *.xpi
+firefox *.xpi
