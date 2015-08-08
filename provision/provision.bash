@@ -122,14 +122,6 @@ sudo dpkg-divert  --rename --add /etc/init/gdm.conf # disable gdm
 $apti ttf-mscorefonts-installer
 $apti xfonts-terminus console-terminus
 $apti ttf-dejavu fonts-droid
-
-if [ ! -d /usr/local/share/fonts/truetype/palemonas ]; then
-	wget -O palemonas.zip http://www.vlkk.lt/media/public/file/Palemonas/Palemonas-3_0.zip && unzip palemonas.zip && rm -f palemonas.zip
-	sudo mkdir -p /usr/local/share/fonts/truetype/palemonas
-	sudo cp *alemonas*/*.ttf /usr/local/share/fonts/truetype/palemonas
-	rm -rf *alemonas*
-fi
-
-sudo fc-cache -fv
+./build/palemonas.bash
 ## }}
 #  }}
