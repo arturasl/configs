@@ -11,6 +11,7 @@ capWebBrowser() {
 capPDFViewer() {
 	{ program='/Applications/Skim.app' && [ $(which open) -a -d "$program" ] && echo "open -a '${program}'"; } \
 	|| { program='/Applications/Preview.app' && [ $(which open) -a -d "$program" ] && echo "open -a '${program}'"; } \
+	|| { program='zathura' && utilCommandExists "$program" && echo "$program"; } \
 	|| { program='evince' && utilCommandExists "$program" && echo "$program"; }
 }
 
