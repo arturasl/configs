@@ -22,7 +22,7 @@ $apti openjdk-{6,7}-jdk        # java
 $apti nodejs npm \
 	&& sudo npm install -g jslint csslint uglifycss uglify-js # javascript
 $apti texlive-full             # latex
-$apti astyle cppcheck          # c
+$apti astyle cppcheck libboost-all-dev  # c
 ## }}
 ## idea {{
 $apti geany
