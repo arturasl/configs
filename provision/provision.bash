@@ -36,7 +36,8 @@ $apti dkms virtualbox{,-dkms,-qt} qemu
 $apti vagrant
 ## }}
 ## debugging {{
-$apti wireshark                # network trafic analyzer
+$apti wireshark                # network traffic analyzer
+./build/afl.bash               # fuzzier
 ## }}
 # }}
 # terminal tools {{
