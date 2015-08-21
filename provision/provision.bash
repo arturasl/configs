@@ -22,7 +22,7 @@ $apti openjdk-{6,7}-jdk        # java
 $apti nodejs npm \
 	&& sudo npm install -g jslint csslint uglifycss uglify-js # javascript
 $apti texlive-full             # latex
-$apti valgrind astyle cppcheck # c
+$apti astyle cppcheck          # c
 ## }}
 ## idea {{
 $apti geany
@@ -38,6 +38,7 @@ $apti vagrant
 ## debugging {{
 $apti wireshark                # network traffic analyzer
 ./build/afl.bash               # fuzzier
+$apti valgrind                 # memory debugger
 ## }}
 # }}
 # terminal tools {{
