@@ -35,6 +35,9 @@ $apti linux-{,image-}generic linux-{signed,headers}-generic
 $apti dkms virtualbox{,-dkms,-qt} qemu
 $apti vagrant
 ## }}
+## debugging {{
+$apti wireshark                # network trafic analyzer
+## }}
 # }}
 # terminal tools {{
 ## utilities {{
