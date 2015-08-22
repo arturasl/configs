@@ -90,7 +90,7 @@ if args.forecast:
     local_creation_time = utcToLocal(data['created'])
     print('^fg({}){} ({} {})^fg()'.format(
         hi_color,
-        data['position']['place'],
+        data['position']['place'].encode('utf-8'),
         local_creation_time.date(),
         local_creation_time.time().hour))
 
@@ -99,4 +99,4 @@ if args.forecast:
         for data in day_data[1]:
             print('{:2d}h {:2.0f}° - {}'.format(data['time'].hour, data['temp'], data['text'].lower()))
 else:
-    print('{} {:.0f}°'.format(data['position']['place'], closest_forecast_data['temp']), end = '')
+    print('{} {:.0f}°'.format(data['position']['place'].encode('utf-8'), closest_forecast_data['temp']), end = '')
