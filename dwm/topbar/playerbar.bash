@@ -81,7 +81,6 @@ mplayer_pipe="$(mktemp temp.XXXX)"
 while [ true ]; do
 	filesToPlay="$(fnGetFilesToPlayFromPlaylistItem "$initialPlaylist")"
 	"$shuffle" && filesToPlay="$(echo "$filesToPlay" | fnShuffleLines)"
-	echo "Playlist: $initialPlaylist"
 
 	breakFilePlaying=false
 
