@@ -86,6 +86,10 @@ export BROWSER=~/configs/scripts/showme.bash
 export PIP_REQUIRE_VIRTUALENV=true
 export PIP_DOWNLOAD_CACHE=~/.pip/cache
 
+#### Locale
+
+export LC_ALL=en_US.UTF-8
+
 #### Private stuff
 
 [ -f ~/.bashrc_private ] && source ~/.bashrc_private
