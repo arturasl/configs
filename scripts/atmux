@@ -40,7 +40,7 @@ host="${host}net"
 url='arturas'
 url="${url}@"
 url="${url}${host}"
-tmux new-window -t "${session}:${windownr}" -n "$host" "~/configs/scripts/exec-on-connection.bash mosh ${url} -- screen -dr"
+tmux new-window -t "${session}:${windownr}" -n "$host" "~/configs/scripts/exec-on-connection.bash --persistent mosh ${url} -- screen -dr"
 
 nextwindownr
 tmux new-window -t "${session}:${windownr}" -n 'htop' 'htop'

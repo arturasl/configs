@@ -8,4 +8,4 @@ fi
 
 export TERM=xterm-256color
 export MUTT_MAILBOX="${HOME}/Dropbox/configs/mutt/${settings}"
-cd ~/Tmp/ && ~/configs/scripts/exec-on-connection.bash mutt
+cd ~/Tmp/ && ~/configs/scripts/exec-on-connection.bash --persistent mutt
