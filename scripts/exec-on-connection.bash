@@ -4,6 +4,7 @@ check_host='www.google.com'
 max_attempts=-1
 timeout=30
 debug=0
+persistent=0
 
 while :; do
 	case "$1" in
@@ -16,6 +17,8 @@ Possible parameters:
 	address of host to which this script will try to connect
 --max-attemts num
 	maximum number of connection attempts to make (after exhausting this number this script will exit with status 1). Use negative value as infinity.
+--persistent
+reopens program if it closes (honors --max-attemts)
 --timeout num
 	number of seconds to wait between consequent connection attempts
 --debug 1
@@ -25,22 +28,25 @@ echo "Example usage $0 --check-host www.google.com --timeout 1 --debug 1 --max-a
 			exit 0
 			;;
 		--check-host)
-			check_host="$2"
+			check_host="$2" && shift 1
 			;;
 		--max-attempts)
-			max_attempts="$2"
+			max_attempts="$2" && shift 1
 			;;
 		--timeout)
-			timeout="$2"
+			timeout="$2" && shift 1
+			;;
+		--persistent)
+			persistent=1
 			;;
 		--debug)
-			debug="$2"
+			debug="$2" && shift 1
 			;;
 		*)
 			break
 			;;
 	esac
-	shift 2
+	shift 1
 done
 
 [ "$debug" -eq "1" ] && echo "check_host = ${check_host}, max_attempts = ${max_attempts}, timeout = ${timeout}, command = $@" 1>&2
@@ -48,11 +54,15 @@ done
 i=0
 while [ "$i" -ne "$max_attempts" ]; do
 	if ( host "$check_host" && ping -c 1 "$check_host" ) &>/dev/null; then
-		exec "$@"
+		if [ "$persistent" -eq 1 ]; then
+			"$@"
+		else
+			exec "$@"
+		fi
 	fi
-	[ "$debug" -eq "1" ] && echo "[$(date)] Could not connect to ${check_host}" 1>&2
+	[ "$debug" -eq "1" ] && echo "[$(date)] Could not connect to ${check_host} or given command quit" 1>&2
 	sleep "$timeout"
 	((i++))
-done
+done 2> >(awk "{print \"$0: \"\$0}" | logger --stderr)
 
 exit 1
