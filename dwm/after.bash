@@ -24,3 +24,6 @@ xbacklight -set 25
 feh --bg-scale "$(find ~/Pictures/Wallpapers/ | sort -R | head -n 1)"
 # keyboard
 setxkbmap -layout us,lt setxkbmap -option grp:alt_shift_toggle
+# natural scrolling
+synclient VertScrollDelta=-100
+synclient HorizScrollDelta=-100
