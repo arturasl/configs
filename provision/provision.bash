@@ -3,6 +3,7 @@
 # vim: foldmarker={{,}}
 
 apt='sudo apt-get -y'
+aptr='sudo add-apt-repository -y'
 apti="${apt} install"
 
 # directory structure {{
@@ -23,6 +24,9 @@ $apti nodejs npm \
 	&& sudo npm install -g jslint csslint uglifycss uglify-js # javascript
 $apti texlive-full             # latex
 $apti astyle cppcheck libboost-all-dev  # c
+$aptr ppa:hansjorg/rust \
+	&& $apt update \
+	&& $apti rust-stable cargo-nightly # rust
 ## }}
 ## idea {{
 $apti geany
