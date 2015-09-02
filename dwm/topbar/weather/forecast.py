@@ -9,7 +9,10 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--place', required = True)
 parser.add_argument('--api-key', required = True)
 parser.add_argument('--cache-file', required = True)
-parser.add_argument('--forecast', action = 'store_true')
+parser_group_action = parser.add_mutually_exclusive_group(required = True)
+parser_group_action.add_argument('--just-place', action = 'store_true')
+parser_group_action.add_argument('--forecast', action = 'store_true')
+parser_group_action.add_argument('--current', action = 'store_true')
 args = parser.parse_args()
 
 positions = {
@@ -85,7 +88,9 @@ if closest_forecast_diff > 2 * 60 * 60:
     print('?°', end = '')
     sys.exit(0)
 
-if args.forecast:
+if args.just_place:
+    print('lat:{:.5f}, lng:{:.5f}, place:{}'.format(data['position']['lat'], data['position']['lng'], data['position']['place'].encode('utf-8')))
+elif args.forecast:
     hi_color = '#D8599B'
     local_creation_time = utcToLocal(data['created'])
     print('^fg({}){} ({} {})^fg()'.format(
@@ -98,5 +103,5 @@ if args.forecast:
         print('^fg({}){}^fg()'.format(hi_color, day_data[0]))
         for data in day_data[1]:
             print('{:2d}h {:2.0f}° - {}'.format(data['time'].hour, data['temp'], data['text'].lower()))
-else:
+elif args.current:
     print('{} {:.0f}°'.format(data['position']['place'].encode('utf-8'), closest_forecast_data['temp']), end = '')

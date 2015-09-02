@@ -54,7 +54,7 @@ while read -r conky_line; do
 
 	# weather
 	title+="^ca(1, '${SCRIPT_DIR}/weather/forecast_popup.bash')"
-	title+="$("${SCRIPT_DIR}/weather/forecast_default.bash")"
+	title+="$("${SCRIPT_DIR}/weather/forecast_default.bash" --current)"
 	title+="^ca()"
 
 	# mail
