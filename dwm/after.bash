@@ -20,6 +20,10 @@ dropbox start
 xsetroot -name ' '
 # set brightness
 xbacklight -set 25
+place="$("${SCRIPT_DIR}./topbar/weather/forecast_default.bash" --just-place)"
+lat="$(echo "$place" | cut -d, -f1 | cut -d: -f2)"
+lng="$(echo "$place" | cut -d, -f2 | cut -d: -f2)"
+redshift -l "${lat}:${lng}" &
 # set wallpaper
 feh --bg-scale "$(find ~/Pictures/Wallpapers/ | sort -R | head -n 1)"
 # keyboard
