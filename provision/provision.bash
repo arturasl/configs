@@ -20,6 +20,7 @@ $apti xdotool xautomation      # x automation tools (particularly cool is xte fo
 $apti python{,3}{,-pip}        # python
 $apti fpc                      # pascal
 $apti openjdk-{6,7}-jdk maven  # java
+$aptr ppa:openjdk-r/ppa && $apt update && $apti openjdk-8-jdk
 $apti nodejs npm \
 	&& sudo npm install -g jslint csslint uglifycss uglify-js # javascript
 $apti texlive-full             # latex
