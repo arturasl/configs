@@ -3,8 +3,12 @@
 # vim: foldmarker={{,}}
 
 apt='sudo apt-get -y'
-aptr='sudo add-apt-repository -y'
 apti="${apt} install"
+aptr() {
+	sudo add-apt-repository -y "ppa:$1"
+	shift 1
+	$apt update && $apti "$@"
+}
 
 # directory structure {{
 mkdir -p ~/Builds/ ~/Tmp
@@ -20,16 +24,14 @@ $apti xdotool xautomation      # x automation tools (particularly cool is xte fo
 $apti python{,3}{,-pip}        # python
 $apti fpc                      # pascal
 $apti openjdk-{6,7}-jdk maven  # java
-$aptr ppa:openjdk-r/ppa && $apt update && $apti openjdk-8-jdk
+aptr openjdk-r/ppa openjdk-8-jdk
 # use java8 by default
 sudo update-java-alternatives -s "$(update-java-alternatives -l | awk '{print $3}' | grep 1.8 | grep jdk | head -n 1)"
 $apti nodejs npm \
 	&& sudo npm install -g jslint csslint uglifycss uglify-js # javascript
 $apti texlive-full             # latex
 $apti astyle cppcheck libboost-all-dev  # c
-$aptr ppa:hansjorg/rust \
-	&& $apt update \
-	&& $apti rust-stable cargo-nightly # rust
+aptr hansjorg/rust rust-stable cargo-nightly # rust
 ## }}
 ## idea {{
 $apti geany
@@ -107,7 +109,7 @@ $apti dzen2               # top panel
 $apti feh                 # image previewing
 $apti conky               # shows various information about system
 $apti xbacklight          # allows to change brightness
-$aptr ppa:kilian/f.lux $apt update $apti fluxgui # flux (changes screen color blue->red over the day)
+aptr kilian/f.lux fluxgui # flux (changes screen color blue->red over the day)
 sudo dpkg-divert  --rename --add /etc/init/gdm.conf # disable gdm
 ## }}
 ## fonts {{
