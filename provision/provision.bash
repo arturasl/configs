@@ -109,7 +109,7 @@ $apti dzen2               # top panel
 $apti feh                 # image previewing
 $apti conky               # shows various information about system
 $apti xbacklight          # allows to change brightness
-aptr kilian/f.lux fluxgui # flux (changes screen color blue->red over the day)
+$apti redshift            # changes screen color blue->red over the day
 sudo dpkg-divert  --rename --add /etc/init/gdm.conf # disable gdm
 ## }}
 ## fonts {{
