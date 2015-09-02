@@ -21,6 +21,8 @@ $apti python{,3}{,-pip}        # python
 $apti fpc                      # pascal
 $apti openjdk-{6,7}-jdk maven  # java
 $aptr ppa:openjdk-r/ppa && $apt update && $apti openjdk-8-jdk
+# use java8 by default
+sudo update-java-alternatives -s "$(update-java-alternatives -l | awk '{print $3}' | grep 1.8 | grep jdk | head -n 1)"
 $apti nodejs npm \
 	&& sudo npm install -g jslint csslint uglifycss uglify-js # javascript
 $apti texlive-full             # latex
