@@ -54,6 +54,7 @@ $apti graphviz     # graph drawing utility
 $apti imagemagick  # converts between various image formats (screen capture, filters, etc.)
 $apti pandoc       # converts between various document formats (mkd, latex, rst, etc.)
 $apti sshfs curlftpfs # fuse
+$apti moreutils    # various small utils like sponge
 ## }}
 ## general programs {{
 ./build/st.bash    # terminal emulator
