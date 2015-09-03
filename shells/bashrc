@@ -90,6 +90,12 @@ export PIP_DOWNLOAD_CACHE=~/.pip/cache
 
 export LC_ALL=en_US.UTF-8
 
+#### JAVA
+
+if pidof dwm &>/dev/null; then
+	export _JAVA_AWT_WM_NONREPARENTING=1
+fi
+
 #### Private stuff
 
 [ -f ~/.bashrc_private ] && source ~/.bashrc_private
