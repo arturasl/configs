@@ -20,6 +20,7 @@ $apti build-essential autoconf libncurses5-dev
 $apti git subversion mercurial # version control
 $apti exuberant-ctags          # generates tag file for pretty much every language
 $apti xdotool xautomation      # x automation tools (particularly cool is xte for mouse and keyboard stuff)
+aptr zeal-developers/ppa zeal
 ## language specific {{
 $apti python{,3}{,-pip}        # python
 $apti fpc                      # pascal
