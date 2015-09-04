@@ -34,6 +34,14 @@ capGUIEditor() {
 	fi
 }
 
+capCat() {
+	if [ "$(pygmentize -N "$1")" != 'text' ];then
+		echo bash -c '"pygmentize FILENAME | expand --tabs=2 --initial | cat -n"'
+	else
+		echo cat
+	fi
+}
+
 # regex for file name \t regex for mime type \t command for viewing gui \t command for viewing as text stream \t priority
 read -r -d '' capabilities <<EOF
 ^https?://|^ftps?://|\.html?$|^www\.	text/html	capWebBrowser	pandoc -f html -t markdown	50
@@ -47,7 +55,7 @@ read -r -d '' capabilities <<EOF
 \.tar$	application/x-tar	tar -tvf	tar -tvf	50
 \.tar.gz$	multipart/x-gzip	tar -tzvf	tar -tzvf	50
 \.tar.bz2$		tar -tjvf	tar -tjvf	50
-.	.	capGUIEditor	cat	25
+.	.	capGUIEditor	capCat	25
 EOF
 
 FIELD_NAME_PATTERN=1
@@ -185,7 +193,7 @@ for capability in $capabilities; do
 		executeType=$(type --type "$execute")
 		if [ "$?" -a "$executeType" = "function" ]; then
 			utilDebugPrint "Trying to apply internal function: ${execute}"
-			execute=$("$execute")
+			execute=$("$execute" "$argFileName" "$argFileMime")
 			utilDebugPrint "Result = ${execute}"
 		fi
 
