@@ -63,6 +63,10 @@ read -r -d '' capabilities <<EOF
 \.tar$	application/x-tar	tar -tvf	tar -tvf	50
 \.tar.gz$	multipart/x-gzip	tar -tzvf	tar -tzvf	50
 \.tar.bz2$		tar -tjvf	tar -tjvf	50
+\.so$	application/x-sharedlib		bash -c "ldd FILENAME && objdump -TC FILENAME"	50
+	application/x-executable		objdump -f	50
+\.o$	application/x-object		objdump -tC	50
+	inode/directory		ls -lah	50
 .	.	capGUIEditor	capCat	25
 EOF
 
@@ -180,6 +184,8 @@ done
 [ "$argCheckMime" -eq '1' -a -z "$argFileMime" ] && argFileMime=$(file --brief --mime-type "$argFileName")
 
 utilDebugShowArguments
+utilDebugPrint "Will check against file name: ${argFileName}"
+utilDebugPrint "Will check against mime type: ${argFileMime}"
 utilDebugPrint "Capabilities:\n${capabilities}\n"
 
 # fill up applicable array (with entries of form "priority\texecutable")
