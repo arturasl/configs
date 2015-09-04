@@ -240,7 +240,8 @@ if [ "$argOpenCopy" -eq '1' -o "$argOpenMoved" -eq '1' ]; then
 fi
 
 # append argument (or replace FILENAME) and run executable
-execute=$( ( [[ "$execute" =~ FILENAME ]] && echo "$execute" | sed -e "s/FILENAME/'$(utilSedEscapeReplacement "$argFileName")'/g" ) || echo "${execute} '${argFileName}'" )
+escapedFileName="$(printf '%q' "$argFileName")"
+execute=$( ( [[ "$execute" =~ FILENAME ]] && echo "$execute" | sed -e "s/FILENAME/$(utilSedEscapeReplacement "$escapedFileName")/g" ) || echo "${execute} ${escapedFileName}" )
 
 # if running in silent mode, run program from bash
 [ "$argSilentDetached" -eq '1' ] && execute="bash -c \"${execute} &>/dev/null &\""
