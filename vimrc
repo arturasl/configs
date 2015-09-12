@@ -681,6 +681,10 @@
 
 		augroup language_specific
 		autocmd!
+
+		" ignore quick fix window then iterating over buffer with bn/bp
+		autocmd FileType qf setlocal nobuflisted
+
 	" JAVA{{
 		autocmd FileType java setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
 		autocmd FileType java setlocal foldmethod=syntax foldnestmax=2
