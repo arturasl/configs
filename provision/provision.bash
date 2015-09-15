@@ -16,15 +16,18 @@ mkdir -p ~/Projects/{Professional,Personal,Tmp}
 # }}
 $apt update
 # development {{
-$apti build-essential autoconf libncurses5-dev
+$apti build-essential autoconf libncurses5-dev cmake
 $apti git subversion mercurial # version control
 $apti exuberant-ctags          # generates tag file for pretty much every language
 $apti xdotool xautomation      # x automation tools (particularly cool is xte for mouse and keyboard stuff)
 aptr zeal-developers/ppa zeal
+sudo apt-get install libxml2-dev libxslt1-dev
+sudo ./syspip2 install doc2dash
+
 ## language specific {{
 $apti python{,3}{,-pip}        # python
 $apti fpc                      # pascal
-$apti openjdk-{6,7}-jdk maven  # java
+$apti openjdk-{6,7}-jdk maven ant # java
 aptr openjdk-r/ppa openjdk-8-jdk
 # use java8 by default
 sudo update-java-alternatives -s "$(update-java-alternatives -l | awk '{print $3}' | grep 1.8 | grep jdk | head -n 1)"
