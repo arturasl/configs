@@ -45,6 +45,8 @@ TMP_DIR="/tmp/${0}" && mkdir -p "$TMP_DIR"
 # ARGUMENTS
 argTestsFile='tests.in'
 argTestsDirectory='tests'
+argCopyInput=''
+argCopyOutput=''
 argTestsToRun='*' # possible values '*', '{2,3,8}', 3 (will be used in bash expansion)
 argExecutable=''
 argCWD='.'
@@ -72,6 +74,12 @@ cat <<EOF
 
 \`--tests-directory\` *directory name* default \`tests\`
 :	directory from/to which individual test files will be read/written
+
+\`--copy-input\` *directory name* default \`\`
+:	directory from which will get input files
+
+\`--copy-output\` *directory name* default \`\`
+:	directory from which will get output files
 
 \`--tests-to-run\` *path expansion* default \`*\`
 :	indicates which tests will be run (supports bash wildcards)
@@ -114,6 +122,12 @@ EOF
 			;;
 		--tests-directory)
 			argTestsDirectory="$2" && shift 2
+			;;
+		--copy-input)
+			argCopyInput="$2" && shift 2
+			;;
+		--copy-output)
+			argCopyOutput="$2" && shift 2
 			;;
 		--tests-to-run)
 			argTestsToRun="$2" && shift 2
@@ -158,17 +172,20 @@ cd "$argCWD" && argCWD="$(pwd)"
 argTestsFile="${argCWD}/${argTestsFile}"
 argTestsDirectory="${argCWD}/${argTestsDirectory}"
 argExecutable="${argCWD}/${argExecutable}"
+argCopyInput="${argCWD}/${argCopyInput}"
+argCopyOutput="${argCWD}/${argCopyOutput}"
 if [ -n "$argExternalGrader" ]; then
 	argExternalGrader="${argCWD}/${argExternalGrader}"
 else
 	argExternalGrader="diffGrader"
 fi
 
+# recreate tests directory
+mkdir -p "$argTestsDirectory"
+
 # expand tests.in file to tests directory
 if [ -f "${argTestsFile}" ]; then
 	echo "${COLOR_TEXT_BLUE}# Recreating tests directory${COLOR_TEXT_RESET}"
-	# recreate tests directory
-	mkdir -p "$argTestsDirectory"
 	rm -rf "${argTestsDirectory}/"*.{sol,in}
 	awk -- '
 	function output() {
@@ -186,6 +203,20 @@ if [ -f "${argTestsFile}" ]; then
 	solBlock { solContents = solContents$0 }
 	END { output() }
 ' "$argTestsFile"
+fi
+
+if [ -d "$argCopyInput" -a -d $argCopyInput ]; then
+	rm -f "${argTestsDirectory}/"*.{sol,in}
+
+	# copy files from copy input directory to tests directory
+	while IFS= read -d $'\0' -r input; do
+		ln -s "$input" "${argTestsDirectory}/$(basename "${input%.*}" | sed -e 's/[^0-9]//g').in"
+	done < <(find "$argCopyInput" -type f -name '*' -print0)
+
+	# copy files from copy output directory to tests directory
+	while IFS= read -d $'\0' -r input; do
+		ln -s "$input" "${argTestsDirectory}/$(basename "${input%.*}" | sed -e 's/[^0-9]//g').sol"
+	done < <(find "$argCopyOutput" -type f -name '*' -print0)
 fi
 
 # go through needed tests
