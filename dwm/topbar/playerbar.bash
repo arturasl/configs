@@ -5,7 +5,7 @@ source "$SCRIPT_DIR/constants.bash"
 
 initialPlaylist="${HOME}/Music/playlist"
 shuffle=true
-commandFile=fifo
+commandFile="$(mktemp "${TMPDIR:-/tmp}/$(basename "$0").XXXX")"
 IFS=$'\n' # evil
 
 #### Cleanup
@@ -76,7 +76,7 @@ fnInformDzen() {
 
 rm -f "$commandFile" &>/dev/null
 mkfifo "$commandFile"
-mplayer_pipe="$(mktemp temp.XXXX)"
+mplayer_pipe="$(mktemp "${TMPDIR:-/tmp}/$(basename "$0").XXXX")"
 
 while [ true ]; do
 	filesToPlay="$(fnGetFilesToPlayFromPlaylistItem "$initialPlaylist")"
