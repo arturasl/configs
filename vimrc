@@ -397,7 +397,9 @@
 		let g:pandoc#syntax#conceal#blacklist = ['codeblock_delim']
 	" }}
 	" RACER {{
-		" let $RUST_SRC_PATH = join(globpath('~/Builds/rust-packages/*/src/', '', 0, 1), ':')
+		if empty(glob('~/Builds/rust-packages/rust/'))
+			execute '!git clone https://github.com/rust-lang/rust.git ~/Builds/rust-packages/rust/'
+		endif
 		let $RUST_SRC_PATH = globpath('~/Builds/rust-packages/rust/src/', '')
 	" }}
 " }}
