@@ -331,6 +331,9 @@
 
 		" CSS
 		let g:syntastic_csslint_options = "--ignore=box-model,adjoining-classes,unique-headings,qualified-headings"
+	
+		" C++
+		let g:syntastic_cpp_compiler_options = '-std=c++11'
 	" }}
 	" MRU {{
 		nnoremap <up> :call UtilToogleWindow('__MRU_Files__', ':MRU')<cr>
@@ -739,10 +742,10 @@
 				if expand('%:t') ==? 'code.cpp'
 					" less restrictive so that gnu specific keywords would be
 					" allowed
-					setlocal makeprg=g++\ -g\ -Wall\ -pedantic\ -std=gnu++98\ -Wno-long-long\ $*\ %\ -o\ %:r
+					setlocal makeprg=g++\ -g\ -Wall\ -pedantic\ -std=gnu++11\ -Wno-long-long\ $*\ %\ -o\ %:r
 
 				else
-					setlocal makeprg=g++\ -g\ -Wall\ -pedantic\ -std=c++98\ -Wno-long-long\ $*\ %\ -o\ %:r
+					setlocal makeprg=g++\ -g\ -Wall\ -pedantic\ -std=c++11\ -Wno-long-long\ $*\ %\ -o\ %:r
 				endif
 			else
 				setlocal makeprg=$*
