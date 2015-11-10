@@ -158,6 +158,7 @@
 	\     'unix': 'cargo build --release',
 	\   }
 	\ }
+	NeoBundle 'raichoo/smt-vim.git'
 
 	" NeoBundle 'tpope/vim-markdown'
 	" NeoBundle 'nelstrom/vim-markdown-folding'
@@ -1069,6 +1070,17 @@
 		endfunction
 
 		autocmd FileType rust call SetMakeForRust()
+	" }}
+	" SMT {{
+		function! SetMakeForSMT()
+			if SetMakePRGToMake()
+				" do nothing
+			else
+				setlocal makeprg=z3\ -smt2\ $*\ %
+			endif
+		endfunction
+
+		autocmd FileType smt call SetMakeForSMT()
 	" }}
 		augroup END
 	endif
