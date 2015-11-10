@@ -100,6 +100,7 @@ $apti gimp                # image editor
 $apti inkscape            # vector graphics editor
 $apti mplayer             # audio/video player
 $apti pitivi              # video editor
+$apti audacity            # audio recording/editing
 ## }}
 ## document viewers {{
 $apti zathura{,-djvu,-ps} # document preview (pdf, djvu, ps)
