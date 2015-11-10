@@ -70,7 +70,8 @@ $apti tmux         # multiplexer
 ./build/fish.bash  #shell
 $apti vim-gtk      # editor
 $apti newsbeuter   # news aggregator (rss/atom)
-$apti vifm ranger  # file manager
+$apti ranger       # file manager
+./build/vifm.bash  # file manager
 ./build/mutt.bash  # mail reader
 $apti mosh         # somewhat more persistent ssh
 $apti htop         # process monitor

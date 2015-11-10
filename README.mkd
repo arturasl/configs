@@ -163,6 +163,12 @@ ln -s ~/configs/vimperatorrc ~/.vimperatorrc
 bash -c 'ranger & sleep 5; kill %1; ranger --copy-config=all & sleep 5; kill %1; cat ~/configs/filemanagers/ranger/rc.conf >> .config/ranger/rc.conf'
 ```
 
+## vifm
+
+```bash
+ln -s ~/configs/filemanagers/vifm/vifmrc ~/.vifm/vifmrc
+```
+
 ## rtm
 
 ```bash

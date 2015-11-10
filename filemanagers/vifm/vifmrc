@@ -1,0 +1,29 @@
+" vim: ft=vim
+
+colorscheme solarized-dark
+
+" search while typin
+set incsearch
+" do not ignore case only then search pattern contains capitals
+set ignorecase
+set smartcase
+" highlight all matches
+set hlsearch
+" show all possibilities while tab-completing
+set wildmenu
+
+" some mc like shortcuts
+" previewing
+noremap <c-x>q :view<cr>
+" show hiden files
+noremap <a-.> za
+" use same directory in other pane
+noremap <a-i> :sync!<cr>
+
+" use custom file viewing dispatcher
+filetype * o --silent-detached
+fileviewer * ot
+
+" use syscalls for various file operations (instead of coreutils)
+" enables to see additional information (like copying progress)
+set syscalls
