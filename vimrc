@@ -405,6 +405,8 @@
 			execute '!git clone https://github.com/rust-lang/rust.git ~/Builds/rust-packages/rust/'
 		endif
 		let $RUST_SRC_PATH = globpath('~/Builds/rust-packages/rust/src/', '')
+		let g:ftplugin_rust_source_path = $RUST_SRC_PATH
+		let g:rust_fold = 2
 	" }}
 " }}
 
