@@ -13,7 +13,7 @@ fi
 
 tmux -2 start-server
 windownr=1
-tmux new-session -d -s "${session}" -n 'files' 'ranger'
+tmux new-session -d -s "${session}" -n 'files' 'vifm'
 
 for i in `seq 1 4`; do
 	nextwindownr
