@@ -91,6 +91,7 @@ $apti secret-tools             # cli to gnome keyring
 ## general {{
 $apti dropbox             # simple file syncing
 $apti skype               # dont ask
+sudo ./syspip3 install hangups # dont ask
 $apti chromium-browser opera # internet browser
 ./build/firefox.bash
 $apti libreoffice         # document editor

@@ -169,6 +169,12 @@ bash -c 'ranger & sleep 5; kill %1; ranger --copy-config=all & sleep 5; kill %1;
 ln -s ~/configs/filemanagers/vifm/vifmrc ~/.vifm/vifmrc
 ```
 
+## hangups
+
+```bash
+ln -s ~/configs/hangups.conf ~/.config/hangups/hangups.conf
+```
+
 ## rtm
 
 ```bash
