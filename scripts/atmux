@@ -31,7 +31,9 @@ tmux split-window -h -p 50 -t "${session}:${windownr}" '~/configs/scripts/mutt-r
 tmux select-pane -U -t "${session}:${windownr}"
 
 nextwindownr
-tmux new-window -t "${session}:${windownr}" -n 'todo' '~/configs/scripts/exec-on-connection.bash rtm'
+tmux new-window -t "${session}:${windownr}" -n 'hangups' '~/configs/scripts/exec-on-connection.bash --persistent hangups'
+# nextwindownr
+# tmux new-window -t "${session}:${windownr}" -n 'todo' '~/configs/scripts/exec-on-connection.bash rtm'
 
 nextwindownr
 host='lapinskas'
