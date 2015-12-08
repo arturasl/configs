@@ -7,6 +7,7 @@ query=$(echo -n "$1" | awk '{ printf "%s", tolower($0) }')
 awk -- '
 	/^[[:space:]]*$/ { next } # skip empty lines
 	/^#/ { sub(/^#[[:space:]]*/, "", $0); group = $0; next } # capture text after "#" in group variable
+	group == "Ignore" {next}
 	tolower($0) ~ /'$query'/ {
 		long_name=""
 		email=""
