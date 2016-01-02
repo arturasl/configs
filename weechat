@@ -42,7 +42,8 @@ wget http://www.spi-inc.org/ca/spi-cacert.crt -O /dev/stdout | sudo tee -a ~/.we
 
 ### Channels
 
-/set irc.server.freenode.autojoin "#awk,#postgresql,#vim,#archlinux,#cablab"
+# /set irc.server.freenode.autojoin "#awk,#postgresql,#vim,#archlinux,#cablab"
+/set irc.server.freenode.autojoin "#awk,#postgresql,#vim,#cablab"
 
 ## OFTC
 
