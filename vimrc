@@ -139,7 +139,6 @@
 	NeoBundle 'sjl/gundo.vim'
 	NeoBundle 'tomtom/tcomment_vim'
 	NeoBundle 'tpope/vim-repeat'
-	NeoBundle 'tpope/vim-sleuth'
 	NeoBundle 'tpope/vim-surround'
 	NeoBundle 'vim-scripts/matchit.zip.git'
 	NeoBundle 'yegappan/mru'
