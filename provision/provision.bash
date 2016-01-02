@@ -123,6 +123,6 @@ sudo dpkg-divert  --rename --add /etc/init/gdm.conf # disable gdm
 $apti ttf-mscorefonts-installer
 $apti xfonts-terminus console-terminus
 $apti ttf-dejavu fonts-droid
-./build/palemonas.bash
+./build/external_fonts.bash
 ## }}
 #  }}
