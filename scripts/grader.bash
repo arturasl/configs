@@ -172,8 +172,8 @@ cd "$argCWD" && argCWD="$(pwd)"
 argTestsFile="${argCWD}/${argTestsFile}"
 argTestsDirectory="${argCWD}/${argTestsDirectory}"
 argExecutable="${argCWD}/${argExecutable}"
-argCopyInput="${argCWD}/${argCopyInput}"
-argCopyOutput="${argCWD}/${argCopyOutput}"
+[ -n "$argCopyInput" ] && argCopyInput="${argCWD}/${argCopyInput}"
+[ -n "$argCopyOutput" ] && argCopyOutput="${argCWD}/${argCopyOutput}"
 if [ -n "$argExternalGrader" ]; then
 	argExternalGrader="${argCWD}/${argExternalGrader}"
 else
@@ -205,7 +205,7 @@ if [ -f "${argTestsFile}" ]; then
 ' "$argTestsFile"
 fi
 
-if [ -d "$argCopyInput" -a -d $argCopyInput ]; then
+if [ -n "$argCopyInput" -a -d "$argCopyInput" -a -n "$argCopyOutput" -a -d "$argCopyOutput" ]; then
 	rm -f "${argTestsDirectory}/"*.{sol,in}
 
 	# copy files from copy input directory to tests directory
