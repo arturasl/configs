@@ -50,13 +50,13 @@ capVideoInfo() {
 # regex for file name \t regex for mime type \t command for viewing gui \t command for viewing as text stream \t priority
 read -r -d '' capabilities <<EOF
 ^https?://|^ftps?://|\.html?$|^www\.	text/html	capWebBrowser	pandoc -f html -t markdown	50
-(\.mp[3-4]|\.m4v|\.flv|\.mov|\.avi|\.ogv|\.wmv|\.mkv|\.3gp)$	video/.+|audio/.+	mplayer	capVideoInfo	50
-(\.pdf|\.eps|\.ps)$	application/pdf	capPDFViewer	pdftotext FILENAME -	50
-(\.jpe?g|\.png|\.gif)$	image/.+	feh --draw-actions	img2txt	50
+\.(mp[3-4]|m4v|flv|mov|avi|ogv|wmv|mkv|3gp|webm)$	video/.+|audio/.+	mplayer	capVideoInfo	50
+\.(pdf|eps|ps)$	application/pdf	capPDFViewer	pdftotext FILENAME -	50
+\.(jpe?g|png|gif)$	image/.+	feh --draw-actions	img2txt	50
 \.docx$			docx2txt FILENAME -	75
 \.doc$			antiword	75
 \.odt$			odt2txt	75
-(\.docx?|\.odt|\.ods|\.xlsx?)$	application/(vnd.openxml.*|.*excel.*|.*oasis.*)	capWordViewer		50
+\.(docx?|odt|ods|xlsx?)$	application/(vnd.openxml.*|.*excel.*|.*oasis.*)	capWordViewer		50
 \.uxf$		umlet		50
 \.zip$	application/zip		unzip -l	50
 \.rar$		unrar l	unrar l	50
