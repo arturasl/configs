@@ -36,6 +36,7 @@ $apti nodejs npm \
 $apti texlive-full             # latex
 $apti astyle cppcheck libboost-all-dev  # c
 aptr hansjorg/rust rust-stable cargo-nightly # rust
+$apti golang                   # go
 ## }}
 ## idea {{
 $apti geany
