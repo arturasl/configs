@@ -3,8 +3,13 @@
 if [ "$1" = "-l" ]; then
 	# execute command (with arguments) specified after -l
 	shift
-	exec "${@}"
+
+	[ "$1" != /bin/bash ] && exec "${@}"
 fi
 
-# have no idea that to do :/ - call bash
-exec bash
+# have no idea that to do :/ - call shell
+if which fish >/dev/null; then
+	exec fish
+else
+	exec bash
+fi

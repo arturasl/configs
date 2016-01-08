@@ -1,3 +1,0 @@
-#!/bin/bash
-
-exec ls -a --human-readable -l --color=auto --group-directories-first -v "$@"

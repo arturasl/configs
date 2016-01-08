@@ -11,7 +11,7 @@ nm-applet &
 kill "$trayer_pid"
 
 # start other software
-st -e 'atmux' &
+st -e bash -i -c atmux &
 firefox &
 skype &
 dropbox start
