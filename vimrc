@@ -120,12 +120,10 @@
 	NeoBundle 'Shougo/vimproc.vim', { 'build': {'unix': 'make'} }
 
 	NeoBundle 'Raimondi/delimitMate'
-	NeoBundle 'Shougo/neocomplete.vim'
 	NeoBundle 'Shougo/unite.vim'
 	NeoBundle 'SirVer/ultisnips'
 	NeoBundle 'bling/vim-airline'
 	NeoBundle 'chrisbra/NrrwRgn'
-	NeoBundle 'davidhalter/jedi-vim'
 	NeoBundle 'derekwyatt/vim-fswitch'
 	NeoBundle 'derekwyatt/vim-protodef'
 	NeoBundle 'embear/vim-localvimrc'
@@ -142,8 +140,15 @@
 	NeoBundle 'tpope/vim-surround'
 	NeoBundle 'vim-scripts/matchit.zip.git'
 	NeoBundle 'yegappan/mru'
-	" NeoBundle 'junegunn/limelight.vim'
 	NeoBundle 'haya14busa/incsearch.vim'
+
+	NeoBundle 'Valloric/YouCompleteMe', {
+		\ 'build'      : {
+			\ 'mac'     :   './install.py --clang-completer --gocode-completer',
+			\ 'unix'     :   './install.py --clang-completer --gocode-completer'
+		\ }
+	\ }
+	let g:neobundle#install_process_timeout = 20000
 
 	NeoBundle '~/configs/vim/bundle/bufkill/'
 	NeoBundle '~/.vim/bundle/Spelling/'
@@ -359,15 +364,6 @@
 		cabbrev bw BufKillW
 		cabbrev bd BufKillD
 	" }}
-	" JEDI-VIM {{
-		let g:jedi#completions_enabled = 0 " will use neocomplete for that
-		let g:jedi#goto_assignments_command = "<c-]>"
-		let g:jedi#popup_on_dot = 1
-		let g:jedi#popup_select_first = 1
-		let g:jedi#documentation_command = "K"
-		let g:jedi#show_call_signatures = 1
-		let g:jedi#use_tabs_not_buffers = 0
-	" }}
 	" AIRLINE {{
 		set ttimeoutlen=50
 		let g:airline_exclude_preview = 1
@@ -377,14 +373,6 @@
 	" LOCALVIMRC {{
 		let g:localvimrc_persistent = 2 " store all decisions
 		let g:localvimrc_persistence_file = expand('~/configs/vim/tmp/localvimrc_persistent')
-	" }}
-	" NEOCOMPLETE {{
-		let g:neocomplete#enable_at_startup = 1
-		let g:neocomplete#auto_completion_start_length = 4
-		let g:neocomplete#min_keyword_length = g:neocomplete#auto_completion_start_length
-		let g:neocomplete#enable_smart_case = 0
-		let g:neocomplete#enable_fuzzy_completion = 1
-		let g:neocomplete#data_directory = expand('~/configs/vim/tmp/neocomplete')
 	" }}
 	" ULTISNIPS {{
 		let g:UltiSnipsSnippetsDir = expand('~/configs/vim/snips')
@@ -406,6 +394,18 @@
 		let $RUST_SRC_PATH = globpath('~/Builds/rust-packages/rust/src/', '')
 		let g:ftplugin_rust_source_path = $RUST_SRC_PATH
 		let g:rust_fold = 2
+	" }}
+	" YCM {{
+		let g:ycm_global_ycm_extra_conf = expand('~/.ycm_extra_conf.py')
+		let g:ycm_key_list_select_completion = []
+		let g:ycm_key_list_previous_completion = []
+		let g:ycm_show_diagnostics_ui = 0
+		let g:ycm_collect_identifiers_from_tags_files = 1
+
+		augroup YCM
+		autocmd!
+				autocmd FileType c,cpp,python,javascript nnoremap <buffer> K :YcmCompleter GetDoc<cr>
+		augroup END
 	" }}
 " }}
 
