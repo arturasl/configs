@@ -739,15 +739,15 @@
 			if SetMakePRGToMake()
 				" do nothing
 			elseif &ft ==? 'c'
-				setlocal makeprg=gcc\ -g\ -Wall\ -Wextra\ -pedantic\ -std=c99\ -Wno-long-long\ $*\ %\ -o\ %:r
+				setlocal makeprg=gcc\ -g\ -Wall\ -Wextra\ -pedantic\ -std=c99\ -Wno-long-long\ $*\ '%'\ -o\ '%:r'
 			elseif &ft ==? 'cpp'
 				if expand('%:t') ==? 'code.cpp'
 					" less restrictive so that gnu specific keywords would be
 					" allowed
-					setlocal makeprg=g++\ -g\ -Wall\ -Wextra\ -pedantic\ -std=gnu++11\ -Wno-long-long\ $*\ %\ -o\ %:r
+					setlocal makeprg=g++\ -g\ -Wall\ -Wextra\ -pedantic\ -std=gnu++11\ -Wno-long-long\ $*\ '%'\ -o\ '%:r'
 
 				else
-					setlocal makeprg=g++\ -g\ -Wall\ -Wextra\ -pedantic\ -std=c++11\ -Wno-long-long\ $*\ %\ -o\ %:r
+					setlocal makeprg=g++\ -g\ -Wall\ -Wextra\ -pedantic\ -std=c++11\ -Wno-long-long\ $*\ '%'\ -o\ '%:r'
 				endif
 			else
 				setlocal makeprg=$*
