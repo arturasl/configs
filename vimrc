@@ -337,7 +337,7 @@
 
 		" CSS
 		let g:syntastic_csslint_options = "--ignore=box-model,adjoining-classes,unique-headings,qualified-headings"
-	
+
 		" C++
 		let g:syntastic_cpp_compiler_options = '-std=c++11'
 	" }}
@@ -508,8 +508,8 @@
 	set fileencodings=ucs-bom,utf-8,latin1 " encodings to try for existing files (for new one - utf-8)
 	set shell=bash            " use bash as default shell for vim
 	set modeline              " use first few lines of opened file as modeline. That is, it should be
-	                          " possible to write `// vim: set expandtab` (on top of file) to expand
-							  " tab only for current file
+	"                           possible to write `// vim: set expandtab` (on top of file) to expand
+	"                           tab only for current file
 	set modelines=5
 	" paste from clipboard without reformatting text
 	nnoremap ,p :set invpaste<cr>
