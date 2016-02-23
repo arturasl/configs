@@ -130,7 +130,7 @@
 	NeoBundle 'godlygeek/tabular'
 	NeoBundle 'jonathanfilip/vim-lucius'
 	NeoBundle 'jpalardy/vim-slime'
-	NeoBundle 'kien/rainbow_parentheses.vim'
+	NeoBundle 'luochen1990/rainbow'
 	NeoBundle 'majutsushi/tagbar'
 	NeoBundle 'mattn/emmet-vim'
 	NeoBundle 'scrooloose/syntastic'
@@ -192,11 +192,12 @@
 			IncSearchNoreMap <C-b> <Left>
 		endfunction
 	" }}
-	" RAINBOW PARENTHESIS{{
+	" RAINBOW {{
+		let g:rainbow_active = 0
 		if has("autocmd")
-			augroup plugin_rainbow_parenthesis
+			augroup plugin_rainbow
 			autocmd!
-			autocmd FileType lisp :RainbowParenthesesToggle
+			autocmd FileType lisp :RainbowToggleOn
 			augroup END
 		endif
 	" }}
