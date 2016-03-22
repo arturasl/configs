@@ -47,10 +47,15 @@ capVideoInfo() {
 	|| { program='file' && utilCommandExists "$program" && echo "$program"; }
 }
 
+capVideo() {
+	{ program='mpv' && utilCommandExists "$program" && echo "$program"; } \
+	|| { program='mplayer' && utilCommandExists "$program" && echo "$program"; }
+}
+
 # regex for file name \t regex for mime type \t command for viewing gui \t command for viewing as text stream \t priority
 read -r -d '' capabilities <<EOF
 ^https?://|^ftps?://|\.html?$|^www\.	text/html	capWebBrowser	pandoc -f html -t markdown	50
-\.(mp[3-4]|m4v|flv|mov|avi|ogv|wmv|mkv|3gp|webm)$	video/.+|audio/.+	mplayer	capVideoInfo	50
+\.(mp[3-4]|m4v|flv|mov|avi|ogv|wmv|mkv|3gp|webm)$	video/.+|audio/.+	capVideo	capVideoInfo	50
 \.(pdf|eps|ps)$	application/pdf	capPDFViewer	pdftotext FILENAME -	50
 \.(jpe?g|png|gif)$	image/.+	feh --draw-actions	img2txt	50
 \.docx$			docx2txt FILENAME -	75
