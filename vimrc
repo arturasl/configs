@@ -287,7 +287,7 @@
 			autocmd BufEnter *.cpp,*.c let b:fswitchdst = 'h,hpp' " companion file extension
 						\ | let b:fswitchlocs = 'reg:/src/include/,./' " if relative path end with src or source use ../include, else us current dirctory
 			autocmd BufEnter *.hpp,*.h let b:fswitchdst = 'cpp,c'
-			                       \ | let b:fswitchlocs = 'reg:/include/src/,./'
+				\ | let b:fswitchlocs = 'reg:/include/src/,./'
 		augroup END
 	endif
 
@@ -488,6 +488,9 @@
 	set scrolloff=5           " try to show atleast num lines
 	set showmatch             " show matching brackets
 	set cursorline            " show current line
+	if exists('+colorcolumn')
+		set colorcolumn=81    " highlight 80'th column
+	endif
 	set ruler                 " show the cursor position
 	set list                  " show invisible characters by default
 	set showcmd               " display incomplete commands
@@ -527,6 +530,13 @@
 	set statusline+=%F%m%r
 	set statusline+=%=\ %Y\ [FORMAT=%{&ff},%{&encoding}]\ [CHAR=\%03.3b/0x\%02.2B]\ [%p%%]
 	set laststatus=2 " always show status line
+
+	" keep folds closed then writing braces
+	augroup fold
+	autocmd!
+		autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
+		autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+	augroup END
 
 	let g:tex_flavor='latex'
 	let mapleader='\' " map leader to something I do not use (in case some plugin maps keys without my permission)
@@ -742,14 +752,19 @@
 			elseif &ft ==? 'c'
 				setlocal makeprg=gcc\ -g\ -Wall\ -Wextra\ -pedantic\ -std=c99\ -Wno-long-long\ $*\ '%'\ -o\ '%:r'
 			elseif &ft ==? 'cpp'
-				if expand('%:t') ==? 'code.cpp'
-					" less restrictive so that gnu specific keywords would be
-					" allowed
-					setlocal makeprg=g++\ -g\ -Wall\ -Wextra\ -pedantic\ -std=gnu++11\ -Wno-long-long\ $*\ '%'\ -o\ '%:r'
-
-				else
-					setlocal makeprg=g++\ -g\ -Wall\ -Wextra\ -pedantic\ -std=c++11\ -Wno-long-long\ $*\ '%'\ -o\ '%:r'
-				endif
+				setlocal makeprg=g++\ -g\ -pedantic\ -std=c++11\
+					\ -Wall\ -Wextra\
+					\ -Wshadow\
+					\ -Wnon-virtual-dtor\
+					\ -Woverloaded-virtual\
+					\ -Wold-style-cast\
+					\ -Wcast-align\
+					\ -Wuseless-cast\
+					\ -Wconversion\
+					\ -Wsign-conversion\
+					\ -Wfloat-equal\
+					\ -fsanitize=address\
+					\ $*\ '%'\ -o\ '%:r'
 			else
 				setlocal makeprg=$*
 			endif
