@@ -70,6 +70,17 @@ while read -r conky_line; do
 		fi
 	fi
 
+	# irc
+	totals="$("${SCRIPT_DIR}/irc/irc.bash" --summarize)"
+	general="$(echo "$totals" | cut -d: -f1)"
+	important="$(echo "$totals" | cut -d: -f2)"
+
+	if [ "$general" -ne 0 -o "$important" -ne 0 ]; then
+		title+="^ca(1, '${SCRIPT_DIR}/irc/irc_popup.bash')"
+		title+="$(makeConkyVal "$important" 0 '' ac ":${general}")"
+		title+="^ca()"
+	fi
+
 	# parse conky values to array
 	OLDIFS="$IFS"; IFS='|'; conky_arr=($conky_line); IFS="$OLDIFS"
 
