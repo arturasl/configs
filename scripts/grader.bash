@@ -51,7 +51,7 @@ argTestsToRun='*' # possible values '*', '{2,3,8}', 3 (will be used in bash expa
 argExecutable=''
 argCWD='.'
 argTLE='2'
-argMLE='1024'
+argMLE='200'
 argShowIOOnError=0
 argOutputFile=''
 argInputFile=''
@@ -90,9 +90,9 @@ cat <<EOF
 \`--tle\` *seconds* default \`2.0\`
 :	sets maximum number of seconds application is able to run
 
-\`--mle\` *kilobytes* default \`1024.0\`
+\`--mle\` *kilobytes* default \`200\`
 :	sets maximum number of memory application is allowed to use
-	in kylobytes
+	in megabytes
 
 \`--show-io-on-error\` *0 or 1* default \`0\`
 :	indicates whatever it is needed to show input/output information
@@ -224,6 +224,12 @@ outputFp="${TMP_DIR}/$(basename "$0").out"
 outputTimeFp="${TMP_DIR}/$(basename "$0").time"
 TLEWithEpsilon=$(echo "$argTLE" | awk '{printf("%d\n",$1 + 1.5)}')
 totalFailures=0
+
+argMLE="$(echo "$argMLE * 1000 * 1000" | bc -q)"
+sudo cgdelete -g memory,cpu:grader
+sudo cgcreate -t "$USER:$USER" -a "$USER:$USER" -g memory,cpu:grader
+echo "$argMLE" > /sys/fs/cgroup/memory/grader/memory.limit_in_bytes
+
 for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 	[ ! -f "$testFp" ] && echo "${COLOR_TEXT_RED}Could not find test files${COLOR_TEXT_RESET}" 1>&2 && exit 1
 
@@ -234,7 +240,7 @@ for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 	(
 		cd "$TMP_DIR"
 		[ -n "$argInputFile" ] && cat "$testFp" > "$argInputFile"
-		"$TIME_EXECUTABLE" "--format=%e %K" "--output=${outputTimeFp}" perl -e 'alarm shift; exec @ARGV' "$TLEWithEpsilon" bash -c "'$argExecutable'" < "$testFp" > "$outputFp"
+		cgexec -g memory,cpu:grader "$TIME_EXECUTABLE" "--format=%e %M" "--output=${outputTimeFp}" perl -e 'alarm shift; exec @ARGV' "$TLEWithEpsilon" bash -c "'$argExecutable'" < "$testFp" > "$outputFp"
 		[ -n "$argOutputFile" ] && cat "$argOutputFile" > "$outputFp"
 	)
 
@@ -257,8 +263,8 @@ for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 	[ "$(echo "${runningTime} > ${argTLE}" | bc -l)" -eq "1" ] && echo -n "$COLOR_TEXT_RED"
 	echo -n "${runningTime}s${COLOR_TEXT_RESET}"
 
-	[ "$(echo "${runningMemory} > ${argMLE}" | bc -l)" -eq "1" ] && echo -n "$COLOR_TEXT_RED"
-	echo -n " ${runningMemory}KB${COLOR_TEXT_RESET}"
+	[ "$(echo "${runningMemory} * 1000 > ${argMLE}" | bc -l)" -eq "1" ] && echo -n "$COLOR_TEXT_RED"
+	echo -n " $(echo "${runningMemory}/1000" | bc -q)MB${COLOR_TEXT_RESET}"
 
 	# finished running this program
 	echo ''
