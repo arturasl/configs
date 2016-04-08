@@ -138,6 +138,9 @@ EOF
 		--tle)
 			argTLE="${2}" && shift 2
 			;;
+		--mle)
+			argMLE="${2}" && shift 2
+			;;
 		--show-io-on-error)
 			argShowIOOnError="${2}" && shift 2
 			;;
@@ -231,7 +234,7 @@ sudo cgcreate -t "$USER:$USER" -a "$USER:$USER" -g memory,cpu:grader
 echo "$argMLE" > /sys/fs/cgroup/memory/grader/memory.limit_in_bytes
 
 for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
-	[ ! -f "$testFp" ] && echo "${COLOR_TEXT_RED}Could not find test files${COLOR_TEXT_RESET}" 1>&2 && exit 1
+	[ ! -f "$testFp" ] && echo "${COLOR_TEXT_RED}Could not find test file ${testFp}${COLOR_TEXT_RESET}" 1>&2 && exit 1
 
 	testFpBaseName="$(basename "$testFp")"
 	testFpBaseName="${testFpBaseName::$((${#testFpBaseName} - 3))}"
