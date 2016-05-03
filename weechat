@@ -27,6 +27,15 @@ wget http://www.spi-inc.org/ca/spi-cacert.crt -O /dev/stdout | sudo tee -a ~/.we
 
 # Servers
 
+## irc.net
+#
+### Connection
+/server del ircnet
+/server add ircnet open.ircnet.net/6667
+/connect ircnet
+/nick arturasl
+/set irc.server.ircnet.autojoin "#boi2016"
+
 ## Freenode
 #
 ### Connection
