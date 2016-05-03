@@ -32,10 +32,17 @@ onExit () {
 trap onExit EXIT
 
 # COLORS
-COLOR_TEXT_GREEN=$'\e[0;32m'
-COLOR_TEXT_RESET=$'\e[0m'
-COLOR_TEXT_RED=$'\e[0;31m'
-COLOR_TEXT_BLUE=$'\e[0;34m'
+if [ -t 1 ]; then
+	COLOR_TEXT_GREEN=$'\e[0;32m'
+	COLOR_TEXT_RESET=$'\e[0m'
+	COLOR_TEXT_RED=$'\e[0;31m'
+	COLOR_TEXT_BLUE=$'\e[0;34m'
+else
+	COLOR_TEXT_GREEN=''
+	COLOR_TEXT_RESET=''
+	COLOR_TEXT_RED=''
+	COLOR_TEXT_BLUE=''
+fi
 
 # CONSTANTS
 TIME_EXECUTABLE='time'
@@ -51,7 +58,7 @@ argTestsToRun='*' # possible values '*', '{2,3,8}', 3 (will be used in bash expa
 argExecutable=''
 argCWD='.'
 argTLE='2'
-argMLE='200'
+argMLE='1000'
 argShowIOOnError=0
 argOutputFile=''
 argInputFile=''
@@ -90,7 +97,7 @@ cat <<EOF
 \`--tle\` *seconds* default \`2.0\`
 :	sets maximum number of seconds application is able to run
 
-\`--mle\` *kilobytes* default \`200\`
+\`--mle\` *megabytes* default \`1000\`
 :	sets maximum number of memory application is allowed to use
 	in megabytes
 
