@@ -174,6 +174,7 @@
 	NeoBundle 'alunny/pegjs-vim'
 	NeoBundle 'Shirk/vim-gas'
 	NeoBundle 'vim-scripts/bnf.vim'
+	NeoBundle 'matze/vim-tex-fold'
 
 	call neobundle#end()
 " }}
