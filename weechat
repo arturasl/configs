@@ -104,14 +104,29 @@ cat oftc_nick.cer oftc_nick.key > oftc_nick.pem
 /set buffers.look.show_number off
 /set buffers.look.indenting on
 
+## notifications
+/script install socket_notify.rb
+/script autoload socket_notify.rb
+
 ## iset
 /script install iset.pl
 /script autoload iset.pl
+
+## hl2file
+/script install hl2file.py
+/script autoload hl2file.py
+/set hl2file.summarize_by_buffer on
 
 ## weetweet.py
 syspip install twitter
 /script install weetweet.py
 /script autoload weetweet.py
+
+## aspell
+/set aspell.check.enabled on
+/set aspell.check.real_time on
+/set aspell.check.word_min_length 2
+/set aspell.check.default_dict "en"
 
 # General settings
 
