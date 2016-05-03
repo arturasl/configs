@@ -328,7 +328,6 @@
 			\ 'pandoc': 'text',
 			\ 'mail': 'text',
 			\ 'gitcommit': 'text',
-			\ 'tex': 'text'
 		\ }
 		let g:syntastic_text_checkers=['language_check']
 
