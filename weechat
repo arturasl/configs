@@ -53,6 +53,10 @@ wget http://www.spi-inc.org/ca/spi-cacert.crt -O /dev/stdout | sudo tee -a ~/.we
 
 # /set irc.server.freenode.autojoin "#awk,#postgresql,#vim,#archlinux,#cablab"
 /set irc.server.freenode.autojoin "#awk,#postgresql,#vim,#cablab"
+# ignore activity in these
+/set weechat.notify.irc.freenode.#awk highlight
+/set weechat.notify.irc.freenode.#postgresql highlight
+/set weechat.notify.irc.freenode.#vim highlight
 
 ## OFTC
 
@@ -84,6 +88,7 @@ cat oftc_nick.cer oftc_nick.key > oftc_nick.pem
 ### Channels
 
 /set irc.server.oftc.autojoin "#kernelnewbies"
+/set weechat.notify.irc.oftc.#kernelnewbies highlight
 
 # Keybindings
 /key bind ctrl-N /buffer +1
