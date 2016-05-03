@@ -19,6 +19,8 @@ noremap <c-x>q :view<cr>
 noremap <a-.> za
 " use same directory in other pane
 noremap <a-i> :sync!<cr>
+" go down after selecting a file
+noremap t tj
 
 " use custom file viewing dispatcher
 filetype * o --silent-detached
