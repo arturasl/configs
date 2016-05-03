@@ -760,8 +760,6 @@
 					\ -Wold-style-cast\
 					\ -Wcast-align\
 					\ -Wuseless-cast\
-					\ -Wconversion\
-					\ -Wsign-conversion\
 					\ -Wfloat-equal\
 					\ -fsanitize=address\
 					\ $*\ '%'\ -o\ '%:r'
