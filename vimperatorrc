@@ -3,6 +3,7 @@
 " faster movement
 nnoremap j 5j
 nnoremap k 5k
+set hintchars=hjklasdf
 
 " copying should be more similar to tmux
 nnoremap v cv
