@@ -21,12 +21,14 @@ for i in `seq 1 4`; do
 done
 
 nextwindownr
-tmux new-window -t "${session}:${windownr}" -n 'news' 'podbeuter'
+tmux new-window -t "${session}:${windownr}" -n 'news' 'podbeuter -a'
 tmux split-window -v -p 90 -t "${session}:${windownr}" 'newsbeuter'
+tmux select-pane -U -t "${session}:${windownr}"
+tmux split-window -h -p 50 -t "${session}:${windownr}" 'alsamixer'
+tmux select-pane -D -t "${session}:${windownr}"
 
 nextwindownr
 tmux new-window -t "${session}:${windownr}" -n 'mail' '~/configs/scripts/mutt-run.bash gml'
-# tmux split-window -v -p 50 -t "${session}:${windownr}" '~/configs/scripts/mutt-run.bash mit'
 tmux split-window -v -p 50 -t "${session}:${windownr}" '~/configs/scripts/mutt-run.bash lap'
 tmux select-pane -U -t "${session}:${windownr}"
 
