@@ -13,6 +13,7 @@ kill "$trayer_pid"
 # start other software
 st -e bash -i -c atmux &
 firefox &
+chromium-browser &
 skype &
 dropbox start
 
