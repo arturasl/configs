@@ -14,3 +14,6 @@ set defsearch=duckduckgohtml
 
 set gui+=nonavigation,notabs
 nnoremap <c-l> o
+
+" do not focus input on page load
+set focuscontent
