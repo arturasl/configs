@@ -35,7 +35,10 @@ $apti nodejs npm \
 	&& sudo npm install -g jslint csslint uglifycss uglify-js # javascript
 $apti texlive-full             # latex
 $apti astyle cppcheck libboost-all-dev  # c
-aptr hansjorg/rust rust-stable cargo-nightly # rust
+curl https://sh.rustup.rs -sSf | sh # rust
+rustup install nightly
+rustup run nightly cargo install rustfmt-nightly # autoformat
+rustup component add rust-src && rustup run stable cargo install racer # autocompletion
 $apti golang                   # go
 ## }}
 ## idea {{
@@ -48,6 +51,7 @@ $apti code{blocks,lite}
 $apti linux-{,image-}generic linux-{signed,headers}-generic
 $apti dkms virtualbox{,-dkms,-qt} qemu
 $apti vagrant
+$apti docker.io vim-syntax-docker
 ## }}
 ## debugging {{
 $apti wireshark                # network traffic analyzer
