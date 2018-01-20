@@ -22,3 +22,5 @@ shopt -s cdspell
 #### Common settings
 
 source <(~/configs/shells/common.bash bash)
+
+export PATH="$HOME/.cargo/bin:$PATH"
