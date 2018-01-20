@@ -14,7 +14,7 @@ kill "$trayer_pid"
 st -e bash -i -c atmux &
 firefox &
 chromium-browser &
-skype &
+# skype &
 dropbox start
 
 # remove dwm version information
