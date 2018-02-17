@@ -1,0 +1,28 @@
+Hints.characters = 'asdfghjkl';
+settings.defaultSearchEngine = 'd'; // duckduckgo
+settings.showProxyInStatusBar = true;
+settings.showModeStatus	= true;
+settings.stealFocusOnLoad = true;
+settings.enableAutoFocus = false;
+
+// Scrolling.
+map('<Ctrl-f>', 'd'); // Scroll half page down.
+map('<Ctrl-b>', 'e'); // Scroll half page up.
+map('s', 'cs'); // Change scroll target.
+map('S', 'ys'); // Capture scroll target.
+
+// Tabs
+map(',b', 'T'); // Switch tabs.
+map('u', 'X');  // Restore tab.
+map('d', 'x');  // Close current tab.
+
+// Urls
+map('<Ctrl-l>', 'su'); // Edit current url.
+map('O', 'su'); // Edit current url.
+map(',B', 'b'); // Open bookmark.
+
+// Other
+map('F', 'af'); // Open link in new tab.
+map('<Ctrl-[>', '<Esc>'); // Scroll half page up.
+map('<Ctrl-n>', '<Tab>'); // Next element in the omnibar.
+map('<Ctrl-p>', '<Shift-Tab>'); // Previous element in the omnibar.
