@@ -21,3 +21,7 @@ map(',B', 'b'); // Open bookmark.
 // Other
 map('F', 'af'); // Open link in new tab.
 map('<Ctrl-[>', '<Esc>'); // Scroll half page up.
+
+// History
+map('<Ctrl-o>', 'S'); // Go back in history.
+map('<Ctrl-i>', 'D'); // Go forward in history.
