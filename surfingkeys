@@ -21,5 +21,3 @@ map(',B', 'b'); // Open bookmark.
 // Other
 map('F', 'af'); // Open link in new tab.
 map('<Ctrl-[>', '<Esc>'); // Scroll half page up.
-map('<Ctrl-n>', '<Tab>'); // Next element in the omnibar.
-map('<Ctrl-p>', '<Shift-Tab>'); // Previous element in the omnibar.
