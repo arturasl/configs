@@ -9,7 +9,6 @@ settings.enableAutoFocus = false;
 map('<Ctrl-f>', 'd'); // Scroll half page down.
 map('<Ctrl-b>', 'e'); // Scroll half page up.
 map('s', 'cs'); // Change scroll target.
-map('S', 'ys'); // Capture scroll target.
 
 // Tabs
 map(',b', 'T'); // Switch tabs.
