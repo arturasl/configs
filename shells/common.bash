@@ -101,11 +101,6 @@ agnosticExport LESS_TERMCAP_me $'\e[0m'
 agnosticExport LESS_TERMCAP_us $'\e[4;95m' # start underline (man - parameter values)
 agnosticExport LESS_TERMCAP_ue $'\e[0m'
 
-#### Additional setting
-
-# Explicitly move to home directory
-agnosticExecute 'cd'
-
 #### Prompt
 
 # Bash
@@ -168,6 +163,10 @@ function fish_user_key_bindings
 	fish_vi_key_bindings
 end
 '
+# Esc letter is a special combination for which fish waits. Lower the  wait
+# timeout as much as possible as otherwise quick swithcing between modes does
+# not work very well.
+fishExport fish_escape_delay_ms 10
 
 #### Aliases
 
