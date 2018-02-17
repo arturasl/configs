@@ -16,8 +16,6 @@ map('u', 'X');  // Restore tab.
 map('d', 'x');  // Close current tab.
 
 // Urls
-map('<Ctrl-l>', 'su'); // Edit current url.
-map('O', 'su'); // Edit current url.
 map(',B', 'b'); // Open bookmark.
 
 // Other
