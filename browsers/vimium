@@ -1,0 +1,15 @@
+# History
+map <c-o> goBack
+map <c-i> goForward
+
+# Navigation
+map <c-f> scrollPageDown
+map <c-b> scrollPageUp
+
+# Tabs
+map ,b Vomnibar.activateTabSelection
+map d removeTab
+map u restoreTab
+
+# Other
+map ,B Vomnibar.activateBookmarks
