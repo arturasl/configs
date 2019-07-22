@@ -4,20 +4,20 @@ build_dir="${HOME}/Builds/st"
 rm -rf "${build_dir}" && mkdir -p "${build_dir}" && cd "${build_dir}"
 
 # download
-stname=st-0.6
-wget "http://dl.suckless.org/st/${stname}.tar.gz" \
-	&& wget http://dl.suckless.org/st/sha1sums.txt
-grep "$stname" sha1sums.txt | sha1sum --check --status
-tar xzf "${stname}.tar.gz" && mv "$stname"/* . && rm -r "$stname"{,.tar.gz} sha1sums.txt
+stver=0.8.1
+wget "http://dl.suckless.org/st/st-${stver}.tar.gz" \
+	&& wget http://dl.suckless.org/st/sha256sums.txt
+grep "st-${stver}" sha256sums.txt | sha256sum --check --status
+tar xzf "st-${stver}.tar.gz" && mv "st-${stver}"/* . && rm -r "st-${stver}"{,.tar.gz} sha256sums.txt
 
 # colors
-wget "http://st.suckless.org/patches/${stname}-no-bold-colors.diff"
-patch < "${stname}-no-bold-colors.diff"
-wget http://st.suckless.org/patches/st-solarized-dark.diff
-patch < st-solarized-dark.diff
+wget "https://st.suckless.org/patches/solarized/st-no_bold_colors-${stver}.diff"
+patch < "st-no_bold_colors-${stver}.diff"
+wget https://st.suckless.org/patches/solarized/st-solarized-dark-20180411-041912a.diff
+patch < st-solarized-dark*.diff
 
 # font
-sed -i'' -e 's/^static char font.*$/static char font[] = "DejaVu Sans Mono:pixelsize=10:antialias=true:autohint=false";/g' config.def.h
+sed -i'' -e 's/^static char \*font.*$/static char font[] = "DejaVu Sans Mono:pixelsize=10:antialias=true:autohint=false";/g' config.def.h
 
 # install
 sudo make install && make clean
