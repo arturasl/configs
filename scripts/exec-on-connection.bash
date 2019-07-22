@@ -3,7 +3,7 @@
 check_host='www.google.com'
 max_attempts=-1
 timeout=30
-debug=0
+debug=1
 persistent=0
 
 while :; do
