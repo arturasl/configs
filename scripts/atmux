@@ -21,8 +21,8 @@ for i in `seq 1 4`; do
 done
 
 nextwindownr
-tmux new-window -t "${session}:${windownr}" -n 'news' 'podbeuter -a'
-tmux split-window -v -p 90 -t "${session}:${windownr}" 'newsbeuter'
+tmux new-window -t "${session}:${windownr}" -n 'news' 'podboat -a'
+tmux split-window -v -p 90 -t "${session}:${windownr}" 'newsboat'
 tmux select-pane -U -t "${session}:${windownr}"
 tmux split-window -h -p 50 -t "${session}:${windownr}" 'alsamixer'
 tmux select-pane -D -t "${session}:${windownr}"
