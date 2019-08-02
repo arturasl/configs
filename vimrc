@@ -725,7 +725,7 @@
 		autocmd FileType java call SetMakeForJava()
 	" }}
 	" C/CPP{{
-		autocmd FileType c,cpp setlocal foldmethod=syntax foldnestmax=1
+		autocmd FileType c,cpp setlocal foldmethod=syntax foldnestmax=1 expandtab
 		autocmd FileType cpp call LoadLangTags('cpp')
 		autocmd FileType c call LoadLangTags('c')
 		autocmd FileType c,cpp nnoremap <buffer> <f2> :call Preserve('%!astyle -T4 -C -S -N -L -w -Y -f -p -H -U -j -k3 -q -z2 --style=attach') \| echo "AStyle Cpp"<cr>
