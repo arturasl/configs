@@ -61,7 +61,9 @@ $apti valgrind                 # memory debugger
 # }}
 # terminal tools {{
 ## utilities {{
-$apti curl xsel xclip
+$apti curl
+$apti xsel xclip   # clipboard manipulation
+$apti arandr       # managing monitor positions
 $apti highlight caca-utils w3m-img
 $apti graphviz     # graph drawing utility
 $apti imagemagick  # converts between various image formats (screen capture, filters, etc.)
