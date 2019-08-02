@@ -78,7 +78,7 @@ $apti time         # /usr/bin/time
 $apti tmux         # multiplexer
 ./build/fish.bash  #shell
 $apti vim-gtk      # editor
-$apti newsbeuter   # news aggregator (rss/atom)
+$apti newsboat     # news aggregator (rss/atom)
 $apti ranger       # file manager
 ./build/vifm.bash  # file manager
 ./build/mutt.bash  # mail reader
