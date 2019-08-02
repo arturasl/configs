@@ -6,5 +6,7 @@ vim/bundle/neobundle.vim/
 vim/bundle/.neobundle/
 *.tags
 
+./provision/build/dwm/config.h
+
 mutt/tmp/
 !PASS
