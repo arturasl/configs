@@ -173,8 +173,11 @@ echo "${COLOR_TEXT_BLUE}# Running ${argExecutable}${COLOR_TEXT_RESET}"
 [ ! -x "$argExecutable" ] && echo "${COLOR_TEXT_RED}\"$argExecutable\" is not an executable file${COLOR_TEXT_RESET}" 1>&2 && exit 1
 
 diffGrader () {
-	diff --ignore-blank-lines --ignore-all-space "$2" "$3" &>/dev/null
-	return $?
+	if diff --ignore-blank-lines --ignore-all-space "$2" "$3" &>/dev/null; then
+		echo '1'
+	else
+		echo '0'
+	fi
 }
 
 # keep all paths absolute
@@ -257,7 +260,8 @@ for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 	wrongOutput=0
 
 	echo -n "Testing ${testFpBaseName}: "
-	if "$argExternalGrader" "$testFp" "$solutionFp" "$outputFp"; then
+	grader_output="$("$argExternalGrader" "$testFp" "$solutionFp" "$outputFp" 2>/dev/null)"
+	if [ "$grader_output" = '1' ]; then
 		echo -n "${COLOR_TEXT_GREEN}OK${COLOR_TEXT_RESET}"
 	else
 		echo -n "${COLOR_TEXT_RED}FAIL${COLOR_TEXT_RESET}"
@@ -269,9 +273,8 @@ for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 	runningTime=$(tail -n 1 "$outputTimeFp" | cut -d' ' -f1)
 	runningMemory=$(tail -n 1 "$outputTimeFp" | cut -d' ' -f2)
 
-	echo -n " ellapsed: "
 	[ "$(echo "${runningTime} > ${argTLE}" | bc -l)" -eq "1" ] && echo -n "$COLOR_TEXT_RED"
-	echo -n "${runningTime}s${COLOR_TEXT_RESET}"
+	echo -n " ${runningTime}s${COLOR_TEXT_RESET}"
 
 	[ "$(echo "${runningMemory} * 1000 > ${argMLE}" | bc -l)" -eq "1" ] && echo -n "$COLOR_TEXT_RED"
 	echo -n " $(echo "${runningMemory}/1000" | bc -q)MB${COLOR_TEXT_RESET}"
