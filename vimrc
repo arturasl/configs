@@ -276,7 +276,7 @@
 		let OmniCpp_LocalSearchDecl     = 0
 	" }}
 	" TCOMMENT{{
-		let g:tcommentMaps = 0
+		let g:tcomment_maps = 0
 
 		nnoremap ,ci :TComment<cr>
 		xnoremap ,ci :TComment<cr>
