@@ -13,9 +13,19 @@ capWebBrowser() {
 }
 
 capPDFViewer() {
-	{ program='/Applications/Skim.app' && [ $(which open) -a -d "$program" ] && echo "open -a '${program}'"; } \
-	|| { program='/Applications/Preview.app' && [ $(which open) -a -d "$program" ] && echo "open -a '${program}'"; } \
-	|| { program='zathura' && utilCommandExists "$program" && echo "$program"; } \
+	{ program='/Applications/Skim.app' && wh open && [ -d "$program" ] && echo "open -a '${program}'"; } \
+	|| { program='/Applications/Preview.app' && wh open && [ -d "$program" ] && echo "open -a '${program}'"; } \
+	|| {
+		file="$1"
+		program='zathura'
+		if utilCommandExists "$program"; then
+			if ! pgrep -f "${program} ${file}" &>/dev/null; then
+				echo "$program"
+			else
+				echo 'echo'
+			fi
+		fi
+	} \
 	|| { program='evince' && utilCommandExists "$program" && echo "$program"; }
 }
 
