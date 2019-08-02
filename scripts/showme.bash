@@ -3,8 +3,12 @@
 
 source "$(dirname "$0")/util.bash"
 
+wh() {
+	which "$1" &>/dev/null
+}
+
 capWebBrowser() {
-	{ program='/Applications/Firefox.app' && [ $(which open) -a -d "$program" ] && echo "open -a '${program}'"; } \
+	{ program='/Applications/Firefox.app' && wh open && [ -d "$program" ] && echo "open -a '${program}'"; } \
 	|| { program='firefox' && utilCommandExists "$program" && echo "$program"; }
 }
 
@@ -16,7 +20,7 @@ capPDFViewer() {
 }
 
 capWordViewer() {
-	{ program='/Applications/LibreOffice.app' && [ $(which open) -a -d "$program" ] && echo "open -a '${program}'"; } \
+	{ program='/Applications/LibreOffice.app' && wh open && [ -d "$program" ] && echo "open -a '${program}'"; } \
 	|| { program='libreoffice' && utilCommandExists "$program" && echo "$program"; }
 }
 
