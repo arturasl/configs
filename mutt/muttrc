@@ -81,7 +81,6 @@ set pager_index_lines = 7 # number of index lines to show (ala horizontal split)
 set pager_context = 3 # try to show atleast this amount
 
 ## sidebar
-set sidebar_delim = '  │'
 set sidebar_visible = yes
 set sidebar_width = 24
 bind index,pager <down> sidebar-next
