@@ -36,3 +36,7 @@ set syscalls
 " only ask for approvals then doing a perm delete (normal delete can be easily
 " undone with u).
 set confirm=permdelete
+
+" yank directory or file path to the clipboard.
+nnoremap yd :!echo %d | ~/configs/scripts/clipboard.bash --copy >/dev/null<cr>
+nnoremap yf :!echo %c:p | ~/configs/scripts/clipboard.bash --copy >/dev/null<cr>
