@@ -1,6 +1,6 @@
 " vim: ft=vim
 
-colorscheme solarized-dark
+colorscheme zenburn_1
 
 " search while typin
 set incsearch
