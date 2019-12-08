@@ -11,6 +11,7 @@ set smartcase
 set hlsearch
 " Show all possibilities while tab-completing.
 set wildmenu
+set wildstyle=popup
 
 " Try to keep cursor above/below border.
 set scrolloff=4
