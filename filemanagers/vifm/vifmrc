@@ -2,41 +2,41 @@
 
 colorscheme zenburn_1
 
-" search while typin
+" Search while typing.
 set incsearch
-" do not ignore case only then search pattern contains capitals
+" Do not ignore case only then search pattern contains capitals.
 set ignorecase
 set smartcase
-" highlight all matches
+" Highlight all matches.
 set hlsearch
-" show all possibilities while tab-completing
+" Show all possibilities while tab-completing.
 set wildmenu
 
 " Try to keep cursor above/below border.
 set scrolloff=4
 
-" some mc like shortcuts
-" previewing
+" Some mc like shortcuts.
+" Previewing.
 noremap <c-x>q :view<cr>
-" show hiden files
+" Show hiden files.
 noremap <a-.> za
-" use same directory in other pane
+" Use same directory in other pane.
 noremap <a-i> :sync!<cr>
-" go down after selecting a file
+" Go down after selecting a file.
 noremap t tj
 
-" use custom file viewing dispatcher
+" Use custom file viewing dispatcher.
 filetype * o --silent-detached
 fileviewer * ot
 
-" use syscalls for various file operations (instead of coreutils)
-" enables to see additional information (like copying progress)
+" Use syscalls for various file operations (instead of coreutils).
+" Enables to see additional information (like copying progress).
 set syscalls
 
-" only ask for approvals then doing a perm delete (normal delete can be easily
+" Only ask for approvals then doing a perm delete (normal delete can be easily
 " undone with u).
 set confirm=permdelete
 
-" yank directory or file path to the clipboard.
+" Yank directory or file path to the clipboard.
 nnoremap yd :!echo %d | ~/configs/scripts/clipboard.bash --copy >/dev/null<cr>
 nnoremap yf :!echo %c:p | ~/configs/scripts/clipboard.bash --copy >/dev/null<cr>
