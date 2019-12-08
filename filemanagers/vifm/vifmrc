@@ -16,6 +16,8 @@ set wildstyle=popup
 " Try to keep cursor above/below border.
 set scrolloff=4
 
+set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
+
 " Some mc like shortcuts.
 " Previewing.
 noremap <c-x>q :view<cr>
