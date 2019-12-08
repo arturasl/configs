@@ -12,6 +12,9 @@ set hlsearch
 " show all possibilities while tab-completing
 set wildmenu
 
+" Try to keep cursor above/below border.
+set scrolloff=4
+
 " some mc like shortcuts
 " previewing
 noremap <c-x>q :view<cr>
