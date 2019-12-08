@@ -28,6 +28,7 @@ ln -s ~/configs/ctags ~/.ctags # latex
 # basic:
 ln -s ~/configs/vimrc ~/.vimrc
 ln -s ~/configs/vim ~/.vim
+ln -s ~/configs/ycm_extra_conf.py ~/.ycm_extra_conf.py
 
 # ctags:
 mkdir ~/configs/vim/tags
@@ -167,7 +168,7 @@ bash -c 'ranger & sleep 5; kill %1; ranger --copy-config=all & sleep 5; kill %1;
 
 ```bash
 ln -s ~/configs/filemanagers/vifm/vifmrc ~/.config/vifm/vifmrc
-wget -P ~/config/vifm/colors https://raw.githubusercontent.com/vifm/vifm-colors/master/solarized-dark.vifm
+wget -P ~/.config/vifm/colors https://raw.githubusercontent.com/vifm/vifm-colors/master/solarized-dark.vifm
 ```
 
 ## hangups
