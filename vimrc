@@ -116,6 +116,7 @@
 		set runtimepath+=~/.vim/bundle/neobundle.vim
 	endif
 	call neobundle#begin(expand('~/.vim/neobundle/'))
+	let g:neobundle#install_process_timeout = 20000
 
 	NeoBundle 'Shougo/vimproc.vim', { 'build': {'unix': 'make'} }
 
@@ -141,31 +142,15 @@
 	NeoBundle 'vim-scripts/matchit.zip.git'
 	NeoBundle 'yegappan/mru'
 	NeoBundle 'haya14busa/incsearch.vim'
-
-	NeoBundle 'Valloric/YouCompleteMe', {
-		\ 'build'      : {
-			\ 'mac'     :   './install.py --clang-completer --gocode-completer',
-			\ 'unix'     :   './install.py --clang-completer --gocode-completer'
-		\ }
-	\ }
-	let g:neobundle#install_process_timeout = 20000
-
 	NeoBundle '~/configs/vim/bundle/bufkill/'
 	NeoBundle '~/.vim/bundle/Spelling/'
+	NeoBundle 'neoclide/coc.nvim', 'release'
 
 	" Languages
 	NeoBundle 'elzr/vim-json'
 	NeoBundle 'rust-lang/rust.vim'
-	NeoBundle 'phildawes/racer', {
-	\   'build' : {
-	\     'mac': 'cargo build --release',
-	\     'unix': 'cargo build --release',
-	\   }
-	\ }
 	NeoBundle 'raichoo/smt-vim.git'
 
-	" NeoBundle 'tpope/vim-markdown'
-	" NeoBundle 'nelstrom/vim-markdown-folding'
 	NeoBundle 'vim-pandoc/vim-pandoc'
 	NeoBundle 'vim-pandoc/vim-pandoc-syntax'
 	NeoBundle 'vim-pandoc/vim-pandoc-after'
@@ -388,25 +373,26 @@
 		let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby", "python", "sql", "bash=sh", "tex", "cpp", "java"]
 		let g:pandoc#syntax#conceal#blacklist = ['codeblock_delim']
 	" }}
-	" RACER {{
-		if empty(glob('~/Builds/rust-packages/rust/'))
-			execute '!git clone https://github.com/rust-lang/rust.git ~/Builds/rust-packages/rust/'
-		endif
-		let $RUST_SRC_PATH = globpath('~/Builds/rust-packages/rust/src/', '')
-		let g:ftplugin_rust_source_path = $RUST_SRC_PATH
-		let g:rust_fold = 2
-	" }}
-	" YCM {{
-		let g:ycm_global_ycm_extra_conf = expand('~/.ycm_extra_conf.py')
-		let g:ycm_key_list_select_completion = []
-		let g:ycm_key_list_previous_completion = []
-		let g:ycm_show_diagnostics_ui = 0
-		let g:ycm_collect_identifiers_from_tags_files = 1
+	" COC {{
+		call coc#config('languageserver', {
+			\ 'clangd': {
+			\   'command': 'clangd',
+			\   'args': ['--background-index'],
+			\   'rootPatterns': [
+		    \       'compile_flags.txt',
+			\       'compile_commands.json'
+		    \   ],
+			\   'filetypes': ['c', 'cpp']
+			\ }
+		\ })
 
-		augroup YCM
-		autocmd!
-				autocmd FileType c,cpp,python,javascript nnoremap <buffer> K :YcmCompleter GetDoc<cr>
-		augroup END
+		function! SetCocRemaps()
+			" Show help.
+			nnoremap K :call CocAction('doHover')<cr>
+			" Finish completion with Enter.
+			inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
+		endfunction
+		autocmd FileType c,cpp call SetCocRemaps()
 	" }}
 " }}
 
