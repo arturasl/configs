@@ -432,24 +432,18 @@
 	set nocompatible          " use vim defaults
 	filetype plugin indent on " load filetype settings
 	set number
-	if exists('+relativenumber')
-		set relativenumber        " show relative line numbers by default
-	endif
+	set relativenumber        " show relative line numbers by default
 	set scrolloff=5           " try to show atleast num lines
 	set showmatch             " show matching brackets
 	set cursorline            " show current line
-	if exists('+colorcolumn')
-		set colorcolumn=81    " highlight 80'th column
-	endif
+	set colorcolumn=81        " highlight 80'th column
 	set ruler                 " show the cursor position
 	set list                  " show invisible characters by default
 	set showcmd               " display incomplete commands
 	if has('mouse')
 		set mouse=a           " more mouse please :)
 	endif
-	if exists('+autochdir')
-		set autochdir         " always switch to the current file directory
-	endif
+	set autochdir             " always switch to the current file directory
 	set visualbell t_vb=      " no bell just blink
 	set virtualedit=all       " let cursor fly anythere
 	set hidden                " switch buffers without saving
@@ -567,25 +561,21 @@
 	" use double // to use full path as swap file name
 	set directory=~/.vim/tmp/swap//
 
-	if has('persistent_undo')
-		set undofile
-		set undodir=~/.vim/tmp/undo/
-	endif
+	set undofile
+	set undodir=~/.vim/tmp/undo/
 
-	if has('viminfo')
-		set viminfo='20,<0,/0,:20,h,n~/configs/vim/tmp/viminfo
-		augroup config_viminfo
-			autocmd!
-			" restore cursor position (and open folds so that it would be visible)
-			autocmd BufWinEnter *
-				\ if line("'\"") >= 1 && line("'\"") <= line('$')
-					\ | execute 'normal! g`"'
-					\ | if &foldenable && foldlevel(line('.')) > 0
-						\ | execute 'normal! zO'
-					\ | endif
+	set viminfo='20,<0,/0,:20,h,n~/configs/vim/tmp/viminfo
+	augroup config_viminfo
+		autocmd!
+		" restore cursor position (and open folds so that it would be visible)
+		autocmd BufWinEnter *
+			\ if line("'\"") >= 1 && line("'\"") <= line('$')
+				\ | execute 'normal! g`"'
+				\ | if &foldenable && foldlevel(line('.')) > 0
+					\ | execute 'normal! zO'
 				\ | endif
-		augroup END
-	endif
+			\ | endif
+	augroup END
 "}}
 " COMPLETION{{
 	" pop-up menu settings
