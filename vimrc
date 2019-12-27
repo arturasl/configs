@@ -126,7 +126,6 @@
 	NeoBundle 'bling/vim-airline'
 	NeoBundle 'chrisbra/NrrwRgn'
 	NeoBundle 'derekwyatt/vim-fswitch'
-	NeoBundle 'derekwyatt/vim-protodef'
 	NeoBundle 'embear/vim-localvimrc'
 	NeoBundle 'godlygeek/tabular'
 	NeoBundle 'jonathanfilip/vim-lucius'
@@ -277,11 +276,6 @@
 	endif
 
 	nnoremap ,s :FSHere<cr>
-	" }}
-	" PROTODEF{{
-		let g:disable_protodef_mapping = 1 " I will define my own mappings
-		let g:protodefprotogetter = '~/configs/vim/bundle/protodef/pullproto.pl'
-		nnoremap ,i i<c-r>=protodef#ReturnSkeletonsFromPrototypesForCurrentBuffer({})<cr><esc>='[
 	" }}
 	" GUNDO {{
 		nnoremap <down> :GundoToggle<cr>
