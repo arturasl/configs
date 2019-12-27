@@ -130,7 +130,6 @@
 	NeoBundle 'jonathanfilip/vim-lucius'
 	NeoBundle 'jpalardy/vim-slime'
 	NeoBundle 'luochen1990/rainbow'
-	NeoBundle 'mattn/emmet-vim'
 	NeoBundle 'scrooloose/syntastic'
 	NeoBundle 'sjl/gundo.vim'
 	NeoBundle 'tomtom/tcomment_vim'
