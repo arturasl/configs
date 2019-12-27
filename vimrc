@@ -124,7 +124,6 @@
 	NeoBundle 'Shougo/unite.vim'
 	NeoBundle 'SirVer/ultisnips'
 	NeoBundle 'bling/vim-airline'
-	NeoBundle 'chrisbra/NrrwRgn'
 	NeoBundle 'derekwyatt/vim-fswitch'
 	NeoBundle 'embear/vim-localvimrc'
 	NeoBundle 'godlygeek/tabular'
@@ -280,14 +279,6 @@
 	" GUNDO {{
 		nnoremap <down> :GundoToggle<cr>
 		let g:gundo_preview_bottom = 1
-	" }}
-	" NRV {{
-		xnoremap ,nw :NR<cr>
-		xnoremap ,nb :NR!<cr>
-		xnoremap ,np :NRP<cr>
-		nnoremap ,np :NRP<cr>
-		"nnoremap ,ns :call Preserve(['g/<c-r>//NRP', 'NRM!'])<cr> - reset position in wrong buffer
-		nnoremap ,ns :g/<c-r>//NRP<cr>:NRM<cr>
 	" }}
 	" SYNTASTIC {{
 		let g:syntastic_check_on_open=1
