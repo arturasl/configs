@@ -130,7 +130,6 @@
 	NeoBundle 'jonathanfilip/vim-lucius'
 	NeoBundle 'jpalardy/vim-slime'
 	NeoBundle 'luochen1990/rainbow'
-	NeoBundle 'majutsushi/tagbar'
 	NeoBundle 'mattn/emmet-vim'
 	NeoBundle 'scrooloose/syntastic'
 	NeoBundle 'sjl/gundo.vim'
@@ -183,26 +182,6 @@
 			autocmd FileType lisp :RainbowToggleOn
 			augroup END
 		endif
-	" }}
-	" TAGBAR{{
-		let g:tagbar_compact = 1            " Do not show header and empty lines
-		let g:tagbar_singleclick = 1        " Use single mouse click to go to tag definition
-		let g:tagbar_iconchars = ['▶', '▼'] " Fold icons
-		" tags for latex
-		let g:tagbar_type_tex = {
-			\ 'ctagstype' : 'latex',
-			\ 'kinds' : [
-				\ 's:sections',
-				\ 'g:graphics:0:0',
-				\ 'l:labels',
-				\ 'r:refs:1:0',
-				\ 'p:pagerefs:1:0'
-			\ ],
-			\ 'sort' : 0,
-		\ }
-
-		" show tagbar on ->
-		nnoremap <right> <esc>:TagbarToggle<cr>
 	" }}
 	" UNITE {{
 		let g:unite_data_directory = expand('~/configs/vim/tmp/unite')
