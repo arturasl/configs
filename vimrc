@@ -140,7 +140,6 @@
 	NeoBundle 'tpope/vim-repeat'
 	NeoBundle 'tpope/vim-surround'
 	NeoBundle 'vim-scripts/matchit.zip.git'
-	NeoBundle 'yegappan/mru'
 	NeoBundle 'haya14busa/incsearch.vim'
 	NeoBundle '~/configs/vim/bundle/bufkill/'
 	NeoBundle '~/.vim/bundle/Spelling/'
@@ -325,13 +324,6 @@
 
 		" C++
 		let g:syntastic_cpp_compiler_options = '-std=c++11'
-	" }}
-	" MRU {{
-		nnoremap <up> :call UtilToogleWindow('__MRU_Files__', ':MRU')<cr>
-
-		let MRU_Max_Entries = 1000
-		let MRU_Exclude_Files = '.*/tmp/.*'
-		let MRU_Max_Menu_Entries = 100
 	" }}
 	" DELIMITMATE {{
 		let g:delimitMate_excluded_regions = "String"
