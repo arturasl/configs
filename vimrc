@@ -164,23 +164,23 @@
 		map /  <Plug>(incsearch-forward)
 		map ?  <Plug>(incsearch-backward)
 		let g:incsearch#magic = '\v'
-		augroup incsearch-keymap
-			autocmd!
-			autocmd VimEnter call s:incsearch_keymap()
-		augroup END
+
 		function! s:incsearch_keymap()
 			IncSearchNoreMap <C-f> <Right>
 			IncSearchNoreMap <C-b> <Left>
 		endfunction
+
+		augroup plugin_incsearch
+			autocmd!
+			autocmd VimEnter call s:incsearch_keymap()
+		augroup END
 	" }}
 	" RAINBOW {{
 		let g:rainbow_active = 0
-		if has("autocmd")
-			augroup plugin_rainbow
+		augroup plugin_rainbow
 			autocmd!
 			autocmd FileType lisp :RainbowToggleOn
-			augroup END
-		endif
+		augroup END
 	" }}
 	" UNITE {{
 		let g:unite_data_directory = expand('~/configs/vim/tmp/unite')
@@ -242,17 +242,15 @@
 		xnoremap ,ci :TComment<cr>
 	" }}
 	" FSWITCH{{
-	if has("autocmd")
 		augroup plugin_fswitch
-		autocmd!
+			autocmd!
 			autocmd BufEnter *.cpp,*.c let b:fswitchdst = 'h,hpp' " companion file extension
 						\ | let b:fswitchlocs = 'reg:/src/include/,./' " if relative path end with src or source use ../include, else us current dirctory
 			autocmd BufEnter *.hpp,*.h let b:fswitchdst = 'cpp,c'
 				\ | let b:fswitchlocs = 'reg:/include/src/,./'
 		augroup END
-	endif
 
-	nnoremap ,s :FSHere<cr>
+		nnoremap ,s :FSHere<cr>
 	" }}
 	" GUNDO {{
 		nnoremap <down> :GundoToggle<cr>
@@ -294,7 +292,8 @@
 		let g:delimitMate_expand_cr = 1
 		let g:delimitMate_matchpairs = "(:),[:],{:}"
 
-		autocmd!
+		augroup plugin_delimate
+			autocmd!
 			autocmd FileType xml,html let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
 		augroup END
 	" }}
@@ -304,8 +303,12 @@
 		cabbrev bun BufKillUN
 		cabbrev bw BufKillW
 		cabbrev bd BufKillD
-		" ignore quick fix window then iterating over buffer with bn/bp
-		autocmd FileType qf setlocal nobuflisted
+
+		augroup plugin_bufkill
+			autocmd!
+			" ignore quick fix window then iterating over buffer with bn/bp
+			autocmd FileType qf setlocal nobuflisted
+		augroup END
 	" }}
 	" AIRLINE {{
 		set ttimeoutlen=50
@@ -349,7 +352,11 @@
 			" Finish completion with Enter.
 			inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
 		endfunction
-		autocmd FileType c,cpp call SetCocRemaps()
+
+		augroup plugin_coc
+			autocmd!
+			autocmd FileType c,cpp call SetCocRemaps()
+		augroup END
 	" }}
 " }}
 
@@ -475,8 +482,8 @@
 	set laststatus=2 " always show status line
 
 	" keep folds closed then writing braces
-	augroup fold
-	autocmd!
+	augroup config_fold
+		autocmd!
 		autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
 		autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
 	augroup END
@@ -567,8 +574,8 @@
 
 	if has('viminfo')
 		set viminfo='20,<0,/0,:20,h,n~/configs/vim/tmp/viminfo
-		augroup viminfo
-		autocmd!
+		augroup config_viminfo
+			autocmd!
 			" restore cursor position (and open folds so that it would be visible)
 			autocmd BufWinEnter *
 				\ if line("'\"") >= 1 && line("'\"") <= line('$')
@@ -584,10 +591,11 @@
 	" pop-up menu settings
 	set completeopt=menuone,menu,longest,preview
 
-	if has("autocmd")
+	augroup completion
+		autocmd!
 		" automatically close preview window
 		autocmd CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-	endif
+	augroup END
 
 	" load tags, specific to the language defined by strLang parameter
 	function! LoadLangTags(strLang)
@@ -624,24 +632,22 @@
 " }}
 
 " LANG_SPECIFIC{{
-	if has("autocmd")
+function! SetMakePRGToMake()
+	let l:directoryWithMakeFile = FindRoot([
+		\ {'name': 'makefile'}
+		\, {'name': 'Makefile'}
+	\ ], 1)
 
-		function! SetMakePRGToMake()
-			let l:directoryWithMakeFile = FindRoot([
-				\ {'name': 'makefile'}
-				\, {'name': 'Makefile'}
-			\ ], 1)
+	if !empty(l:directoryWithMakeFile)
+		execute 'setlocal makeprg=make\ -C\ ' . shellescape(escape(l:directoryWithMakeFile, ' ()\')) . '"\ $*'
+		return 1
+	endif
 
-			if !empty(l:directoryWithMakeFile)
-				execute 'setlocal makeprg=make\ -C\ ' . shellescape(escape(l:directoryWithMakeFile, ' ()\')) . '"\ $*'
-				return 1
-			endif
+	return 0
+endfunction
 
-			return 0
-		endfunction
-
-		augroup language_specific
-		autocmd!
+augroup language_specific
+	autocmd!
 
 	" JAVA{{
 		autocmd FileType java setlocal shiftwidth=4 softtabstop=4 tabstop=4 expandtab
@@ -1037,6 +1043,6 @@
 
 		autocmd FileType smt call SetMakeForSMT()
 	" }}
-		augroup END
-	endif
+
+augroup END
 " }}
