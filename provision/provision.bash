@@ -40,6 +40,9 @@ rustup install nightly
 rustup run nightly cargo install rustfmt-nightly # autoformat
 rustup component add rust-src && rustup run stable cargo install racer # autocompletion
 $apti golang                   # go
+### language servers {{
+$apti clang
+### }}
 ## }}
 ## idea {{
 $apti geany
