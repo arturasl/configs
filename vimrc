@@ -135,7 +135,7 @@
 	Plug 'tpope/vim-surround'
 	Plug 'vim-scripts/matchit.zip.git'
 	Plug 'haya14busa/incsearch.vim'
-	Plug '~/configs/vim/bundle/bufkill/'
+	Plug 'qpkorr/vim-bufkill'
 	Plug '~/.vim/bundle/Spelling/'
 	Plug 'neoclide/coc.nvim', 'release'
 
