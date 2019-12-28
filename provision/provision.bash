@@ -44,6 +44,7 @@ $apti golang                   # go
 ### language servers {{
 $apti clang
 $pip python-language-server
+$pip language-check
 ### }}
 ## }}
 ## idea {{

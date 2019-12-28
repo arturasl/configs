@@ -208,12 +208,6 @@ sudo chown root:root /usr/share/xsessions/dwm.desktop
 
 # Additional packages
 
-## from pip
-
-```bash
-sudo syspip3 install --upgrade language-check
-```
-
 ## git submodules
 
 ```bash

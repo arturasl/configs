@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 input_file="$1"
 lang=EN-US
@@ -36,7 +36,7 @@ EOF
 
     language_tool_path="$(echo "${language_check_path}/LanguageTool-"*)"
     java \
-        -cp /usr/local/lib/python3.4/site-packages/language_check/LanguageTool-2.7/languagetool-server.jar \
+        -cp $language_check_path/LanguageTool-*/languagetool-server.jar \
         org.languagetool.server.HTTPServer \
         --port 8081 &>/dev/null &
     disown %1
@@ -44,7 +44,9 @@ EOF
 
 run_language_tool_server_if_needed
 
-/usr/local/bin/language-check -l "$lang" -d WHITESPACE_RULE <(\
+language-check \
+	--language "$lang" \
+	--disable WHITESPACE_RULE <(\
 	cat "$input_file" \
 		| awk '/``/{i++;print"";next}{if(i%2){print""}else{print}}' `# markdown fences` \
 		| sed -E -e 's/^(Date|CC|BCC|From|To|Subject|X-Mailer): .*$//g' `# mail headers` \
