@@ -9,6 +9,7 @@ aptr() {
 	shift 1
 	$apt update && $apti "$@"
 }
+pip='~/configs/scripts/global/syspip3 install --user'
 
 # directory structure {{
 mkdir -p ~/Builds/ ~/Tmp
@@ -22,7 +23,7 @@ $apti exuberant-ctags          # generates tag file for pretty much every langua
 $apti xdotool xautomation      # x automation tools (particularly cool is xte for mouse and keyboard stuff)
 aptr zeal-developers/ppa zeal
 sudo apt-get install libxml2-dev libxslt1-dev
-sudo ./syspip2 install doc2dash
+$pip doc2dash
 
 ## language specific {{
 $apti python{,3}{,-pip}        # python
@@ -42,6 +43,7 @@ rustup component add rust-src && rustup run stable cargo install racer # autocom
 $apti golang                   # go
 ### language servers {{
 $apti clang
+$pip python-language-server
 ### }}
 ## }}
 ## idea {{
@@ -103,7 +105,7 @@ $apti secret-tools             # cli to gnome keyring
 ## general {{
 $apti dropbox             # simple file syncing
 $apti skype               # dont ask
-sudo ./syspip3 install hangups # dont ask
+$pip hangups # dont ask
 $apti chromium-browser opera # internet browser
 ./build/firefox.bash
 $apti libreoffice         # document editor
@@ -133,7 +135,7 @@ $apti xfontsel
 $apti xinput
 $apti redshift            # changes screen color blue->red over the day
 sudo dpkg-divert  --rename --add /etc/init/gdm.conf # disable gdm
-sudo syspip2 install python-forecastio
+$pip install python-forecastio
 ## }}
 ## fonts {{
 $apti ttf-mscorefonts-installer

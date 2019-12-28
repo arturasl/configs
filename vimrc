@@ -343,7 +343,11 @@
 			\       'compile_commands.json'
 		    \   ],
 			\   'filetypes': ['c', 'cpp']
-			\ }
+			\ },
+            \ 'pyls': {
+            \   'command': 'pyls',
+            \   'filetypes': ['python']
+		    \ }
 		\ })
 
 		function! SetCocRemaps()
