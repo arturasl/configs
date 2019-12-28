@@ -272,7 +272,7 @@
 			\ 'mail': 'text',
 			\ 'gitcommit': 'text',
 		\ }
-		let g:syntastic_text_checkers=['language-check']
+		let g:syntastic_text_checkers=['my_language_check']
 
 		" JAVASCRIPT
 		let g:syntastic_javascript_checkers=['jslint']
