@@ -331,6 +331,8 @@
 	" PANDOC {{
 		let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby", "python", "sql", "bash=sh", "tex", "cpp", "java"]
 		let g:pandoc#syntax#conceal#blacklist = ['codeblock_delim']
+		" Hide foldcolumn from the left margin.
+		let g:pandoc#folding#fdc = 0
 	" }}
 	" COC {{
 		call coc#config('languageserver', {
@@ -477,6 +479,7 @@
 	set statusline+=%F%m%r
 	set statusline+=%=\ %Y\ [FORMAT=%{&ff},%{&encoding}]\ [CHAR=\%03.3b/0x\%02.2B]\ [%p%%]
 	set laststatus=2 " always show status line
+	set foldcolumn=0 " do not show folding depth on the left column
 
 	" keep folds closed then writing braces
 	augroup config_fold
