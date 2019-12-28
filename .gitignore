@@ -1,9 +1,8 @@
 *.swp
 vim/tmp/
 vim/.netrwhist
-vim/neobundle/
-vim/bundle/neobundle.vim/
-vim/bundle/.neobundle/
+vim/plugged/
+vim/autoload/plug.vim
 *.tags
 
 ./provision/build/dwm/config.h

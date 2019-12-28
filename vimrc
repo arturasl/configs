@@ -108,55 +108,53 @@
 " }}
 
 " BUNDLES{{
-	if has('vim_starting')
-		if empty(glob('~/.vim/bundle/neobundle.vim'))
-			execute '!curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh'
-		endif
-		set nocompatible
-		set runtimepath+=~/.vim/bundle/neobundle.vim
+	if empty(glob('~/.vim/autoload/plug.vim'))
+	  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 	endif
-	call neobundle#begin(expand('~/.vim/neobundle/'))
-	let g:neobundle#install_process_timeout = 20000
 
-	NeoBundle 'Shougo/vimproc.vim', { 'build': {'unix': 'make'} }
+	call plug#begin('~/.vim/plugged')
 
-	NeoBundle 'Raimondi/delimitMate'
-	NeoBundle 'Shougo/unite.vim'
-	NeoBundle 'SirVer/ultisnips'
-	NeoBundle 'bling/vim-airline'
-	NeoBundle 'derekwyatt/vim-fswitch'
-	NeoBundle 'embear/vim-localvimrc'
-	NeoBundle 'godlygeek/tabular'
-	NeoBundle 'jonathanfilip/vim-lucius'
-	NeoBundle 'jpalardy/vim-slime'
-	NeoBundle 'luochen1990/rainbow'
-	NeoBundle 'scrooloose/syntastic'
-	NeoBundle 'sjl/gundo.vim'
-	NeoBundle 'tomtom/tcomment_vim'
-	NeoBundle 'tpope/vim-repeat'
-	NeoBundle 'tpope/vim-surround'
-	NeoBundle 'vim-scripts/matchit.zip.git'
-	NeoBundle 'haya14busa/incsearch.vim'
-	NeoBundle '~/configs/vim/bundle/bufkill/'
-	NeoBundle '~/.vim/bundle/Spelling/'
-	NeoBundle 'neoclide/coc.nvim', 'release'
+	Plug 'Shougo/vimproc.vim', { 'build': {'unix': 'make'} }
+
+	Plug 'Raimondi/delimitMate'
+	Plug 'Shougo/unite.vim'
+	Plug 'SirVer/ultisnips'
+	Plug 'bling/vim-airline'
+	Plug 'derekwyatt/vim-fswitch'
+	Plug 'embear/vim-localvimrc'
+	Plug 'godlygeek/tabular'
+	Plug 'jonathanfilip/vim-lucius'
+	Plug 'jpalardy/vim-slime'
+	Plug 'luochen1990/rainbow'
+	Plug 'scrooloose/syntastic'
+	Plug 'sjl/gundo.vim'
+	Plug 'tomtom/tcomment_vim'
+	Plug 'tpope/vim-repeat'
+	Plug 'tpope/vim-surround'
+	Plug 'vim-scripts/matchit.zip.git'
+	Plug 'haya14busa/incsearch.vim'
+	Plug '~/configs/vim/bundle/bufkill/'
+	Plug '~/.vim/bundle/Spelling/'
+	Plug 'neoclide/coc.nvim', 'release'
 
 	" Languages
-	NeoBundle 'elzr/vim-json'
-	NeoBundle 'rust-lang/rust.vim'
-	NeoBundle 'raichoo/smt-vim.git'
+	Plug 'elzr/vim-json'
+	Plug 'rust-lang/rust.vim'
+	Plug 'raichoo/smt-vim.git'
 
-	NeoBundle 'vim-pandoc/vim-pandoc'
-	NeoBundle 'vim-pandoc/vim-pandoc-syntax'
-	NeoBundle 'vim-pandoc/vim-pandoc-after'
+	Plug 'vim-pandoc/vim-pandoc'
+	Plug 'vim-pandoc/vim-pandoc-syntax'
+	Plug 'vim-pandoc/vim-pandoc-after'
 
-	NeoBundle 'groenewege/vim-less'
-	NeoBundle 'alunny/pegjs-vim'
-	NeoBundle 'Shirk/vim-gas'
-	NeoBundle 'vim-scripts/bnf.vim'
-	NeoBundle 'matze/vim-tex-fold'
+	Plug 'groenewege/vim-less'
+	Plug 'alunny/pegjs-vim'
+	Plug 'Shirk/vim-gas'
+	Plug 'vim-scripts/bnf.vim'
+	Plug 'matze/vim-tex-fold'
 
-	call neobundle#end()
+	call plug#end()
 " }}
 
 " PLUGINS{{
