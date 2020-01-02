@@ -133,7 +133,7 @@
 	Plug 'tomtom/tcomment_vim'
 	Plug 'tpope/vim-repeat'
 	Plug 'tpope/vim-surround'
-	Plug 'vim-scripts/matchit.zip.git'
+	Plug 'vim-scripts/matchit.zip'
 	Plug 'haya14busa/incsearch.vim'
 	Plug 'qpkorr/vim-bufkill'
 	Plug '~/.vim/bundle/Spelling/'
@@ -143,7 +143,7 @@
 	" Languages
 	Plug 'elzr/vim-json'
 	Plug 'rust-lang/rust.vim'
-	Plug 'raichoo/smt-vim.git'
+	Plug 'raichoo/smt-vim'
 
 	Plug 'vim-pandoc/vim-pandoc'
 	Plug 'vim-pandoc/vim-pandoc-syntax'
