@@ -16,83 +16,26 @@ sudo ln -s ~/configs/scripts/atmux /usr/bin
 sudo ln -s ~/configs/scripts/reattach-to-user-namespace /usr/bin
 ```
 
-## ctags
-
-```bash
-ln -s ~/configs/ctags ~/.ctags # latex
-```
-
 ## vim
 
 ```bash
 # basic:
 ln -s ~/configs/vimrc ~/.vimrc
 ln -s ~/configs/vim ~/.vim
-ln -s ~/configs/ycm_extra_conf.py ~/.ycm_extra_conf.py
-
-# ctags:
-mkdir ~/configs/vim/tags
-ctags -f ~/configs/vim/tags/cpp_wx.tags --recurse=yes --sort=yes --verbose=yes --append=no --language-force=C++ --extra=+q --fields=afiKmsSt /usr/include/wx-2.8/
-wget http://www.vim.org/scripts/download_script.php?src_id=9178
-tar xjf download_script.php\?src_id\=9178
-ctags -f ~/configs/vim/tags/cpp_std.tags --recurse=yes --sort=yes --verbose=yes --append=no --language-force=C++ --extra=+q --fields=afiKmsSt ./cpp_src/
-rm -rf cpp_src/ download_script.php\?src_id\=9178
-
-# use macvim as gvim under mac
-sudo ln -s /usr/local/bin/mvim /usr/bin/gvim
-sudo ln -s /usr/local/bin/mvimdiff /usr/bin/gvimdiff
-```
-
-## mc
-
-```bash
-xterm -e mc & pid="$!" && sleep 5 && kill "$pid" # lazy load mc settings
-MCDIR=$(( test -d ~/.mc && echo ~/.mc ) || echo ~/.config/filemanagers/mc)
-if [ ! -d "$MCDIR" ]; then echo 'Could not detect mc directory' 1>&2; fi
-mkdir -p "$MCDIR/skins/"
-sed -i'' -e 's/^skin=.*/'$(echo "skin=$HOME/.config/filemanagers/mc/skins/custom.ini" | sed -e 's/[\/&]/\\&/g')'/' "$MCDIR/ini"
-sed -i'' -e 's/^navigate_with_arrows=.*/navigate_with_arrows=1/' "$MCDIR/ini"
-sed -i'' -e 's/^drop_menus=.*/drop_menus=1/' "$MCDIR/ini"
 ```
 
 ## bash
 
 ```bash
 ln -s ~/configs/shells/bashrc ~/.bashrc
-# use bash_profile under mac
-ln -s ~/configs/shells/bashrc ~/.bash_profile
 ```
 
-## slate
-
-```bash
-ln -s ~/configs/slate.js ~/.slate.js
-```
-
-## tmux:
+## tmux
 
 ```bash
 ln -s  ~/configs/tmux.conf ~/.tmux.conf
 # for gnome to auto start
-gnome-terminal --execute atmux
-```
-
-## urxvt
-
-```bash
-# Write XResourcesURxvt to your ~/.Xresources (read on X startup):
-cat ~/configs/XResourcesURxvt >> ~/.Xresources
-# or to ~/.Xdefaults (read on demand):
-cat ~/configs/XResourcesURxvt >> ~/.Xdefaults
-# you can also load settings manually with:
-xrdb -merge ~/configs/XResourcesURxvt
-```
-
-## dmenu
-
-```bash
-# fluxbox
-echo -e -n '#CUSTOM\nMod4 p :exec ~/configs/scripts/dmenu_show.sh' >> ~/.fluxbox/keys
+# bash -c ". ~/configs/shells/bashrc && st -- 'atmux'"
 ```
 
 ## newsboat
@@ -101,7 +44,7 @@ echo -e -n '#CUSTOM\nMod4 p :exec ~/configs/scripts/dmenu_show.sh' >> ~/.fluxbox
 bash -c 'xterm -e newsboat & pid="$!" && sleep 5 && kill "$pid"' # lazy load settings
 ln -s  ~/configs/newsboat.conf ~/.newsboat/config
 mkdir -p ~/.newsboat/podc/
-# migth need export LC_ALL='en_US.UTF-8' on mac
+# might need export LC_ALL='en_US.UTF-8' on mac
 ```
 
 ## mutt
@@ -130,10 +73,6 @@ git config --global alias.lg "log --graph --pretty=format:'%C(cyan)%h%C(bold mag
 # ignores
 git config --global core.excludesfile ~/.gitignore
 ln -s ~/configs/ignores ~/.gitignore
-
-# ctags hooks
-git config --global init.templatedir '~/configs/vcs/git/git_template'
-git config --global alias.ctags '!.git/hooks/ctags'
 ```
 
 ## svn
@@ -152,44 +91,11 @@ bash -c '( test -d ~/.config/fish/ && ln -s ~/configs/shells/config.fish ~/.conf
 chsh -s "$(which fish)"
 fish -c fish_update_completions
 ```
-## vimperator
-
-```bash
-ln -s ~/configs/vimperatorrc ~/.vimperatorrc
-```
-
-## ranger
-
-```bash
-bash -c 'ranger & sleep 5; kill %1; ranger --copy-config=all & sleep 5; kill %1; cat ~/configs/filemanagers/ranger/rc.conf >> .config/ranger/rc.conf'
-```
-
 ## vifm
 
 ```bash
 ln -s ~/configs/filemanagers/vifm/vifmrc ~/.config/vifm/vifmrc
 wget -P ~/.config/vifm/colors https://raw.githubusercontent.com/vifm/vifm-colors/master/solarized-dark.vifm
-```
-
-## hangups
-
-```bash
-ln -s ~/configs/hangups.conf ~/.config/hangups/hangups.conf
-```
-
-## rtm
-
-```bash
-export PIP_REQUIRE_VIRTUALENV=
-pip2 install pyrtm
-
-rtmdir="$(mktemp -d tmp.XXX)"
-cd "$rtmdir"
-hg clone https://bitbucket.org/dwaring87/rtm-cli
-cd "rtm-cli/"
-chmod a+x rtm
-sudo mv rtm /usr/bin
-rm -rf "$rtmdir"
 ```
 
 ## sqlite
@@ -205,13 +111,3 @@ sudo ln -s ~/configs/dwm/startdwm.bash /usr/bin/
 sudo cp ~/configs/dwm/dwm.desktop /usr/share/xsessions/
 sudo chown root:root /usr/share/xsessions/dwm.desktop
 ```
-
-# Additional packages
-
-## git submodules
-
-```bash
-# for updates: git pull --recurse-submodules
-git submodule update --init --recursive && git submodule update --recursive
-```
-
