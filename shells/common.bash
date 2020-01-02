@@ -145,7 +145,6 @@ agnosticExport PIP_DOWNLOAD_CACHE "${HOME}/.pip/cache"
 
 agnosticExport LC_ALL en_US.UTF-8
 agnosticExport LANG en_US
-agnosticExport TERM xterm-256color
 
 #### JAVA
 
