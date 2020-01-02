@@ -138,6 +138,7 @@
 	Plug 'qpkorr/vim-bufkill'
 	Plug '~/.vim/bundle/Spelling/'
 	Plug 'neoclide/coc.nvim', 'release'
+	Plug 'mhinz/vim-signify'
 
 	" Languages
 	Plug 'elzr/vim-json'
