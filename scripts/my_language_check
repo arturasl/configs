@@ -44,11 +44,11 @@ EOF
 
 clean_input() {
 	cat \
+   `# markdown fences` \
+	| awk '/^``/{i++;print"";next}{if(i%2){print""}else{print}}'  \
 	`# replace things between $$ and \`\` with Xxxx of an appropriate length ` \
 	| perl -pe 's/\$(.+?)\$/"X" . "x" x (length($1) + 2 - 1)/ge' \
 	| perl -pe 's/`(.+?)`/"X" . "x" x (length($1) + 2 - 1)/ge' \
-   `# markdown fences` \
-	| awk '/^``/{i++;print"";next}{if(i%2){print""}else{print}}'  \
     `# mail headers` \
 	| sed -E -e 's/^(Date|CC|BCC|From|To|Subject|X-Mailer): .*$//g' \
     `# mail comments` \
@@ -60,6 +60,9 @@ clean_input() {
 }
 
 run_language_tool_server_if_needed
+
+cat "$input_file" | clean_input
+exit 0
 
 language-check \
 	--language "$lang" \
