@@ -1,6 +1,6 @@
 " vim: ft=vim
 
-colorscheme zenburn_1
+colorscheme ph
 
 " Search while typing.
 set incsearch
