@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for f in $(svn status | grep '^\?' | sed -e 's#^? *##g'); do
+	echo "rm -rf ${f}"
+	rm -rf "$f"
+done
