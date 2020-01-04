@@ -560,13 +560,14 @@
 	nnoremap N NzzzR
 " }}
 " TMP_FILES{{
+	" use double // to use full path as swap/backup/undo file name.
+
 	set backup
 	set backupext=.bak
-	set backupdir=~/.vim/tmp/backups/
+	set backupdir=~/.vim/tmp/backups//
 	set backupcopy=yes " make backup by copying original file
 
 	set swapfile
-	" use double // to use full path as swap file name
 	set directory=~/.vim/tmp/swap//
 
 	set undofile
