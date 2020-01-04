@@ -586,6 +586,14 @@
 			\ | endif
 	augroup END
 "}}
+" DIFF_MODE {{
+    " Use patient algorithm for diffing.
+	set diffopt+=internal,algorithm:patience
+	" Apply changes from certain branch:
+	nnoremap ,1 :diffget LOCAL<CR>
+	nnoremap ,2 :diffget BASE<CR>
+	nnoremap ,3 :diffget REMOTE<CR>
+" }}
 " COMPLETION{{
 	" pop-up menu settings
 	set completeopt=menuone,menu,longest,preview

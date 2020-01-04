@@ -59,10 +59,11 @@ touch ~/configs/mutt/tmp/certificates
 
 ```bash
 # diffing and merging
-git config --global merge.tool git-vim-mergetool # define new tool
-git config --global mergetool.git-vim-mergetool.cmd '~/configs/scripts/git-vim-mergetool.bash $BASE $LOCAL $REMOTE $MERGED' # command line to execute
-git config --global mergetool.git-vim-mergetool.trustExitCode false # ask me if I finished merging explicitly
-git config --global mergetool.git-vim-mergetool.keepBackup false # remove .orig files
+git config --global merge.tool vimdiff
+git config --global merge.conflictstyle diff3
+git config --global mergetool.prompt false
+git config --global mergetool.vimdiff.trustExitCode false # ask me if I finished merging explicitly
+git config --global mergetool.vimdiff.keepBackup false # remove .orig files
 
 git config --global diff.external ~/configs/scripts/git-vim-diff.bash
 git config --global pager.diff '' # do not pipe diff output to page as we are using "graphical" diff tool
