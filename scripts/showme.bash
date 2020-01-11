@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/ben/bash
 # author: Artūras Lapinskas
 
 source "$(dirname "$0")/util.bash"
@@ -9,6 +9,7 @@ wh() {
 
 capWebBrowser() {
 	{ program='/Applications/Firefox.app' && wh open && [ -d "$program" ] && echo "open -a '${program}'"; } \
+	|| { program='chromium' && utilCommandExists "$program" && echo "$program"; } \
 	|| { program='firefox' && utilCommandExists "$program" && echo "$program"; }
 }
 
