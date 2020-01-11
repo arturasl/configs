@@ -1,4 +1,4 @@
-#!/ben/bash
+#!/bin/bash
 # author: Artūras Lapinskas
 
 source "$(dirname "$0")/util.bash"
