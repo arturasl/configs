@@ -237,6 +237,7 @@ outputFp="${TMP_DIR}/$(basename "$0").out"
 outputTimeFp="${TMP_DIR}/$(basename "$0").time"
 TLEWithEpsilon=$(echo "$argTLE" | awk '{printf("%d\n",$1 + 1.5)}')
 totalFailures=0
+totalTests=0
 
 argMLE="$(echo "$argMLE * 1000 * 1000" | bc -q)"
 sudo cgdelete -g memory,cpu:grader
@@ -268,6 +269,7 @@ for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 		wrongOutput=1
 		totalFailures=$((totalFailures + 1))
 	fi
+	totalTests=$((totalTests +1))
 
 	# get time and memory usage
 	runningTime=$(tail -n 1 "$outputTimeFp" | cut -d' ' -f1)
@@ -292,4 +294,8 @@ for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 	fi
 done
 
-[ "$totalFailures" -ne 0 ] && echo "${COLOR_TEXT_RED}Total failures: ${totalFailures}${COLOR_TEXT_RESET}"
+echo -n 'Totals: '
+echo -n "${COLOR_TEXT_GREEN}$((totalTests - totalFailures))${COLOR_TEXT_RESET}"
+echo -n "/${COLOR_TEXT_RED}${totalFailures}${COLOR_TEXT_RESET}"
+echo -n "/${totalTests}"
+echo ''
