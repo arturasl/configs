@@ -168,6 +168,12 @@ EOF
 done
 
 # find executable
+if [[ $argExecutable == *.cpp ]]; then
+	output="${argExecutable%.*}"
+	echo "Building ${argExecutable}"
+	( set -x;  g++ -std=c++17 -O3 -DTEST "$argExecutable" -o "$output" )
+	argExecutable="$output"
+fi
 [ -z "$argExecutable" ] && argExecutable="$(find . -perm +0111 -type f | head -n 1)"
 echo "${COLOR_TEXT_BLUE}# Running ${argExecutable}${COLOR_TEXT_RESET}"
 [ ! -x "$argExecutable" ] && echo "${COLOR_TEXT_RED}\"$argExecutable\" is not an executable file${COLOR_TEXT_RESET}" 1>&2 && exit 1
