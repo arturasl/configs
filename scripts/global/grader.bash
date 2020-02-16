@@ -300,8 +300,11 @@ for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 	fi
 done
 
-echo -n 'Totals: '
+echo -n 'ok/errors/all: '
 echo -n "${COLOR_TEXT_GREEN}$((totalTests - totalFailures))${COLOR_TEXT_RESET}"
-echo -n "/${COLOR_TEXT_RED}${totalFailures}${COLOR_TEXT_RESET}"
+echo -n '/'
+[ "${totalFailures}" -ne 0 ] && echo -n "${COLOR_TEXT_RED}"
+echo -n "${totalFailures}"
+[ "${totalFailures}" -ne 0 ] && echo -n "${COLOR_TEXT_RESET}"
 echo -n "/${totalTests}"
 echo ''
