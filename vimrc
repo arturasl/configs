@@ -285,7 +285,7 @@
 		let g:syntastic_csslint_options = "--ignore=box-model,adjoining-classes,unique-headings,qualified-headings"
 
 		" C++
-		let g:syntastic_cpp_compiler_options = '-std=c++11'
+		let g:syntastic_cpp_compiler_options = '-std=c++17'
 	" }}
 	" DELIMITMATE {{
 		let g:delimitMate_excluded_regions = "String"
@@ -705,7 +705,7 @@ augroup language_specific
 			elseif &ft ==? 'c'
 				setlocal makeprg=gcc\ -g\ -Wall\ -Wextra\ -pedantic\ -std=c99\ -Wno-long-long\ $*\ '%'\ -o\ '%:r'
 			elseif &ft ==? 'cpp'
-				setlocal makeprg=g++\ -g\ -pedantic\ -std=c++11\
+				setlocal makeprg=g++\ -g\ -pedantic\ -std=c++17\
 					\ -Wall\ -Wextra\
 					\ -Wshadow\
 					\ -Wnon-virtual-dtor\
