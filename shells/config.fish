@@ -8,3 +8,7 @@ end
 # This is useful for vim mode where we want to go from input mode to normal
 # as fast as possible.
 set -g fish_escape_delay_ms 10
+
+function caly
+	cal --monday --iso --color --year (date '+%Y')
+end
