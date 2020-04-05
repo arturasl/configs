@@ -52,11 +52,6 @@ bashExecute() {
 	echo "$1"
 }
 
-fishExecute() {
-	[ "$TYPE" != fish ] && return
-	echo "$1"
-}
-
 agnosticExecute() {
 	echo "$@"
 }
@@ -118,18 +113,6 @@ bashExport PROMPT_COMMAND promptCommand
 # Print before each multiline cmd
 bashExport PS2 ' └> '
 
-# Fish
-fishExport fish_greeting '' # do not show greeting message
-fishExecute "
-function fish_prompt
-	if [ \$status -ne 0 ]
-		set_color red
-	end
-	echo -n '$ '
-	set_color normal
-end
-"
-
 #### External programs
 
 agnosticExport SHELL "$(which bash)"
@@ -157,23 +140,10 @@ fi
 # Bash
 bashExecute 'set -o vi'
 
-# Fish
-fishExecute '
-function fish_user_key_bindings
-	fish_vi_key_bindings
-end
-'
-# Esc letter is a special combination for which fish waits. Lower the  wait
-# timeout as much as possible as otherwise quick swithcing between modes does
-# not work very well.
-fishExport fish_escape_delay_ms 10
-
 #### Aliases
 
-agnosticAlias ll 'ls -a --human-readable -l --color=auto --group-directories-first -v'
 agnosticAlias shufmplayer 'mplayer -vo null -shuffle'
 agnosticAlias smplayer 'mplayer -softvol -softvol-max 300'
-agnosticAlias date '/bin/date "+%Y-%m-%d %H:%M:%ST%z"'
 
 #### Private stuff
 
