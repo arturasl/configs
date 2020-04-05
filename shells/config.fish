@@ -17,6 +17,22 @@ function fish_user_key_bindings
 	fish_vi_key_bindings
 end
 
+function fish_mode_prompt
+	switch $fish_bind_mode
+		case default
+			echo -n N
+		case insert
+			echo -n I
+		case replace-one
+			echo -n R
+		case visual
+			echo -n V
+		case '*'
+			echo -n '?'
+	end
+	echo ' '
+end
+
 # Prevent a delay after escaping.
 # This is useful for vim mode where we want to go from input mode to normal
 # as fast as possible.
