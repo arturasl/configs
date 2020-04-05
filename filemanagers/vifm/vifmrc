@@ -14,7 +14,7 @@ set wildmenu
 set wildstyle=popup
 
 " Try to keep cursor above/below border.
-set scrolloff=4
+set scrolloff=10
 
 set suggestoptions=normal,visual,view,otherpane,keys,marks,registers
 
