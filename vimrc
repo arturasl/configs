@@ -139,6 +139,7 @@
 	Plug '~/.vim/bundle/Spelling/'
 	Plug 'neoclide/coc.nvim', 'release'
 	Plug 'mhinz/vim-signify'
+	Plug 'chiel92/vim-autoformat'
 
 	" Languages
 	Plug 'elzr/vim-json'
@@ -160,6 +161,14 @@
 " }}
 
 " PLUGINS{{
+	" AUTOFORMAT{{
+		let g:formatdef_clangformat = "'clang-format -lines='.a:firstline.':'.a:lastline.' --assume-filename=\"'.expand('%:p').'\" -style=Google'"
+		augroup plugin_autoformat
+			autocmd!
+			autocmd BufWrite * call Preserve('Autoformat')
+			" autocmd BufWrite * echo 'hello'<cr>
+		augroup NED
+	" }}
 	" INCSHEARCH{{
 		map /  <Plug>(incsearch-forward)
 		map ?  <Plug>(incsearch-backward)
