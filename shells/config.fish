@@ -39,8 +39,8 @@ end
 set -g fish_escape_delay_ms 10
 
 # Use ctrn-{n,p,o} to move over history.
-bind --mode insert \cn history-search-backward
-bind --mode insert \cp history-search-forward
+bind --mode insert \cp history-search-backward
+bind --mode insert \cn history-search-forward
 bind --mode insert \co accept-autosuggestion
 
 # Aliases.
