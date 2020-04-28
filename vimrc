@@ -491,6 +491,7 @@
 	set statusline+=%=\ %Y\ [FORMAT=%{&ff},%{&encoding}]\ [CHAR=\%03.3b/0x\%02.2B]\ [%p%%]
 	set laststatus=2 " always show status line
 	set foldcolumn=0 " do not show folding depth on the left column
+	set signcolumn=yes " always show the sign column (errors/warnigns/etc.)
 
 	" keep folds closed then writing braces
 	augroup config_fold
