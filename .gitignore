@@ -2,7 +2,7 @@
 vim/tmp/
 vim/.netrwhist
 vim/plugged/
-vim/autoload/plug.vim
+vim/autoload/plug.vim*
 *.tags
 
 ./provision/build/dwm/config.h
