@@ -160,6 +160,7 @@ Plug 'Shirk/vim-gas'
 Plug 'vim-scripts/bnf.vim'
 Plug 'matze/vim-tex-fold'
 Plug 'dag/vim-fish'
+Plug 'nathangrigg/vim-beancount'
 
 call plug#end()
 " }}
