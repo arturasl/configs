@@ -571,9 +571,10 @@ set backspace=indent,eol,start " allow backspace over anything"
 " SEARCHING_SETTINGS{{
 set ignorecase " case insensetive search
 set smartcase  " unless capitals are use
-set incsearch  " search while typying
+set incsearch  " search while typing
 set hlsearch   " show all results
 set gdefault   " append g to substitution automatically
+set nowrapscan " do not go back to the beginning of file after the last result.
 " use regex that is more like pcre by default
 " nnoremap / /\v " done by INCSHEARCH
 " xnoremap / /\v " done by INCSHEARCH
