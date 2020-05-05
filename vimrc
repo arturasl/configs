@@ -107,6 +107,10 @@ function! FindProjectsRoot()
 endfunction
 " }}
 
+" Force python3.
+if has('python3')
+endif
+
 " BUNDLES{{
 if empty(glob('~/.vim/autoload/plug.vim'))
 	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
