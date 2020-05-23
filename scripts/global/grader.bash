@@ -268,7 +268,7 @@ for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 
 	echo -n "Testing ${testFpBaseName}: "
 	grader_output="$("$argExternalGrader" "$testFp" "$solutionFp" "$outputFp" 2>/dev/null)"
-	if [ "$grader_output" = '1' ]; then
+	if [[ "$grader_output" =~ 1(\.0+)? ]]; then
 		echo -n "${COLOR_TEXT_GREEN}OK${COLOR_TEXT_RESET}"
 	else
 		echo -n "${COLOR_TEXT_RED}FAIL${COLOR_TEXT_RESET}"
