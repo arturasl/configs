@@ -168,6 +168,12 @@ call plug#end()
 " PLUGINS{{
 " AUTOFORMAT{{
 let g:formatdef_clangformat = "'clang-format -lines='.a:firstline.':'.a:lastline.' --assume-filename=\"'.expand('%:p').'\" -style=Google'"
+
+" disable vims reindention.
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
+
 augroup plugin_autoformat
 	autocmd!
 	autocmd BufWrite * call Preserve('Autoformat')
