@@ -3,6 +3,7 @@ snippet code
 // vim: foldmarker={{{,}}}
 
 use std::io;
+use std::io::Write;
 
 // {{{
 #[allow(unused_macros)]
@@ -52,7 +53,12 @@ macro_rules! fmt_vec {
 
 // }}}
 
-fn main() {
+fn solve(writer: &mut io::BufWriter<io::Stdout>) {
     $1
+}
+
+fn main() {
+    let mut writer = io::BufWriter::new(io::stdout());
+    solve(&mut writer);
 }
 endsnippet
