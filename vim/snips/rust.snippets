@@ -1,0 +1,58 @@
+snippet code
+// vim: foldmethod=marker
+// vim: foldmarker={{{,}}}
+
+use std::io;
+
+// {{{
+#[allow(unused_macros)]
+macro_rules! read_non_empty_line {
+    () => {{
+        let mut inner = String::new();
+        while true {
+            io::stdin().read_line(&mut inner).unwrap();
+            if inner.trim() != "" {
+                break;
+            }
+            inner.clear();
+        }
+        inner
+            .trim_end_matches(|c| c == '\r' || c == '\n')
+            .to_string()
+    }};
+}
+
+#[allow(unused_macros)]
+macro_rules! read {
+    () => {
+        read_non_empty_line!().trim().parse::<_>().unwrap()
+    };
+}
+
+#[allow(unused_macros)]
+macro_rules! read_vec {
+    () => {
+        read_non_empty_line!()
+            .trim()
+            .split_whitespace()
+            .map(|s| s.parse::<_>().unwrap())
+            .collect::<Vec<_>>();
+    };
+}
+
+#[allow(unused_macros)]
+macro_rules! fmt_vec {
+    ($v:ident) => {
+        $v.iter()
+            .map(|v| format!("{}", v))
+            .collect::<Vec<_>>()
+            .join(" ")
+    };
+}
+
+// }}}
+
+fn main() {
+    $1
+}
+endsnippet
