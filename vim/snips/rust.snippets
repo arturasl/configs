@@ -24,6 +24,19 @@ macro_rules! read_non_empty_line {
 }
 
 #[allow(unused_macros)]
+macro_rules! read_multi {
+    ($($t: ty),+) => ({
+        let line = read_non_empty_line!();
+        let mut i = line.trim().split_whitespace();
+        (
+            $(
+            i.next().unwrap().parse::<$t>().unwrap(),
+            )+
+        )
+    })
+}
+
+#[allow(unused_macros)]
 macro_rules! read {
     () => {
         read_non_empty_line!().trim().parse::<_>().unwrap()
