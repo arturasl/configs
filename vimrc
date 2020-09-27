@@ -144,6 +144,7 @@ Plug '~/.vim/bundle/Spelling/'
 Plug 'neoclide/coc.nvim', 'release'
 Plug 'mhinz/vim-signify'
 Plug 'chiel92/vim-autoformat'
+Plug 'mihaifm/bufstop'
 
 " Languages
 Plug 'elzr/vim-json'
@@ -383,6 +384,10 @@ augroup plugin_coc
 	autocmd!
 	autocmd FileType c,cpp call SetCocRemaps()
 augroup END
+" }}
+" Bufstop {{
+let g:BufstopKeys = "asdfghjkl"
+nnoremap <silent> ,b :BufstopModeFast<CR>
 " }}
 " }}
 
