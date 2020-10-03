@@ -123,7 +123,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'Shougo/vimproc.vim', { 'build': {'unix': 'make'} }
 
 Plug 'Raimondi/delimitMate'
-Plug 'Shougo/unite.vim'
 Plug 'SirVer/ultisnips'
 Plug 'bling/vim-airline'
 Plug 'derekwyatt/vim-fswitch'
@@ -185,21 +184,6 @@ augroup plugin_rainbow
 	autocmd!
 	autocmd FileType lisp :RainbowToggleOn
 augroup END
-" }}
-" UNITE {{
-let g:unite_data_directory = expand('~/configs/vim/tmp/unite')
-let g:unite_split_rule     = 'botright'
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-
-nnoremap ,b :Unite -quick-match buffer<cr>
-
-" while it is possible to use ! to indicate 'projects root' use internal
-" function as it might be used in other plases
-nnoremap ,t :execute ':Unite -start-insert file_rec/async:' . FindProjectsRoot()<cr>
-
-call unite#util#set_default('g:unite_source_grep_command', 'g')
-call unite#util#set_default('g:unite_source_grep_default_opts', '--color=never')
-nnoremap ,g :execute ':Unite -no-split -auto-preview grep:' . FindProjectsRoot()<cr>
 " }}
 " SLIME {{
 let g:slime_target = "tmux"
