@@ -61,9 +61,6 @@ clean_input() {
 
 run_language_tool_server_if_needed
 
-cat "$input_file" | clean_input
-exit 0
-
 language-check \
 	--language "$lang" \
 	--disable WHITESPACE_RULE <(\
