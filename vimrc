@@ -138,7 +138,6 @@ Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/matchit.zip'
-Plug 'haya14busa/incsearch.vim'
 Plug 'qpkorr/vim-bufkill'
 Plug '~/.vim/bundle/Spelling/'
 Plug 'neoclide/coc.nvim', 'release'
@@ -178,21 +177,6 @@ let g:autoformat_remove_trailing_spaces = 0
 augroup plugin_autoformat
 	autocmd!
 	autocmd BufWrite * call Preserve('Autoformat')
-augroup END
-" }}
-" INCSHEARCH{{
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-let g:incsearch#magic = '\v'
-
-function! s:incsearch_keymap()
-	IncSearchNoreMap <C-f> <Right>
-	IncSearchNoreMap <C-b> <Left>
-endfunction
-
-augroup plugin_incsearch
-	autocmd!
-	autocmd VimEnter call s:incsearch_keymap()
 augroup END
 " }}
 " RAINBOW {{
