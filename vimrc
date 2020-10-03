@@ -132,7 +132,7 @@ Plug 'godlygeek/tabular'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'jpalardy/vim-slime'
 Plug 'luochen1990/rainbow'
-Plug 'scrooloose/syntastic'
+Plug 'dense-analysis/ale'
 Plug 'sjl/gundo.vim'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-repeat'
@@ -276,36 +276,39 @@ nnoremap ,s :FSHere<cr>
 nnoremap <down> :GundoToggle<cr>
 let g:gundo_preview_bottom = 1
 " }}
-" SYNTASTIC {{
-let g:syntastic_check_on_open=1
-let g:syntastic_error_symbol='|✗'
-let g:syntastic_warning_symbol='|⚠'
-let g:syntastic_style_error_symbol='S✗'
-let g:syntastic_style_warning_symbol='S⚠'
-let g:syntastic_auto_loc_list=0 " do not open/close error window automatically
+" ALE {{
+" ALEInfo -- to see what is currently used.
+  let b:ale_linters = 'all'
+  let g:ale_sign_error = '|✗'
+  let g:ale_sign_warning = '|⚠'
+  let g:ale_sign_info = '|🛈'
+  let g:ale_sign_style_error = 'S✗'
+  let g:ale_sign_style_warning = 'S⚠'
 
-let g:syntastic_mode_map = {
-			\ 'mode': 'active'
-			\ }
-
-" language-check
-let g:syntastic_filetype_map = {
-			\ 'pandoc': 'text',
-			\ 'mail': 'text',
-			\ 'gitcommit': 'text',
-			\ }
-let g:syntastic_text_checkers=['language_check']
-let g:syntastic_text_language_check_exec='~/configs/scripts/my_language_check'
-
-" JAVASCRIPT
-let g:syntastic_javascript_checkers=['jslint']
-let g:syntastic_javascript_jslint_conf = "--continue --regexp --white"
-
-" CSS
-let g:syntastic_csslint_options = "--ignore=box-model,adjoining-classes,unique-headings,qualified-headings"
+" Text
+  for lang in ['text', 'gitcommit', 'mail', 'pandoc']
+    call ale#linter#Define(lang, {
+    \   'name': 'my_language_server',
+    \   'executable': expand('~/configs/scripts/my_language_check'),
+    \   'command': '~/configs/scripts/my_language_check %s',
+    \   'output_stream': 'stdout',
+    \   'callback': 'ale#handlers#unix#HandleAsWarning',
+    \})
+  endfor
 
 " C++
-let g:syntastic_cpp_compiler_options = '-std=c++17'
+let g:ale_cpp_cc_options = join([
+  \  '-std=c++17',
+  \  '-Wall',
+  \  '-Wextra',
+  \  '-Wshadow',
+  \  '-Wnon-virtual-dtor',
+  \  '-Woverloaded-virtual',
+  \  '-Wold-style-cast',
+  \  '-Wcast-align',
+  \  '-Wuseless-cast',
+  \  '-Wfloat-equal'
+  \], ' ')
 " }}
 " DELIMITMATE {{
 let g:delimitMate_excluded_regions = "String"
