@@ -148,6 +148,7 @@ Plug 'mihaifm/bufstop'
 Plug 'elzr/vim-json'
 Plug 'rust-lang/rust.vim'
 Plug 'raichoo/smt-vim'
+Plug 'vim-python/python-syntax'
 
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
@@ -359,6 +360,9 @@ augroup END
 " Bufstop {{
 let g:BufstopKeys = "asdfghjkl"
 nnoremap <silent> ,b :BufstopModeFast<CR>
+" }}
+" Python {{
+let g:python_highlight_all = 1
 " }}
 " }}
 
