@@ -30,6 +30,10 @@ noremap v t
 noremap <s-v> v
 
 " Use custom file viewing dispatcher.
+filetype *.zip,*.jar,*.war,*.ear
+         \ FUSE_MOUNT|fuse-zip %SOURCE_FILE %DESTINATION_DIR
+filetype *.tar.gz,*.tar
+         \ FUSE_MOUNT|archivemount %SOURCE_FILE %DESTINATION_DIR
 filetype * o --silent-detached
 fileviewer * ot
 
