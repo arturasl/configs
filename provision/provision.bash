@@ -75,7 +75,7 @@ $apti highlight caca-utils w3m-img
 $apti graphviz     # graph drawing utility
 $apti imagemagick  # converts between various image formats (screen capture, filters, etc.)
 $apti pandoc       # converts between various document formats (mkd, latex, rst, etc.)
-$apti sshfs curlftpfs # fuse
+$apti sshfs curlftpfs fuse-zip archivemount # fuse
 $apti moreutils    # various small utils like sponge
 $apti dnsutils
 $apti time         # /usr/bin/time
