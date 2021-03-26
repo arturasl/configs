@@ -37,6 +37,9 @@ filetype *.tar.gz,*.tar
 filetype * o --silent-detached
 fileviewer * ot
 
+set timefmt=%Y-%m-%d\ %H:%M
+set viewcolumns=-70%{name},10%{size},{mtime}
+
 " Use syscalls for various file operations (instead of coreutils).
 " Enables to see additional information (like copying progress).
 set syscalls
