@@ -224,7 +224,7 @@ if [ -f "${argTestsFile}" ]; then
 ' "$argTestsFile"
 fi
 
-if [ -n "$argCopyInput" -a -d "$argCopyInput" -a -n "$argCopyOutput" -a -d "$argCopyOutput" ]; then
+if [ -n "$argCopyInput" ] && [ -d "$argCopyInput" ] && [ -n "$argCopyOutput" ] && [ -d "$argCopyOutput" ]; then
 	rm -f "${argTestsDirectory}/"*.{sol,in}
 
 	# copy files from copy input directory to tests directory
@@ -258,7 +258,7 @@ for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 	solutionFp="${argTestsDirectory}/${testFpBaseName}.sol"
 
 	(
-		cd "$TMP_DIR"
+		cd "$TMP_DIR" || exit 1
 		[ -n "$argInputFile" ] && cat "$testFp" > "$argInputFile"
 		cgexec -g memory,cpu:grader "$TIME_EXECUTABLE" "--format=%e %M" "--output=${outputTimeFp}" perl -e 'alarm shift; exec @ARGV' "$TLEWithEpsilon" bash -c "'$argExecutable'" < "$testFp" > "$outputFp"
 		[ -n "$argOutputFile" ] && cat "$argOutputFile" > "$outputFp"
@@ -290,7 +290,7 @@ for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 	# finished running this program
 	echo ''
 
-	if [ "$wrongOutput" -eq 1 -a "$argShowIOOnError" -eq 1 ]; then
+	if [ "$wrongOutput" -eq 1 ] && [ "$argShowIOOnError" -eq 1 ]; then
 		echo "${COLOR_TEXT_BLUE}Input file${COLOR_TEXT_RESET}"
 		cat "$testFp"
 		echo "${COLOR_TEXT_BLUE}Programs output${COLOR_TEXT_RESET}"
