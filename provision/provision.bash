@@ -57,7 +57,7 @@ $apti code{blocks,lite}
 ## }}
 ## virtual machines {{
 $apti linux-{,image-}generic linux-{signed,headers}-generic
-$apti dkms virtualbox{,-dkms,-qt} qemu
+$apti dkms virtualbox{,-dkms,-qt,-ext-oracle} qemu
 $apti vagrant
 $apti docker.io vim-syntax-docker
 ## }}
