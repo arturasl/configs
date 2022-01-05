@@ -30,3 +30,5 @@ mplayer v.mp4 -sub v.srt
 ```bash
 pdftops input.pdf /dev/stdout | ps2pdf /dev/stdin output.pdf
 ```
+
+pdftk full-pdf.pdf cat 12-15 output outfile_p12-15.pdf
