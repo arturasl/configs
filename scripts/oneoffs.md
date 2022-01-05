@@ -20,6 +20,11 @@ ffmpeg \
   out.mp4
 ```
 
+Play with subtitles (use `x` and `z` to adjust delay; `v` to hide)
+```bash
+mplayer v.mp4 -sub v.srt
+```
+
 # Pdf
 
 ```bash
