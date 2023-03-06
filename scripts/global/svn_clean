@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for f in $(svn status | grep '^\?' | sed -e 's#^? *##g'); do
-	echo "rm -rf ${f}"
-	rm -rf "$f"
-done
+while read -r file; do
+	echo "rm -rf ${file}"
+	rm -rf "${file}"
+done < <(svn status | grep '^?' | sed -e 's#^? *##g')
