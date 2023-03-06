@@ -714,7 +714,7 @@ augroup language_specific
 		elseif &ft ==? 'c'
 			setlocal makeprg=gcc\ -g\ -Wall\ -Wextra\ -pedantic\ -std=c99\ -Wno-long-long\ $*\ '%'\ -o\ '%:r'
 		elseif &ft ==? 'cpp'
-			setlocal makeprg=g++\ -g\ -pedantic\ -std=c++17\
+			setlocal makeprg=g++\ -g\ -pedantic\ -std=c++20\
 						\ -Wall\ -Wextra\
 						\ -Wshadow\
 						\ -Wnon-virtual-dtor\
