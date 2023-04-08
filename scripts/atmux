@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 nextwindownr () {
-	windownr=`expr $windownr + 1`
+	windownr="$((windownr + 1))"
 }
 session='arturasl'
 
@@ -15,7 +15,7 @@ tmux -2 start-server
 windownr=1
 tmux new-session -d -s "${session}" -n 'files' 'vifm'
 
-for i in `seq 1 4`; do
+for _ in $(seq 1 4); do
 	nextwindownr
 	tmux new-window -t "${session}:${windownr}"
 done
@@ -26,25 +26,6 @@ tmux split-window -v -p 90 -t "${session}:${windownr}" 'newsboat'
 tmux select-pane -U -t "${session}:${windownr}"
 tmux split-window -h -p 50 -t "${session}:${windownr}" 'alsamixer'
 tmux select-pane -D -t "${session}:${windownr}"
-
-nextwindownr
-tmux new-window -t "${session}:${windownr}" -n 'mail' '~/configs/scripts/mutt-run.bash gml'
-tmux split-window -v -p 50 -t "${session}:${windownr}" '~/configs/scripts/mutt-run.bash lap'
-tmux select-pane -U -t "${session}:${windownr}"
-
-nextwindownr
-tmux new-window -t "${session}:${windownr}"
-# nextwindownr
-# tmux new-window -t "${session}:${windownr}" -n 'todo' '~/configs/scripts/exec-on-connection.bash rtm'
-
-nextwindownr
-host='lapinskas'
-host="${host}."
-host="${host}net"
-url='arturas'
-url="${url}@"
-url="${url}${host}"
-tmux new-window -t "${session}:${windownr}" -n "$host" "~/configs/scripts/exec-on-connection.bash --persistent mosh ${url} -- screen -dr"
 
 nextwindownr
 tmux new-window -t "${session}:${windownr}" -n 'htop' 'htop'
