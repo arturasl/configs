@@ -7,7 +7,7 @@ session='arturasl'
 
 cd
 
-if tmux list-sessions -F '#{session_name}' | fgrep --quiet --line-regexp "$session"; then
+if tmux list-sessions -F '#{session_name}' | grep --fixed-strings --quiet --line-regexp "$session"; then
 	exec tmux -2 attach-session -t "${session}"
 fi
 
