@@ -96,7 +96,8 @@ fish -c fish_update_completions
 
 ```bash
 ln -s ~/configs/filemanagers/vifm/vifmrc ~/.config/vifm/vifmrc
-wget -P ~/.config/vifm/colors https://raw.githubusercontent.com/vifm/vifm-colors/master/solarized-dark.vifm
+rm -rf ~/.config/vifm/colors
+git clone https://github.com/vifm/vifm-colors ~/.config/vifm/colors
 ```
 
 ## sqlite
