@@ -112,6 +112,7 @@ $pip hangups # dont ask
 $apti chromium-browser opera # internet browser
 ./build/firefox.bash
 $apti libreoffice         # document editor
+$apti gparted
 ## }}
 ## multimedia  {{
 $apti gimp                # image editor
