@@ -40,7 +40,8 @@ $apti astyle cppcheck libboost-all-dev  # c
 curl https://sh.rustup.rs -sSf | sh # rust
 rustup install nightly
 rustup run nightly cargo install rustfmt-nightly # autoformat
-rustup component add rust-src && rustup run stable cargo install racer # autocompletion
+rustup component add clippy-preview
+$apti rust-analyzer
 $apti golang                   # go
 $apti shellcheck               # bash
 ### language servers {{
