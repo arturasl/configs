@@ -247,7 +247,6 @@ let g:gundo_preview_bottom = 1
 " }}
 " ALE {{
 " ALEInfo -- to see what is currently used.
-  let b:ale_linters = 'all'
   let g:ale_sign_error = '|✗'
   let g:ale_sign_warning = '|⚠'
   let g:ale_sign_info = '|🛈'
@@ -264,6 +263,9 @@ let g:gundo_preview_bottom = 1
     \   'callback': 'ale#handlers#unix#HandleAsWarning',
     \})
   endfor
+
+" Rust
+  let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
 
 " C++
 let g:ale_cpp_cc_options = join([
