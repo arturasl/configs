@@ -260,7 +260,8 @@ for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
 	(
 		cd "$TMP_DIR" || exit 1
 		[ -n "$argInputFile" ] && cat "$testFp" > "$argInputFile"
-		cgexec -g memory,cpu:grader "$TIME_EXECUTABLE" "--format=%e %M" "--output=${outputTimeFp}" perl -e 'alarm shift; exec @ARGV' "$TLEWithEpsilon" bash -c "'$argExecutable'" < "$testFp" > "$outputFp"
+		# cgexec -g memory,cpu:grader
+		"$TIME_EXECUTABLE" "--format=%e %M" "--output=${outputTimeFp}" perl -e 'alarm shift; exec @ARGV' "$TLEWithEpsilon" bash -c "'$argExecutable'" < "$testFp" > "$outputFp"
 		[ -n "$argOutputFile" ] && cat "$argOutputFile" > "$outputFp"
 	)
 
