@@ -36,15 +36,23 @@ vim.cmd.colorscheme 'habamax'
 -------- Temporal files.
 -- Use double // to use full path as swap/backup/undo file name.
 vim.opt.undofile = true
-vim.opt.undodir = '~/.vim/tmp/undo/'
+vim.opt.undodir = vim.fn.stdpath('config') .. '/tmp/undo/'
 
 vim.opt.swapfile = true
-vim.opt.directory = '~/.vim/tmp/swap//'
+vim.opt.directory = vim.fn.stdpath('config') .. '/tmp/swap//' -- hello
 
 vim.opt.backup = true
 vim.opt.backupext = '.bak'
-vim.opt.backupdir = '~/.vim/tmp/backups//'
+vim.opt.backupdir = vim.fn.stdpath('config') .. '/tmp/backups//'
 vim.opt.backupcopy = 'yes'    -- Make backup by copying original file.
+-- Add a suffix that includes current seconds to all backups (higher chance to
+-- restor anything).
+vim.api.nvim_create_autocmd('BufWritePre', {
+    group = vim.api.nvim_create_augroup('backups', { clear = true }),
+    callback = function()
+        vim.opt.backupext = 'sec_' .. vim.fn.strftime('%S') .. '.bak'
+    end
+})
 
 -------- Search & Replace.
 vim.opt.ignorecase = true     -- Case insensetive search.
@@ -102,18 +110,43 @@ require('lazy').setup({
     },
     'farmergreg/vim-lastplace',
     {
+        'nvim-telescope/telescope.nvim',
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        init = function()
+            local builtin = require('telescope.builtin')
+            vim.keymap.set('n', ',p', builtin.live_grep, {})
+        end
+    },
+    {
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
         opts = {
-            auto_install = true, -- Auto install parsers for newly observed languages.
+            ensure_installed = 'all',
             highlight = {
                 enable = true,
+                additional_vim_regex_highlighting = false,
             },
             indent = { enable = true },
-            config = function(_, opts)
-                require('nvim-treesitter.install').prefer_git = true
-                require('nvim-treesitter.configs').setup(opts)
-            end,
-        }
+        },
+        init = function()
+            vim.opt.foldmethod = 'expr'
+            vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+            vim.opt.foldenable = false -- Do not fold everything on startup.
+            vim.opt.foldnestmax = 1
+        end
     },
+    {
+        'neovim/nvim-lspconfig',
+        dependencies = {
+            { 'williamboman/mason.nvim', config = true },
+            'williamboman/mason-lspconfig.nvim',
+            'WhoIsSethDaniel/mason-tool-installer.nvim',
+            { 'j-hui/fidget.nvim', opts = {} },
+            { 'folke/neodev.nvim', opts = {} },
+        },
+        config = function()
+            require('mason').setup()
+            require('mason-tool-installer').setup { ensure_installed = {'stylua', 'lua-language-server'} }
+        end
+    }
 })
