@@ -21,6 +21,8 @@ sudo ln -s ~/configs/scripts/dmenu_show.sh /usr/bin
 
 ```bash
 # basic:
+mkdir -p ~/.config/nvim
+ln -s ~/configs/nvim/init.lua ~/.config/nvim/init.lua
 ln -s ~/configs/vimrc ~/.vimrc
 ln -s ~/configs/vim ~/.vim
 ```
