@@ -25,7 +25,6 @@ aptr zeal-developers/ppa zeal
 $apti tldr
 sudo apt-get install libxml2-dev libxslt1-dev
 $pip doc2dash
-$pip ripgrep
 
 ## language specific {{
 $apti python{,3}{,-pip}        # python
@@ -82,6 +81,8 @@ $apti sshfs curlftpfs fuse-zip archivemount # fuse
 $apti moreutils    # various small utils like sponge
 $apti dnsutils
 $apti time         # /usr/bin/time
+$apti ripgrep fd   # faster grep
+$apti fzf          # fuzzy autocomplete window
 ## }}
 ## general programs {{
 ./build/st.bash    # terminal emulator
