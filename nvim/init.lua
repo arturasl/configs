@@ -65,10 +65,8 @@ vim.keymap.set('n', 'N', 'NzzzR')
 vim.opt.linebreak = true      -- While wrapping lines, break at word boundaries only.
 vim.opt.virtualedit = 'all'   -- Let cursor fly anythere.
 -- Move by screen lines not by file.
-vim.keymap.set('n', 'j', 'gj')
-vim.keymap.set('x', 'j', 'gj')
-vim.keymap.set('n', 'k', 'gk')
-vim.keymap.set('x', 'k', 'gk')
+vim.keymap.set({'n', 'x'}, 'j', 'gj')
+vim.keymap.set({'n', 'x'}, 'k', 'gk')
 
 -------- Indentation.
 vim.opt.autoindent = true     -- Copy indention level from the prev line.
@@ -97,8 +95,7 @@ require('lazy').setup({
     {
         'tomtom/tcomment_vim',
         init = function()
-            vim.keymap.set('n', ',ci', ':TComment<cr>')
-            vim.keymap.set('x', ',ci', ':TComment<cr>')
+            vim.keymap.set({'n', 'x'}, ',ci', ':TComment<cr>')
         end
     },
     'Raimondi/delimitMate',
