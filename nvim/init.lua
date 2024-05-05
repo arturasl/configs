@@ -106,6 +106,7 @@ require('lazy').setup({
             vim.cmd.cabbrev 'bd Bdelete'
         end
     },
+    -- After reopening vim, scroll to the previous cursor position.
     'farmergreg/vim-lastplace',
     {
         'nvim-telescope/telescope.nvim',
