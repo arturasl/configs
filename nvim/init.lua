@@ -11,9 +11,10 @@ vim.opt.fileencodings = 'ucs-bom,utf-8,latin1' -- Encodings to try for existing
                                                -- files (for new one - utf-8).
 vim.opt.lazyredraw = true     -- Do not update screen while doing batch changes.
 -- Show all matched, let narrow results, then let iterate through results.
-vim.opt.wildmenu = true
 vim.completeopt = 'menuone,menu,longest,preview'
-vim.opt.wildmode = 'list:full,full'
+vim.opt.wildmenu = true
+vim.opt.wildoptions = 'fuzzy'
+vim.opt.wildmode = 'longest:full,full'
 -- Show invisible characters.
 vim.opt.list = true
 vim.opt.listchars:append {
