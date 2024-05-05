@@ -57,6 +57,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 -------- Search & Replace.
 vim.opt.ignorecase = true     -- Case insensetive search.
 vim.opt.smartcase = true      -- Unless capitals are use.
+vim.opt.gdefault = true       -- Assume global substitutions s///g by default.
 -- Show match in the center of window (and open folds).
 vim.keymap.set('n', 'n', 'nzzzR')
 vim.keymap.set('n', 'N', 'NzzzR')
