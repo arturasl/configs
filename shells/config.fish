@@ -59,3 +59,5 @@ end
 function vim
     nvim $argv
 end
+
+fzf --fish | source
