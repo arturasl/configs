@@ -44,20 +44,9 @@ bind --mode insert \cn history-search-forward
 bind --mode insert \co accept-autosuggestion
 
 # Aliases.
-function cc
-    cal --monday --iso --color --year (date '+%Y')
-end
-
-function ll
-    ls -a --human-readable -l --color=auto --group-directories-first -v $argv
-end
-
-function dd
-    /bin/date "+%Y-%m-%d %H:%M:%ST%z"
-end
-
-function vim
-    nvim $argv
-end
+alias cc='cal --monday --iso --color=always --year'
+alias ll='ls -a --human-readable -l --color=auto --group-directories-first -v'
+alias dd='/bin/date "+%Y-%m-%d %H:%M:%ST%z"'
+alias vim=nvim
 
 fzf --fish | source
