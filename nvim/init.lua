@@ -34,6 +34,9 @@ vim.opt.statusline = ''..
   ' [COL=%v,LINE=%p%%]'             -- Cursor position.
 -- Make unnamed (y) clipboard the same as the system one aka plus ("+y).
 vim.opt.clipboard = 'unnamedplus'
+-- 24bit color mode, also uses `gui` instead of `cterm` part of :highlight.
+vim.opt.termguicolors = true
+vim.opt.background = 'dark'
 
 -------- Temporal files.
 -- Use double // to use full path as swap/backup/undo file name.
@@ -94,6 +97,7 @@ if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({ 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath })
 end
 vim.opt.runtimepath:prepend(lazypath)
+
 require('lazy').setup({
     {
         'tomtom/tcomment_vim',
@@ -150,10 +154,11 @@ require('lazy').setup({
             require('mason-tool-installer').setup { ensure_installed = {'stylua', 'lua-language-server'} }
         end
     },
-    'rebelot/kanagawa.nvim',
+    {
+        'rebelot/kanagawa.nvim',
+        config = function()
+            vim.cmd.colorscheme('kanagawa')
+        end
+    },
 })
 
--- 24bit color mode, also uses `gui` instead of `cterm` part of :highlight.
-vim.opt.termguicolors = true
-vim.opt.background = 'dark'
-vim.cmd.colorscheme('kanagawa')
