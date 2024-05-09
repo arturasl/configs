@@ -32,7 +32,7 @@ vim.opt.statusline = ''..
   ' [FORMAT=%{&ff},%{&encoding}]'.. -- Line ending type & encoding
   ' [CHAR=%03.3b/0x%02.2B]'..       -- Character encoding.
   ' [COL=%v,LINE=%p%%]'             -- Cursor position.
-vim.cmd.colorscheme 'habamax'
+vim.cmd.colorscheme('habamax')
 
 -------- Temporal files.
 -- Use double // to use full path as swap/backup/undo file name.
@@ -104,7 +104,7 @@ require('lazy').setup({
     {
         'vim-bbye',
         init = function()
-            vim.cmd.cabbrev 'bd Bdelete'
+            vim.cmd.cabbrev('bd Bdelete')
         end
     },
     -- After reopening vim, scroll to the previous cursor position.
