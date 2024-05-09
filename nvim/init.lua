@@ -101,14 +101,14 @@ vim.opt.runtimepath:prepend(lazypath)
 require('lazy').setup({
     {
         'tomtom/tcomment_vim',
-        init = function()
+        config = function()
             vim.keymap.set({'n', 'x'}, ',ci', ':TComment<cr>')
         end
     },
     'Raimondi/delimitMate',
     {
         'vim-bbye',
-        init = function()
+        config = function()
             vim.cmd.cabbrev('bd Bdelete')
         end
     },
@@ -117,7 +117,7 @@ require('lazy').setup({
     {
         'nvim-telescope/telescope.nvim',
         dependencies = { 'nvim-lua/plenary.nvim' },
-        init = function()
+        config = function()
             local builtin = require('telescope.builtin')
             vim.keymap.set('n', ',p', builtin.live_grep, {})
         end
@@ -133,7 +133,7 @@ require('lazy').setup({
             },
             indent = { enable = true },
         },
-        init = function()
+        config = function()
             vim.opt.foldmethod = 'expr'
             vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
             vim.opt.foldenable = false -- Do not fold everything on startup.
@@ -161,4 +161,3 @@ require('lazy').setup({
         end
     },
 })
-
