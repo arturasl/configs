@@ -87,10 +87,10 @@ vim.keymap.set('n', '<c-w><s-h>', '2<c-w><')
 vim.keymap.set('n', '<c-w><s-l>', '2<c-w>>')
 
 -------- Plugins.
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+local lazypath = vim.fn.stdpath('config') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
     local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-    vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
+    vim.fn.system({ 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath })
 end
 vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
