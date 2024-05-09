@@ -33,6 +33,8 @@ vim.opt.statusline = ''..
   ' [CHAR=%03.3b/0x%02.2B]'..       -- Character encoding.
   ' [COL=%v,LINE=%p%%]'             -- Cursor position.
 vim.cmd.colorscheme('habamax')
+-- Make unnamed (y) clipboard the same as the system one aka plus ("+y).
+vim.opt.clipboard = 'unnamedplus'
 
 -------- Temporal files.
 -- Use double // to use full path as swap/backup/undo file name.
