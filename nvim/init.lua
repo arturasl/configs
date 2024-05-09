@@ -105,15 +105,36 @@ require('lazy').setup({
             vim.keymap.set({'n', 'x'}, ',ci', ':TComment<cr>')
         end
     },
+
     'Raimondi/delimitMate',
+
     {
         'vim-bbye',
         config = function()
             vim.cmd.cabbrev('bd Bdelete')
         end
     },
+
+    {
+        'nvim-treesitter/nvim-treesitter',
+        build = ':TSUpdate',
+        config = function () 
+            require("nvim-treesitter.configs").setup({
+                -- Recommended, otherwise just depend on auto_install.
+                ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
+                auto_install = true,
+                highlight = {
+                    enable = true ,
+                    additional_vim_regex_highlighting = false,
+                },
+                indent = { enable = true },
+            })
+        end
+    },
+
     -- After reopening vim, scroll to the previous cursor position.
     'farmergreg/vim-lastplace',
+
     {
         'nvim-telescope/telescope.nvim',
         dependencies = { 'nvim-lua/plenary.nvim' },
@@ -122,24 +143,7 @@ require('lazy').setup({
             vim.keymap.set('n', ',p', builtin.live_grep, {})
         end
     },
-    {
-        'nvim-treesitter/nvim-treesitter',
-        build = ':TSUpdate',
-        opts = {
-            ensure_installed = 'all',
-            highlight = {
-                enable = true,
-                additional_vim_regex_highlighting = false,
-            },
-            indent = { enable = true },
-        },
-        config = function()
-            vim.opt.foldmethod = 'expr'
-            vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-            vim.opt.foldenable = false -- Do not fold everything on startup.
-            vim.opt.foldnestmax = 1
-        end
-    },
+
     {
         'neovim/nvim-lspconfig',
         dependencies = {
@@ -154,6 +158,7 @@ require('lazy').setup({
             require('mason-tool-installer').setup { ensure_installed = {'stylua', 'lua-language-server'} }
         end
     },
+
     {
         'rebelot/kanagawa.nvim',
         config = function()
