@@ -98,6 +98,14 @@ vim.opt.runtimepath:prepend(lazypath)
 
 require('lazy').setup({
     {
+        'rebelot/kanagawa.nvim',
+        priority = 1000, -- Load first.
+        config = function()
+            vim.cmd.colorscheme('kanagawa')
+        end
+    },
+
+    {
         'tomtom/tcomment_vim',
         config = function()
             vim.keymap.set({'n', 'x'}, ',ci', ':TComment<cr>')
@@ -185,13 +193,6 @@ require('lazy').setup({
             config.rust_analyzer.setup({})
             config.bashls.setup({})
             config.pyright.setup({})
-        end
-    },
-
-    {
-        'rebelot/kanagawa.nvim',
-        config = function()
-            vim.cmd.colorscheme('kanagawa')
         end
     },
 })
