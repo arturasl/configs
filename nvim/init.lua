@@ -32,8 +32,6 @@ vim.opt.statusline = ''..
   ' [FORMAT=%{&ff},%{&encoding}]'.. -- Line ending type & encoding
   ' [CHAR=%03.3b/0x%02.2B]'..       -- Character encoding.
   ' [COL=%v,LINE=%p%%]'             -- Cursor position.
--- Make unnamed (y) clipboard the same as the system one aka plus ("+y).
-vim.opt.clipboard = 'unnamedplus'
 -- 24bit color mode, also uses `gui` instead of `cterm` part of :highlight.
 vim.opt.termguicolors = true
 vim.opt.background = 'dark'
