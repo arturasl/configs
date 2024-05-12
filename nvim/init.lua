@@ -204,6 +204,26 @@ require('lazy').setup({
             })
             local config = require('lspconfig')
 
+            vim.api.nvim_create_autocmd('LspAttach', {
+                group = vim.api.nvim_create_augroup('custom_lsp_overrides', { clear = true }),
+                callback = function(evt)
+                    local keymap = vim.keymap
+                    local opts = { buffer = evt.buf, silent = true }
+
+                    opts.desc = 'Smart rename'
+                    keymap.set('n', ',lr', vim.lsp.buf.rename, opts)
+
+                    opts.desc = 'See available fixes'
+                    keymap.set({ 'n', 'v' }, ',lf', vim.lsp.buf.code_action, opts)
+
+                    opts.desc = 'Show documentation for word under cursor'
+                    keymap.set('n', ',lh', vim.lsp.buf.hover, opts)
+
+                    opts.desc = 'Restart LSP'
+                    keymap.set('n', ',lR', ':LspRestart<CR>', opts)
+                end
+            })
+
             config.lua_ls.setup({
                 on_init = function(client)
                     -- Make Lua LSP play nice with NeoVim config.
