@@ -299,11 +299,17 @@ require("lazy").setup({
                         vim.fn["vsnip#anonymous"](args.body)
                     end,
                 },
-                sources = cmp.config.sources({
-                    { name = "nvim_lsp" },
-                    { name = "buffer" },
-                    { name = "path" },
-                }),
+                sources = cmp.config.sources(
+                    -- Priority group 1.
+                    {
+                        { name = "nvim_lsp" },
+                        { name = "path" },
+                    },
+                    -- Priority group 2.
+                    {
+                        { name = "buffer" },
+                    }
+                ),
                 mapping = cmp.mapping.preset.insert({
                     ["<c-n>"] = cmp.mapping(cmp.mapping.select_next_item()),
                     ["<c-p>"] = cmp.mapping(cmp.mapping.select_prev_item()),
