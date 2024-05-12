@@ -260,7 +260,7 @@ require("lazy").setup({
 					cpp = { "clang_format" },
 					-- rust = handled by LSP.
 					sh = { "beautysh" },
-					python = { "black" },
+					python = { "isort", "black" },
 				},
 				format_on_save = {
 					lsp_fallback = true,
