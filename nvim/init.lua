@@ -69,8 +69,8 @@ vim.keymap.set('n', 'N', 'NzzzR')
 vim.opt.linebreak = true      -- While wrapping lines, break at word boundaries only.
 vim.opt.virtualedit = 'all'   -- Let cursor fly anythere.
 -- Move by screen lines not by file.
-vim.keymap.set({'n', 'x'}, 'j', 'gj')
-vim.keymap.set({'n', 'x'}, 'k', 'gk')
+vim.keymap.set({'n', 'x'}, 'j', 'gj', { desc = 'Move one screen line down' })
+vim.keymap.set({'n', 'x'}, 'k', 'gk', { desc = 'Move one screen line up '})
 
 -------- Indentation.
 vim.opt.autoindent = true     -- Copy indention level from the prev line.
@@ -83,10 +83,14 @@ vim.opt.expandtab = true      -- Use spaces instead of tab.
 vim.opt.backspace = 'indent,eol,start' -- Allow backspace over anything.
 
 -------- Windows.
-vim.keymap.set('n', '<c-w><s-j>', ':resize -2<cr>')
-vim.keymap.set('n', '<c-w><s-k>', ':resize +2<cr>')
-vim.keymap.set('n', '<c-w><s-h>', '2<c-w><')
-vim.keymap.set('n', '<c-w><s-l>', '2<c-w>>')
+vim.keymap.set('n', '<c-w><s-j>', ':resize -2<cr>',
+    { desc = 'Decrease window height'})
+vim.keymap.set('n', '<c-w><s-k>', ':resize +2<cr>',
+    { desc = 'Increased window height'})
+vim.keymap.set('n', '<c-w><s-h>', ':vertical resize -2<cr>',
+    { desc = 'Decrease window width'})
+vim.keymap.set('n', '<c-w><s-l>', ':vertical resize +2<cr>',
+    { desc = 'Increased window width'})
 
 -------- Plugins.
 local lazypath = vim.fn.stdpath('config') .. '/lazy/lazy.nvim'
@@ -108,7 +112,8 @@ require('lazy').setup({
     {
         'tomtom/tcomment_vim',
         config = function()
-            vim.keymap.set({'n', 'x'}, ',ci', ':TComment<cr>')
+            vim.keymap.set({'n', 'x'}, ',ci', ':TComment<cr>',
+                { desc = 'Toogle line comment' })
         end
     },
 
@@ -165,7 +170,8 @@ require('lazy').setup({
         dependencies = { 'nvim-lua/plenary.nvim' },
         config = function()
             local builtin = require('telescope.builtin')
-            vim.keymap.set('n', ',p', builtin.live_grep, {})
+            vim.keymap.set('n', ',p', builtin.live_grep,
+                { desc = 'Live grep' })
         end
     },
 
