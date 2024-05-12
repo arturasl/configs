@@ -47,6 +47,6 @@ bind --mode insert \co accept-autosuggestion
 alias cc='cal --monday --iso --color=always --year'
 alias ll='ls -a --human-readable -l --color=auto --group-directories-first -v'
 alias dd='/bin/date "+%Y-%m-%d %H:%M:%ST%z"'
-alias vim=nvim
+alias vim=$EDITOR
 
 fzf --fish | source

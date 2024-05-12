@@ -116,7 +116,7 @@ bashExport PS2 ' └> '
 #### External programs
 
 agnosticExport SHELL "$(which bash)"
-agnosticExport EDITOR vim
+agnosticExport EDITOR nvim
 agnosticExport BROWSER "${HOME}/configs/scripts/showme.bash"
 
 #### Python
