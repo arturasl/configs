@@ -240,9 +240,9 @@ require('lazy').setup({
                     { name = 'path' },
                 }),
                 mapping = cmp.mapping.preset.insert({
-                    ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item()),
-                    ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item()),
-                    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+                    ['<c-n>'] = cmp.mapping(cmp.mapping.select_next_item()),
+                    ['<c-p>'] = cmp.mapping(cmp.mapping.select_prev_item()),
+                    ['<cr>'] = cmp.mapping.confirm({ select = true }),
                 }),
             })
         end
