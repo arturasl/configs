@@ -261,6 +261,13 @@ require("lazy").setup({
                     -- rust = handled by LSP.
                     sh = { "beautysh" },
                     python = { "isort", "black" },
+                    javascript = { "prettier" },
+                    typescript = { "prettier" },
+                    css = { "prettier" },
+                    html = { "prettier" },
+                    json = { "prettier" },
+                    yaml = { "prettier" },
+                    markdown = { "prettier" },
                 },
                 format_on_save = {
                     lsp_fallback = true,
