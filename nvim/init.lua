@@ -18,7 +18,7 @@ vim.opt.wildmode = 'longest:full,full'
 -- Show invisible characters.
 vim.opt.list = true
 vim.opt.listchars:append {
-    tab = "· ",
+    tab = '· ',
     nbsp = '•',
     trail = '•',
     extends = '»',
@@ -128,7 +128,7 @@ require('lazy').setup({
 
     {
         'folke/which-key.nvim',
-        event = "VeryLazy",
+        event = 'VeryLazy',
         init = function()
             -- Allow multi key sequences to cancel after given amount of time.
             -- Cancelation will trigger which-key.
@@ -136,7 +136,7 @@ require('lazy').setup({
             vim.o.timeoutlen = 500
         end,
         config = function()
-            require("which-key").setup()
+            require('which-key').setup()
         end
     },
 
@@ -144,7 +144,7 @@ require('lazy').setup({
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
         config = function ()
-            require("nvim-treesitter.configs").setup({
+            require('nvim-treesitter.configs').setup({
                 -- Required fields, setting to unset to make Lua LSP happy.
                 ensure_installed = { },
                 sync_install = false,
@@ -190,7 +190,7 @@ require('lazy').setup({
                 -- Install servers that were configured by lspconfig.
                 automatic_installation = true
             })
-            local config = require("lspconfig")
+            local config = require('lspconfig')
 
             config.lua_ls.setup({
                 on_init = function(client)
@@ -203,7 +203,7 @@ require('lazy').setup({
                             runtime = { version = 'LuaJIT' },
                             workspace = {
                                 checkThirdParty = false,
-                                library = vim.api.nvim_get_runtime_file("", true)
+                                library = vim.api.nvim_get_runtime_file('', true)
                             }
                         })
                 end,
@@ -231,7 +231,7 @@ require('lazy').setup({
             cmp.setup({
                 snippet = {
                     expand = function(args)
-                        vim.fn["vsnip#anonymous"](args.body)
+                        vim.fn['vsnip#anonymous'](args.body)
                     end,
                 },
                 sources = cmp.config.sources({
