@@ -31,6 +31,12 @@ return {
 
                 opts.desc = "Restart LSP"
                 keymap.set("n", ",lR", ":LspRestart<CR>", opts)
+
+                opts.desc = "Definition"
+                keymap.set("n", ",l>", vim.lsp.buf.definition, opts)
+
+                opts.desc = "Caller (references)"
+                keymap.set("n", ",l<", vim.lsp.buf.references, opts)
             end,
         })
 
