@@ -360,7 +360,7 @@ require("lazy").setup({
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "gitcommit",
+    pattern = { "gitcommit", "hgcommit" },
     group = vim.api.nvim_create_augroup("ft_vcs", { clear = true }),
     callback = function()
         -- Autowrap at 80 characters.
