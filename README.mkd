@@ -23,6 +23,7 @@ sudo ln -s ~/configs/scripts/dmenu_show.sh /usr/bin
 # basic:
 mkdir -p ~/.config/nvim
 ln -s ~/configs/nvim/init.lua ~/.config/nvim/init.lua
+ln -s ~/configs/nvim/lua ~/.config/nvim/lua
 ln -s ~/configs/vimrc ~/.vimrc
 ln -s ~/configs/vim ~/.vim
 ```
@@ -95,6 +96,7 @@ bash -c '( test -d ~/.config/fish/ && ln -s ~/configs/shells/config.fish ~/.conf
 chsh -s "$(which fish)"
 fish -c fish_update_completions
 ```
+
 ## vifm
 
 ```bash
