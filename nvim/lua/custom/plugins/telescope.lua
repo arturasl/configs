@@ -11,7 +11,7 @@ return {
         end, { desc = "Find files" })
 
         vim.keymap.set("n", ",fg", function()
-            builtin.live_gre({ cwd = require("custom/functions").find_root() })
+            builtin.live_grep({ cwd = require("custom/functions").find_root() })
         end, { desc = "Live grep" })
 
         vim.keymap.set("n", ",fh", builtin.oldfiles, { desc = "Previous files" })
