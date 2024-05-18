@@ -11,7 +11,7 @@ return {
         require("conform").setup({
             formatters_by_ft = {
                 lua = { "stylua" },
-                cpp = { "clang_format" },
+                -- cpp = handled by LSP.
                 -- rust = handled by LSP.
                 sh = { "beautysh" },
                 python = { "isort", "black" },
