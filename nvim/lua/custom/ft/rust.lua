@@ -16,6 +16,6 @@ vim.api.nvim_create_autocmd("FileType", {
         end
         run_cmd = run_cmd .. "<cr>"
 
-        vim.keymap.set("n", ",br", run_cmd, { desc = "Run" })
+        vim.keymap.set("n", ",cr", run_cmd, { desc = "Run" })
     end,
 })
