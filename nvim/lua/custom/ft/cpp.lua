@@ -18,9 +18,9 @@ vim.api.nvim_create_autocmd("FileType", {
             .. " $* '%' -o '%:r'"
 
         if vim.loop.fs_stat("./in") then
-            vim.keymap.set("n", ",cr", ":!time ./%:r < in<cr>", { desc = "Run" })
+            vim.keymap.set("n", "<space>br", ":!time ./%:r < in<cr>", { desc = "Run" })
         else
-            vim.keymap.set("n", ",cr", ":!time ./%:r<cr>", { desc = "Run" })
+            vim.keymap.set("n", "<space>br", ":!time ./%:r<cr>", { desc = "Run" })
         end
     end,
 })

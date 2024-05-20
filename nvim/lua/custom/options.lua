@@ -85,11 +85,11 @@ vim.keymap.set("n", "<c-w><s-h>", ":vertical resize -2<cr>", { desc = "Decrease 
 vim.keymap.set("n", "<c-w><s-l>", ":vertical resize +2<cr>", { desc = "Increased window width" })
 
 -------- Building.
-vim.keymap.set("n", ",cc", function()
+vim.keymap.set("n", "<space>bb", function()
     vim.cmd("make")
     require("custom/functions").open_quick_fix_if_not_empty()
 end, { desc = "Build" })
-vim.keymap.set("n", ",ce", function()
+vim.keymap.set("n", "<space>be", function()
     require("custom/functions").toogle_quick_fix()
 end, { desc = "Show errors" })
-vim.keymap.set("n", ",cr", ":make run<cr>", { desc = "Run" })
+vim.keymap.set("n", "<space>br", ":make run<cr>", { desc = "Run" })
