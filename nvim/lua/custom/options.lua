@@ -1,3 +1,4 @@
+vim.g.mapleader = "\\" -- Never use true leader to prevent plugins from creating interfearing keymaps.
 vim.opt.number = true -- Show number line.
 vim.opt.mouse = "a" -- More mouse please :)
 vim.opt.cursorline = true -- Highlight current line.
