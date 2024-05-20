@@ -21,22 +21,22 @@ return {
                 local opts = { buffer = evt.buf, silent = true }
 
                 opts.desc = "Smart rename"
-                keymap.set("n", ",lr", vim.lsp.buf.rename, opts)
+                keymap.set("n", "<space>lr", vim.lsp.buf.rename, opts)
 
                 opts.desc = "See available fixes"
-                keymap.set({ "n", "v" }, ",lf", vim.lsp.buf.code_action, opts)
+                keymap.set({ "n", "v" }, "<space>lf", vim.lsp.buf.code_action, opts)
 
                 opts.desc = "Show documentation for word under cursor"
-                keymap.set("n", ",lh", vim.lsp.buf.hover, opts)
+                keymap.set("n", "<space>lh", vim.lsp.buf.hover, opts)
 
                 opts.desc = "Restart LSP"
-                keymap.set("n", ",lR", ":LspRestart<CR>", opts)
+                keymap.set("n", "<space>lR", ":LspRestart<CR>", opts)
 
                 opts.desc = "Definition"
-                keymap.set("n", ",l>", vim.lsp.buf.definition, opts)
+                keymap.set("n", "<space>l>", vim.lsp.buf.definition, opts)
 
                 opts.desc = "Caller (references)"
-                keymap.set("n", ",l<", vim.lsp.buf.references, opts)
+                keymap.set("n", "<space>l<", vim.lsp.buf.references, opts)
             end,
         })
 
