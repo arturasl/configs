@@ -97,5 +97,9 @@ end, { desc = "Show errors" })
 vim.keymap.set("n", "<space>br", ":make run<cr>", { desc = "Run" })
 
 -------- Commenting.
-vim.keymap.set("n", "<space>ci", "gcc", { desc = "Toogle comment on current line", remap = true })
-vim.keymap.set("x", "<space>ci", "gc", { desc = "Toogle comment on selected lines", remap = true })
+vim.keymap.set("n", "<space>ci", function()
+    require("functions").preserve_cursor("gcc")
+end, { desc = "Toogle comment on current line" })
+vim.keymap.set("x", "<space>ci", function()
+    require("functions").preserve_cursor("gc")
+end, { desc = "Toogle comment on selected lines" })
