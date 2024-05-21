@@ -37,6 +37,11 @@ return {
 
                 opts.desc = "Caller (references)"
                 keymap.set("n", "<space>l<", vim.lsp.buf.references, opts)
+
+                opts.desc = "Inline hints"
+                keymap.set("n", "<space>li", function()
+                    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
+                end, opts)
             end,
         })
 
