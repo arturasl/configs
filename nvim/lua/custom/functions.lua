@@ -31,4 +31,13 @@ return {
 
         return vim.fn.expand("%:p:h")
     end,
+
+    preserve_cursor = function(arg)
+        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        if type(arg) == "string" then
+            vim.cmd.normal(arg)
+        end
+        line = math.min(vim.fn.line("$"), line)
+        vim.api.nvim_win_set_cursor(0, { line, col })
+    end,
 }
