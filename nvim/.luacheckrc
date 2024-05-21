@@ -1,4 +1,6 @@
-std = {
-    globals = { "vim" },
-    read_globals = { "require" },
+stds.nvim = {
+    globals = {
+        "vim",
+    },
 }
+std = "max+nvim"
