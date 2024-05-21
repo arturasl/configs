@@ -95,3 +95,7 @@ vim.keymap.set("n", "<space>be", function()
     require("custom/functions").toogle_quick_fix()
 end, { desc = "Show errors" })
 vim.keymap.set("n", "<space>br", ":make run<cr>", { desc = "Run" })
+
+-------- Commenting.
+vim.keymap.set("n", "<space>ci", "gcc", { desc = "Toogle comment on current line", remap = true })
+vim.keymap.set("x", "<space>ci", "gc", { desc = "Toogle comment on selected lines", remap = true })
