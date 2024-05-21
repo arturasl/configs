@@ -24,18 +24,9 @@ return {
     end,
 
     find_root = function()
-        local root_files = { "Cargo.toml", ".git", ".svn" }
-        for _, root_file in ipairs(root_files) do
-            local found = ""
-            if found == "" then
-                found = vim.fn.findfile(root_file, ".;") or ""
-            end
-            if found == "" then
-                found = vim.fn.finddir(root_file, ".;") or ""
-            end
-            if found ~= "" then
-                return vim.fs.dirname(found)
-            end
+        local found = vim.fs.root(vim.fn.getcwd(), { "Cargo.toml", ".git", ".svn" })
+        if found then
+            return found
         end
 
         return vim.fn.expand("%:p:h")
