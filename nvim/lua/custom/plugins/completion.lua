@@ -4,16 +4,13 @@ return {
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
-        -- Snippet engine, only using for completion purposes.
-        "hrsh7th/cmp-vsnip",
-        "hrsh7th/vim-vsnip",
     },
     config = function()
         local cmp = require("cmp")
         cmp.setup({
             snippet = {
                 expand = function(args)
-                    vim.fn["vsnip#anonymous"](args.body)
+                    vim.snippet.expand(args.body)
                 end,
             },
             sources = cmp.config.sources(
