@@ -34,6 +34,18 @@ vim.opt.statusline = ""
 -- 24bit color mode, also uses `gui` instead of `cterm` part of :highlight.
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
+-- view:
+--   Try to restore screen position before the jump happened.
+-- stack:
+--   Assuming jumps:
+--     a -> b -> c -> d
+--   Jumping back twice:
+--     a -> [b] -> c -> d
+--   Jumping to e (normal behaviour):
+--     a -> b -> c -> d -> e
+--   Stacking behaviour:
+--     a -> b -> e
+vim.opt.jumpoptions = { "stack", "view" }
 
 -------- Temporal files.
 -- Use double // to use full path as swap/backup/undo file name.
