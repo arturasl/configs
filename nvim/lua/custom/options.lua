@@ -1,7 +1,6 @@
 vim.g.mapleader = "\\" -- Never use true leader to prevent plugins from creating interfearing keymaps.
 vim.opt.number = true -- Show number line.
 vim.opt.mouse = "a" -- More mouse please :)
-vim.opt.cursorline = true -- Highlight current line.
 vim.opt.colorcolumn = "81" -- Column list to highligh (now only 80).
 vim.opt.scrolloff = 10 -- Try to show atleast num lines.
 vim.opt.autochdir = true -- File commands are relative to cur directory.
@@ -46,6 +45,21 @@ vim.opt.background = "dark"
 --   Stacking behaviour:
 --     a -> b -> e
 vim.opt.jumpoptions = { "stack", "view" }
+
+-- Highlight current line in active window only.
+vim.opt.cursorline = true
+vim.api.nvim_create_autocmd({ "VimEnter", "WinEnter", "BufWinEnter" }, {
+    group = vim.api.nvim_create_augroup("set_cursor_line", { clear = true }),
+    callback = function()
+        vim.opt_local.cursorlineopt = "both" -- Highlight line number and screen line.
+    end,
+})
+vim.api.nvim_create_autocmd("WinLeave", {
+    group = vim.api.nvim_create_augroup("clear_cursor_line", { clear = true }),
+    callback = function()
+        vim.opt_local.cursorlineopt = "number" -- Highlight line number.
+    end,
+})
 
 -------- Temporal files.
 -- Use double // to use full path as swap/backup/undo file name.
