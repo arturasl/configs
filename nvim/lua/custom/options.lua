@@ -107,10 +107,10 @@ vim.opt.expandtab = true -- Use spaces instead of tab.
 vim.opt.backspace = "indent,eol,start" -- Allow backspace over anything.
 
 -------- Windows.
-vim.keymap.set("n", "<c-w><s-j>", ":resize -2<cr>", { desc = "Decrease window height" })
-vim.keymap.set("n", "<c-w><s-k>", ":resize +2<cr>", { desc = "Increased window height" })
-vim.keymap.set("n", "<c-w><s-h>", ":vertical resize -2<cr>", { desc = "Decrease window width" })
-vim.keymap.set("n", "<c-w><s-l>", ":vertical resize +2<cr>", { desc = "Increased window width" })
+vim.keymap.set("n", "<c-w><s-j>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+vim.keymap.set("n", "<c-w><s-k>", "<cmd>resize +2<cr>", { desc = "Increased window height" })
+vim.keymap.set("n", "<c-w><s-h>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+vim.keymap.set("n", "<c-w><s-l>", "<cmd>vertical resize +2<cr>", { desc = "Increased window width" })
 
 -------- Building.
 vim.keymap.set("n", "<space>bb", function()

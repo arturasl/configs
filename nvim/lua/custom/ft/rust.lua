@@ -2,7 +2,7 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = { "rust" },
     group = vim.api.nvim_create_augroup("ft_rust", { clear = true }),
     callback = function()
-        local run_cmd = ":!time"
+        local run_cmd = "<cmd>!time"
         if vim.fn.findfile("Cargo.toml", ".;") ~= "" then
             vim.opt_local.makeprg = "cargo build --release --quiet"
             run_cmd = run_cmd .. " cargo run --release"
