@@ -27,16 +27,16 @@ return {
                 keymap.set({ "n", "v" }, "<space>lf", vim.lsp.buf.code_action, opts)
 
                 opts.desc = "Show documentation for word under cursor"
-                keymap.set("n", "<space>lh", vim.lsp.buf.hover, opts)
+                keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
                 opts.desc = "Restart LSP"
                 keymap.set("n", "<space>lR", ":LspRestart<CR>", opts)
 
                 opts.desc = "Definition"
-                keymap.set("n", "<space>l>", vim.lsp.buf.definition, opts)
+                keymap.set("n", "<ctrl>]", vim.lsp.buf.definition, opts)
 
                 opts.desc = "Caller (references)"
-                keymap.set("n", "<space>l<", vim.lsp.buf.references, opts)
+                keymap.set("n", "<ctrl>[", vim.lsp.buf.references, opts)
 
                 opts.desc = "Inline hints"
                 keymap.set("n", "<space>li", function()
