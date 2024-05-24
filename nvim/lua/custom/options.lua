@@ -67,7 +67,7 @@ vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("config") .. "/tmp/undo/"
 
 vim.opt.swapfile = true
-vim.opt.directory = vim.fn.stdpath("config") .. "/tmp/swap//" -- hello
+vim.opt.directory = vim.fn.stdpath("config") .. "/tmp/swap//"
 
 vim.opt.backup = true
 vim.opt.backupext = ".bak"
