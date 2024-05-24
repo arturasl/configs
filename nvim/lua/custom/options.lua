@@ -117,10 +117,12 @@ vim.keymap.set("n", "<space>bb", function()
     vim.cmd("make")
     require("custom/functions").open_quick_fix_if_not_empty()
 end, { desc = "Build" })
-vim.keymap.set("n", "<space>be", function()
-    require("custom/functions").toogle_quick_fix()
-end, { desc = "Show errors" })
 vim.keymap.set("n", "<space>br", ":make run<cr>", { desc = "Run" })
+
+-------- Quickfix.
+vim.keymap.set("n", "<space>qt", require("custom/functions").toogle_quick_fix, { desc = "Quickfix toogle" })
+vim.keymap.set("n", "<space>qn", "<cmd>cnext<cr>", { desc = "Quickfix next" })
+vim.keymap.set("n", "<space>qp", "<cmd>cprev<cr>", { desc = "Quickfix previous" })
 
 -------- Commenting.
 vim.keymap.set("n", "<space>ci", function()
