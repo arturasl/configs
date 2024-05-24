@@ -78,7 +78,7 @@ vim.opt.backupcopy = "yes" -- Make backup by copying original file.
 vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("backups", { clear = true }),
     callback = function()
-        vim.opt.backupext = "sec_" .. vim.fn.strftime("%S") .. ".bak"
+        vim.opt.backupext = ".sec_" .. vim.fn.strftime("%S") .. ".bak"
     end,
 })
 
