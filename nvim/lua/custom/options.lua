@@ -82,6 +82,10 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
+-- Use spell check for english and lithuanian languages.
+vim.opt.spelllang = { "en", "lt" }
+vim.opt.spell = true
+
 -------- Search & Replace.
 vim.opt.ignorecase = true -- Case insensetive search.
 vim.opt.smartcase = true -- Unless capitals are use.
