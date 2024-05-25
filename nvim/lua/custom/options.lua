@@ -1,12 +1,12 @@
-vim.g.mapleader = "\\" -- Never use true leader to prevent plugins from creating interfearing keymaps.
+vim.g.mapleader = "\\" -- Never use true leader to prevent plugins from creating interfering key maps.
 vim.opt.number = true -- Show number line.
 vim.opt.mouse = "a" -- More mouse please :)
-vim.opt.colorcolumn = "81" -- Column list to highligh (now only 80).
-vim.opt.scrolloff = 10 -- Try to show atleast num lines.
+vim.opt.colorcolumn = "81" -- Column list to highlight (now only 80).
+vim.opt.scrolloff = 10 -- Try to show at least num lines.
 vim.opt.autochdir = true -- File commands are relative to cur directory.
 vim.opt.shell = "bash" -- Always use bash as shell for vim.
 vim.opt.fileformats = "unix,dos,mac" -- Use \n for new lines by default (unless file uses \r\n or \r).
-vim.opt.fileencodings = "ucs-bom,utf-8,latin1" -- Encodings to try for existing files (for new one - utf-8).
+vim.opt.fileencodings = "ucs-bom,utf-8,latin1" -- Encodings to try for existing files (for new one - UTF-8).
 vim.opt.lazyredraw = true -- Do not update screen while doing batch changes.
 -- Show all matched, let narrow results, then let iterate through results.
 vim.completeopt = "menuone,menu,longest,preview"
@@ -22,9 +22,9 @@ vim.opt.listchars:append({
     extends = "»",
     precedes = "«",
 })
-vim.opt.signcolumn = "yes" -- Always show the sign column (e.g. warnigns).
+vim.opt.signcolumn = "yes" -- Always show the sign column (e.g. warnings).
 vim.opt.statusline = ""
-    .. "%F%m%r" -- File name, was it modified?, readonly?
+    .. "%F%m%r" -- File name, was it modified?, read-only?
     .. "%=" -- Right align (each %= will get the same amount of spaces).
     .. " %Y" -- File type (e.g. LUA).
     .. " [FORMAT=%{&ff},%{&encoding}]" -- Line ending type & encoding
@@ -74,7 +74,7 @@ vim.opt.backupext = ".bak"
 vim.opt.backupdir = vim.fn.stdpath("config") .. "/tmp/backups//"
 vim.opt.backupcopy = "yes" -- Make backup by copying original file.
 -- Add a suffix that includes current seconds to all backups (higher chance to
--- restor anything).
+-- restore anything).
 vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("backups", { clear = true }),
     callback = function()
@@ -82,12 +82,12 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
--- Use spell check for english and lithuanian languages.
+-- Use spell check for English and Lithuanian languages.
 vim.opt.spelllang = { "en", "lt" }
 vim.opt.spell = true
 
 -------- Search & Replace.
-vim.opt.ignorecase = true -- Case insensetive search.
+vim.opt.ignorecase = true -- Case insensitive search.
 vim.opt.smartcase = true -- Unless capitals are use.
 vim.opt.gdefault = true -- Assume global substitutions s///g by default.
 -- Show match in the center of window (and open folds).
@@ -96,7 +96,7 @@ vim.keymap.set("n", "N", "NzzzR")
 
 -------- Wrapping.
 vim.opt.linebreak = true -- While wrapping lines, break at word boundaries only.
-vim.opt.virtualedit = "all" -- Let cursor fly anythere.
+vim.opt.virtualedit = "all" -- Let cursor fly anywhere.
 -- Move by screen lines not by file.
 vim.keymap.set({ "n", "x" }, "j", "gj", { desc = "Move one screen line down" })
 vim.keymap.set({ "n", "x" }, "k", "gk", { desc = "Move one screen line up " })
