@@ -18,7 +18,7 @@ return {
             css = { "stylelint" },
         }
 
-        -- Call linter after saving the buffer (file has to be writtent).
+        -- Call linter after saving the buffer (file has to be written).
         vim.api.nvim_create_autocmd({ "BufWritePost" }, {
             callback = function()
                 require("lint").try_lint()
