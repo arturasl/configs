@@ -23,7 +23,7 @@ wget "https://st.suckless.org/patches/anysize/st-expected-anysize-0.9.diff" --ou
 patch < st-anysize.diff
 
 # Font.
-sed -i'' -e 's/^static char \*font.*$/static char font[] = "DejaVu Sans Mono:pixelsize=14";/g' config.def.h
+sed -i'' -e 's/^static char \*font.*$/static char font[] = "DejaVuSansM Nerd Font Mono:pixelsize=14";/g' config.def.h
 
 # Install
 make && sudo make install && make clean

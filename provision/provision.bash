@@ -148,6 +148,7 @@ $pip install python-forecastio
 $apti ttf-mscorefonts-installer
 $apti xfonts-terminus console-terminus
 $apti ttf-dejavu fonts-droid
+$apti nerd-fonts
 ./build/external_fonts.bash
 ## }}
 #  }}
