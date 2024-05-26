@@ -63,5 +63,6 @@ return {
         config.rust_analyzer.setup({})
         config.bashls.setup({})
         config.pyright.setup({})
+        config.texlab.setup({})
     end,
 }
