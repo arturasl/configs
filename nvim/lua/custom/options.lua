@@ -127,9 +127,9 @@ vim.keymap.set("n", "<space>bn", "<cmd>cnext<cr>", { desc = "Quickfix next" })
 vim.keymap.set("n", "<space>bp", "<cmd>cprev<cr>", { desc = "Quickfix previous" })
 
 -------- Commenting.
-vim.keymap.set("n", "<space>ci", function()
+vim.keymap.set("n", "<space>c", function()
     require("custom/functions").preserve_cursor("gcc")
 end, { desc = "Toogle comment on current line" })
-vim.keymap.set("x", "<space>ci", function()
+vim.keymap.set("x", "<space>c", function()
     require("custom/functions").preserve_cursor("gc")
 end, { desc = "Toogle comment on selected lines" })

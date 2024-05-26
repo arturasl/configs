@@ -1,6 +1,6 @@
 return {
     "moll/vim-bbye",
     config = function()
-        vim.cmd.cabbrev("bd Bdelete")
+        vim.keymap.set("n", "<space>q", "<cmd>Bdelete<cr>", { desc = "Close current buffer" })
     end,
 }

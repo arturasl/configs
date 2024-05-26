@@ -4,6 +4,6 @@ return {
         vim.g.BufstopKeys = "asdfghjkl"
     end,
     config = function()
-        vim.keymap.set("n", "<space>c", "<cmd>BufstopModeFast<cr>")
+        vim.keymap.set("n", "<space>v", "<cmd>BufstopModeFast<cr>")
     end,
 }
