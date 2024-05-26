@@ -116,17 +116,15 @@ vim.keymap.set("n", "<c-w><s-k>", "<cmd>resize +2<cr>", { desc = "Increased wind
 vim.keymap.set("n", "<c-w><s-h>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 vim.keymap.set("n", "<c-w><s-l>", "<cmd>vertical resize +2<cr>", { desc = "Increased window width" })
 
--------- Building.
+-------- Building & Quickfix.
 vim.keymap.set("n", "<space>bb", function()
     vim.cmd("make")
     require("custom/functions").open_quick_fix_if_not_empty()
 end, { desc = "Build" })
 vim.keymap.set("n", "<space>br", ":make run<cr>", { desc = "Run" })
-
--------- Quickfix.
-vim.keymap.set("n", "<space>qt", require("custom/functions").toogle_quick_fix, { desc = "Quickfix toogle" })
-vim.keymap.set("n", "<space>qn", "<cmd>cnext<cr>", { desc = "Quickfix next" })
-vim.keymap.set("n", "<space>qp", "<cmd>cprev<cr>", { desc = "Quickfix previous" })
+vim.keymap.set("n", "<space>be", require("custom/functions").toogle_quick_fix, { desc = "Quickfix toogle" })
+vim.keymap.set("n", "<space>bn", "<cmd>cnext<cr>", { desc = "Quickfix next" })
+vim.keymap.set("n", "<space>bp", "<cmd>cprev<cr>", { desc = "Quickfix previous" })
 
 -------- Commenting.
 vim.keymap.set("n", "<space>ci", function()
