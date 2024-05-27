@@ -15,7 +15,6 @@ local default_components = {
     },
     {
         "on_output_quickfix",
-        open = true, -- Open on any output.
         close = false, -- Do not close if no entries matched errorformat.
         set_diagnostics = true, -- Load errors as diagnostics.
         tail = true, -- Move down as output is produced.
@@ -50,6 +49,7 @@ return {
                         vim.cmd("silent !~/configs/scripts/showme.bash --silent-detached %:r.pdf &>/dev/null &")
                     end)
 
+                    vim.cmd("copen")
                     task:start()
                 end, { desc = "Build LaTeX", buffer = true })
             end,
@@ -74,6 +74,7 @@ return {
                         vim.cmd("silent !~/configs/scripts/showme.bash --silent-detached %.png &>/dev/null &")
                     end)
 
+                    vim.cmd("copen")
                     task:start()
                 end, { desc = "Build Dot", buffer = true })
             end,
@@ -84,30 +85,30 @@ return {
             group = vim.api.nvim_create_augroup("ft_cpp", { clear = true }),
             callback = function()
                 vim.keymap.set("n", "<space>bb", function()
-                    overseer
-                        .new_task({
-                            cmd = { "g++" },
-                            args = {
-                                "-g",
-                                "-pedantic",
-                                "-std=c++20",
-                                "-Wall",
-                                "-Wextra",
-                                "-Wshadow",
-                                "-Wnon-virtual-dtor",
-                                "-Woverloaded-virtual",
-                                "-Wold-style-cast",
-                                "-Wcast-align",
-                                "-Wuseless-cast",
-                                "-Wfloat-equal",
-                                "-fsanitize=address",
-                                vim.fn.expand("%"),
-                                "-o",
-                                vim.fn.expand("%:r"),
-                            },
-                            components = default_components,
-                        })
-                        :start()
+                    local task = overseer.new_task({
+                        cmd = { "g++" },
+                        args = {
+                            "-g",
+                            "-pedantic",
+                            "-std=c++20",
+                            "-Wall",
+                            "-Wextra",
+                            "-Wshadow",
+                            "-Wnon-virtual-dtor",
+                            "-Woverloaded-virtual",
+                            "-Wold-style-cast",
+                            "-Wcast-align",
+                            "-Wuseless-cast",
+                            "-Wfloat-equal",
+                            "-fsanitize=address",
+                            vim.fn.expand("%"),
+                            "-o",
+                            vim.fn.expand("%:r"),
+                        },
+                        components = default_components,
+                    })
+                    vim.cmd("copen")
+                    task:start()
                 end, { desc = "Build Cpp", buffer = true })
 
                 if vim.loop.fs_stat("./in") then
