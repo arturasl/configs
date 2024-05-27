@@ -32,7 +32,7 @@ local create_build_cmd = function(options)
             local last_line_nr = vim.api.nvim_buf_line_count(qf_bufnr)
             while last_line_nr ~= 0 do
                 local lines = vim.api.nvim_buf_get_lines(qf_bufnr, last_line_nr - 1, last_line_nr, true)
-                if lines[1] ~= "|| " then
+                if lines[1]:gsub("[ |]", "") ~= "" then
                     break
                 end
                 last_line_nr = last_line_nr - 1
