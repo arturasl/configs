@@ -33,11 +33,18 @@ return {
     end,
 
     preserve_cursor = function(arg)
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        local tabnr = 0 -- Current.
+        local winnr = vim.api.nvim_get_current_win()
+        local line, col = unpack(vim.api.nvim_win_get_cursor(winnr))
+
         if type(arg) == "string" then
             vim.cmd.normal(arg)
+        else
+            arg()
         end
         line = math.min(vim.fn.line("$"), line)
-        vim.api.nvim_win_set_cursor(0, { line, col })
+        vim.api.nvim_tabpage_set_win(tabnr, winnr)
+        vim.api.nvim_win_set_cursor(winnr, { line, col })
+        vim.cmd([[stopinsert]])
     end,
 }
