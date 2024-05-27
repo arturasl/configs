@@ -12,7 +12,6 @@ local create_build_cmd = function(options)
                 },
                 {
                     "on_output_quickfix",
-                    close = false, -- Do not close if no entries matched errorformat.
                     set_diagnostics = true, -- Load errors as diagnostics.
                     tail = true, -- Move down as output is produced.
                 },
@@ -26,6 +25,21 @@ local create_build_cmd = function(options)
             if options.onsuccess ~= nil then
                 options.onsuccess()
             end
+
+            -- Move cursor to the last non empty line in the quickfix
+            -- without focusing it.
+            local qf_winid = vim.fn.getqflist({ context = 0, winid = 0 }).winid
+            local qf_bufnr = vim.api.nvim_win_get_buf(qf_winid)
+            local last_line_nr = vim.api.nvim_buf_line_count(qf_bufnr)
+            while last_line_nr ~= 0 do
+                local lines = vim.api.nvim_buf_get_lines(qf_bufnr, last_line_nr - 1, last_line_nr, true)
+                if lines[1] ~= "|| " then
+                    break
+                end
+                last_line_nr = last_line_nr - 1
+            end
+
+            vim.api.nvim_win_set_cursor(qf_winid, { last_line_nr, 0 })
         end)
 
         -- Clear and open quickfix before starting stream new data to it.
