@@ -13,6 +13,15 @@ local get_buf_lines = function(bufnr)
     return lines
 end
 
+local get_window_height = function(type)
+    for _, win in pairs(vim.fn.getwininfo()) do
+        if win[type] == 1 then
+            return win.height
+        end
+    end
+    return nil
+end
+
 local create_build_cmd = function(options)
     vim.keymap.set("n", "<space>bb", function()
         local preserve = require("custom/functions").preserve_cursor
@@ -23,7 +32,10 @@ local create_build_cmd = function(options)
         end
 
         preserve(function()
+            -- Preserve quickfix window height if it is opened.
+            local qf_height = get_window_height("quickfix")
             vim.cmd.cclose()
+
             Terminal:new({
                 cmd = cmd,
                 hidden = true, -- Do not show as part of toggleterm managed terminals.
@@ -37,11 +49,13 @@ local create_build_cmd = function(options)
                     term_lines[#term_lines + 1] = string.format("[Exit code: %d]", exit_code)
 
                     vim.fn.setqflist({}, "r", { lines = term_lines })
+
+                    local term_height = get_window_height("terminal")
                     term:close()
 
                     preserve(function()
                         -- Open quickfix window taking full vertical space.
-                        vim.cmd("botright copen")
+                        vim.cmd("botright copen " .. term_height)
                         -- Scroll to bottom of quickfix.
                         vim.cmd.cbottom()
                     end)
@@ -50,7 +64,7 @@ local create_build_cmd = function(options)
                         options.onsuccess()
                     end
                 end,
-            }):open()
+            }):open(qf_height)
         end)
     end, { desc = options.desc, buffer = true })
 end
