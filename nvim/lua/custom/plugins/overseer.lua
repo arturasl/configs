@@ -13,15 +13,6 @@ local get_buf_lines = function(bufnr)
     return lines
 end
 
-local move_cursor_to_end_of_qfix = function()
-    local qf_winid = vim.fn.getqflist({ context = 0, winid = 0 }).winid
-    local qf_bufnr = vim.api.nvim_win_get_buf(qf_winid)
-    local qf_lines = get_buf_lines(qf_bufnr)
-    remove_trailing_lines(qf_lines, "[ |]")
-
-    vim.api.nvim_win_set_cursor(qf_winid, { #qf_lines, 0 })
-end
-
 local create_build_cmd = function(options)
     vim.keymap.set("n", "<space>bb", function()
         local preserve = require("custom/functions").preserve_cursor
@@ -49,8 +40,9 @@ local create_build_cmd = function(options)
                     term:close()
 
                     preserve(function()
+                        -- Open quickfix windown and scroll to the bottom.
                         vim.cmd.copen()
-                        move_cursor_to_end_of_qfix()
+                        vim.cmd.cbottom()
                     end)
 
                     if exit_code == 0 and options.onsuccess ~= nil then
@@ -66,8 +58,6 @@ return {
     "stevearc/overseer.nvim",
     dependencies = { "akinsho/toggleterm.nvim" },
     config = function()
-        local overseer = require("overseer")
-
         vim.api.nvim_create_autocmd("FileType", {
             pattern = { "tex" },
             group = vim.api.nvim_create_augroup("ft_tex", { clear = true }),
