@@ -27,7 +27,9 @@ local create_build_cmd = function(options)
         local preserve = require("custom/functions").preserve_cursor
         local Terminal = require("toggleterm.terminal").Terminal
         local cmd = ""
-        for _, val in ipairs(options.cmd) do
+        -- Note that cmd is delayed so that vim.fn.expand() would happen after
+        -- keymap.
+        for _, val in ipairs(options.fn_cmd()) do
             cmd = cmd .. "'" .. val .. "' "
         end
 
@@ -80,13 +82,15 @@ return {
                 vim.opt_local.errorformat = "%f:%l: %m"
 
                 create_build_cmd({
-                    cmd = {
-                        "pdflatex",
-                        "-shell-escape",
-                        "-file-line-error",
-                        "-interaction=nonstopmode",
-                        vim.fn.expand("%:p"),
-                    },
+                    fn_cmd = function()
+                        return {
+                            "pdflatex",
+                            "-shell-escape",
+                            "-file-line-error",
+                            "-interaction=nonstopmode",
+                            vim.fn.expand("%:p"),
+                        }
+                    end,
                     onsuccess = function()
                         vim.cmd("silent !~/configs/scripts/showme.bash --silent-detached '%:p:r.pdf' &>/dev/null &")
                     end,
@@ -100,7 +104,9 @@ return {
             group = vim.api.nvim_create_augroup("ft_dot", { clear = true }),
             callback = function()
                 create_build_cmd({
-                    cmd = { "dot", vim.fn.expand("%:p"), "-Tpng", "-O" },
+                    fn_cmd = function()
+                        return { "dot", vim.fn.expand("%:p"), "-Tpng", "-O" }
+                    end,
                     onsuccess = function()
                         vim.cmd("silent !~/configs/scripts/showme.bash --silent-detached '%:p.png' &>/dev/null &")
                     end,
@@ -114,25 +120,27 @@ return {
             group = vim.api.nvim_create_augroup("ft_cpp", { clear = true }),
             callback = function()
                 create_build_cmd({
-                    cmd = {
-                        "g++",
-                        "-g",
-                        "-pedantic",
-                        "-std=c++20",
-                        "-Wall",
-                        "-Wextra",
-                        "-Wshadow",
-                        "-Wnon-virtual-dtor",
-                        "-Woverloaded-virtual",
-                        "-Wold-style-cast",
-                        "-Wcast-align",
-                        "-Wuseless-cast",
-                        "-Wfloat-equal",
-                        "-fsanitize=address",
-                        vim.fn.expand("%:p"),
-                        "-o",
-                        vim.fn.expand("%:p:r"),
-                    },
+                    fn_cmd = function()
+                        return {
+                            "g++",
+                            "-g",
+                            "-pedantic",
+                            "-std=c++20",
+                            "-Wall",
+                            "-Wextra",
+                            "-Wshadow",
+                            "-Wnon-virtual-dtor",
+                            "-Woverloaded-virtual",
+                            "-Wold-style-cast",
+                            "-Wcast-align",
+                            "-Wuseless-cast",
+                            "-Wfloat-equal",
+                            "-fsanitize=address",
+                            vim.fn.expand("%:p"),
+                            "-o",
+                            vim.fn.expand("%:p:r"),
+                        }
+                    end,
                     desc = "Build Cpp",
                 })
 
@@ -150,12 +158,16 @@ return {
             callback = function()
                 if vim.fn.findfile("Cargo.toml", ".;") ~= "" then
                     create_build_cmd({
-                        cmd = { "cargo", "build", "--release", "--quiet" },
+                        fn_cmd = function()
+                            return { "cargo", "build", "--release", "--quiet" }
+                        end,
                         desc = "Build Cargo",
                     })
                 else
                     create_build_cmd({
-                        cmd = { "rust", vim.fn.expand("%:p") },
+                        fn_cmd = function()
+                            return { "rust", vim.fn.expand("%:p") }
+                        end,
                         desc = "Build Rust",
                     })
                 end
