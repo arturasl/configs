@@ -1,25 +1,37 @@
-local onsuccess = function(task, fn)
-    task:subscribe("on_complete", function(_, status)
-        if status ~= require("overseer").STATUS.SUCCESS then
-            return
-        end
-        fn()
-    end)
-end
+local create_build_cmd = function(options)
+    vim.keymap.set("n", "<space>bb", function()
+        local overseer = require("overseer")
 
-local default_components = {
-    "on_exit_set_status",
-    {
-        "unique",
-        replace = true, -- If task already exists, stop it and start again.
-    },
-    {
-        "on_output_quickfix",
-        close = false, -- Do not close if no entries matched errorformat.
-        set_diagnostics = true, -- Load errors as diagnostics.
-        tail = true, -- Move down as output is produced.
-    },
-}
+        local task = overseer.new_task({
+            cmd = options.cmd,
+            components = {
+                "on_exit_set_status",
+                {
+                    "unique",
+                    replace = true, -- If task already exists, stop it and start again.
+                },
+                {
+                    "on_output_quickfix",
+                    close = false, -- Do not close if no entries matched errorformat.
+                    set_diagnostics = true, -- Load errors as diagnostics.
+                    tail = true, -- Move down as output is produced.
+                },
+            },
+        })
+
+        task:subscribe("on_complete", function(_, status)
+            if status ~= require("overseer").STATUS.SUCCESS then
+                return
+            end
+            if options.onsuccess ~= nil then
+                options.onsuccess()
+            end
+        end)
+
+        vim.cmd("copen")
+        task:start()
+    end, { desc = options.desc, buffer = true })
+end
 
 return {
     "stevearc/overseer.nvim",
@@ -31,27 +43,21 @@ return {
             pattern = { "tex" },
             group = vim.api.nvim_create_augroup("ft_tex", { clear = true }),
             callback = function()
-                vim.keymap.set("n", "<space>bb", function()
-                    vim.opt_local.errorformat = "%f:%l: %m"
+                vim.opt_local.errorformat = "%f:%l: %m"
 
-                    local task = overseer.new_task({
-                        cmd = { "pdflatex" },
-                        args = {
-                            "-shell-escape",
-                            "-file-line-error",
-                            "-interaction=nonstopmode",
-                            vim.fn.expand("%"),
-                        },
-                        components = default_components,
-                    })
-
-                    onsuccess(task, function()
+                create_build_cmd({
+                    cmd = {
+                        "pdflatex",
+                        "-shell-escape",
+                        "-file-line-error",
+                        "-interaction=nonstopmode",
+                        vim.fn.expand("%"),
+                    },
+                    onsuccess = function()
                         vim.cmd("silent !~/configs/scripts/showme.bash --silent-detached %:r.pdf &>/dev/null &")
-                    end)
-
-                    vim.cmd("copen")
-                    task:start()
-                end, { desc = "Build LaTeX", buffer = true })
+                    end,
+                    desc = "Build LaTeX",
+                })
             end,
         })
 
@@ -59,20 +65,13 @@ return {
             pattern = { "dot" },
             group = vim.api.nvim_create_augroup("ft_dot", { clear = true }),
             callback = function()
-                vim.keymap.set("n", "<space>bb", function()
-                    local task = overseer.new_task({
-                        cmd = { "dot" },
-                        args = { vim.fn.expand("%"), "-Tpng", "-O" },
-                        components = default_components,
-                    })
-
-                    onsuccess(task, function()
+                create_build_cmd({
+                    cmd = { "dot", vim.fn.expand("%"), "-Tpng", "-O" },
+                    onsuccess = function()
                         vim.cmd("silent !~/configs/scripts/showme.bash --silent-detached %.png &>/dev/null &")
-                    end)
-
-                    vim.cmd("copen")
-                    task:start()
-                end, { desc = "Build Dot", buffer = true })
+                    end,
+                    desc = "Build Dot",
+                })
             end,
         })
 
@@ -80,32 +79,28 @@ return {
             pattern = { "cpp" },
             group = vim.api.nvim_create_augroup("ft_cpp", { clear = true }),
             callback = function()
-                vim.keymap.set("n", "<space>bb", function()
-                    local task = overseer.new_task({
-                        cmd = { "g++" },
-                        args = {
-                            "-g",
-                            "-pedantic",
-                            "-std=c++20",
-                            "-Wall",
-                            "-Wextra",
-                            "-Wshadow",
-                            "-Wnon-virtual-dtor",
-                            "-Woverloaded-virtual",
-                            "-Wold-style-cast",
-                            "-Wcast-align",
-                            "-Wuseless-cast",
-                            "-Wfloat-equal",
-                            "-fsanitize=address",
-                            vim.fn.expand("%"),
-                            "-o",
-                            vim.fn.expand("%:r"),
-                        },
-                        components = default_components,
-                    })
-                    vim.cmd("copen")
-                    task:start()
-                end, { desc = "Build Cpp", buffer = true })
+                create_build_cmd({
+                    cmd = {
+                        "g++",
+                        "-g",
+                        "-pedantic",
+                        "-std=c++20",
+                        "-Wall",
+                        "-Wextra",
+                        "-Wshadow",
+                        "-Wnon-virtual-dtor",
+                        "-Woverloaded-virtual",
+                        "-Wold-style-cast",
+                        "-Wcast-align",
+                        "-Wuseless-cast",
+                        "-Wfloat-equal",
+                        "-fsanitize=address",
+                        vim.fn.expand("%"),
+                        "-o",
+                        vim.fn.expand("%:r"),
+                    },
+                    desc = "Build Cpp",
+                })
 
                 if vim.loop.fs_stat("./in") then
                     vim.keymap.set("n", "<space>br", "<cmd>!time ./%:r < in<cr>", { desc = "Run", buffer = true })
@@ -120,25 +115,15 @@ return {
             group = vim.api.nvim_create_augroup("ft_rust", { clear = true }),
             callback = function()
                 if vim.fn.findfile("Cargo.toml", ".;") ~= "" then
-                    vim.keymap.set("n", "<space>bb", function()
-                        local task = overseer.new_task({
-                            cmd = { "cargo" },
-                            args = { "build", "--release", "--quiet" },
-                            components = default_components,
-                        })
-                        vim.cmd("copen")
-                        task:start()
-                    end, { desc = "Build Cargo", buffer = true })
+                    create_build_cmd({
+                        cmd = { "cargo", "build", "--release", "--quiet" },
+                        desc = "Build Cargo",
+                    })
                 else
-                    vim.keymap.set("n", "<space>bb", function()
-                        local task = overseer.new_task({
-                            cmd = { "rust" },
-                            args = { vim.fn.expand("%") },
-                            components = default_components,
-                        })
-                        vim.cmd("copen")
-                        task:start()
-                    end, { desc = "Build Rust", buffer = true })
+                    create_build_cmd({
+                        cmd = { "rust", vim.fn.expand("%") },
+                        desc = "Build Rust",
+                    })
                 end
 
                 local run_cmd = "<cmd>!time"
