@@ -19,7 +19,6 @@ local default_components = {
         close = false, -- Do not close if no entries matched errorformat.
         set_diagnostics = true, -- Load errors as diagnostics.
         tail = true, -- Move down as output is produced.
-        errorformat = "%f:%l: %m",
     },
 }
 
@@ -34,6 +33,8 @@ return {
             group = vim.api.nvim_create_augroup("ft_tex", { clear = true }),
             callback = function()
                 vim.keymap.set("n", "<space>bb", function()
+                    vim.opt_local.errorformat = "%f:%l: %m"
+
                     local task = overseer.new_task({
                         cmd = { "pdflatex" },
                         args = {
@@ -50,7 +51,7 @@ return {
                     end)
 
                     task:start()
-                end)
+                end, { desc = "Build LaTeX" })
             end,
         })
 
@@ -74,7 +75,46 @@ return {
                     end)
 
                     task:start()
-                end)
+                end, { desc = "Build Dot" })
+            end,
+        })
+
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = { "cpp" },
+            group = vim.api.nvim_create_augroup("ft_cpp", { clear = true }),
+            callback = function()
+                vim.keymap.set("n", "<space>bb", function()
+                    overseer
+                        .new_task({
+                            cmd = { "g++" },
+                            args = {
+                                "-g",
+                                "-pedantic",
+                                "-std=c++20",
+                                "-Wall",
+                                "-Wextra",
+                                "-Wshadow",
+                                "-Wnon-virtual-dtor",
+                                "-Woverloaded-virtual",
+                                "-Wold-style-cast",
+                                "-Wcast-align",
+                                "-Wuseless-cast",
+                                "-Wfloat-equal",
+                                "-fsanitize=address",
+                                vim.fn.expand("%"),
+                                "-o",
+                                vim.fn.expand("%:r"),
+                            },
+                            components = default_components,
+                        })
+                        :start()
+                end, { desc = "Build Cpp" })
+
+                if vim.loop.fs_stat("./in") then
+                    vim.keymap.set("n", "<space>br", "<cmd>!time ./%:r < in<cr>", { desc = "Run" })
+                else
+                    vim.keymap.set("n", "<space>br", "<cmd>!time ./%:r<cr>", { desc = "Run" })
+                end
             end,
         })
     end,
