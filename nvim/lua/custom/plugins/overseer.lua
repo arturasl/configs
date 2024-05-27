@@ -51,7 +51,7 @@ return {
                     end)
 
                     task:start()
-                end, { desc = "Build LaTeX" })
+                end, { desc = "Build LaTeX", buffer = true })
             end,
         })
 
@@ -75,7 +75,7 @@ return {
                     end)
 
                     task:start()
-                end, { desc = "Build Dot" })
+                end, { desc = "Build Dot", buffer = true })
             end,
         })
 
@@ -108,12 +108,12 @@ return {
                             components = default_components,
                         })
                         :start()
-                end, { desc = "Build Cpp" })
+                end, { desc = "Build Cpp", buffer = true })
 
                 if vim.loop.fs_stat("./in") then
-                    vim.keymap.set("n", "<space>br", "<cmd>!time ./%:r < in<cr>", { desc = "Run" })
+                    vim.keymap.set("n", "<space>br", "<cmd>!time ./%:r < in<cr>", { desc = "Run", buffer = true })
                 else
-                    vim.keymap.set("n", "<space>br", "<cmd>!time ./%:r<cr>", { desc = "Run" })
+                    vim.keymap.set("n", "<space>br", "<cmd>!time ./%:r<cr>", { desc = "Run", buffer = true })
                 end
             end,
         })
