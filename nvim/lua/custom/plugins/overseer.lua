@@ -1,60 +1,72 @@
+local remove_trailing_lines = function(lines, trailing_if_regex)
+    while #lines ~= 0 do
+        if lines[#lines]:gsub(trailing_if_regex, "") ~= "" then
+            break
+        end
+        lines[#lines] = nil
+    end
+end
+
+local get_buf_lines = function(bufnr)
+    local num_lines = vim.api.nvim_buf_line_count(bufnr)
+    local lines = vim.api.nvim_buf_get_lines(bufnr, 0, num_lines, true)
+    return lines
+end
+
+local move_cursor_to_end_of_qfix = function()
+    local qf_winid = vim.fn.getqflist({ context = 0, winid = 0 }).winid
+    local qf_bufnr = vim.api.nvim_win_get_buf(qf_winid)
+    local qf_lines = get_buf_lines(qf_bufnr)
+    remove_trailing_lines(qf_lines, "[ |]")
+
+    vim.api.nvim_win_set_cursor(qf_winid, { #qf_lines, 0 })
+end
+
 local create_build_cmd = function(options)
     vim.keymap.set("n", "<space>bb", function()
-        local overseer = require("overseer")
+        local preserve = require("custom/functions").preserve_cursor
+        local Terminal = require("toggleterm.terminal").Terminal
+        local cmd = ""
+        for _, val in ipairs(options.cmd) do
+            cmd = cmd .. "'" .. val .. "' "
+        end
 
-        local task = overseer.new_task({
-            cmd = options.cmd,
-            components = {
-                "on_exit_set_status",
-                {
-                    "unique",
-                    replace = true, -- If task already exists, stop it and start again.
-                },
-                {
-                    "on_output_quickfix",
-                    set_diagnostics = true, -- Load errors as diagnostics.
-                    tail = true, -- Move down as output is produced.
-                },
-            },
-        })
+        preserve(function()
+            vim.cmd.cclose()
+            Terminal:new({
+                cmd = cmd,
+                hidden = true, -- Do not show as part of toggleterm managed terminals.
+                start_in_insert = false,
+                close_on_exit = false,
+                auto_scroll = true,
+                on_exit = function(term, _, exit_code)
+                    local term_lines = get_buf_lines(term.bufnr)
+                    remove_trailing_lines(term_lines, " ")
+                    term_lines[#term_lines + 1] = ""
+                    term_lines[#term_lines + 1] = string.format("[Exit code: %d]", exit_code)
 
-        task:subscribe("on_complete", function(_, status)
-            if status == require("overseer").STATUS.SUCCESS then
-                if options.onsuccess ~= nil then
-                    options.onsuccess()
-                end
-            end
+                    vim.fn.setqflist({}, "r", { lines = term_lines })
+                    term:close()
 
-            -- Move cursor to the last non empty line in the quickfix
-            -- without focusing it.
-            local qf_winid = vim.fn.getqflist({ context = 0, winid = 0 }).winid
-            local qf_bufnr = vim.api.nvim_win_get_buf(qf_winid)
-            local last_line_nr = vim.api.nvim_buf_line_count(qf_bufnr)
-            while last_line_nr ~= 0 do
-                local lines = vim.api.nvim_buf_get_lines(qf_bufnr, last_line_nr - 1, last_line_nr, true)
-                if lines[1]:gsub("[ |]", "") ~= "" then
-                    break
-                end
-                last_line_nr = last_line_nr - 1
-            end
+                    preserve(function()
+                        vim.cmd.copen()
+                        move_cursor_to_end_of_qfix()
+                    end)
 
-            vim.api.nvim_win_set_cursor(qf_winid, { last_line_nr, 0 })
+                    if exit_code == 0 and options.onsuccess ~= nil then
+                        options.onsuccess()
+                    end
+                end,
+            }):open()
         end)
-
-        -- Clear and open quickfix before starting stream new data to it.
-        vim.fn.setqflist({})
-        vim.cmd("copen")
-
-        -- Start the job.
-        task:start()
     end, { desc = options.desc, buffer = true })
 end
 
 return {
     "stevearc/overseer.nvim",
+    dependencies = { "akinsho/toggleterm.nvim" },
     config = function()
         local overseer = require("overseer")
-        overseer.setup({})
 
         vim.api.nvim_create_autocmd("FileType", {
             pattern = { "tex" },
