@@ -183,7 +183,7 @@ return {
                 end
                 run_cmd = run_cmd .. "<cr>"
 
-                vim.keymap.set("n", "<space>cr", run_cmd, { desc = "Run", buffer = true })
+                vim.keymap.set("n", "<space>br", run_cmd, { desc = "Run", buffer = true })
             end,
         })
     end,
