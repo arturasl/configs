@@ -40,8 +40,9 @@ local create_build_cmd = function(options)
                     term:close()
 
                     preserve(function()
-                        -- Open quickfix windown and scroll to the bottom.
-                        vim.cmd.copen()
+                        -- Open quickfix window taking full vertical space.
+                        vim.cmd("botright copen")
+                        -- Scroll to bottom of quickfix.
                         vim.cmd.cbottom()
                     end)
 
