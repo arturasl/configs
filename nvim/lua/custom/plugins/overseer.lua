@@ -28,7 +28,11 @@ local create_build_cmd = function(options)
             end
         end)
 
+        -- Clear and open quickfix before starting stream new data to it.
+        vim.fn.setqflist({})
         vim.cmd("copen")
+
+        -- Start the job.
         task:start()
     end, { desc = options.desc, buffer = true })
 end
