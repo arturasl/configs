@@ -62,11 +62,7 @@ return {
                 vim.keymap.set("n", "<space>bb", function()
                     local task = overseer.new_task({
                         cmd = { "dot" },
-                        args = {
-                            vim.fn.expand("%"),
-                            "-Tpng",
-                            "-O",
-                        },
+                        args = { vim.fn.expand("%"), "-Tpng", "-O" },
                         components = default_components,
                     })
 
@@ -116,6 +112,47 @@ return {
                 else
                     vim.keymap.set("n", "<space>br", "<cmd>!time ./%:r<cr>", { desc = "Run", buffer = true })
                 end
+            end,
+        })
+
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = { "rust" },
+            group = vim.api.nvim_create_augroup("ft_rust", { clear = true }),
+            callback = function()
+                if vim.fn.findfile("Cargo.toml", ".;") ~= "" then
+                    vim.keymap.set("n", "<space>bb", function()
+                        local task = overseer.new_task({
+                            cmd = { "cargo" },
+                            args = { "build", "--release", "--quiet" },
+                            components = default_components,
+                        })
+                        vim.cmd("copen")
+                        task:start()
+                    end, { desc = "Build Cargo", buffer = true })
+                else
+                    vim.keymap.set("n", "<space>bb", function()
+                        local task = overseer.new_task({
+                            cmd = { "rust" },
+                            args = { vim.fn.expand("%") },
+                            components = default_components,
+                        })
+                        vim.cmd("copen")
+                        task:start()
+                    end, { desc = "Build Rust", buffer = true })
+                end
+
+                local run_cmd = "<cmd>!time"
+                if vim.fn.findfile("Cargo.toml", ".;") ~= "" then
+                    run_cmd = run_cmd .. " cargo run --release"
+                else
+                    run_cmd = run_cmd .. " ./%:r"
+                end
+                if vim.loop.fs_stat("./in") then
+                    run_cmd = run_cmd .. " < in"
+                end
+                run_cmd = run_cmd .. "<cr>"
+
+                vim.keymap.set("n", "<space>cr", run_cmd, { desc = "Run", buffer = true })
             end,
         })
     end,
