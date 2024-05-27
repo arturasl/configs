@@ -19,11 +19,10 @@ local create_build_cmd = function(options)
         })
 
         task:subscribe("on_complete", function(_, status)
-            if status ~= require("overseer").STATUS.SUCCESS then
-                return
-            end
-            if options.onsuccess ~= nil then
-                options.onsuccess()
+            if status == require("overseer").STATUS.SUCCESS then
+                if options.onsuccess ~= nil then
+                    options.onsuccess()
+                end
             end
 
             -- Move cursor to the last non empty line in the quickfix
@@ -69,10 +68,10 @@ return {
                         "-shell-escape",
                         "-file-line-error",
                         "-interaction=nonstopmode",
-                        vim.fn.expand("%"),
+                        vim.fn.expand("%:p"),
                     },
                     onsuccess = function()
-                        vim.cmd("silent !~/configs/scripts/showme.bash --silent-detached %:r.pdf &>/dev/null &")
+                        vim.cmd("silent !~/configs/scripts/showme.bash --silent-detached '%:p:r.pdf' &>/dev/null &")
                     end,
                     desc = "Build LaTeX",
                 })
@@ -84,9 +83,9 @@ return {
             group = vim.api.nvim_create_augroup("ft_dot", { clear = true }),
             callback = function()
                 create_build_cmd({
-                    cmd = { "dot", vim.fn.expand("%"), "-Tpng", "-O" },
+                    cmd = { "dot", vim.fn.expand("%:p"), "-Tpng", "-O" },
                     onsuccess = function()
-                        vim.cmd("silent !~/configs/scripts/showme.bash --silent-detached %.png &>/dev/null &")
+                        vim.cmd("silent !~/configs/scripts/showme.bash --silent-detached '%:p.png' &>/dev/null &")
                     end,
                     desc = "Build Dot",
                 })
@@ -113,17 +112,17 @@ return {
                         "-Wuseless-cast",
                         "-Wfloat-equal",
                         "-fsanitize=address",
-                        vim.fn.expand("%"),
+                        vim.fn.expand("%:p"),
                         "-o",
-                        vim.fn.expand("%:r"),
+                        vim.fn.expand("%:p:r"),
                     },
                     desc = "Build Cpp",
                 })
 
                 if vim.loop.fs_stat("./in") then
-                    vim.keymap.set("n", "<space>br", "<cmd>!time ./%:r < in<cr>", { desc = "Run", buffer = true })
+                    vim.keymap.set("n", "<space>br", "<cmd>!time '%:p:r' < in<cr>", { desc = "Run", buffer = true })
                 else
-                    vim.keymap.set("n", "<space>br", "<cmd>!time ./%:r<cr>", { desc = "Run", buffer = true })
+                    vim.keymap.set("n", "<space>br", "<cmd>!time '%:p:r'<cr>", { desc = "Run", buffer = true })
                 end
             end,
         })
@@ -139,7 +138,7 @@ return {
                     })
                 else
                     create_build_cmd({
-                        cmd = { "rust", vim.fn.expand("%") },
+                        cmd = { "rust", vim.fn.expand("%:p") },
                         desc = "Build Rust",
                     })
                 end
@@ -148,7 +147,7 @@ return {
                 if vim.fn.findfile("Cargo.toml", ".;") ~= "" then
                     run_cmd = run_cmd .. " cargo run --release"
                 else
-                    run_cmd = run_cmd .. " ./%:r"
+                    run_cmd = run_cmd .. " '%:p:r'"
                 end
                 if vim.loop.fs_stat("./in") then
                     run_cmd = run_cmd .. " < in"
