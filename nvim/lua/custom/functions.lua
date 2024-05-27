@@ -42,8 +42,10 @@ return {
         else
             arg()
         end
-        line = math.min(vim.fn.line("$"), line)
+
         vim.api.nvim_tabpage_set_win(tabnr, winnr)
+        -- Min between total line count in current buffer in case it changed.
+        line = math.min(vim.fn.line("$"), line)
         vim.api.nvim_win_set_cursor(winnr, { line, col })
         vim.cmd([[stopinsert]])
     end,
