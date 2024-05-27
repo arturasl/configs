@@ -117,10 +117,6 @@ vim.keymap.set("n", "<c-w><s-h>", "<cmd>vertical resize -2<cr>", { desc = "Decre
 vim.keymap.set("n", "<c-w><s-l>", "<cmd>vertical resize +2<cr>", { desc = "Increased window width" })
 
 -------- Building & Quickfix.
-vim.keymap.set("n", "<space>bb", function()
-    vim.cmd("make")
-    require("custom/functions").open_quick_fix_if_not_empty()
-end, { desc = "Build" })
 vim.keymap.set("n", "<space>br", ":make run<cr>", { desc = "Run" })
 vim.keymap.set("n", "<space>be", require("custom/functions").toogle_quick_fix, { desc = "Quickfix toogle" })
 vim.keymap.set("n", "<space>bn", "<cmd>cnext<cr>", { desc = "Quickfix next" })
