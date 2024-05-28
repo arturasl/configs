@@ -22,19 +22,22 @@ $apti git subversion mercurial # version control
 $apti exuberant-ctags          # generates tag file for pretty much every language
 $apti xdotool xautomation      # x automation tools (particularly cool is xte for mouse and keyboard stuff)
 aptr zeal-developers/ppa zeal
-$apti tldr
 sudo apt-get install libxml2-dev libxslt1-dev
 $pip doc2dash
 
 ## language specific {{
 $apti python{,3}{,-pip}        # python
 $apti fpc                      # pascal
-$apti openjdk-{6,7}-jdk maven ant # java
-aptr openjdk-r/ppa openjdk-8-jdk
-# use java8 by default
-sudo update-java-alternatives -s "$(update-java-alternatives -l | awk '{print $3}' | grep 1.8 | grep jdk | head -n 1)"
-$apti nodejs npm \
-	&& sudo npm install -g jslint csslint uglifycss uglify-js # javascript
+$apti nodejs npm
+
+# Neovim requested through :checkhealth
+$apti composer php julia
+$apti perl cpanminus
+sudo cpanm -n Neovim::Ext
+sudo npm install -g neovim
+gem install neovim
+$apti ripgrep fd   # faster grep & find.
+
 $apti texlive-full             # latex
 $apti astyle cppcheck libboost-all-dev  # c
 curl https://sh.rustup.rs -sSf | sh # rust
@@ -43,7 +46,6 @@ rustup run nightly cargo install rustfmt-nightly # autoformat
 rustup component add clippy-preview
 $apti rust-analyzer
 $apti golang                   # go
-$apti shellcheck               # bash
 ### language servers {{
 $apti clang
 $pip python-language-server
@@ -81,7 +83,6 @@ $apti sshfs curlftpfs fuse-zip archivemount # fuse
 $apti moreutils    # various small utils like sponge
 $apti dnsutils
 $apti time         # /usr/bin/time
-$apti ripgrep fd   # faster grep
 $apti fzf          # fuzzy autocomplete window
 ## }}
 ## general programs {{
