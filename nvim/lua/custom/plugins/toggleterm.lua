@@ -72,8 +72,7 @@ local create_build_cmd = function(options)
 end
 
 return {
-    "stevearc/overseer.nvim",
-    dependencies = { "akinsho/toggleterm.nvim" },
+    "akinsho/toggleterm.nvim",
     config = function()
         vim.api.nvim_create_autocmd("FileType", {
             pattern = { "tex" },
