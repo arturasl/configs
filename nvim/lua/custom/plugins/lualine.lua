@@ -25,7 +25,6 @@ return {
                     {
                         "buffers",
                         show_modified_status = false,
-                        mode = 4,
                         symbols = {
                             alternate_file = "",
                         },
