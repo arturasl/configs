@@ -20,7 +20,8 @@ capPDFViewer() {
 		file="$1"
 		program='zathura'
 		if utilCommandExists "$program"; then
-			if ! pgrep -f "${program} ${file}" &>/dev/null; then
+            if ! ps --user "$(id -u)" --format "command" \
+                | grep --fixed-strings --ignore-case --line-regexp "${program} ${file}" &>/dev/null; then
 				echo "$program"
 			else
 				echo 'echo'
