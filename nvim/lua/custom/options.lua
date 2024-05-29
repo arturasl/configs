@@ -136,3 +136,15 @@ vim.keymap.set("n", "<space>p", "<cmd>set invpaste<cr>", { desc = "Invert paste 
 vim.keymap.set("n", "<tab>", "<cmd>bn<cr>", { desc = "Buffer next" })
 vim.keymap.set("n", "<s-tab>", "<cmd>bp<cr>", { desc = "Buffer previous" })
 vim.keymap.set("n", "<space>q", "<cmd>bd<cr>", { desc = "Buffer close" })
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "qf" },
+    group = vim.api.nvim_create_augroup("ft_qf", { clear = true }),
+    callback = function()
+        vim.opt_local.buflisted = false -- Ignore as part of :bn/:bp.
+        -- Ignore buffer movement key maps.
+        vim.keymap.set("n", "<tab>", "<cmd>echo 'nope'<cr>", { buffer = true })
+        vim.keymap.set("n", "<s-tab>", "<cmd>echo 'nope'<cr>", { buffer = true })
+        vim.keymap.set("n", "<space>q", "<cmd>echo 'nope'<cr>", { buffer = true })
+    end,
+})
