@@ -1,26 +1,13 @@
 return {
     toogle_quick_fix = function()
-        local exists = false
         for _, win in pairs(vim.fn.getwininfo()) do
             if win["quickfix"] == 1 then
-                exists = true
-                break
+                vim.cmd("cclose")
+                return
             end
         end
 
-        if exists == true then
-            vim.cmd("cclose")
-        else
-            vim.cmd("botright copen")
-        end
-    end,
-
-    open_quick_fix_if_not_empty = function()
-        if not vim.tbl_isempty(vim.fn.getqflist()) then
-            vim.cmd("botright copen")
-        else
-            vim.cmd("cclose")
-        end
+        vim.cmd("botright copen")
     end,
 
     find_root = function()
@@ -47,6 +34,6 @@ return {
         -- Min between total line count in current buffer in case it changed.
         line = math.min(vim.fn.line("$"), line)
         vim.api.nvim_win_set_cursor(winnr, { line, col })
-        vim.cmd([[stopinsert]])
+        vim.cmd("stopinsert")
     end,
 }
