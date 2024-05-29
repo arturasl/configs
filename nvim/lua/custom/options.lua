@@ -128,3 +128,8 @@ end, { desc = "Toogle comment on current line" })
 vim.keymap.set("x", "<space>c", function()
     require("custom/functions").preserve_cursor("gc")
 end, { desc = "Toogle comment on selected lines" })
+
+-------- Buffers.
+vim.keymap.set("n", "<tab>", "<cmd>bn<cr>", { desc = "Buffer next" })
+vim.keymap.set("n", "<s-tab>", "<cmd>bp<cr>", { desc = "Buffer previous" })
+vim.keymap.set("n", "<space>q", "<cmd>bd<cr>", { desc = "Buffer close" })
