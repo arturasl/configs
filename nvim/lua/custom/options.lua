@@ -7,7 +7,6 @@ vim.opt.autochdir = true -- File commands are relative to cur directory.
 vim.opt.shell = "bash" -- Always use bash as shell for vim.
 vim.opt.fileformats = "unix,dos,mac" -- Use \n for new lines by default (unless file uses \r\n or \r).
 vim.opt.fileencodings = "ucs-bom,utf-8,latin1" -- Encodings to try for existing files (for new one - UTF-8).
-vim.opt.lazyredraw = true -- Do not update screen while doing batch changes.
 -- Show all matched, let narrow results, then let iterate through results.
 vim.completeopt = "menuone,menu,longest,preview"
 vim.opt.wildmenu = true
