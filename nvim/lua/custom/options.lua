@@ -129,6 +129,9 @@ vim.keymap.set("x", "<space>c", function()
     require("custom/functions").preserve_cursor("gc")
 end, { desc = "Toogle comment on selected lines" })
 
+-------- Pasting.
+vim.keymap.set("n", "<space>p", "<cmd>set invpaste<cr>", { desc = "Invert paste mode (no formatting)" })
+
 -------- Buffers.
 vim.keymap.set("n", "<tab>", "<cmd>bn<cr>", { desc = "Buffer next" })
 vim.keymap.set("n", "<s-tab>", "<cmd>bp<cr>", { desc = "Buffer previous" })
