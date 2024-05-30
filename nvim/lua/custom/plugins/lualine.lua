@@ -1,3 +1,10 @@
+local get_paste_mode_str = function()
+    if vim.o.paste then
+        return "PASTE"
+    end
+    return ""
+end
+
 return {
     "nvim-lualine/lualine.nvim",
     config = function()
@@ -14,7 +21,7 @@ return {
             inactive_sections = per_window_sections,
             sections = per_window_sections,
             tabline = {
-                lualine_a = { "mode" },
+                lualine_a = { "mode", get_paste_mode_str },
                 lualine_b = { "diagnostics" },
                 lualine_c = {
                     {
