@@ -12,8 +12,6 @@ git clone git@github.com:arturasl/configs.git ~/configs
 
 ```bash
 sudo ln -s ~/configs/scripts/atmux /usr/bin
-# for non mac systems create dummy reattach-to-user-namespace (clipboard helper)
-sudo ln -s ~/configs/scripts/reattach-to-user-namespace /usr/bin
 sudo ln -s ~/configs/scripts/dmenu_show.sh /usr/bin
 ```
 
