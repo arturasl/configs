@@ -45,17 +45,17 @@ local create_build_cmd = function(options)
                 close_on_exit = false,
                 auto_scroll = true,
                 on_exit = function(term, _, exit_code)
-                    local term_lines = get_buf_lines(term.bufnr)
-                    remove_trailing_lines(term_lines, " ")
-                    term_lines[#term_lines + 1] = ""
-                    term_lines[#term_lines + 1] = string.format("[Exit code: %d]", exit_code)
-
-                    vim.fn.setqflist({}, "r", { lines = term_lines })
-
-                    local term_height = get_window_height("terminal")
-                    term:close()
-
                     preserve(function()
+                        local term_lines = get_buf_lines(term.bufnr)
+                        remove_trailing_lines(term_lines, " ")
+                        term_lines[#term_lines + 1] = ""
+                        term_lines[#term_lines + 1] = string.format("[Exit code: %d]", exit_code)
+
+                        vim.fn.setqflist({}, "r", { lines = term_lines })
+
+                        local term_height = get_window_height("terminal")
+                        term:close()
+
                         -- Open quickfix window taking full vertical space.
                         vim.cmd("botright copen " .. term_height)
                         -- Scroll to bottom of quickfix.
