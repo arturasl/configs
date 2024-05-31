@@ -13,6 +13,20 @@ local get_macro_mode_str = function()
     return string.format("RECORDING: @%s", recording_to_register)
 end
 
+local get_search_count_str = function()
+    local ok, result = pcall(vim.fn.searchcount, { maxcount = 999, timeout = 500 })
+    if not ok or next(result) == nil then
+        return ""
+    end
+
+    local total = math.min(result.total, result.maxcount)
+    if total == 0 then
+        return ""
+    end
+
+    return string.format(" %d/%d", result.current, total)
+end
+
 return {
     "nvim-lualine/lualine.nvim",
     dependencies = {
@@ -58,8 +72,8 @@ return {
                     "fileformat",
                     "filetype",
                 },
-                lualine_y = { "progress", "location", "selectioncount" },
-                lualine_z = {},
+                lualine_y = { "progress", "location" },
+                lualine_z = { get_search_count_str, "selectioncount" },
             },
         })
     end,
