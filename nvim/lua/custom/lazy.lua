@@ -14,5 +14,12 @@ vim.opt.runtimepath:prepend(lazypath)
 require("lazy").setup({
     spec = "custom.plugins",
     install = { colorscheme = { "kanagawa", "habamax" } },
+    -- Do not notify after configuration changes, just reload silently.
     change_detection = { notify = false },
+    -- Auto check for updates once a day.
+    checker = {
+        enabled = true,
+        notify = true,
+        frequency = 60 * 60 * 24,
+    },
 })
