@@ -12,6 +12,9 @@ vim.completeopt = "menuone,menu,longest,preview"
 vim.opt.wildmenu = true
 vim.opt.wildoptions = "fuzzy"
 vim.opt.wildmode = "longest:full,full"
+-- Use status bar for command mode (pressing ":" will replace status line).
+vim.opt.cmdheight = 0
+
 -- Show invisible characters.
 vim.opt.list = true
 vim.opt.listchars:append({
