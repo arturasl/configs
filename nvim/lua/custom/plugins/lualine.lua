@@ -7,6 +7,10 @@ end
 
 return {
     "nvim-lualine/lualine.nvim",
+    dependencies = {
+        -- Provides 'lsp_progress'
+        "arkav/lualine-lsp-progress",
+    },
     config = function()
         local per_window_sections = {
             lualine_a = {},
@@ -32,7 +36,16 @@ return {
                         },
                     },
                 },
-                lualine_x = { "encoding", "fileformat", "filetype" },
+                lualine_x = {
+                    {
+                        "lsp_progress",
+                        display_components = { "lsp_client_name", "spinner" },
+                        spinner_symbols = { "🌑 ", "🌒 ", "🌓 ", "🌔 ", "🌕 ", "🌖 ", "🌗 ", "🌘 " },
+                    },
+                    "encoding",
+                    "fileformat",
+                    "filetype",
+                },
                 lualine_y = { "progress", "location", "selectioncount" },
                 lualine_z = {},
             },
