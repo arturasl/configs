@@ -5,6 +5,14 @@ local get_paste_mode_str = function()
     return ""
 end
 
+local get_macro_mode_str = function()
+    local recording_to_register = vim.fn.reg_recording()
+    if recording_to_register == "" then
+        return ""
+    end
+    return string.format("RECORDING: @%s", recording_to_register)
+end
+
 return {
     "nvim-lualine/lualine.nvim",
     dependencies = {
@@ -25,7 +33,7 @@ return {
             inactive_sections = per_window_sections,
             sections = per_window_sections,
             tabline = {
-                lualine_a = { "mode", get_paste_mode_str },
+                lualine_a = { "mode", get_paste_mode_str, get_macro_mode_str },
                 lualine_b = { "diagnostics" },
                 lualine_c = {
                     {
