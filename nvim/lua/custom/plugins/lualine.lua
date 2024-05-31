@@ -63,6 +63,7 @@ return {
                         "lsp_progress",
                         display_components = { "lsp_client_name", "spinner" },
                         spinner_symbols = { "🌑 ", "🌒 ", "🌓 ", "🌔 ", "🌕 ", "🌖 ", "🌗 ", "🌘 " },
+                        timer = { lsp_client_name_enddelay = 1000 * 60 * 60 * 24 },
                     },
                     {
                         require("lazy.status").updates,
