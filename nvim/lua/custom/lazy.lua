@@ -19,7 +19,7 @@ require("lazy").setup({
     -- Auto check for updates once a day.
     checker = {
         enabled = true,
-        notify = true,
-        frequency = 60 * 60 * 24,
+        notify = false, -- Will use lualine instead.
+        frequency = 60 * 60 * 24, -- 24h.
     },
 })

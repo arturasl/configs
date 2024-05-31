@@ -50,6 +50,10 @@ return {
                         display_components = { "lsp_client_name", "spinner" },
                         spinner_symbols = { "🌑 ", "🌒 ", "🌓 ", "🌔 ", "🌕 ", "🌖 ", "🌗 ", "🌘 " },
                     },
+                    {
+                        require("lazy.status").updates,
+                        cond = require("lazy.status").has_updates,
+                    },
                     "encoding",
                     "fileformat",
                     "filetype",
