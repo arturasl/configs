@@ -27,6 +27,14 @@ local get_search_count_str = function()
     return string.format(" %d/%d", result.current, total)
 end
 
+local get_lsp_str = function()
+    local lsps = {}
+    for _, lsp in ipairs(vim.lsp.get_clients()) do
+        table.insert(lsps, lsp.name)
+    end
+    return table.concat(lsps, ", ")
+end
+
 local get_formatters_str = function()
     return table.concat(require("conform").list_formatters_for_buffer(0), ", ")
 end
@@ -77,14 +85,11 @@ return {
                     },
                 },
                 lualine_x = {
+                    get_lsp_str,
                     {
                         "lsp_progress",
-                        display_components = { "lsp_client_name", "spinner" },
-                        separators = {
-                            lsp_client_name = { pre = "", post = "" },
-                        },
+                        display_components = { "spinner" },
                         spinner_symbols = { "🌑 ", "🌒 ", "🌓 ", "🌔 ", "🌕 ", "🌖 ", "🌗 ", "🌘 " },
-                        timer = { lsp_client_name_enddelay = 1000 * 60 * 60 * 24 },
                     },
                     get_linters_str,
                     get_formatters_str,
