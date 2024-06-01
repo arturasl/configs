@@ -6,8 +6,11 @@ return {
         -- Maps between LSPs installed by Mason and configurations managed
         -- by nvim-lspconfig.
         "williamboman/mason-lspconfig.nvim",
+        -- Additional support for neovim lua lsp.
+        "folke/neodev.nvim",
     },
     config = function()
+        require("neodev").setup({})
         require("mason-lspconfig").setup({
             -- Install servers that were configured by lspconfig.
             automatic_installation = true,
@@ -45,20 +48,7 @@ return {
             end,
         })
 
-        config.lua_ls.setup({
-            on_init = function(client)
-                -- Make Lua LSP play nice with NeoVim configuration.
-                -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#lua_ls
-                client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-                    runtime = { version = "LuaJIT" },
-                    workspace = {
-                        checkThirdParty = false,
-                        library = vim.api.nvim_get_runtime_file("", true),
-                    },
-                })
-            end,
-            settings = { Lua = {} },
-        })
+        config.lua_ls.setup({})
         config.clangd.setup({})
         config.rust_analyzer.setup({})
         config.bashls.setup({})
