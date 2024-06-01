@@ -16,17 +16,11 @@ return {
                 end,
             },
 
-            sources = cmp.config.sources(
-                -- Priority group 1.
-                {
-                    { name = "nvim_lsp" },
-                    { name = "path" },
-                },
-                -- Priority group 2.
-                {
-                    { name = "buffer" },
-                }
-            ),
+            sources = {
+                { group_index = 1, name = "path" },
+                { group_index = 2, name = "nvim_lsp" },
+                { group_index = 2, name = "buffer" },
+            },
 
             mapping = cmp.mapping.preset.insert({
                 ["<c-n>"] = cmp.mapping(cmp.mapping.select_next_item()),
@@ -43,19 +37,10 @@ return {
 
         cmp.setup.cmdline(":", {
             mapping = cmp.mapping.preset.cmdline(),
-            sources = cmp.config.sources(
-                -- Priority group 1.
-                {
-                    { name = "path" },
-                },
-                -- Priority group 2.
-                {
-                    {
-                        name = "cmdline",
-                        keyword_length = 2,
-                    },
-                }
-            ),
+            sources = {
+                { group_index = 1, name = "path" },
+                { group_index = 2, name = "cmdline", keyword_length = 2 },
+            },
             matching = { disallow_symbol_nonprefix_matching = false },
         })
     end,
