@@ -27,11 +27,29 @@ local get_search_count_str = function()
     return string.format(" %d/%d", result.current, total)
 end
 
+local get_formatters_str = function()
+    return table.concat(require("conform").list_formatters_for_buffer(0), ", ")
+end
+
+local get_linters_str = function()
+    for ft, available in pairs(require("lint").linters_by_ft) do
+        if ft == vim.bo.ft then
+            return table.concat(available, ", ")
+        end
+    end
+
+    return ""
+end
+
 return {
     "nvim-lualine/lualine.nvim",
     dependencies = {
         -- Provides 'lsp_progress'
         "arkav/lualine-lsp-progress",
+        -- For get_formatters_str,
+        "stevearc/conform.nvim",
+        -- For get_linters_str,
+        "mfussenegger/nvim-lint",
     },
     config = function()
         local per_window_sections = {
@@ -62,9 +80,14 @@ return {
                     {
                         "lsp_progress",
                         display_components = { "lsp_client_name", "spinner" },
+                        separators = {
+                            lsp_client_name = { pre = "", post = "" },
+                        },
                         spinner_symbols = { "🌑 ", "🌒 ", "🌓 ", "🌔 ", "🌕 ", "🌖 ", "🌗 ", "🌘 " },
                         timer = { lsp_client_name_enddelay = 1000 * 60 * 60 * 24 },
                     },
+                    get_linters_str,
+                    get_formatters_str,
                     {
                         require("lazy.status").updates,
                         cond = require("lazy.status").has_updates,
