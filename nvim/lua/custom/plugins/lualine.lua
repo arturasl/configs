@@ -70,6 +70,10 @@ return {
         }
 
         require("lualine").setup({
+            options = {
+                component_separators = { left = "", right = "|" },
+                section_separators = { left = "", right = "" },
+            },
             inactive_sections = per_window_sections,
             sections = per_window_sections,
             tabline = {
@@ -78,9 +82,13 @@ return {
                 lualine_c = {
                     {
                         "buffers",
-                        show_modified_status = false,
                         symbols = {
+                            modified = "",
                             alternate_file = "",
+                        },
+                        buffers_color = {
+                            active = "lualine_b_normal",
+                            inactive = "lualine_c_normal",
                         },
                     },
                 },
