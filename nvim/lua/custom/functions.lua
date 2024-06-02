@@ -11,7 +11,7 @@ return {
     end,
 
     find_root = function()
-        local found = vim.fs.root(vim.fn.getcwd(), { "Cargo.toml", ".git", ".svn", "localvimrc.lua" })
+        local found = vim.fs.root(vim.fn.getcwd(), { "Cargo.toml", ".git", ".svn", "local_vimrc.lua" })
         if found then
             return found
         end
