@@ -52,6 +52,8 @@ return {
                         select = false,
                     }),
                 }),
+
+                experimental = { ghost_text = true },
             })
 
             cmp.setup.cmdline(":", {
@@ -60,7 +62,6 @@ return {
                     { group_index = 1, name = "path" },
                     { group_index = 2, name = "cmdline", keyword_length = 2 },
                 },
-                matching = { disallow_symbol_nonprefix_matching = false },
             })
         end,
     },
