@@ -92,8 +92,8 @@ vim.opt.ignorecase = true -- Case insensitive search.
 vim.opt.smartcase = true -- Unless capitals are use.
 vim.opt.gdefault = true -- Assume global substitutions s///g by default.
 -- Show match in the center of window (and open folds).
-vim.keymap.set("n", "n", "nzzzR")
-vim.keymap.set("n", "N", "NzzzR")
+vim.keymap.set("n", "n", "nzzzR", { desc = "Search item next" })
+vim.keymap.set("n", "N", "NzzzR", { desc = "Search item previous" })
 
 -------- Wrapping.
 vim.opt.wrap = true
