@@ -6,11 +6,8 @@ return {
         -- Maps between LSPs installed by Mason and configurations managed
         -- by nvim-lspconfig.
         "williamboman/mason-lspconfig.nvim",
-        -- Additional support for neovim lua lsp.
-        "folke/neodev.nvim",
     },
     config = function()
-        require("neodev").setup({})
         require("mason-lspconfig").setup({
             -- Install servers that were configured by lspconfig.
             automatic_installation = true,
