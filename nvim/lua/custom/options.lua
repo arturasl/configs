@@ -2,7 +2,6 @@ vim.g.mapleader = "\\" -- Never use true leader to prevent plugins from creating
 vim.opt.number = true -- Show number line.
 vim.opt.mouse = "a" -- More mouse please :)
 vim.opt.colorcolumn = "81" -- Column list to highlight (now only 80).
-vim.opt.scrolloff = 10 -- Try to show at least num lines.
 vim.opt.autochdir = true -- File commands are relative to cur directory.
 vim.opt.shell = "bash" -- Always use bash as shell for vim.
 vim.opt.fileformats = "unix,dos,mac" -- Use \n for new lines by default (unless file uses \r\n or \r).
@@ -97,11 +96,22 @@ vim.keymap.set("n", "n", "nzzzR")
 vim.keymap.set("n", "N", "NzzzR")
 
 -------- Wrapping.
+vim.opt.wrap = true
+vim.opt.scrolloff = 10 -- Try to show at least num lines.
+vim.opt.sidescrolloff = 20 -- Try to show at least num column.
 vim.opt.linebreak = true -- While wrapping lines, break at word boundaries only.
 vim.opt.virtualedit = "all" -- Let cursor fly anywhere.
 -- Move by screen lines not by file.
 vim.keymap.set({ "n", "x" }, "j", "gj", { desc = "Move one screen line down" })
 vim.keymap.set({ "n", "x" }, "k", "gk", { desc = "Move one screen line up " })
+-- Disable wrapping in the quickfix window.
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "qf" },
+    group = vim.api.nvim_create_augroup("ft_qf_wrap", { clear = true }),
+    callback = function()
+        vim.opt_local.wrap = false
+    end,
+})
 
 -------- Indentation.
 vim.opt.autoindent = true -- Copy indention level from the prev line.
