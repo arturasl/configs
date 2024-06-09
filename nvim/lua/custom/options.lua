@@ -101,6 +101,7 @@ vim.opt.scrolloff = 10 -- Try to show at least num lines.
 vim.opt.sidescrolloff = 20 -- Try to show at least num column.
 vim.opt.linebreak = true -- While wrapping lines, break at word boundaries only.
 vim.opt.virtualedit = "all" -- Let cursor fly anywhere.
+vim.opt.smoothscroll = true -- Do not jump over all lines of the wrapped text while scrolling.
 -- Move by screen lines not by file.
 vim.keymap.set({ "n", "x" }, "j", "gj", { desc = "Move one screen line down" })
 vim.keymap.set({ "n", "x" }, "k", "gk", { desc = "Move one screen line up " })
