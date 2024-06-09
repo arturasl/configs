@@ -9,9 +9,7 @@ return {
         },
         config = function()
             require("lazydev").setup({
-                library = {
-                    vim.env.LAZY .. "/luvit-meta/library",
-                },
+                library = { { path = "luvit-meta/library", words = { "vim%.uv" } } },
             })
         end,
     },
