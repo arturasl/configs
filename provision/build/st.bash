@@ -12,6 +12,11 @@ wget "http://dl.suckless.org/st/st-${stver}.tar.gz" \
 grep "st-${stver}" sha256sums.txt | sha256sum --check --status
 tar xzf "st-${stver}.tar.gz" && mv "st-${stver}"/* . && rm -r "st-${stver}"{,.tar.gz} sha256sums.txt
 
+wget "https://st.suckless.org/patches/boxdraw/st-boxdraw_v2-0.8.5.diff" --output-document=a.diff
+patch -p1 < a.diff
+sed -i'' -e 's/int boxdraw = 0;/int boxdraw = 1;/g' config.def.h
+sed -i'' -e 's/int boxdraw_bold = 0;/int boxdraw_bold = 1;/g' config.def.h
+
 # Do not change color of bold text.
 wget "https://st.suckless.org/patches/bold-is-not-bright/st-bold-is-not-bright-20190127-3be4cf1.diff" --output-document=st-bold-is-not-bright.diff
 patch < st-bold-is-not-bright.diff
@@ -20,7 +25,7 @@ patch < st-bold-is-not-bright.diff
 wget "https://st.suckless.org/patches/dracula/st-dracula-0.8.5.diff" --output-document=st-dracula.diff
 patch < st-dracula.diff
 
-# Allow to resize window to an arbitrary size.
+# # Allow to resize window to an arbitrary size.
 wget "https://st.suckless.org/patches/anysize/st-expected-anysize-0.9.diff" --output-document=st-anysize.diff
 patch < st-anysize.diff
 
