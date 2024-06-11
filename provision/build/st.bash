@@ -12,9 +12,11 @@ wget "http://dl.suckless.org/st/st-${stver}.tar.gz" \
 grep "st-${stver}" sha256sums.txt | sha256sum --check --status
 tar xzf "st-${stver}.tar.gz" && mv "st-${stver}"/* . && rm -r "st-${stver}"{,.tar.gz} sha256sums.txt
 
+# Do not change color of bold text.
+wget "https://st.suckless.org/patches/bold-is-not-bright/st-bold-is-not-bright-20190127-3be4cf1.diff" --output-document=st-bold-is-not-bright.diff
+patch < st-bold-is-not-bright.diff
+
 # Colors.
-wget "https://st.suckless.org/patches/solarized/st-no_bold_colors-0.8.1.diff" --output-document=st-no_bold_colors.diff
-patch < "st-no_bold_colors.diff"
 wget "https://st.suckless.org/patches/dracula/st-dracula-0.8.5.diff" --output-document=st-dracula.diff
 patch < st-dracula.diff
 
