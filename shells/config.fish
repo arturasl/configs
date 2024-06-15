@@ -41,12 +41,22 @@ set -g fish_escape_delay_ms 10
 # Use ctrn-{n,p,o} to move over history.
 bind --mode insert \cp history-search-backward
 bind --mode insert \cn history-search-forward
-bind --mode insert \co accept-autosuggestion
 
 # Aliases.
-alias cc='cal --monday --iso --color=always --year'
-alias ll='ls -a --human-readable -l --color=auto --group-directories-first -v'
-alias dd='/bin/date "+%Y-%m-%d %H:%M:%ST%z"'
-alias vim=$EDITOR
+abbr --add cc -- cal --monday --iso --color=always --year
+abbr --add ll -- ls --almost-all --human-readable -l --color=always --group-directories-first -v --time-style=long-iso
+abbr --add dd -- /bin/date "\"+%Y-%m-%d %H:%M:%ST%z\""
+
+abbr --add vim -- $EDITOR
+
+# -i / --interactive -- ask before overwriting.
+# -v / --verbose -- show what happened.
+abbr --add cp -- cp -iv
+abbr --add mv -- mv -iv
+
+function fzf_file
+  fd --type f | fzf
+end
+abbr --add '**' --position anywhere --function fzf_file
 
 fzf --fish | source
