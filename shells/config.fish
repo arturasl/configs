@@ -13,10 +13,6 @@ function fish_prompt
     set_color normal
 end
 
-function fish_user_key_bindings
-    fish_vi_key_bindings
-end
-
 function fish_mode_prompt
     switch $fish_bind_mode
         case default
@@ -33,6 +29,8 @@ function fish_mode_prompt
     echo ' '
 end
 
+# Vim mode.
+set -g fish_key_bindings fish_vi_key_bindings
 # Prevent a delay after escaping.
 # This is useful for vim mode where we want to go from input mode to normal
 # as fast as possible.
