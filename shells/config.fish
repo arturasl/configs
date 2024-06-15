@@ -4,6 +4,8 @@ if status --is-interactive
     ~/configs/shells/common.bash fish | source
 end
 
+# Prompt.
+
 function fish_prompt
     if [ $status -ne 0 ]
         set_color red
