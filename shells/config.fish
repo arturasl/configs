@@ -1,4 +1,3 @@
-set --export --global CDPATH .
 set --export --global fish_greeting '' # do not show greeting message.
 
 if status --is-interactive
