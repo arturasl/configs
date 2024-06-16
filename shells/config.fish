@@ -1,8 +1,13 @@
-set --export --global fish_greeting '' # do not show greeting message.
+# Do not show greeting message.
+set --export --global fish_greeting ''
 
-if status --is-interactive
-    ~/configs/shells/common.bash fish | source
-end
+# Exports.
+
+set --export --global SHELL "$(which bash)"
+set --export --global EDITOR nvim
+set --export --global LC_ALL en_US.UTF-8
+set --export --global LANG en_US.UTF-8
+fish_add_path --path --append "$HOME/configs/scripts/global/"
 
 # Prompt.
 
