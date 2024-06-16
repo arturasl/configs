@@ -65,6 +65,7 @@ abbr --add vim -- $EDITOR
 # -v / --verbose -- show what happened.
 abbr --add cp -- cp -iv
 abbr --add mv -- mv -iv
+abbr --add rm -- rm -v
 
 function fzf_file
     fd --type f | fzf --height=50% --layout reverse --border=bold --preview='~/configs/scripts/showme.bash --view-text-stream {}'
