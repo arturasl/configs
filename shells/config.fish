@@ -62,7 +62,7 @@ abbr --add cp -- cp -iv
 abbr --add mv -- mv -iv
 
 function fzf_file
-  fd --type f | fzf
+    fd --type f | fzf --height=50% --layout reverse --border=bold --preview='~/configs/scripts/showme.bash --view-text-stream {}'
 end
 abbr --add '**' --position anywhere --function fzf_file
 
