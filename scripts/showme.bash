@@ -52,7 +52,7 @@ capGUIEditor() {
 
 capCat() {
 	if [ "$(pygmentize -N "$1")" != 'text' ];then
-		echo bash -c '"pygmentize FILENAME | expand --tabs=2 --initial | cat -n"'
+		echo bash -c '"pygmentize -P style=dracula FILENAME | expand --tabs=2 --initial | cat -n"'
 	else
 		echo cat
 	fi
