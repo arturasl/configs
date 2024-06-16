@@ -1,6 +1,11 @@
 # Do not show greeting message.
 set --export --global fish_greeting ''
 
+# Run ls after changing directory (change in PWD variable).
+function list_dir --on-variable PWD
+    ls
+end
+
 ###### Exports.
 
 set --export --global SHELL "$(which bash)"
