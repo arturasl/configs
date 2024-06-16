@@ -12,11 +12,13 @@ fish_add_path --path --append "$HOME/configs/scripts/global/"
 # Prompt.
 
 function fish_prompt
-    if [ $status -ne 0 ]
+    set --local s $status
+    if [ $s -ne 0 ]
         set_color red
+        echo -n "[$s] "
+        set_color normal
     end
     echo -n '$ '
-    set_color normal
 end
 
 function fish_mode_prompt
