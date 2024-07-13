@@ -140,7 +140,6 @@ vim.keymap.set("n", "<space>p", "<cmd>set invpaste<cr>", { desc = "Invert [P]ast
 -------- Buffers.
 vim.keymap.set("n", "<tab>", "<cmd>bn<cr>", { desc = "Buffer [N]ext" })
 vim.keymap.set("n", "<s-tab>", "<cmd>bp<cr>", { desc = "Buffer [P]revious" })
-vim.keymap.set("n", "<space>q", "<cmd>bd<cr>", { desc = "Buffer [Q]uit" })
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "qf" },
