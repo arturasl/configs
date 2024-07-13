@@ -20,16 +20,16 @@ return {
                 local keymap = vim.keymap
                 local opts = { buffer = evt.buf, silent = true }
 
-                opts.desc = "Smart rename"
+                opts.desc = "Smart [R]ename"
                 keymap.set("n", "<space>lr", vim.lsp.buf.rename, opts)
 
-                opts.desc = "See available fixes"
+                opts.desc = "See available [F]ixes"
                 keymap.set({ "n", "v" }, "<space>lf", vim.lsp.buf.code_action, opts)
 
                 opts.desc = "Show documentation for word under cursor"
                 keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
-                opts.desc = "Restart LSP"
+                opts.desc = "[R]estart LSP"
                 keymap.set("n", "<space>lR", "<cmd>LspRestart<cr>", opts)
 
                 opts.desc = "Definition"
@@ -38,7 +38,7 @@ return {
                 opts.desc = "Caller (references)"
                 keymap.set("n", "<ctrl>[", vim.lsp.buf.references, opts)
 
-                opts.desc = "Inline hints"
+                opts.desc = "[I]nline hints"
                 keymap.set("n", "<space>li", function()
                     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
                 end, opts)
