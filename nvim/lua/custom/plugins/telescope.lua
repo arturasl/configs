@@ -13,8 +13,8 @@ return {
 
         vim.keymap.set("n", "<space>sg", function()
             builtin.live_grep({ cwd = require("custom/functions").find_root() })
-        end, { desc = "Live grep" })
+        end, { desc = "Live [G]rep" })
 
-        vim.keymap.set("n", "<space>sh", builtin.oldfiles, { desc = "Previous files" })
+        vim.keymap.set("n", "<space>sh", builtin.oldfiles, { desc = "[H]istoric files" })
     end,
 }

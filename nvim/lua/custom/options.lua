@@ -121,26 +121,26 @@ vim.keymap.set("n", "<c-w><s-h>", "<cmd>vertical resize -2<cr>", { desc = "Decre
 vim.keymap.set("n", "<c-w><s-l>", "<cmd>vertical resize +2<cr>", { desc = "Increased window width" })
 
 -------- Building & Quickfix.
-vim.keymap.set("n", "<space>br", ":make run<cr>", { desc = "Run" })
-vim.keymap.set("n", "<space>be", require("custom/functions").toogle_quick_fix, { desc = "Quickfix toogle" })
-vim.keymap.set("n", "<space>bn", "<cmd>cnext<cr>", { desc = "Quickfix next" })
-vim.keymap.set("n", "<space>bp", "<cmd>cprev<cr>", { desc = "Quickfix previous" })
+vim.keymap.set("n", "<space>br", ":make run<cr>", { desc = "[R]un" })
+vim.keymap.set("n", "<space>be", require("custom/functions").toogle_quick_fix, { desc = "Toogle [E]rrors (Quickfix)" })
+vim.keymap.set("n", "<space>bn", "<cmd>cnext<cr>", { desc = "Quickfix [N]ext" })
+vim.keymap.set("n", "<space>bp", "<cmd>cprev<cr>", { desc = "Quickfix [P]revious" })
 
 -------- Commenting.
 vim.keymap.set("n", "<space>c", function()
     require("custom/functions").preserve_cursor("gcc")
-end, { desc = "Toogle comment on current line" })
+end, { desc = "Toogle [C]omment on current line" })
 vim.keymap.set("x", "<space>c", function()
     require("custom/functions").preserve_cursor("gc")
-end, { desc = "Toogle comment on selected lines" })
+end, { desc = "Toogle [C]omment on selected lines" })
 
 -------- Pasting.
-vim.keymap.set("n", "<space>p", "<cmd>set invpaste<cr>", { desc = "Invert paste mode (no formatting)" })
+vim.keymap.set("n", "<space>p", "<cmd>set invpaste<cr>", { desc = "Invert [P]aste mode (no formatting)" })
 
 -------- Buffers.
-vim.keymap.set("n", "<tab>", "<cmd>bn<cr>", { desc = "Buffer next" })
-vim.keymap.set("n", "<s-tab>", "<cmd>bp<cr>", { desc = "Buffer previous" })
-vim.keymap.set("n", "<space>q", "<cmd>bd<cr>", { desc = "Buffer close" })
+vim.keymap.set("n", "<tab>", "<cmd>bn<cr>", { desc = "Buffer [N]ext" })
+vim.keymap.set("n", "<s-tab>", "<cmd>bp<cr>", { desc = "Buffer [P]revious" })
+vim.keymap.set("n", "<space>q", "<cmd>bd<cr>", { desc = "Buffer [Q]uit" })
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "qf" },
