@@ -3,7 +3,11 @@ return {
     event = "VeryLazy",
     config = function()
         local wk = require("which-key")
-        wk.setup()
+        wk.setup({
+            icons = {
+                rules = false,
+            },
+        })
         wk.add({
             { "<space>b", group = "[B]uild" },
             { "<space>s", group = "[S]earch" },
