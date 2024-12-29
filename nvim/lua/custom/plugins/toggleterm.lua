@@ -143,7 +143,7 @@ return {
                     desc = "Build Cpp",
                 })
 
-                if vim.loop.fs_stat("./in") then
+                if vim.uv.fs_stat("./in") then
                     vim.keymap.set("n", "<space>br", "<cmd>!time '%:p:r' < in<cr>", { desc = "Run", buffer = true })
                 else
                     vim.keymap.set("n", "<space>br", "<cmd>!time '%:p:r'<cr>", { desc = "Run", buffer = true })
@@ -177,7 +177,7 @@ return {
                 else
                     run_cmd = run_cmd .. " '%:p:r'"
                 end
-                if vim.loop.fs_stat("./in") then
+                if vim.uv.fs_stat("./in") then
                     run_cmd = run_cmd .. " < in"
                 end
                 run_cmd = run_cmd .. "<cr>"
