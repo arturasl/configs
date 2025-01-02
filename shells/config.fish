@@ -42,7 +42,7 @@ function fish_mode_prompt
     echo ' '
 end
 
-###### Vim mode.
+###### Vim mode (use `fish_key_reader` to find key escape sequences)
 
 set -g fish_key_bindings fish_vi_key_bindings
 # Prevent a delay after escaping.
@@ -55,6 +55,11 @@ bind --mode insert \cp history-search-backward
 bind --mode insert \cn history-search-forward
 # Tab to use proposed completion.
 bind --mode insert \cf accept-autosuggestion
+# Disable arrow keys.
+bind --mode insert \e\[A 'true'
+bind --mode insert \e\[B 'true'
+bind --mode insert \e\[C 'true'
+bind --mode insert \e\[D 'true'
 
 ###### Aliases.
 
