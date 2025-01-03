@@ -54,7 +54,7 @@ set -g fish_escape_delay_ms 10
 bind --mode insert \cp history-search-backward
 bind --mode insert \cn history-search-forward
 # Tab to use proposed completion.
-bind --mode insert \cf accept-autosuggestion
+bind --mode insert \cy accept-autosuggestion
 # Disable arrow keys.
 bind --mode insert \e\[A 'true'
 bind --mode insert \e\[B 'true'
