@@ -47,7 +47,16 @@ return {
 
         config.lua_ls.setup({})
         config.clangd.setup({})
-        config.rust_analyzer.setup({})
+        config.rust_analyzer.setup({
+            settings = {
+                ["rust-analyzer"] = {
+                    checkOnSave = {
+                        command = "clippy",
+                    },
+                },
+            },
+        })
+
         config.bashls.setup({})
         config.pyright.setup({})
         config.texlab.setup({})
