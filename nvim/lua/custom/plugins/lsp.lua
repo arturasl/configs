@@ -6,6 +6,8 @@ return {
         -- Maps between LSPs installed by Mason and configurations managed
         -- by nvim-lspconfig.
         "williamboman/mason-lspconfig.nvim",
+        -- Needed to pass cmp-nvim capabilities down to the server.
+        "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
         require("mason-lspconfig").setup({
@@ -45,9 +47,24 @@ return {
             end,
         })
 
-        config.lua_ls.setup({})
-        config.clangd.setup({})
-        config.rust_analyzer.setup({
+        local function setup(server, opts)
+            -- Ensure LSP knows about cmp capability to understand snippets.
+            local capabilities = vim.tbl_deep_extend(
+                "force",
+                vim.lsp.protocol.make_client_capabilities(),
+                require("cmp_nvim_lsp").default_capabilities()
+            )
+
+            opts = vim.tbl_deep_extend("force", {
+                capabilities = capabilities,
+            }, opts or {})
+
+            config[server].setup(opts)
+        end
+
+        setup("lua_ls")
+        setup("clangd")
+        setup("rust_analyzer", {
             settings = {
                 ["rust-analyzer"] = {
                     checkOnSave = {
@@ -56,9 +73,8 @@ return {
                 },
             },
         })
-
-        config.bashls.setup({})
-        config.pyright.setup({})
-        config.texlab.setup({})
+        setup("bashls")
+        setup("pyright")
+        setup("texlab")
     end,
 }

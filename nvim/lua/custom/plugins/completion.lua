@@ -50,7 +50,7 @@ return {
                     ["<c-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
                     ["<c-b>"] = cmp.mapping.scroll_docs(-4),
                     ["<c-f>"] = cmp.mapping.scroll_docs(4),
-                    ["<c-y>"] = cmp.mapping.confirm(),
+                    ["<c-y>"] = cmp.mapping.confirm({ select = true }),
                     ["<cr>"] = function(fallback)
                         fallback()
                     end,
