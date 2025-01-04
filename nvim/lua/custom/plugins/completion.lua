@@ -50,11 +50,8 @@ return {
                     ["<c-p>"] = cmp.mapping(cmp.mapping.select_prev_item()),
                     ["<c-b>"] = cmp.mapping.scroll_docs(-4),
                     ["<c-f>"] = cmp.mapping.scroll_docs(4),
-                    ["<cr>"] = cmp.mapping.confirm({
-                        -- Only accept item if it was explicitly selected with
-                        -- <c-n>/<c-p>.
-                        select = false,
-                    }),
+                    ["<c-y>"] = cmp.mapping.confirm(),
+                    ["<cr>"] = cmp.config.disable,
                 }),
 
                 experimental = { ghost_text = true },
