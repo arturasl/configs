@@ -26,6 +26,11 @@ return {
             local cmp = require("cmp")
 
             cmp.setup({
+                completion = {
+                    -- Ensure first item is selected and hence can be accepted.
+                    completeopt = "menu,menuone,noinsert",
+                },
+
                 snippet = {
                     expand = function(args)
                         vim.snippet.expand(args.body)
