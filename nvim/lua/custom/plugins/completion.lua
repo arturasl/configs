@@ -46,8 +46,8 @@ return {
                 },
 
                 mapping = cmp.mapping.preset.insert({
-                    ["<c-n>"] = cmp.mapping(cmp.mapping.select_next_item()),
-                    ["<c-p>"] = cmp.mapping(cmp.mapping.select_prev_item()),
+                    ["<c-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+                    ["<c-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
                     ["<c-b>"] = cmp.mapping.scroll_docs(-4),
                     ["<c-f>"] = cmp.mapping.scroll_docs(4),
                     ["<c-y>"] = cmp.mapping.confirm(),
