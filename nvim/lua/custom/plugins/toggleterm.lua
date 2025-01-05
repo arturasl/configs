@@ -185,5 +185,19 @@ return {
                 vim.keymap.set("n", "<space>br", run_cmd, { desc = "Run", buffer = true })
             end,
         })
+
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = { "python" },
+            group = vim.api.nvim_create_augroup("ft_python", { clear = true }),
+            callback = function()
+                local run_cmd = "<cmd>!time python3 '%:p'"
+                if vim.uv.fs_stat("./in") then
+                    run_cmd = run_cmd .. " < in"
+                end
+                run_cmd = run_cmd .. "<cr>"
+
+                vim.keymap.set("n", "<space>br", run_cmd, { desc = "Run", buffer = true })
+            end,
+        })
     end,
 }
