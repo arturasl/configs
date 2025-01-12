@@ -76,7 +76,7 @@ return {
     config = function()
         vim.api.nvim_create_autocmd("FileType", {
             pattern = { "tex" },
-            group = vim.api.nvim_create_augroup("ft_tex", { clear = true }),
+            group = vim.api.nvim_create_augroup("ft_toogleterm_tex", { clear = true }),
             callback = function()
                 vim.opt_local.errorformat = "%f:%l: %m"
 
@@ -100,7 +100,7 @@ return {
 
         vim.api.nvim_create_autocmd("FileType", {
             pattern = { "dot" },
-            group = vim.api.nvim_create_augroup("ft_dot", { clear = true }),
+            group = vim.api.nvim_create_augroup("ft_toogleterm_dot", { clear = true }),
             callback = function()
                 create_build_cmd({
                     fn_cmd = function()
@@ -116,7 +116,7 @@ return {
 
         vim.api.nvim_create_autocmd("FileType", {
             pattern = { "cpp" },
-            group = vim.api.nvim_create_augroup("ft_cpp", { clear = true }),
+            group = vim.api.nvim_create_augroup("ft_toogleterm_cpp", { clear = true }),
             callback = function()
                 create_build_cmd({
                     fn_cmd = function()
@@ -153,7 +153,7 @@ return {
 
         vim.api.nvim_create_autocmd("FileType", {
             pattern = { "rust" },
-            group = vim.api.nvim_create_augroup("ft_rust", { clear = true }),
+            group = vim.api.nvim_create_augroup("ft_toogleterm_rust", { clear = true }),
             callback = function()
                 if vim.fn.findfile("Cargo.toml", ".;") ~= "" then
                     create_build_cmd({
@@ -188,7 +188,7 @@ return {
 
         vim.api.nvim_create_autocmd("FileType", {
             pattern = { "python" },
-            group = vim.api.nvim_create_augroup("ft_python", { clear = true }),
+            group = vim.api.nvim_create_augroup("ft_toogleterm_python", { clear = true }),
             callback = function()
                 local run_cmd = "<cmd>!time python3 '%:p'"
                 if vim.uv.fs_stat("./in") then
