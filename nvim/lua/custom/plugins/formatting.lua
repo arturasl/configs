@@ -14,7 +14,7 @@ return {
                 -- cpp = handled by LSP.
                 -- rust = handled by LSP.
                 sh = { "beautysh" },
-                python = { "black" },
+                python = { "ruff_format" },
                 javascript = { "prettier" },
                 typescript = { "prettier" },
                 css = { "prettier" },
