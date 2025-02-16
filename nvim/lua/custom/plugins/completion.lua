@@ -21,8 +21,14 @@ return {
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-cmdline",
+            "L3MON4D3/LuaSnip",
+            "saadparwaiz1/cmp_luasnip",
         },
         config = function()
+            local luasnip = require("luasnip")
+            luasnip.setup({})
+            require("luasnip.loaders.from_snipmate").lazy_load()
+
             local cmp = require("cmp")
 
             cmp.setup({
@@ -33,7 +39,7 @@ return {
 
                 snippet = {
                     expand = function(args)
-                        vim.snippet.expand(args.body)
+                        require("luasnip").lsp_expand(args.body)
                     end,
                 },
 
@@ -48,6 +54,7 @@ return {
                             get_bufnrs = require("custom/functions").visible_buffer_nrs,
                         },
                     },
+                    { group_index = 3, name = "luasnip" },
                 },
 
                 mapping = {
@@ -59,6 +66,20 @@ return {
                     ["<cr>"] = function(fallback)
                         fallback()
                     end,
+                    ["<Tab>"] = cmp.mapping(function(fallback)
+                        if luasnip.locally_jumpable(1) then
+                            luasnip.jump(1)
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s" }),
+                    ["<S-Tab>"] = cmp.mapping(function(fallback)
+                        if luasnip.locally_jumpable(-1) then
+                            luasnip.jump(-1)
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s" }),
                 },
 
                 experimental = { ghost_text = true },

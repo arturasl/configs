@@ -1,0 +1,50 @@
+extends c
+
+snippet code
+    #include      <algorithm>
+    #include      <cassert>
+    #include      <cmath>
+    #include      <cstdarg>
+    #include      <cstdio>
+    #include      <cstdlib>
+    #include      <fstream>
+    #include      <iomanip>
+    #include      <iostream>
+    #include      <iterator>
+    #include      <limits>
+    #include      <list>
+    #include      <map>
+    #include      <queue>
+    #include      <set>
+    #include      <sstream>
+    #include      <vector>
+    #define endl '\n'
+    using namespace std;
+    typedef long long ll;
+    typedef long double ld;
+    typedef pair<int, int> pii;
+
+    int main() {
+    	ios_base::sync_with_stdio(false), cin.tie(0);
+    	$1
+    	return 0;
+    }
+
+snippet codemath
+    template<typename T> inline T ceilDiv(T l, T r) {return (l / r) + ((l % r) != 0);}
+    const int oo = numeric_limits<int>::max();
+
+snippet codeprinter
+    template<typename T1, typename T2> ostream& operator<<(ostream &o, const pair<T1, T2> &p) {return o << '(' << p.first << ", " << p.second << ')';}
+    template<typename I> ostream& print(ostream &o, I s, I e, int w = 5, int prec = 2, const string &sep = ", ", const string &lhs = "", const string &rhs = "") {
+    	o << lhs;
+    	if (s != e) o << setw(w) << setprecision(prec) << *(s++);
+    	for (; s != e; ++s) o << sep << setw(w) << setprecision(prec) << *s;
+    	return o << rhs;
+    }
+    template<typename T, template<typename E, typename A=std::allocator<E> > class C>
+    ostream& operator<<(ostream &o, const C<T>& c) {return print(o, c.begin(), c.end(), 0, 2, ", ", "[", "]");}
+    template<typename T, template<typename E, typename Compare = less<E>, typename Alloc = allocator<E> > class C>
+    ostream& operator<<(ostream &o, const C<T>& c) {return print(o, c.begin(), c.end(), 0, 2, ", ", "{", "}");}
+    template<typename K, typename T, template<typename E1, typename E2, typename Compare = std::less<E1>, class Allocator = std::allocator<std::pair<const E1, E2> > > class C>
+    ostream& operator<<(ostream &o, const C<K, T>& c) {return print(o, c.begin(), c.end(), 0, 2, ", ", "{", "}");}
