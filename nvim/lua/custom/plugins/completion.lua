@@ -15,20 +15,23 @@ return {
     },
 
     {
+        "L3MON4D3/LuaSnip",
+        config = function()
+            require("luasnip").setup({})
+            require("luasnip.loaders.from_snipmate").lazy_load()
+        end,
+    },
+
+    {
         "hrsh7th/nvim-cmp",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-cmdline",
-            "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
         },
         config = function()
-            local luasnip = require("luasnip")
-            luasnip.setup({})
-            require("luasnip.loaders.from_snipmate").lazy_load()
-
             local cmp = require("cmp")
 
             cmp.setup({
@@ -67,6 +70,7 @@ return {
                         fallback()
                     end,
                     ["<Tab>"] = cmp.mapping(function(fallback)
+                        local luasnip = require("luasnip")
                         if luasnip.locally_jumpable(1) then
                             luasnip.jump(1)
                         else
@@ -74,6 +78,7 @@ return {
                         end
                     end, { "i", "s" }),
                     ["<S-Tab>"] = cmp.mapping(function(fallback)
+                        local luasnip = require("luasnip")
                         if luasnip.locally_jumpable(-1) then
                             luasnip.jump(-1)
                         else
