@@ -15,6 +15,17 @@ return {
     },
 
     {
+        "ray-x/lsp_signature.nvim",
+        event = "LspAttach",
+        config = function()
+            require("lsp_signature").on_attach({
+                floating_window = false,
+                hint_prefix = "",
+            })
+        end,
+    },
+
+    {
         "L3MON4D3/LuaSnip",
         config = function()
             require("luasnip").setup({})
