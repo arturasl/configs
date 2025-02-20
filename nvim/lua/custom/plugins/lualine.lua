@@ -28,9 +28,8 @@ local get_search_count_str = function()
 end
 
 local get_lsp_str = function()
-    local bufnr = vim.api.nvim_get_current_buf()
     local lsps = {}
-    for _, lsp in ipairs(vim.lsp.get_clients({ bufnr = bufnr }) or {}) do
+    for _, lsp in ipairs(vim.lsp.get_clients({ bufnr = 0 }) or {}) do
         table.insert(lsps, lsp.name)
     end
     return table.concat(lsps, ", ")
