@@ -63,7 +63,11 @@ return {
         end
 
         setup("lua_ls")
-        setup("clangd")
+        setup("clangd", {
+            init_options = {
+                fallbackFlags = { "-std=c++23" },
+            },
+        })
         setup("rust_analyzer", {
             settings = {
                 ["rust-analyzer"] = {

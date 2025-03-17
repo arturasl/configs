@@ -171,7 +171,7 @@ done
 if [[ $argExecutable == *.cpp ]]; then
 	output="${argExecutable%.*}"
 	echo "Building ${argExecutable}"
-	( set -x;  g++ -std=c++17 -O3 -DTEST "$argExecutable" -o "$output" )
+	( set -x;  g++ -std=c++23 -O3 -DTEST "$argExecutable" -o "$output" )
 	argExecutable="$output"
 fi
 [ -z "$argExecutable" ] && argExecutable="$(find . -perm +0111 -type f | head -n 1)"
