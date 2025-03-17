@@ -124,7 +124,7 @@ return {
                             "g++",
                             "-g",
                             "-pedantic",
-                            "-std=c++20",
+                            "-std=c++23",
                             "-Wall",
                             "-Wextra",
                             "-Wshadow",
