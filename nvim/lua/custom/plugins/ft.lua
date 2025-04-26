@@ -47,6 +47,7 @@ return {
             callback = function()
                 csvview.enable()
                 vim.opt_local.wrap = false
+                vim.opt_local.colorcolumn = ""
             end,
         })
     end,
