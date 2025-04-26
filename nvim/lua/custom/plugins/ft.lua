@@ -36,8 +36,8 @@ return {
                 display_mode = "border",
             },
             keymaps = {
-                jump_next_field_end = { "<Tab>", mode = { "n", "v" } },
-                jump_prev_field_end = { "<S-Tab>", mode = { "n", "v" } },
+                jump_next_field_start = { "<Tab>", mode = { "n", "v" } },
+                jump_prev_field_start = { "<S-Tab>", mode = { "n", "v" } },
             },
         })
 
