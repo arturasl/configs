@@ -14,7 +14,11 @@ local function guess_delimiter(bufnr)
         return lhs[1] < rhs[1]
     end)
 
-    local delimiters = { [","] = true, [";"] = true, ["|"] = true, ["\t"] = true }
+    local delimiters = {}
+    for ch in (",;|\t"):gmatch(".") do
+        delimiters[ch] = true
+    end
+
     for _, vk in pairs(sorted_hist) do
         local ch = vk[1]
         if delimiters[ch] then
