@@ -1,5 +1,6 @@
 return {
     "hat0uma/csvview.nvim",
+    ft = "csv",
     config = function()
         local csvview = require("csvview")
         csvview.setup({
