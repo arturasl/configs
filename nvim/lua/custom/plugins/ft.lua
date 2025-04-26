@@ -21,7 +21,7 @@ return {
                         return lhs[1] < rhs[1]
                     end)
 
-                    local delimiters = { [","] = true, [";"] = true, ["|"] = true }
+                    local delimiters = { [","] = true, [";"] = true, ["|"] = true, ["\t"] = true }
                     for _, vk in pairs(sorted_hist) do
                         local ch = vk[1]
                         if delimiters[ch] then
