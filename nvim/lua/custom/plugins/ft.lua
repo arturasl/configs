@@ -11,7 +11,10 @@ local function guess_delimiter(bufnr)
         table.insert(sorted_hist, { k, v })
     end
     table.sort(sorted_hist, function(lhs, rhs)
-        return lhs[1] < rhs[1]
+        if lhs[1] ~= rhs[1] then
+            return lhs[1] < rhs[1]
+        end
+        return lhs[2] < lhs[2]
     end)
 
     local delimiters = {}
