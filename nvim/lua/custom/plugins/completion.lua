@@ -52,17 +52,14 @@ return {
                 },
             },
             sources = {
+                -- Note: `buffer` takes words from all visible buffers.
+                -- Note: `buffer` sometimes trigger only in the comments.
                 default = { "lazydev", "lsp", "path", "snippets", "buffer" },
                 providers = {
                     lazydev = {
                         name = "LazyDev",
                         module = "lazydev.integrations.blink",
                         score_offset = 100,
-                    },
-                    buffer = {
-                        opts = {
-                            get_bufnrs = require("custom/functions").visible_buffer_nrs,
-                        },
                     },
                 },
             },
