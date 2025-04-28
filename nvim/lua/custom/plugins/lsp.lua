@@ -6,8 +6,6 @@ return {
         -- Maps between LSPs installed by Mason and configurations managed
         -- by nvim-lspconfig.
         "williamboman/mason-lspconfig.nvim",
-        -- Needed to pass cmp-nvim capabilities down to the server.
-        "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
         require("mason-lspconfig").setup({
@@ -48,18 +46,7 @@ return {
         })
 
         local function setup(server, opts)
-            -- Ensure LSP knows about cmp capability to understand snippets.
-            local capabilities = vim.tbl_deep_extend(
-                "force",
-                vim.lsp.protocol.make_client_capabilities(),
-                require("cmp_nvim_lsp").default_capabilities()
-            )
-
-            opts = vim.tbl_deep_extend("force", {
-                capabilities = capabilities,
-            }, opts or {})
-
-            config[server].setup(opts)
+            config[server].setup(opts or {})
         end
 
         setup("lua_ls")

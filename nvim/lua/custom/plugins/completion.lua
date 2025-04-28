@@ -15,17 +15,6 @@ return {
     },
 
     {
-        "ray-x/lsp_signature.nvim",
-        event = "LspAttach",
-        config = function()
-            require("lsp_signature").on_attach({
-                floating_window = false,
-                hint_prefix = "",
-            })
-        end,
-    },
-
-    {
         "L3MON4D3/LuaSnip",
         config = function()
             require("luasnip").setup({})
@@ -34,80 +23,51 @@ return {
     },
 
     {
-        "hrsh7th/nvim-cmp",
-        dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-cmdline",
-            "saadparwaiz1/cmp_luasnip",
-        },
-        config = function()
-            local cmp = require("cmp")
-
-            cmp.setup({
+        "Saghen/blink.cmp",
+        dependencies = {},
+        build = "cargo build --release",
+        opts = {
+            keymap = { preset = "default" },
+            completion = {
+                documentation = {
+                    auto_show = true,
+                },
+                -- Select first item so that <C-y> would accept it, but do
+                -- not insert (even while iterating through
+                -- completions) -- just show ghost text.
+                ghost_text = { enabled = true },
+                list = { selection = { preselect = true, auto_insert = false } },
+            },
+            snippets = {
+                preset = "luasnip",
+            },
+            signature = {
+                enabled = true,
+            },
+            cmdline = {
                 completion = {
-                    -- Ensure first item is selected and hence can be accepted.
-                    completeopt = "menu,menuone,noinsert",
+                    menu = {
+                        auto_show = true,
+                    },
                 },
-
-                snippet = {
-                    expand = function(args)
-                        require("luasnip").lsp_expand(args.body)
-                    end,
-                },
-
-                sources = {
-                    { group_index = 1, name = "lazydev" },
-                    { group_index = 2, name = "path" },
-                    { group_index = 3, name = "nvim_lsp" },
-                    {
-                        group_index = 3,
-                        name = "buffer",
-                        option = {
+            },
+            sources = {
+                default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+                providers = {
+                    lazydev = {
+                        name = "LazyDev",
+                        module = "lazydev.integrations.blink",
+                        score_offset = 100,
+                    },
+                    buffer = {
+                        opts = {
                             get_bufnrs = require("custom/functions").visible_buffer_nrs,
                         },
                     },
-                    { group_index = 3, name = "luasnip" },
                 },
-
-                mapping = {
-                    ["<c-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-                    ["<c-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-                    ["<c-b>"] = cmp.mapping.scroll_docs(-4),
-                    ["<c-f>"] = cmp.mapping.scroll_docs(4),
-                    ["<c-y>"] = cmp.mapping.confirm({ select = true }),
-                    ["<cr>"] = function(fallback)
-                        fallback()
-                    end,
-                    ["<Tab>"] = cmp.mapping(function(fallback)
-                        local luasnip = require("luasnip")
-                        if luasnip.locally_jumpable(1) then
-                            luasnip.jump(1)
-                        else
-                            fallback()
-                        end
-                    end, { "i", "s" }),
-                    ["<S-Tab>"] = cmp.mapping(function(fallback)
-                        local luasnip = require("luasnip")
-                        if luasnip.locally_jumpable(-1) then
-                            luasnip.jump(-1)
-                        else
-                            fallback()
-                        end
-                    end, { "i", "s" }),
-                },
-
-                experimental = { ghost_text = true },
-            })
-
-            cmp.setup.cmdline(":", {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = {
-                    { group_index = 1, name = "path" },
-                    { group_index = 2, name = "cmdline", keyword_length = 2 },
-                },
-            })
-        end,
+            },
+            fuzzy = { implementation = "rust" },
+        },
+        opts_extend = { "sources.default" },
     },
 }
