@@ -12,7 +12,6 @@ return {
             -- Install servers that were configured by lspconfig.
             automatic_installation = true,
         })
-        local config = require("lspconfig")
 
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("custom_lsp_overrides", { clear = true }),
@@ -46,7 +45,10 @@ return {
         })
 
         local function setup(server, opts)
-            config[server].setup(opts or {})
+            vim.lsp.enable(server)
+            if opts ~= nil then
+                vim.lsp.config(server, opts)
+            end
         end
 
         setup("lua_ls")
