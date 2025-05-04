@@ -19,54 +19,64 @@ local get_window_height = function(type)
             return win.height
         end
     end
-    return nil
+    return 0
 end
 
+local TERM = nil
 local create_build_cmd = function(options)
-    vim.keymap.set("n", "<space>bb", function()
+    options = vim.tbl_extend("keep", options, { open_qf = false, keys = "<space>bb" })
+
+    vim.keymap.set("n", options.keys, function()
         local preserve = require("custom/functions").preserve_cursor
         local Terminal = require("toggleterm.terminal").Terminal
         local cmd = ""
         -- Note that cmd is delayed so that vim.fn.expand() would happen after
         -- keymap.
         for _, val in ipairs(options.fn_cmd()) do
-            cmd = cmd .. "'" .. val .. "' "
+            cmd = cmd .. val .. " "
         end
 
         preserve(function()
-            -- Preserve quickfix window height if it is opened.
-            local qf_height = get_window_height("quickfix")
+            -- Preserve quickfix and/or terminal window height if it is opened.
+            local orig_height = math.max(get_window_height("quickfix"), get_window_height("terminal"))
+            -- Close quickfix.
             vim.cmd.cclose()
+            -- Close terminal.
+            if TERM ~= nil then
+                TERM:close()
+            end
 
-            Terminal:new({
+            TERM = Terminal:new({
                 cmd = cmd,
                 hidden = true, -- Do not show as part of toggleterm managed terminals.
                 start_in_insert = false,
                 close_on_exit = false,
                 auto_scroll = true,
                 on_exit = function(term, _, exit_code)
-                    preserve(function()
+                    if options.open_qf then
                         local term_lines = get_buf_lines(term.bufnr)
                         remove_trailing_lines(term_lines, " ")
                         term_lines[#term_lines + 1] = ""
                         term_lines[#term_lines + 1] = string.format("[Exit code: %d]", exit_code)
-
                         vim.fn.setqflist({}, "r", { lines = term_lines })
 
-                        local term_height = get_window_height("terminal")
-                        term:close()
+                        preserve(function()
+                            local term_height = get_window_height("terminal")
+                            term:close()
 
-                        -- Open quickfix window taking full vertical space.
-                        vim.cmd("botright copen " .. term_height)
-                        -- Scroll to bottom of quickfix.
-                        vim.cmd.cbottom()
-                    end)
+                            -- Open quickfix window taking full vertical space.
+                            vim.cmd("botright copen " .. term_height)
+                            -- Scroll to bottom of quickfix.
+                            vim.cmd.cbottom()
+                        end)
+                    end
 
                     if exit_code == 0 and options.onsuccess ~= nil then
                         options.onsuccess()
                     end
                 end,
-            }):open(qf_height)
+            })
+            TERM:open(orig_height)
         end)
     end, { desc = options.desc, buffer = true })
 end
@@ -190,13 +200,32 @@ return {
             pattern = { "python" },
             group = vim.api.nvim_create_augroup("ft_toogleterm_python", { clear = true }),
             callback = function()
-                local run_cmd = "<cmd>!time python3 '%:p'"
-                if vim.uv.fs_stat("./in") then
-                    run_cmd = run_cmd .. " < in"
-                end
-                run_cmd = run_cmd .. "<cr>"
+                if vim.fn.findfile("uv.lock", ".;") ~= "" then
+                    create_build_cmd({
+                        fn_cmd = function()
+                            local run_cmd = { "time", "uv", "run", vim.fn.expand("%") }
+                            for _, known_file in ipairs({ "./in", "./small.in", "./large.in" }) do
+                                if vim.uv.fs_stat(known_file) then
+                                    run_cmd[#run_cmd + 1] = "<"
+                                    run_cmd[#run_cmd + 1] = known_file
+                                    break
+                                end
+                            end
+                            return run_cmd
+                        end,
+                        desc = "Build & Run UV",
+                        keys = "<space>br",
+                        open_qf = false,
+                    })
+                else
+                    local run_cmd = "<cmd>!time python3 '%:p'"
+                    if vim.uv.fs_stat("./in") then
+                        run_cmd = run_cmd .. " < in"
+                    end
+                    run_cmd = run_cmd .. "<cr>"
 
-                vim.keymap.set("n", "<space>br", run_cmd, { desc = "Run", buffer = true })
+                    vim.keymap.set("n", "<space>br", run_cmd, { desc = "Run", buffer = true })
+                end
             end,
         })
     end,
