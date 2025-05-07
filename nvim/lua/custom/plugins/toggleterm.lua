@@ -200,7 +200,7 @@ return {
             pattern = { "python" },
             group = vim.api.nvim_create_augroup("ft_toogleterm_python", { clear = true }),
             callback = function()
-                if vim.fn.findfile("uv.lock", ".;") ~= "" then
+                if vim.fn.findfile("pyproject.toml", ".;") ~= "" then
                     create_build_cmd({
                         fn_cmd = function()
                             local run_cmd = { "time", "uv", "run", vim.fn.expand("%") }
