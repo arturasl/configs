@@ -45,10 +45,10 @@ return {
         })
 
         local function setup(server, opts)
-            vim.lsp.enable(server)
             if opts ~= nil then
                 vim.lsp.config(server, opts)
             end
+            vim.lsp.enable(server)
         end
 
         setup("lua_ls")
