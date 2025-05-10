@@ -68,7 +68,7 @@ return {
             },
         })
         setup("bashls")
-        setup("pyright")
+        setup("basedpyright")
         setup("texlab")
     end,
 }
