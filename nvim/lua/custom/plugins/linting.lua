@@ -8,7 +8,9 @@ return {
         "rshkarin/mason-nvim-lint",
     },
     config = function()
-        require("lint").linters_by_ft = {
+        local lint = require("lint")
+
+        lint.linters_by_ft = {
             lua = { "luacheck" },
             cpp = { "cpplint" },
             sh = { "shellcheck" },
@@ -18,10 +20,13 @@ return {
             css = { "stylelint" },
         }
 
+        -- C0111: missing-function-docstring
+        table.insert(lint.linters.pylint.args, "--disable=C0111")
+
         -- Call linter after saving the buffer (file has to be written).
         vim.api.nvim_create_autocmd({ "BufWritePost" }, {
             callback = function()
-                require("lint").try_lint()
+                lint.try_lint()
             end,
         })
 
