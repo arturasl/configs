@@ -213,8 +213,16 @@ return {
                             end
                             return run_cmd
                         end,
-                        desc = "Build & Run UV",
+                        desc = "Build & [R]un UV",
                         keys = "<space>br",
+                        open_qf = false,
+                    })
+                    create_build_cmd({
+                        fn_cmd = function()
+                            return { "uv", "run", "pytest", vim.fn.expand("%") }
+                        end,
+                        desc = "[T]est UV",
+                        keys = "<space>bt",
                         open_qf = false,
                     })
                 else
