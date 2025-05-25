@@ -20,8 +20,8 @@ return {
                 "catppuccin-mocha",
                 "catppuccin-frappe",
             }
-            local weeks_since_epoch = math.floor(os.time() / (60 * 60 * 24 * 7))
-            vim.cmd.colorscheme(schemes[weeks_since_epoch % #schemes + 1])
+            local days_since_epoch = math.floor(os.time() / (60 * 60 * 24))
+            vim.cmd.colorscheme(schemes[days_since_epoch % #schemes + 1])
         end,
     },
     {
