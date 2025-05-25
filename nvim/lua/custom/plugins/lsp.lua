@@ -6,12 +6,14 @@ return {
         -- Maps between LSPs installed by Mason and configurations managed
         -- by nvim-lspconfig.
         "williamboman/mason-lspconfig.nvim",
+        "nvim-telescope/telescope.nvim",
     },
     config = function()
         require("mason-lspconfig").setup({
             -- Install servers that were configured by lspconfig.
             automatic_installation = true,
         })
+        local telscope = require("telescope.builtin")
 
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("custom_lsp_overrides", { clear = true }),
@@ -34,8 +36,13 @@ return {
                 opts.desc = "Definition"
                 keymap.set("n", "<ctrl>]", vim.lsp.buf.definition, opts)
 
-                opts.desc = "Caller (references)"
-                keymap.set("n", "<ctrl>[", vim.lsp.buf.references, opts)
+                opts.desc = "[C]aller (references)"
+                keymap.set("n", "<space>lc", telscope.lsp_references, opts)
+
+                opts.desc = "[D]iagnostics"
+                keymap.set("n", "<space>ld", function()
+                    telscope.diagnostics({ bufnr = 0 })
+                end, opts)
 
                 opts.desc = "[I]nline hints"
                 keymap.set("n", "<space>li", function()
