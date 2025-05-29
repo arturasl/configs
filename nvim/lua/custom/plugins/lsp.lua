@@ -36,8 +36,8 @@ return {
                 opts.desc = "Definition"
                 keymap.set("n", "<ctrl>]", vim.lsp.buf.definition, opts)
 
-                opts.desc = "[C]aller (references)"
-                keymap.set("n", "<space>lc", telscope.lsp_references, opts)
+                opts.desc = "[U]sages (references)"
+                keymap.set("n", "<space>lu", telscope.lsp_references, opts)
 
                 opts.desc = "[D]iagnostics"
                 keymap.set("n", "<space>ld", function()
