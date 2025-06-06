@@ -53,6 +53,24 @@ vim.api.nvim_create_autocmd("WinLeave", {
     end,
 })
 
+-- Diffing.
+vim.opt.diffopt = {
+    "internal",
+    "algorithm:histogram",
+    -- Insert virtual blank line on the side of the diff where line was deleted.
+    "filler",
+    -- Stop diffing if all other windows are closed.
+    "closeoff",
+    -- For lines with changes, run diffing between the lines themselves char by char.
+    -- "inline:char",
+    -- -- Align changed lines that are no more than given lines away (default: no alignment).
+    "linematch:60",
+    -- Disable code folding for the unchanged lines.
+    "context:999999",
+    -- Try to clump lines with same indentation to same diff chunk.
+    "indent-heuristic",
+}
+
 -------- Temporal files.
 -- Use double // to use full path as swap/backup/undo file name.
 vim.opt.undofile = true
