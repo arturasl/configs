@@ -33,7 +33,8 @@ return {
                 "material-palenight",
             }
             local days_since_epoch = math.floor(os.time() / (60 * 60 * 24))
-            vim.cmd.colorscheme(schemes[(days_since_epoch * 17) % #schemes + 1])
+            assert(7 % #schemes ~= 0)
+            vim.cmd.colorscheme(schemes[(days_since_epoch * 7) % #schemes + 1])
         end,
     },
     {
