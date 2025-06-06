@@ -67,6 +67,7 @@ abbr --add cc -- cal --monday --iso --color=always --year
 abbr --add ll -- ls --almost-all --human-readable -l --color=always --group-directories-first -v --time-style=long-iso
 abbr --add dd -- /bin/date "\"+%Y-%m-%d %H:%M:%ST%z\""
 abbr --add vim -- $EDITOR
+abbr --add vimdiff -- $EDITOR -d
 
 # -i / --interactive -- ask before overwriting.
 # -v / --verbose -- show what happened.
