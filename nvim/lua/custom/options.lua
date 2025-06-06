@@ -77,6 +77,10 @@ vim.opt.diffopt = {
     "context:999999",
     -- Try to clump lines with same indentation to same diff chunk.
     "indent-heuristic",
+    -- Ignore diffs in all white spaces (trailing, leading, and even in the middle of text).
+    "iwhiteall",
+    -- Only diff between visible buffers.
+    "hiddenoff",
 }
 
 -------- Temporal files.
