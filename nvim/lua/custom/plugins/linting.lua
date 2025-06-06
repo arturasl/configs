@@ -20,8 +20,11 @@ return {
             css = { "stylelint" },
         }
 
-        -- C0111: missing-function-docstring
-        table.insert(lint.linters.pylint.args, "--disable=C0111")
+        table.insert(
+            lint.linters.pylint.args,
+            "--disable="
+                .. table.concat({ "missing-module-docstring", "missing-function-docstring", "import-error" }, ",")
+        )
 
         -- Call linter after saving the buffer (file has to be written).
         vim.api.nvim_create_autocmd({ "BufWritePost" }, {
