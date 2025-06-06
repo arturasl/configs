@@ -53,6 +53,14 @@ vim.api.nvim_create_autocmd("WinLeave", {
     end,
 })
 
+-- Highlight yanked/deleted text.
+vim.api.nvim_create_autocmd("TextYankPost", {
+    group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
+    callback = function()
+        vim.hl.on_yank()
+    end,
+})
+
 -- Diffing.
 vim.opt.diffopt = {
     "internal",
