@@ -18,9 +18,7 @@ return {
                 stiffness = 0.8,
                 trailing_stiffness = 0.5,
                 distance_stop_animating = 0.5,
-                -- Do not jump to cmd (after pressing `:`).
-                -- BUG: https://github.com/sphamba/smear-cursor.nvim/issues/78
-                smear_to_cmd = false,
+                smear_to_cmd = true,
             })
         end,
     },
