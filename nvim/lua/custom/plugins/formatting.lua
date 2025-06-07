@@ -23,10 +23,9 @@ return {
                 yaml = { "prettier" },
                 markdown = { "prettier" },
             },
-            format_on_save = {
-                lsp_fallback = true,
-                async = false,
-                timeout_ms = 1000,
+            format_after_save = {
+                timeout_ms = 500,
+                lsp_format = "fallback",
             },
         })
 
