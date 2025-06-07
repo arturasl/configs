@@ -9,10 +9,6 @@ return {
         "nvim-telescope/telescope.nvim",
     },
     config = function()
-        require("mason-lspconfig").setup({
-            -- Install servers that were configured by lspconfig.
-            automatic_installation = true,
-        })
         local telscope = require("telescope.builtin")
 
         vim.api.nvim_create_autocmd("LspAttach", {
@@ -77,5 +73,12 @@ return {
         setup("bashls")
         setup("basedpyright")
         setup("texlab")
+
+        -- Install servers that were configured by lspconfig.
+        -- Has to be after `setup`s.
+        require("mason-lspconfig").setup({
+            ensure_installed = vim.tbl_keys(vim.lsp._enabled_configs),
+            automatic_enable = false,
+        })
     end,
 }
