@@ -2,7 +2,7 @@ return {
     "mfussenegger/nvim-lint",
     dependencies = {
         -- NOTE: Preconfigured separately.
-        "williamboman/mason.nvim",
+        "mason-org/mason.nvim",
         -- Maps between linters installed by Mason and configurations
         -- managed by nvim-lint.
         "rshkarin/mason-nvim-lint",

@@ -2,7 +2,7 @@ return {
     "stevearc/conform.nvim",
     dependencies = {
         -- NOTE: Preconfigured separately.
-        "williamboman/mason.nvim",
+        "mason-org/mason.nvim",
         -- Maps between formatters installed by Mason and configurations
         -- managed by conform.
         "zapling/mason-conform.nvim",
