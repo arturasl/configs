@@ -10,7 +10,7 @@ return {
 
     {
         -- Installs LSP servers, formatters, linters, etc.
-        "williamboman/mason.nvim",
+        "mason-org/mason.nvim",
         build = ":MasonUpdateAll",
         dependencies = {
             -- For `:MasonUpdateAll` command.

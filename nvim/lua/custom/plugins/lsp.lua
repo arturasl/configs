@@ -2,10 +2,10 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
         -- NOTE: Preconfigured separately.
-        "williamboman/mason.nvim",
+        "mason-org/mason.nvim",
         -- Maps between LSPs installed by Mason and configurations managed
         -- by nvim-lspconfig.
-        "williamboman/mason-lspconfig.nvim",
+        "mason-org/mason-lspconfig.nvim",
         "nvim-telescope/telescope.nvim",
     },
     config = function()
