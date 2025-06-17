@@ -78,7 +78,14 @@ return {
             sections = per_window_sections,
             tabline = {
                 lualine_a = { "mode", get_paste_mode_str, get_macro_mode_str },
-                lualine_b = { "diagnostics" },
+                lualine_b = {
+                    {
+                        "diagnostics",
+                        on_click = function()
+                            vim.cmd.normal(" ld")
+                        end,
+                    },
+                },
                 lualine_c = {
                     {
                         "buffers",
@@ -104,6 +111,9 @@ return {
                     {
                         require("lazy.status").updates,
                         cond = require("lazy.status").has_updates,
+                        on_click = function()
+                            vim.cmd.Lazy()
+                        end,
                     },
                     "encoding",
                     "fileformat",
