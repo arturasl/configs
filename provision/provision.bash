@@ -13,6 +13,7 @@ sudo pacman -Syu
 sudo pacman -S base-devel make cmake clang gcc # Build essentials.
 sudo pacman -S git subversion mercurial # Version control
 sudo pacman -S zeal # Offline help docs.
+./build/nvim.bash
 
 ## Language specific {{
 sudo pacman -S python python-pip uv # Python
@@ -32,26 +33,6 @@ sudo pacman -S rustup
 rustup install nightly stable
 rustup default stable
 # }}
-## }}
-
-## Neovim  {{
-sudo pacman -S neovim
-
-# Additional dependencies requested by :checkhealth
-sudo /usr/bin/vendor_perl/cpanm -n Neovim::Ext
-sudo npm install -g neovim
-yay -S ruby-neovim
-sudo pacman -S python-pynvim
-sudo pacman -S ripgrep fd   # Faster grep & find.
-
-mkdir -p ~/.config/nvim
-ln -s ~/configs/nvim/init.lua ~/.config/nvim/init.lua
-ln -s ~/configs/nvim/lua ~/.config/nvim/lua
-ln -s ~/configs/nvim/localvimrc.lua ~/.config/nvim/localvimrc.lua
-ln -s ~/configs/nvim/.stylua.toml ~/.config/nvim/.stylua.toml
-ln -s ~/configs/nvim/snippets ~/.config/nvim/snippets
-ln -s ~/configs/vimrc ~/.vimrc
-ln -s ~/configs/vim ~/.vim
 ## }}
 
 ## Virtual machines {{
