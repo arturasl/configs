@@ -63,7 +63,7 @@ sudo pacman -S moreutils # Various small utils like sponge
 sudo pacman -S time # /usr/bin/time
 sudo pacman -S fzf # Fuzzy autocomplete window
 ## }}
-## general programs {{
+## General programs {{
 ./build/alacritty.bash
 ## Tmux {{
 sudo pacman -S tmux # Multiplexer.
@@ -77,11 +77,19 @@ fish -c fish_update_completions
 ./build/vifm.bash  # File manager.
 sudo pacman -S mosh         # Somewhat more persistent ssh.
 sudo pacman -S htop         # Process monitor.
+
+## Bluetooth {{
+sudo pacman -S bluez bluez-utils
+systemctl start bluetooth.service
+# }}
+
 ## }}
 # }}
-# security {{
+
+# Security {{
 sudo pacman -S keepassx # Password manager.
 # }}
+
 # User level programs {{
 ## General {{
 ## Dropbox {{
