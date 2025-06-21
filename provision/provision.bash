@@ -2,154 +2,138 @@
 # vim: foldmethod=marker
 # vim: foldmarker={{,}}
 
-apt='sudo apt-get -y'
-apti="${apt} install"
-aptr() {
-	sudo add-apt-repository -y "ppa:$1"
-	shift 1
-	$apt update && $apti "$@"
-}
-pip='~/configs/scripts/global/syspip3 install --user'
-
 # directory structure {{
 mkdir -p ~/Builds/ ~/Tmp
 mkdir -p ~/Projects/{Professional,Personal,Tmp}
 # }}
-$apt update
-# development {{
-$apti build-essential autoconf libncurses5-dev cmake
-$apti git subversion mercurial # version control
-$apti exuberant-ctags          # generates tag file for pretty much every language
-$apti xdotool xautomation      # x automation tools (particularly cool is xte for mouse and keyboard stuff)
-aptr zeal-developers/ppa zeal
-sudo apt-get install libxml2-dev libxslt1-dev
-$pip doc2dash
 
-## language specific {{
-$apti python{,3}{,-pip}        # python
-$apti fpc                      # pascal
-$apti nodejs npm
+sudo pacman -Syu
 
-# Neovim requested through :checkhealth
-$apti composer php julia
-$apti perl cpanminus
-sudo cpanm -n Neovim::Ext
+# Development {{
+sudo pacman -S base-devel make cmake clang gcc # Build essentials.
+sudo pacman -S git subversion mercurial # Version control
+sudo pacman -S zeal # Offline help docs.
+
+## Language specific {{
+sudo pacman -S python python-pip uv # Python
+sudo pacman -S fpc # Pascal
+sudo pacman -S nodejs npm # JavaScript
+sudo pacman -S lua lua51 luarocks # Lua
+sudo pacman -S go # Go
+sudo pacman -S texlive-meta # LaTeX
+sudo pacman -S php composer # Php
+sudo pacman -S perl cpanminus # Perl
+sudo pacman -S ruby
+sudo pacman -S julia
+sudo pacman -S jdk-openjdk openjdk-doc openjdk-src # Java
+sudo pacman -S graphviz # Graph drawing utility/language.
+# Rust {{
+sudo pacman -S rustup
+rustup install nightly stable
+rustup default stable
+# }}
+## }}
+
+## Neovim  {{
+sudo pacman -S neovim
+
+# Additional dependencies requested by :checkhealth
+sudo /usr/bin/vendor_perl/cpanm -n Neovim::Ext
 sudo npm install -g neovim
-gem install neovim
-$apti ripgrep fd   # faster grep & find.
+yay -S ruby-neovim
+sudo pacman -S python-pynvim
+sudo pacman -S ripgrep fd   # Faster grep & find.
 
-$apti texlive-full             # latex
-$apti astyle cppcheck libboost-all-dev  # c
-curl https://sh.rustup.rs -sSf | sh # rust
-rustup install nightly
-rustup run nightly cargo install rustfmt-nightly # autoformat
-rustup component add clippy-preview
-$apti rust-analyzer
-$apti golang                   # go
-### language servers {{
-$apti clang
-$pip python-language-server
-$pip language-check
-### }}
+mkdir -p ~/.config/nvim
+ln -s ~/configs/nvim/init.lua ~/.config/nvim/init.lua
+ln -s ~/configs/nvim/lua ~/.config/nvim/lua
+ln -s ~/configs/nvim/localvimrc.lua ~/.config/nvim/localvimrc.lua
+ln -s ~/configs/nvim/.stylua.toml ~/.config/nvim/.stylua.toml
+ln -s ~/configs/nvim/snippets ~/.config/nvim/snippets
+ln -s ~/configs/vimrc ~/.vimrc
+ln -s ~/configs/vim ~/.vim
 ## }}
-## idea {{
-$apti geany
-$apti code{blocks,lite}
-./build/intellij.bash
-./build/dbeaver.bash
-## }}
-## virtual machines {{
+
+## Virtual machines {{
 $apti linux-{,image-}generic linux-{signed,headers}-generic
 $apti dkms virtualbox{,-dkms,-qt,-ext-oracle} qemu
 $apti vagrant
 $apti docker.io vim-syntax-docker
 ## }}
-## debugging {{
-$apti wireshark                # network traffic analyzer
-./build/afl.bash               # fuzzier
-$apti valgrind                 # memory debugger
+
+## Debugging {{
+sudo pacman -S wireshark-qt # Network traffic analyzer.
+sudo pacman -S afl++ afl-utils # Fuzzier.
+sudo pacman -S valgrind # Memory debugger.
 ## }}
-# }}
-# terminal tools {{
-## utilities {{
-$apti curl
-$apti xsel xclip   # clipboard manipulation
-$apti arandr       # managing monitor positions
-$apti highlight caca-utils w3m-img
-$apti graphviz     # graph drawing utility
-$apti imagemagick  # converts between various image formats (screen capture, filters, etc.)
-$apti pandoc       # converts between various document formats (mkd, latex, rst, etc.)
-$apti sshfs curlftpfs fuse-zip archivemount # fuse
-$apti moreutils    # various small utils like sponge
-$apti dnsutils
-$apti time         # /usr/bin/time
-$apti fzf          # fuzzy autocomplete window
+
+## }}
+
+# Terminal tools {{
+## Utilities {{
+sudo pacman -S curl
+sudo pacman -S zip
+sudo pacman -S xsel xclip # Clipboard manipulation.
+sudo pacman -S arandr # Managing monitor positions.
+sudo pacman -S imagemagick # Converts between various image formats (screen capture, filters, etc.)
+sudo pacman -S pandoc # Converts between various document formats (mkd, latex, rst, etc.)
+sudo pacman -S sshfs curlftpfs fuse-zip # Fuse.
+sudo pacman -S moreutils # Various small utils like sponge
+sudo pacman -S time # /usr/bin/time
+sudo pacman -S fzf # Fuzzy autocomplete window
 ## }}
 ## general programs {{
-./build/st.bash    # terminal emulator
-$apti tmux         # multiplexer
-./build/fish.bash  #shell
-$apti vim-gtk      # editor
-$apti newsboat     # news aggregator (rss/atom)
-$apti ranger       # file manager
-./build/vifm.bash  # file manager
-./build/mutt.bash  # mail reader
-$apti mosh         # somewhat more persistent ssh
-$apti htop         # process monitor
+## Alacritty {{
+sudo pacman -S alacritty
+./build/alacritty_colors.bash
+# }}
+## Tmux {{
+sudo pacman -S tmux # Multiplexer.
+ln -s  ~/configs/tmux.conf ~/.tmux.conf
+# }}
+## Fish {{
+sudo pacman -S fish
+bash -c '( test -d ~/.config/fish/ && ln -s ~/configs/shells/config.fish ~/.config/fish/config.fish ) || echo "could not find fish"'
+fish -c fish_update_completions
+# }}
+./build/vifm.bash  # File manager.
+sudo pacman -S mosh         # Somewhat more persistent ssh.
+sudo pacman -S htop         # Process monitor.
 ## }}
 # }}
 # security {{
-$apti keepassx                 # password manager
-## gnome keyring {{
-$apti gnome-keyring            # daemon for handling sensitive information
-$apti libgnome-keyring-{common,dev}     # library which is used by third party software to interact with gnome-keyring
-$apti seahorse                 # gui to gnome keyring
-$apti secret-tools             # cli to gnome keyring
-./build/git-gnome-keyring.bash # integrates gnome-keyring with git
-## }}
+sudo pacman -S keepassx # Password manager.
 # }}
-# user level programs {{
-## general {{
-$apti dropbox             # simple file syncing
-$apti skype               # dont ask
-$pip hangups # dont ask
-$apti chromium-browser opera # internet browser
-./build/firefox.bash
-$apti libreoffice         # document editor
-$apti gparted
+# User level programs {{
+## General {{
+## Dropbox {{
+yay -S dropbox # Simple file syncing.
+dropbox # To login.
+dropbox # To connect with current machine.
+# }}
+
+sudo pacman -S chromium firefox # Internet browser.
+sudo pacman -S libreoffice
+sudo pacman -S gparted
 ## }}
 ## multimedia  {{
-$apti gimp                # image editor
-$apti inkscape            # vector graphics editor
-$apti mplayer             # audio/video player
-$apti pitivi              # video editor
-$apti audacity            # audio recording/editing
+sudo pacman -S gimp # Image editor.
+sudo pacman -S inkscape # Vector graphics editor.
+sudo pacman -S mplayer # Audio/video player.
+sudo pacman -S audacity # Audio recording/editing.
 ## }}
 ## document viewers {{
-$apti zathura{,-djvu,-ps} # document preview (pdf, djvu, ps)
-$apti calibre             # epub reader/converter
+sudo pacman -S zathura{,-djvu,-ps,-pdf-mupdf} # Document preview (pdf, djvu, ps).
+sudo pacman -S calibre # Epub reader/converter.
 ## }}
 ## window manager{{
-./build/dwm/dwm.bash
-./build/i3lock.bash       # screen locker
-$apti dmenu               # general menu (using for program selection)
-$apti trayer              # tray
-$apti dzen2               # top panel
-$apti feh                 # image previewing
-$apti conky               # shows various information about system
-$apti xbacklight          # allows to change brightness
-$apti xsetroot
-$apti xfontsel
-$apti xinput
-$apti redshift            # changes screen color blue->red over the day
-sudo dpkg-divert  --rename --add /etc/init/gdm.conf # disable gdm
-$pip install python-forecastio
+sudo pacman -S feh # Image previewing.
 ## }}
 ## fonts {{
-$apti ttf-mscorefonts-installer
-$apti xfonts-terminus console-terminus
-$apti ttf-dejavu fonts-droid
-$apti nerd-fonts
+yay -S ttf-ms-win10-auto
+sudo pacman -S terminus-font
+sudo pacman -S ttf-dejavu ttf-droid
+sudo pacman -S nerd-fonts
 ./build/external_fonts.bash
 ## }}
 #  }}
