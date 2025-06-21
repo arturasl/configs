@@ -83,10 +83,7 @@ sudo pacman -S time # /usr/bin/time
 sudo pacman -S fzf # Fuzzy autocomplete window
 ## }}
 ## general programs {{
-## Alacritty {{
-sudo pacman -S alacritty
-./build/alacritty_colors.bash
-# }}
+./build/alacritty.bash
 ## Tmux {{
 sudo pacman -S tmux # Multiplexer.
 ln -s  ~/configs/tmux.conf ~/.tmux.conf
