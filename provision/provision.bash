@@ -55,6 +55,7 @@ sudo pacman -S valgrind # Memory debugger.
 sudo pacman -S curl
 sudo pacman -S zip
 sudo pacman -S xsel xclip # Clipboard manipulation.
+yay -S xkb-switch # Query/change current keyboard layout.
 sudo pacman -S arandr # Managing monitor positions.
 sudo pacman -S imagemagick # Converts between various image formats (screen capture, filters, etc.)
 sudo pacman -S pandoc # Converts between various document formats (mkd, latex, rst, etc.)
