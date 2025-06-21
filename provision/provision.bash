@@ -13,7 +13,6 @@ sudo pacman -Syu
 sudo pacman -S base-devel make cmake clang gcc # Build essentials.
 sudo pacman -S git subversion mercurial # Version control
 sudo pacman -S zeal # Offline help docs.
-./build/nvim.bash
 
 ## Language specific {{
 sudo pacman -S python python-pip uv # Python
@@ -48,6 +47,7 @@ sudo pacman -S afl++ afl-utils # Fuzzier.
 sudo pacman -S valgrind # Memory debugger.
 ## }}
 
+./build/nvim.bash
 ## }}
 
 # Terminal tools {{
