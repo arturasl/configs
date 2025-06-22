@@ -63,6 +63,7 @@ sudo pacman -S sshfs curlftpfs fuse-zip # Fuse.
 sudo pacman -S moreutils # Various small utils like sponge
 sudo pacman -S time # /usr/bin/time
 sudo pacman -S fzf # Fuzzy autocomplete window
+sudo pacman -S ncdu # Show file size statistics.
 ## }}
 ## General programs {{
 ./build/alacritty.bash

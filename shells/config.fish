@@ -68,6 +68,7 @@ abbr --add ll -- ls --almost-all --human-readable -l --color=always --group-dire
 abbr --add dd -- /bin/date "\"+%Y-%m-%d %H:%M:%ST%z\""
 abbr --add vim -- $EDITOR
 abbr --add vimdiff -- $EDITOR -d
+abbr --add ncdu -- ncdu --threads=4 --show-hidden --show-itemcount --show-percent --color dark
 
 # -i / --interactive -- ask before overwriting.
 # -v / --verbose -- show what happened.
