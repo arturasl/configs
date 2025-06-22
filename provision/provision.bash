@@ -113,9 +113,10 @@ sudo pacman -S audacity # Audio recording/editing.
 ## document viewers {{
 sudo pacman -S zathura{,-djvu,-ps,-pdf-mupdf} # Document preview (pdf, djvu, ps).
 sudo pacman -S calibre # Epub reader/converter.
+sudo pacman -S feh # Image previewing.
 ## }}
 ## window manager{{
-sudo pacman -S feh # Image previewing.
+sudo pacman -S rofi # Generic Launcher.
 ## }}
 ## fonts {{
 yay -S ttf-ms-win10-auto
