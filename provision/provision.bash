@@ -72,6 +72,7 @@ ln -s  ~/configs/tmux.conf ~/.tmux.conf
 # }}
 ## Fish {{
 sudo pacman -S fish
+fish -c 'exit 0' # Start finish to pre-initialize it.
 bash -c '( test -d ~/.config/fish/ && ln -s ~/configs/shells/config.fish ~/.config/fish/config.fish ) || echo "could not find fish"'
 fish -c fish_update_completions
 # }}
