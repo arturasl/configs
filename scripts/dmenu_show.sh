@@ -1,3 +1,12 @@
 #!/bin/bash
 
-dmenu_run -nb '#2E2E2E' -nf '#D6D6D6' -sb '#D6D6D6' -sf '#2E2E2E'
+rofi -modes drun -show drun \
+    -show-icons \
+    -matching fuzzy \
+    -case-smart \
+    -normal-window \
+    -no-disable-history \
+    -theme purple \
+    -kb-accept-entry 'Control+y' \
+    -kb-mode-next 'Tab' \
+    -kb-element-next ''
