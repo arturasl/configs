@@ -2,7 +2,6 @@
 
 rofi -modes drun -show drun \
     -show-icons \
-    -matching fuzzy \
     -case-smart \
     -normal-window \
     -no-disable-history \
