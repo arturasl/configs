@@ -88,7 +88,7 @@ systemctl start bluetooth.service
 # }}
 
 # Security {{
-sudo pacman -S keepassx # Password manager.
+sudo pacman -S keepassxc # Password manager.
 # }}
 
 # User level programs {{
