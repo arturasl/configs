@@ -81,7 +81,7 @@ sudo pacman -S htop         # Process monitor.
 
 ## Bluetooth {{
 sudo pacman -S bluez bluez-utils
-systemctl start bluetooth.service
+sudo systemctl start bluetooth.service
 # }}
 
 ## }}
