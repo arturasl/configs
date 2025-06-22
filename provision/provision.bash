@@ -102,6 +102,7 @@ dropbox # To connect with current machine.
 sudo pacman -S chromium firefox # Internet browser.
 sudo pacman -S libreoffice
 sudo pacman -S gparted
+sudo pacman -S qalculate-qt # Calculator.
 ## }}
 ## multimedia  {{
 sudo pacman -S gimp # Image editor.
