@@ -11,7 +11,7 @@ sudo pacman -Syu
 
 # Development {{
 sudo pacman -S base-devel make cmake clang gcc # Build essentials.
-sudo pacman -S git subversion mercurial # Version control
+sudo pacman -S openssh git subversion mercurial # Version control
 sudo pacman -S zeal # Offline help docs.
 
 ## Language specific {{
