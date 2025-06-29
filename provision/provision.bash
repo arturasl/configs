@@ -35,10 +35,9 @@ rustup default stable
 ## }}
 
 ## Virtual machines {{
-$apti linux-{,image-}generic linux-{signed,headers}-generic
-$apti dkms virtualbox{,-dkms,-qt,-ext-oracle} qemu
-$apti vagrant
-$apti docker.io vim-syntax-docker
+sudo pacman -S virtualbox-host-modules-arch virtualbox
+sudo pacman -S virtualbox-guest-{iso,utils}
+# Restart.
 ## }}
 
 ## Debugging {{
