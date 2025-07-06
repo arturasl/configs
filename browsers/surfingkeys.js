@@ -12,7 +12,6 @@ api.map("s", ";fs"); // Pick a scrollable area to focus.
 api.map("d", "x"); // Close current tab.
 api.map("u", "X"); // Restore tab.
 api.map("t", "T"); // Choose tab.
-// zi, zo, zr -- Zoom in/out/reset.
 
 // Other.
 api.map("F", "gf"); // Open link in new tab without focusing it.
