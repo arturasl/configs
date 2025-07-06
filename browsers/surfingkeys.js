@@ -1,27 +1,22 @@
-Hints.characters = 'asdfghjkl';
-settings.defaultSearchEngine = 'd'; // duckduckgo
-settings.showProxyInStatusBar = true;
-settings.showModeStatus	= true;
-settings.stealFocusOnLoad = true;
-settings.enableAutoFocus = false;
+api.Hints.setCharacters("asdfghjkl"); // Middle row.
+settings.hintAlign = "left";
+
+api.map("<Ctrl-[>", "<Esc>"); // Alias for esc.
 
 // Scrolling.
-map('<Ctrl-f>', 'd'); // Scroll half page down.
-map('<Ctrl-b>', 'e'); // Scroll half page up.
-map('s', 'cs'); // Change scroll target.
+api.map("<Ctrl-f>", "d"); // Scroll half page down.
+api.map("<Ctrl-b>", "e"); // Scroll half page up.
+api.map("s", ";fs"); // Pick a scrollable area to focus.
 
-// Tabs
-map(',b', 'T'); // Switch tabs.
-map('u', 'X');  // Restore tab.
-map('d', 'x');  // Close current tab.
+// Tabs.
+api.map("d", "x"); // Close current tab.
+api.map("u", "X"); // Restore tab.
+api.map("t", "T"); // Choose tab.
+// zi, zo, zr -- Zoom in/out/reset.
 
-// Urls
-map(',B', 'b'); // Open bookmark.
+// Other.
+api.map("F", "gf"); // Open link in new tab without focusing it.
 
-// Other
-map('F', 'af'); // Open link in new tab.
-map('<Ctrl-[>', '<Esc>'); // Scroll half page up.
-
-// History
-map('<Ctrl-o>', 'S'); // Go back in history.
-map('<Ctrl-i>', 'D'); // Go forward in history.
+// History.
+api.map("<Ctrl-o>", "S"); // Go back in history.
+api.map("<Ctrl-i>", "D"); // Go forward in history.
