@@ -1,4 +1,0 @@
-#!/bin/bash
-
-export PIP_REQUIRE_VIRTUALENV=
-pip2 "$@"
