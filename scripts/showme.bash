@@ -8,14 +8,14 @@ wh() {
 }
 
 capWebBrowser() {
-	{ program='/Applications/Firefox.app' && wh open && [ -d "$program" ] && echo "open -a '${program}'"; } \
+	{ program='/Applications/Firefox.app' && wh open && [[ -d "$program" ]] && echo "open -a '${program}'"; } \
 	|| { program='chromium' && utilCommandExists "$program" && echo "$program"; } \
 	|| { program='firefox' && utilCommandExists "$program" && echo "$program"; }
 }
 
 capPDFViewer() {
-	{ program='/Applications/Skim.app' && wh open && [ -d "$program" ] && echo "open -a '${program}'"; } \
-	|| { program='/Applications/Preview.app' && wh open && [ -d "$program" ] && echo "open -a '${program}'"; } \
+	{ program='/Applications/Skim.app' && wh open && [[ -d "$program" ]] && echo "open -a '${program}'"; } \
+	|| { program='/Applications/Preview.app' && wh open && [[ -d "$program" ]] && echo "open -a '${program}'"; } \
 	|| {
 		file="$1"
 		program='zathura'
@@ -32,7 +32,7 @@ capPDFViewer() {
 }
 
 capWordViewer() {
-	{ program='/Applications/LibreOffice.app' && wh open && [ -d "$program" ] && echo "open -a '${program}'"; } \
+	{ program='/Applications/LibreOffice.app' && wh open && [[ -d "$program" ]] && echo "open -a '${program}'"; } \
 	|| { program='libreoffice' && utilCommandExists "$program" && echo "$program"; }
 }
 
@@ -41,9 +41,9 @@ capGUIEditor() {
 	|| { program='gvim' && utilCommandExists "$program"; } \
 	|| program=''
 
-	[ -z "$program" ] && return
+	[[ -z "$program" ]] && return
 
-	if [ -t 0 ]; then # stdin is availabe
+	if [[ -t 0 ]]; then # stdin is availabe
 		echo "$program -v"
 	else
 		echo "$program"
@@ -51,7 +51,7 @@ capGUIEditor() {
 }
 
 capCat() {
-	if [ "$(pygmentize -N "$1")" != 'text' ];then
+	if [[ "$(pygmentize -N "$1")" != 'text' ]];then
 		echo bash -c '"pygmentize -P style=dracula FILENAME | expand --tabs=2 --initial | cat -n"'
 	else
 		echo cat
@@ -99,7 +99,6 @@ FIELD_PRIORITY=5
 
 # fill up arguments
 
-argDEBUG='0'
 argSilentDetached='0'
 argOnlyCheck='0'
 argFileName=''
@@ -107,10 +106,11 @@ argFileMime=''
 argCheckFile='1'
 argCheckMime='0'
 argFieldToExec="$FIELD_VIEW_GUI"
+argDEBUG='0'
 argOpenCopy='0'
 argOpenMoved='0'
 
-while [ "$#" -ne '0' ]; do
+while [[ "$#" -ne '0' ]]; do
 	case "$1" in
 		--help)
 echo "$0 [parameters] *name of file to view*"
@@ -195,14 +195,14 @@ echo "Example usage: $0 --view-gui --silent-detached test.pdf"
 			argOpenMoved='1' && shift 1
 			;;
 		*)
-			[ -n "$argFileName" ] && utilShowError "File specified multiple time (old value = \"${argFileName}\", new value = \"${1}\")"
+			[[ -n "$argFileName" ]] && utilShowError "File specified multiple time (old value = \"${argFileName}\", new value = \"${1}\")"
 			argFileName="$1" && shift 1
 			;;
 	esac
 done
 
 # user requested to check mime, but did not provide one
-[ "$argCheckMime" -eq '1' -a -z "$argFileMime" ] && argFileMime=$(file --brief --mime-type "$argFileName")
+[[ "$argCheckMime" -eq 1 && -z "$argFileMime" ]] && argFileMime="$(file --brief --mime-type "$argFileName")"
 
 utilDebugShowArguments
 utilDebugPrint "Will check against file name: ${argFileName}"
@@ -218,23 +218,23 @@ for capability in $capabilities; do
 	patternForMime=$(echo "$capability" | cut -f "$FIELD_MIME_PATTERN")
 
 	if [[
-		( "$argCheckFile" -eq '1' && -n "$patternForName" && "$argFileName" =~ $patternForName )
-		|| ( "$argCheckMime" -eq '1' && -n "$patternForMime" && "$argFileMime" =~ $patternForMime )
+		( "$argCheckFile" -eq 1 && -n "$patternForName" && "$argFileName" =~ $patternForName )
+		|| ( "$argCheckMime" -eq 1 && -n "$patternForMime" && "$argFileMime" =~ $patternForMime )
 	]]; then
 		execute=$(echo "$capability" | cut -f "$argFieldToExec")
 		priority=$(echo "$capability" | cut -f "$FIELD_PRIORITY")
 
 		# if execute contain internal function - call it
 		executeType=$(type --type "$execute")
-		if [ "$?" -a "$executeType" = "function" ]; then
+		if [[ "$?" -eq 0 && "$executeType" = "function" ]]; then
 			utilDebugPrint "Trying to apply internal function: ${execute}"
 			execute=$("$execute" "$argFileName" "$argFileMime")
 			utilDebugPrint "Result = ${execute}"
 		fi
 
 		# if execute non empty (might be empty if we called internal function) add it (with priority) to applicable array
-		if [ -n "$execute" ]; then
-			[ -n "$applicable" ] && applicable="$applicable"$'\n' # do not append new line character for first entry
+		if [[ -n "$execute" ]]; then
+			[[ -n "$applicable" ]] && applicable="$applicable"$'\n' # do not append new line character for first entry
 			applicable="${applicable}${priority}"$'\t'"$execute"
 		fi
 	fi
@@ -247,14 +247,14 @@ utilDebugPrint "Applicable:\n${applicable}"
 execute=$(echo "${applicable}" | head -n 1 | cut -f 2)
 
 # check if we managed to find executable
-if [ -z "$execute" ]; then
+if [[ -z "$execute" ]]; then
 	utilShowError "Could not find/run executable"
 	exit 1
 fi
 
-if [ "$argOpenCopy" -eq '1' -o "$argOpenMoved" -eq '1' ]; then
+if [[ "$argOpenCopy" -eq 1 || "$argOpenMoved" -eq 1 ]]; then
 	tmpFile="/tmp/showme-$((RANDOM))-$(basename "$argFileName")"
-	tmpFileMoveAction=$( ( [ "$argOpenCopy" -eq '1' ] && echo 'cp' ) || echo 'mv' )
+	tmpFileMoveAction=$( ( [[ "$argOpenCopy" -eq '1' ]] && echo 'cp' ) || echo 'mv' )
 	utilDebugPrint "Making file copy or moving it (using \"${tmpFileMoveAction}\") to: ${tmpFile}"
 	"$tmpFileMoveAction" "$argFileName" "$tmpFile"
 	argFileName="$tmpFile"
@@ -265,11 +265,11 @@ escapedFileName="$(printf '%q' "$argFileName")"
 execute=$( ( [[ "$execute" =~ FILENAME ]] && echo "$execute" | sed -e "s/FILENAME/$(utilSedEscapeReplacement "$escapedFileName")/g" ) || echo "${execute} ${escapedFileName}" )
 
 # if running in silent mode, run program from bash
-[ "$argSilentDetached" -eq '1' ] && execute="bash -c \"${execute} &>/dev/null &\""
+[[ "$argSilentDetached" -eq 1 ]] && execute="bash -c \"${execute} &>/dev/null &\""
 
 # execute program (or return success if only needed to check if applicable program exists)
 utilDebugPrint "Will execute: ${execute}"
-if [ "$argOnlyCheck" -eq '1' ]; then
+if [[ "$argOnlyCheck" -eq 1 ]]; then
 	exit 0
 else
 	eval "exec ${execute}"
