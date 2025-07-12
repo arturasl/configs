@@ -20,13 +20,15 @@ return {
         "rachartier/tiny-code-action.nvim",
         dependencies = {
             { "nvim-lua/plenary.nvim" },
-            { "nvim-telescope/telescope.nvim" },
         },
         config = function()
             require("tiny-code-action").setup({
                 backend = "delta", -- Requires `pacman -S git-delta`.
                 picker = {
-                    "telescope",
+                    "buffer",
+                    opts = {
+                        auto_preview = true,
+                    },
                 },
             })
         end,
