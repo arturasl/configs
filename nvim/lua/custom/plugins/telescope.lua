@@ -15,14 +15,10 @@ return {
                     i = {
                         ["<C-b>"] = actions.preview_scrolling_up,
                         ["<C-f>"] = actions.preview_scrolling_down,
-                        ["<C-y>"] = actions.select_default,
-                        ["<C-c>"] = actions.close,
                     },
                     n = {
                         ["<C-b>"] = actions.preview_scrolling_up,
                         ["<C-f>"] = actions.preview_scrolling_down,
-                        ["<C-y>"] = actions.select_default,
-                        ["q"] = actions.close,
                     },
                 },
             },
