@@ -7,8 +7,16 @@ return {
         -- by nvim-lspconfig.
         "mason-org/mason-lspconfig.nvim",
         "nvim-telescope/telescope.nvim",
+        "rachartier/tiny-code-action.nvim",
+        "nvim-lua/plenary.nvim",
     },
     config = function()
+        local tiny_action = require("tiny-code-action")
+        tiny_action.setup({
+            backend = "delta", -- Requires `pacman -S git-delta`.
+            picker = { "telescope", opts = { initial_mode = "normal" } },
+        })
+
         local telscope = require("telescope.builtin")
 
         vim.api.nvim_create_autocmd("LspAttach", {
@@ -21,7 +29,7 @@ return {
                 keymap.set("n", "<space>lr", vim.lsp.buf.rename, opts)
 
                 opts.desc = "See available [F]ixes"
-                keymap.set({ "n", "v" }, "<space>lf", vim.lsp.buf.code_action, opts)
+                keymap.set({ "n", "v" }, "<space>lf", tiny_action.code_action, opts)
 
                 opts.desc = "Show documentation for word under cursor"
                 keymap.set("n", "K", vim.lsp.buf.hover, opts)
