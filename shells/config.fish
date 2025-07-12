@@ -69,6 +69,7 @@ abbr --add dd -- /bin/date "\"+%Y-%m-%d %H:%M:%ST%z\""
 abbr --add vim -- $EDITOR
 abbr --add vimdiff -- $EDITOR -d
 abbr --add ncdu -- ncdu --threads=4 --show-hidden --show-itemcount --show-percent --color dark
+abbr --add btop -- btop --preset 1
 
 # -i / --interactive -- ask before overwriting.
 # -v / --verbose -- show what happened.
