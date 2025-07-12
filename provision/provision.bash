@@ -83,6 +83,8 @@ sudo pacman -S btop         # Process monitor.
 btop --version >/dev/null
 cat ~/configs/btop.conf >> ~/.config/btop/btop.conf
 
+sudo pacman -S git-delta # Generates nicer diffs, used by neovim tiny-code-action plugin.
+
 ## Bluetooth {{
 sudo pacman -S bluez bluez-utils
 sudo systemctl enable bluetooth.service
