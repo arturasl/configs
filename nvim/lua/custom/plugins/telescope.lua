@@ -9,17 +9,19 @@ return {
         local actions = require("telescope.actions")
         local builtin = require("telescope.builtin")
 
+        local mappings = {
+            ["<C-b>"] = actions.preview_scrolling_up,
+            ["<C-f>"] = actions.preview_scrolling_down,
+            ["<C-n>"] = actions.move_selection_next,
+            ["<C-p>"] = actions.move_selection_previous,
+            ["<Up>"] = actions.cycle_history_prev,
+            ["<Down>"] = actions.cycle_history_next,
+        }
         telescope.setup({
             defaults = {
                 mappings = {
-                    i = {
-                        ["<C-b>"] = actions.preview_scrolling_up,
-                        ["<C-f>"] = actions.preview_scrolling_down,
-                    },
-                    n = {
-                        ["<C-b>"] = actions.preview_scrolling_up,
-                        ["<C-f>"] = actions.preview_scrolling_down,
-                    },
+                    i = mappings,
+                    n = mappings,
                 },
             },
         })
