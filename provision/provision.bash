@@ -78,7 +78,7 @@ fish -c fish_update_completions
 # }}
 ./build/vifm.bash  # File manager.
 sudo pacman -S mosh         # Somewhat more persistent ssh.
-sudo pacman -S htop         # Process monitor.
+sudo pacman -S btop         # Process monitor.
 
 ## Bluetooth {{
 sudo pacman -S bluez bluez-utils
