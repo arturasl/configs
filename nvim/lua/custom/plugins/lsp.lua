@@ -45,7 +45,7 @@ return {
         },
         config = function()
             local tiny_action = require("tiny-code-action")
-            local telscope = require("telescope.builtin")
+            local telescope = require("telescope.builtin")
 
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("custom_lsp_overrides", { clear = true }),
@@ -69,11 +69,11 @@ return {
                     keymap.set("n", "<ctrl>]", vim.lsp.buf.definition, opts)
 
                     opts.desc = "[U]sages (references)"
-                    keymap.set("n", "<space>lu", telscope.lsp_references, opts)
+                    keymap.set("n", "<space>lu", telescope.lsp_references, opts)
 
                     opts.desc = "[D]iagnostics"
                     keymap.set("n", "<space>ld", function()
-                        telscope.diagnostics({ bufnr = 0 })
+                        telescope.diagnostics({ bufnr = 0 })
                     end, opts)
 
                     opts.desc = "[I]nline hints"
