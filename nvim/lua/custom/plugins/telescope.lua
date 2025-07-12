@@ -5,7 +5,28 @@ return {
         "nvim-tree/nvim-web-devicons",
     },
     config = function()
+        local telescope = require("telescope")
+        local actions = require("telescope.actions")
         local builtin = require("telescope.builtin")
+
+        telescope.setup({
+            defaults = {
+                mappings = {
+                    i = {
+                        ["<C-b>"] = actions.preview_scrolling_up,
+                        ["<C-f>"] = actions.preview_scrolling_down,
+                        ["<C-y>"] = actions.select_default,
+                        ["<C-c>"] = actions.close,
+                    },
+                    n = {
+                        ["<C-b>"] = actions.preview_scrolling_up,
+                        ["<C-f>"] = actions.preview_scrolling_down,
+                        ["<C-y>"] = actions.select_default,
+                        ["q"] = actions.close,
+                    },
+                },
+            },
+        })
 
         vim.keymap.set("n", "<space>ss", function()
             builtin.find_files({ cwd = require("custom/functions").find_root() })
