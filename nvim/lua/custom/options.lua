@@ -160,7 +160,8 @@ vim.keymap.set("x", "<space>c", function()
     require("custom/functions").preserve_cursor("gc")
 end, { desc = "Toogle [C]omment on selected lines" })
 
--------- Pasting.
+-------- Copy/Pasting.
+vim.g.clipboard = "osc52"
 vim.keymap.set("n", "<space>p", "<cmd>set invpaste<cr>", { desc = "Invert [P]aste mode (no formatting)" })
 
 -------- Buffers.
