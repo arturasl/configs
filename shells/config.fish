@@ -51,15 +51,15 @@ set -g fish_key_bindings fish_vi_key_bindings
 set -g fish_escape_delay_ms 10
 
 # Use ctrn-{n,p,o} to move over history.
-bind --mode insert \cp history-search-backward
-bind --mode insert \cn history-search-forward
+bind --mode insert ctrl-p history-search-backward
+bind --mode insert ctrl-n history-search-forward
 # Tab to use proposed completion.
-bind --mode insert \cy accept-autosuggestion
+bind --mode insert ctrl-y accept-autosuggestion
 # Disable arrow keys.
-bind --mode insert \e\[A 'true'
-bind --mode insert \e\[B 'true'
-bind --mode insert \e\[C 'true'
-bind --mode insert \e\[D 'true'
+bind --mode insert up 'true'
+bind --mode insert down 'true'
+bind --mode insert left 'true'
+bind --mode insert right 'true'
 
 ###### Aliases.
 
