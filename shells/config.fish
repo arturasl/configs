@@ -42,6 +42,25 @@ function fish_mode_prompt
     echo ' '
 end
 
+###### Colors.
+
+# http://nion.modprobe.de/blog/archives/572-less-colors-for-man-pages.html
+# man termcap
+# \e[ - color def, \e[font attributes;foreground;background
+# Standout (man -- search results).
+set --export --global LESS_TERMCAP_so "$(echo -e '\e[0;93m')"
+set --export --global LESS_TERMCAP_se "$(echo -e '\e[0m')"
+
+# Bold (man -- titles & parameters).
+set --export --global LESS_TERMCAP_md "$(echo -e '\e[1;94m')"
+set --export --global LESS_TERMCAP_me "$(echo -e '\e[0m')"
+
+# Underline (man -- parameter values).
+set --export --global LESS_TERMCAP_us "$(echo -e '\e[4;95m')"
+set --export --global LESS_TERMCAP_ue "$(echo -e '\e[0m')"
+
+set --export --global GROFF_NO_SGR 1
+
 ###### Vim mode (use `fish_key_reader` to find key escape sequences)
 
 set -g fish_key_bindings fish_vi_key_bindings
