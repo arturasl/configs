@@ -79,6 +79,8 @@ bind --mode insert up 'true'
 bind --mode insert down 'true'
 bind --mode insert left 'true'
 bind --mode insert right 'true'
+# Esc in normal mode moves into editor.
+bind -M default escape edit_command_buffer
 
 ###### Aliases.
 
