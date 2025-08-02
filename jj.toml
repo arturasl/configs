@@ -5,15 +5,14 @@ name = "arturasl"
 
 [ui]
 default-command = ["log", "--reversed", "--summary"]
-diff-formatter = [
+pager = [
     "delta",
     "--line-numbers",
     "--side-by-side",
     "--true-color=always",
-    "--width=160",
     "--hunk-header-style=omit",
-    "$left", "$right"
 ]
+diff-formatter = ":git"
 
 [aliases]
 up = ["util", "exec", "--", "bash", "-c", """
