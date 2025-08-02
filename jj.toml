@@ -19,4 +19,5 @@ up = ["util", "exec", "--", "bash", "-c", """
 jj bookmark set master -r @
 jj git push --remote origin --bookmark master
 jj git fetch
+jj
 """, ""]
