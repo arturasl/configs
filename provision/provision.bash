@@ -2,6 +2,16 @@
 # vim: foldmethod=marker
 # vim: foldmarker={{,}}
 
+symlink() {
+    from="${HOME}/$1"
+    to="${HOME}/$2"
+    mkdir -p "$(dirname "$to")"
+    if [ -L "$to" ]; then
+        return
+    fi
+    ln -s "$from" "$to"
+}
+
 # directory structure {{
 mkdir -p ~/Builds/ ~/Tmp
 mkdir -p ~/Projects/{Professional,Personal,Tmp}
@@ -12,6 +22,7 @@ sudo pacman -Syu
 # Development {{
 sudo pacman -S base-devel make cmake clang gcc # Build essentials.
 sudo pacman -S openssh git subversion mercurial jujutsu # Version control
+symlink configs/jj.toml .config/jj/config.toml
 sudo pacman -S zeal # Offline help docs.
 
 ## Language specific {{
