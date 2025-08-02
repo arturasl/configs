@@ -4,7 +4,7 @@
 name = "arturasl"
 
 [ui]
-default-command = ["log", "--reversed", "--summary"]
+default-command = ["log", "--reversed", "--summary", "--no-pager"]
 pager = [
     "delta",
     "--line-numbers",
