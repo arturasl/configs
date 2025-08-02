@@ -5,3 +5,10 @@ name = "arturasl"
 
 [ui]
 default-command = ["log", "--reversed", "--summary"]
+
+[aliases]
+up = ["util", "exec", "--", "bash", "-c", """
+jj bookmark set master -r @
+jj git push --remote origin --bookmark master
+jj git fetch
+""", ""]
