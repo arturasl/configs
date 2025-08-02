@@ -5,6 +5,7 @@ name = "arturasl"
 
 [ui]
 default-command = ["log", "--reversed", "--summary"]
+diff-formatter = ["difft", "--color=always", "$left", "$right"]
 
 [aliases]
 up = ["util", "exec", "--", "bash", "-c", """
