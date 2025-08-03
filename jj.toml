@@ -15,9 +15,14 @@ pager = [
 diff-formatter = ":git"
 
 [aliases]
+submit = ["util", "exec", "--", "bash", "-c", """
+    rev="${1-@}"
+    jj bookmark set master -r "$rev"
+    jj git push --remote origin --bookmark master
+    jj
+""", ""]
+
 up = ["util", "exec", "--", "bash", "-c", """
-jj bookmark set master -r @
-jj git push --remote origin --bookmark master
-jj git fetch
-jj
+    jj git fetch
+    jj
 """, ""]
