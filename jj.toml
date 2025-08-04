@@ -13,6 +13,7 @@ pager = [
     "--hunk-header-style=omit",
 ]
 diff-formatter = ":git"
+merge-editor = "diffconflicts"
 
 [aliases]
 submit = ["util", "exec", "--", "bash", "-c", """
@@ -26,3 +27,11 @@ up = ["util", "exec", "--", "bash", "-c", """
     jj git fetch
     jj
 """, ""]
+
+[merge-tools.diffconflicts]
+program = "nvim"
+merge-args = [
+    "-c", "let g:jj_diffconflicts_marker_length=$marker_length",
+    "-c", "JJDiffConflicts", "$output"
+]
+merge-tool-edits-conflict-markers = true

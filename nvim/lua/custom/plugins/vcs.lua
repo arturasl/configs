@@ -1,3 +1,8 @@
 return {
-    "mhinz/vim-signify",
+    {
+        "mhinz/vim-signify",
+    },
+    {
+        "rafikdraoui/jj-diffconflicts",
+    },
 }
