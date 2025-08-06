@@ -4,7 +4,28 @@
 name = "arturasl"
 
 [ui]
-default-command = ["log", "--reversed", "--summary", "--no-pager"]
+default-command = ["log", "--reversed", "--no-pager", "--template", """
+    separate(" ",
+        change_id.shortest(),
+        if(conflict, "💥"),
+        if(divergent, "🚧"),
+        if(hidden, "👻"),
+        if(!description,
+           label("empty", "(no description)"),
+           if(!immutable,
+              label("description placeholder", description.first_line()))),
+        bookmarks.join(", ")
+    )
+    ++ "\n" ++
+    if(empty,
+       label("empty", "(empty)"),
+       if(!immutable,
+          diff.files().map(|f| separate(" ",
+            f.status(),
+            f.path().display()
+          )).join("\n")))
+"""]
+
 pager = [
     "delta",
     "--line-numbers",
