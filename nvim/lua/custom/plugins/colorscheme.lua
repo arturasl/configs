@@ -11,6 +11,7 @@ return {
             "bluz71/vim-nightfly-colors",
             "scottmckendry/cyberdream.nvim",
             "marko-cerovac/material.nvim",
+            "vague2k/vague.nvim",
         },
         config = function()
             local schemes = {
@@ -31,6 +32,7 @@ return {
                 "material-deep-ocean",
                 "material-darker",
                 "material-palenight",
+                "vague",
             }
             local days_since_epoch = math.floor(os.time() / (60 * 60 * 24))
             assert(7 % #schemes ~= 0)
