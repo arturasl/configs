@@ -69,18 +69,33 @@ set -g fish_key_bindings fish_vi_key_bindings
 # as fast as possible.
 set -g fish_escape_delay_ms 10
 
+function vim_bind
+    for mod in (string split , "$argv[1]")
+        if test "$mod" = "n"
+            set --function mod default
+        else if test "$mod" = "i"
+            set --function mod insert
+        else
+            echo "Unknown vim modifier '$mod'"
+            exit 1
+        end
+
+        bind --mode "$mod" "$argv[2]" "$argv[3]"
+    end
+end
+
 # Use ctrn-{n,p,o} to move over history.
-bind --mode insert ctrl-p history-search-backward
-bind --mode insert ctrl-n history-search-forward
+vim_bind n,i ctrl-p history-search-backward
+vim_bind n,i ctrl-n history-search-forward
 # Tab to use proposed completion.
-bind --mode insert ctrl-y accept-autosuggestion
+vim_bind n,i insert ctrl-y accept-autosuggestion
 # Disable arrow keys.
-bind --mode insert up 'true'
-bind --mode insert down 'true'
-bind --mode insert left 'true'
-bind --mode insert right 'true'
+vim_bind n,i insert up 'true'
+vim_bind n,i down 'true'
+vim_bind n,i left 'true'
+vim_bind n,i right 'true'
 # Esc in normal mode moves into editor.
-bind -M default escape edit_command_buffer
+vim_bind n escape edit_command_buffer
 
 ###### Aliases.
 
