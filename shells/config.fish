@@ -88,9 +88,9 @@ end
 vim_bind n,i ctrl-p history-search-backward
 vim_bind n,i ctrl-n history-search-forward
 # Tab to use proposed completion.
-vim_bind n,i insert ctrl-y accept-autosuggestion
+vim_bind n,i ctrl-y accept-autosuggestion
 # Disable arrow keys.
-vim_bind n,i insert up 'true'
+vim_bind n,i up 'true'
 vim_bind n,i down 'true'
 vim_bind n,i left 'true'
 vim_bind n,i right 'true'
