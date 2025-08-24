@@ -70,6 +70,11 @@ set -g fish_key_bindings fish_vi_key_bindings
 set -g fish_escape_delay_ms 10
 
 function vim_bind
+    if test (count $argv) -ne 3
+        echo "vim_bind expects exactly 3 arguments, but got $argv"
+        exit 1
+    end
+
     for mod in (string split , "$argv[1]")
         if test "$mod" = "n"
             set --function mod default
