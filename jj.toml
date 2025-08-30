@@ -21,6 +21,7 @@ default-command = ["log", "--reversed", "--no-pager", "--template", """
        label("empty", "(empty)"),
        if(!immutable,
           diff.files().map(|f| separate(" ",
+            if(f.target().conflict(), "💥"),
             f.status(),
             f.path().display()
           )).join("\n")))
