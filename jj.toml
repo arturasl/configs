@@ -2,6 +2,7 @@
 
 [user]
 name = "arturasl"
+email = "589741+arturasl@users.noreply.github.com"
 
 [ui]
 default-command = ["log", "--reversed", "--no-pager", "--template", """
