@@ -43,6 +43,7 @@ merge-editor = "diffconflicts"
 submit = ["util", "exec", "--", "bash", "-c", """
     rev="${1-@}"
     jj bookmark set master -r "$rev"
+    jj bookmark move --from "heads(::${rev} & bookmarks())" --to "$rev"
     jj git push --remote origin --bookmark master
     jj
 """, ""]
