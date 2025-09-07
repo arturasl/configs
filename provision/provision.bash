@@ -21,7 +21,10 @@ sudo pacman -Syu
 
 # Development {{
 sudo pacman -S base-devel make cmake clang gcc # Build essentials.
-sudo pacman -S openssh git subversion mercurial jujutsu # Version control
+sudo pacman -S openssh subversion mercurial # Version control
+sudo pacman -S git
+git config --global init.defaultBranch main
+sudo pacman -S jujutsu
 symlink configs/jj.toml .config/jj/config.toml
 sudo pacman -S zeal # Offline help docs.
 
