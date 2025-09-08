@@ -3,7 +3,7 @@ These are basic configuration files to set up on new machines.
 # Installation
 
 ```bash
-git clone git@github.com:arturasl/configs.git ~/configs
+jj git clone git@github.com:arturasl/configs.git ~/configs
 ```
 
 Afterwards run commands from ./provision/provision.bash
