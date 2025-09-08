@@ -41,6 +41,7 @@ merge-editor = "diffconflicts"
 
 [aliases]
 submit = ["util", "exec", "--", "bash", "-c", """
+    set -eu -o pipefail
     rev="${1-@}"
     jj bookmark move --from "heads(::${rev} & bookmarks())" --to "$rev"
     jj git push --remote origin -r "$rev"
@@ -48,6 +49,7 @@ submit = ["util", "exec", "--", "bash", "-c", """
 """, ""]
 
 up = ["util", "exec", "--", "bash", "-c", """
+    set -eu -o pipefail
     jj git fetch
     jj
 """, ""]
