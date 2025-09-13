@@ -1,9 +1,11 @@
 # Do not show greeting message.
 set --export --global fish_greeting ''
 
+set --local ls_args --color=always --group-directories-first -v --hyperlink
+
 # Run ls after changing directory (change in PWD variable).
 function list_dir --on-variable PWD
-    ls
+  ls $ls_args
 end
 
 ###### Exports.
@@ -105,7 +107,8 @@ vim_bind n escape edit_command_buffer
 ###### Aliases.
 
 abbr --add cc -- cal --monday --iso --color=always --year
-abbr --add ll -- ls --almost-all --human-readable -l --color=always --group-directories-first -v --time-style=long-iso
+abbr --add ls -- ls $ls_args
+abbr --add ll -- ls --almost-all --human-readable -l --color=always --group-directories-first -v --time-style=long-iso --hyperlink
 abbr --add dd -- /bin/date "\"+%Y-%m-%d %H:%M:%ST%z\""
 abbr --add vim -- $EDITOR
 abbr --add vimdiff -- $EDITOR -d
