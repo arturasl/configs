@@ -236,5 +236,38 @@ return {
                 end
             end,
         })
+
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = { "clojure" },
+            group = vim.api.nvim_create_augroup("ft_toogleterm_clojure", { clear = true }),
+            callback = function()
+                if vim.fn.findfile("project.clj", ".;") ~= "" then
+                    create_build_cmd({
+                        fn_cmd = function()
+                            local run_cmd = { "time", "lein", "run", vim.fn.expand("%") }
+                            for _, known_file in ipairs({ "./in", "./small.in", "./large.in" }) do
+                                if vim.uv.fs_stat(known_file) then
+                                    run_cmd[#run_cmd + 1] = "<"
+                                    run_cmd[#run_cmd + 1] = known_file
+                                    break
+                                end
+                            end
+                            return run_cmd
+                        end,
+                        desc = "Build & [R]un Leiningen",
+                        keys = "<space>br",
+                        open_qf = false,
+                    })
+                    create_build_cmd({
+                        fn_cmd = function()
+                            return { "lein", "test" }
+                        end,
+                        desc = "[T]est Leiningen",
+                        keys = "<space>bt",
+                        open_qf = false,
+                    })
+                end
+            end,
+        })
     end,
 }

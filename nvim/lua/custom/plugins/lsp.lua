@@ -113,6 +113,7 @@ return {
             setup("bashls")
             setup("basedpyright")
             setup("texlab")
+            setup("clojure_lsp")
 
             -- Install servers that were configured by lspconfig.
             -- Has to be after `setup`s.

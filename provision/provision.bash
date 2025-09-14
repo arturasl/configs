@@ -40,6 +40,7 @@ sudo pacman -S perl cpanminus # Perl
 sudo pacman -S ruby
 sudo pacman -S julia
 sudo pacman -S jdk-openjdk openjdk-doc openjdk-src # Java
+sudo pacman -S leiningen # Clojure
 sudo pacman -S graphviz # Graph drawing utility/language.
 # Rust {{
 sudo pacman -S rustup
