@@ -27,6 +27,10 @@ return {
             "import-error",
         }, ","))
 
+        table.insert(lint.linters.cpplint.args, "--filter=" .. table.concat({
+            "-legal/copyright",
+        }, ","))
+
         -- Call linter after saving the buffer (file has to be written).
         vim.api.nvim_create_autocmd({ "BufWritePost" }, {
             callback = function()
