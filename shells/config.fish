@@ -1,7 +1,9 @@
 # Do not show greeting message.
 set --export --global fish_greeting ''
 
-set --local ls_args --color=always --group-directories-first -v --hyperlink
+# Intentionally use an alias instead of `abbr` (a long expansion for such a
+# common command feels a bit distracting).
+alias ls="ls --color=always --group-directories-first -v"
 
 # Run ls after changing directory (change in PWD variable).
 function list_dir --on-variable PWD
@@ -107,7 +109,6 @@ vim_bind n escape edit_command_buffer
 ###### Aliases.
 
 abbr --add cc -- cal --monday --iso --color=always --year
-abbr --add ls -- ls $ls_args
 abbr --add ll -- ls --almost-all --human-readable -l --color=always --group-directories-first -v --time-style=long-iso --hyperlink
 abbr --add dd -- /bin/date "\"+%Y-%m-%d %H:%M:%ST%z\""
 abbr --add vim -- $EDITOR
