@@ -18,6 +18,7 @@ return {
             javascript = { "eslint_d" },
             typescript = { "eslint_d" },
             css = { "stylelint" },
+            clojure = { "clj-kondo" },
         }
 
         table.insert(lint.linters.pylint.args, "--disable=" .. table.concat({
@@ -39,6 +40,6 @@ return {
         })
 
         -- Has to be after `lint.setup`.
-        require("mason-nvim-lint").setup()
+        require("mason-nvim-lint").setup({ quiet_mode = true })
     end,
 }

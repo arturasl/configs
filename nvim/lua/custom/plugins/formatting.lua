@@ -22,6 +22,7 @@ return {
                 json = { "prettier" },
                 yaml = { "prettier" },
                 markdown = { "prettier" },
+                clojure = { "cljfmt" },
             },
             format_after_save = {
                 timeout_ms = 500,
