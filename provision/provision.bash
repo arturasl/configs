@@ -130,6 +130,7 @@ sudo pacman -S bc qalculate-qt # Calculator.
 sudo pacman -S gimp # Image editor.
 sudo pacman -S inkscape # Vector graphics editor.
 sudo pacman -S mplayer # Audio/video player.
+sudo pacman -S vlc vlc-plugins-all # Audio/video player.
 sudo pacman -S audacity # Audio recording/editing.
 ## }}
 ## document viewers {{
