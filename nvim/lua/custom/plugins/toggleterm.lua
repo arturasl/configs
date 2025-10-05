@@ -97,6 +97,7 @@ return {
                             "-shell-escape",
                             "-file-line-error",
                             "-interaction=nonstopmode",
+                            "-halt-on-erro",
                             vim.fn.expand("%:p"),
                         }
                     end,
