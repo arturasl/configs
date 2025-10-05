@@ -3,19 +3,35 @@ local alternative_file_picker = function()
     local options = {}
 
     local insert_if_alternate = function(pattern, replacement)
-        local new_file = cur_file:gsub(pattern, replacement)
+        local new_file = pattern
+        if replacement ~= nil then
+            new_file = cur_file:gsub(pattern, replacement)
+        end
+
         if new_file == cur_file then
             return
         end
-        if not vim.fn.filereadable(new_file) then
+        if vim.fn.filereadable(new_file) == 0 then
             return
         end
         options[#options + 1] = new_file
     end
 
-    if vim.endswith(cur_file, ".clj") then
-        insert_if_alternate("^(.*)/src/(.*)%.clj", "%1/test/%2_test.clj")
-        insert_if_alternate("^(.*)/test/(.*)%_test.clj", "%1/src/%2.clj")
+    -- Clojure
+    insert_if_alternate("^(.*)/src/(.*)%.clj", "%1/test/%2_test.clj")
+    insert_if_alternate("^(.*)/test/(.*)%_test.clj", "%1/src/%2.clj")
+
+    -- Cpp.
+    local wo_cpp_suffix =
+        cur_file:gsub("%.cpp$", ""):gsub("%.cc$", ""):gsub("%.h$", ""):gsub("%.hpp$", ""):gsub("_test$", "")
+    for _, suffix in ipairs({ ".cpp", ".cc", "_test.cpp", "_test.cc", ".h", ".hpp" }) do
+        insert_if_alternate(wo_cpp_suffix .. suffix)
+    end
+
+    -- Python.
+    local wo_py_suffix = cur_file:gsub("%.py$", ""):gsub("_test$", "")
+    for _, suffix in ipairs({ ".py", "_test.py" }) do
+        insert_if_alternate(wo_py_suffix .. suffix)
     end
 
     local option_to_abs = {}
