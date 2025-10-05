@@ -33,7 +33,7 @@ local create_build_cmd = function(options)
         -- Note that cmd is delayed so that vim.fn.expand() would happen after
         -- keymap.
         for _, val in ipairs(options.fn_cmd()) do
-            cmd = cmd .. val .. " "
+            cmd = cmd .. vim.fn.shellescape(val) .. " "
         end
 
         preserve(function()
