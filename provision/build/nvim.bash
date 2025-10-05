@@ -17,6 +17,7 @@ sudo npm install -g neovim
 yay -S ruby-neovim
 sudo pacman --noconfirm -S python-pynvim
 sudo pacman --noconfirm -S ripgrep fd   # Faster grep & find.
+sudo pacman --noconfirm -S tree-sitter-cli
 
 # File structure.
 mkdir -p ~/.config/nvim
