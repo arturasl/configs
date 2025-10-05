@@ -34,7 +34,7 @@ sudo pacman -S fpc # Pascal
 sudo pacman -S nodejs npm # JavaScript
 sudo pacman -S lua lua51 luarocks # Lua
 sudo pacman -S go # Go
-sudo pacman -S texlive-meta # LaTeX
+sudo pacman -S texlive-{meta,langeuropean} # LaTeX
 sudo pacman -S php composer # Php
 sudo pacman -S perl cpanminus # Perl
 sudo pacman -S ruby
