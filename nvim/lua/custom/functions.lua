@@ -20,7 +20,7 @@ return {
     end,
 
     preserve_cursor = function(arg)
-        local tabnr = 0 -- Current.
+        local tabnr = vim.api.nvim_get_current_tabpage()
         local winnr = vim.api.nvim_get_current_win()
         local line, col = unpack(vim.api.nvim_win_get_cursor(winnr))
 
@@ -30,6 +30,7 @@ return {
             arg()
         end
 
+        vim.api.nvim_set_current_tabpage(tabnr)
         vim.api.nvim_tabpage_set_win(tabnr, winnr)
         -- Min between total line count in current buffer in case it changed.
         line = math.min(vim.fn.line("$"), line)
