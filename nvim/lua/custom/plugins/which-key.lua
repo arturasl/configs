@@ -9,6 +9,7 @@ return {
             },
         })
         wk.add({
+            { "<space>b", group = "[E]valuate" },
             { "<space>b", group = "[B]uild" },
             { "<space>s", group = "[S]earch" },
             { "<space>l", group = "[L]SP" },
