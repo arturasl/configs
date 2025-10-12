@@ -30,6 +30,7 @@ return {
 
         table.insert(lint.linters.cpplint.args, "--filter=" .. table.concat({
             "-legal/copyright",
+            "-build/namespaces",
         }, ","))
 
         -- Call linter after saving the buffer (file has to be written).
