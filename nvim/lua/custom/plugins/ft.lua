@@ -68,6 +68,7 @@ return {
         end,
     },
 
+    { "eraserhd/parinfer-rust", build = "cargo build --release" },
     {
         "Olical/conjure",
         ft = { "clojure" },

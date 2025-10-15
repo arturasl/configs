@@ -3,7 +3,10 @@ return {
     {
         "windwp/nvim-autopairs",
         config = function()
-            require("nvim-autopairs").setup({ disable_in_macro = false })
+            require("nvim-autopairs").setup({
+                disable_in_macro = false,
+                disable_filetype = { "clojure" },
+            })
         end,
     },
 
