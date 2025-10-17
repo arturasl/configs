@@ -26,5 +26,6 @@ symlink configs/nvim/lua .config/nvim/lua
 symlink configs/nvim/localvimrc.lua .config/nvim/localvimrc.lua
 symlink configs/nvim/.stylua.toml .config/nvim/.stylua.toml
 symlink configs/nvim/snippets .config/nvim/snippets
+symlink configs/nvim/queries .config/nvim/queries
 symlink configs/vimrc .vimrc
 symlink configs/vim .vim
