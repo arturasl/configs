@@ -4,7 +4,7 @@ return {
     },
     {
         "rafikdraoui/jj-diffconflicts",
-        config = function()
+        init = function()
             vim.g.jj_diffconflicts_show_usage_message = false
         end,
     },
