@@ -176,7 +176,7 @@ return {
                 else
                     create_build_cmd({
                         fn_cmd = function()
-                            return { "rust", vim.fn.expand("%:p") }
+                            return { "rustc", vim.fn.expand("%:p") }
                         end,
                         desc = "Build Rust",
                     })
