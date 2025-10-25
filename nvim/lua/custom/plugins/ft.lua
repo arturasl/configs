@@ -45,7 +45,7 @@ return {
         init = function()
             vim.g["conjure#mapping#enable_defaults"] = false
             vim.g["conjure#highlight#enabled"] = true
-            vim.g["conjure#log#hud#enabled"] = false
+            -- vim.g["conjure#log#hud#enabled"] = false
 
             vim.g["conjure#mapping#prefix"] = "1"
             vim.g["conjure#mapping#eval_current_form"] = "e"
@@ -69,6 +69,8 @@ return {
 
                 require("custom/functions").preserve_cursor(function()
                     vim.cmd("silent! :Lein")
+                    vim.bo.buflisted = false
+                    vim.bo.bufhidden = "wipe"
                 end)
             end
 

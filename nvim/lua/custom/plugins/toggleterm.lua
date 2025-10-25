@@ -15,7 +15,7 @@ end
 
 local get_window_height = function(type)
     for _, win in pairs(vim.fn.getwininfo()) do
-        if win[type] == 1 then
+        if win[type] == 1 and vim.bo[win.bufnr].buflisted then
             return win.height
         end
     end
