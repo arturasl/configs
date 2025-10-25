@@ -6,7 +6,9 @@ return {
             vim.diagnostic.config({ virtual_text = false })
             require("tiny-inline-diagnostic").setup({
                 options = {
-                    multiple_diag_under_cursor = true,
+                    show_source = {
+                        enabled = true,
+                    },
                     multilines = {
                         enabled = true,
                         always_show = true,
