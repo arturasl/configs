@@ -35,13 +35,6 @@ return {
     {
         "Olical/conjure",
         ft = { "clojure" },
-        dependencies = {
-            "clojure-vim/vim-jack-in",
-            dependencies = {
-                "radenling/vim-dispatch-neovim",
-                dependencies = { "tpope/vim-dispatch" },
-            },
-        },
         init = function()
             vim.g["conjure#mapping#enable_defaults"] = false
             vim.g["conjure#highlight#enabled"] = true
@@ -54,32 +47,35 @@ return {
             vim.keymap.set("n", "<space>ec", ":ConjureEvalCurrentForm<cr>", { desc = "Evaluate [C]urrent" })
             vim.keymap.set("n", "<space>er", ":ConjureEvalRootForm<cr>", { desc = "Evaluate [R]oot" })
 
+            local lein_repl_jobid = nil
             local start_repl_if_needed = function()
-                local is_lein_project = vim.fs.root(vim.fn.getcwd(), { "project.clj" })
-                if not is_lein_project then
+                if lein_repl_jobid then
+                    local status = vim.fn.jobwait({ lein_repl_jobid }, 0)[1]
+                    if status == -1 then -- `jobwait` timed out == job still runs.
+                        return
+                    end
+                end
+
+                local lein_project_root = vim.fs.root(vim.fn.getcwd(), { "project.clj" })
+                if not lein_project_root then
                     return
                 end
 
-                local is_lein_open = vim.tbl_contains(vim.api.nvim_list_bufs(), function(bufnr)
-                    return vim.api.nvim_buf_get_name(bufnr):find("term://.*%d+:lein ") ~= nil
-                end, { predicate = true })
-                if is_lein_open then
-                    return
-                end
-
-                require("custom/functions").preserve_cursor(function()
-                    vim.cmd("silent! :Lein")
-                    vim.bo.buflisted = false
-                    vim.bo.bufhidden = "wipe"
-                end)
+                lein_repl_jobid = vim.fn.jobstart({
+                    "lein",
+                    "update-in",
+                    ":plugins",
+                    "conj",
+                    "[cider/cider-nrepl RELEASE]",
+                    "--",
+                    "repl",
+                }, { cwd = lein_project_root })
             end
 
             vim.api.nvim_create_autocmd("BufReadPost", {
                 pattern = { "*.clj" },
                 group = vim.api.nvim_create_augroup("clojure_start_repl", { clear = true }),
-                callback = function()
-                    vim.defer_fn(start_repl_if_needed, 1000)
-                end,
+                callback = start_repl_if_needed,
             })
         end,
     },
