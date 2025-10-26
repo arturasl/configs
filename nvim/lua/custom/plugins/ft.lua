@@ -44,6 +44,10 @@ return {
             vim.g["conjure#mapping#eval_current_form"] = "e"
             vim.g["conjure#mapping#eval_root_form"] = "E"
 
+            -- By default conjure will disable diagnostics (errors/warnings
+            -- shown from linter/lsp).
+            vim.g["conjure#log#diagnostics"] = true
+
             vim.keymap.set("n", "<space>ec", ":ConjureEvalCurrentForm<cr>", { desc = "Evaluate [C]urrent" })
             vim.keymap.set("n", "<space>er", ":ConjureEvalRootForm<cr>", { desc = "Evaluate [R]oot" })
 
