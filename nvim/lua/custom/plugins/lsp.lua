@@ -3,7 +3,16 @@ return {
         "rachartier/tiny-inline-diagnostic.nvim",
         priority = 1000,
         config = function()
-            vim.diagnostic.config({ virtual_text = false })
+            vim.diagnostic.config({
+                virtual_text = false,
+                signs = {
+                    text = {
+                        [vim.diagnostic.severity.ERROR] = "●",
+                        [vim.diagnostic.severity.WARN] = "●",
+                    },
+                },
+            })
+
             require("tiny-inline-diagnostic").setup({
                 options = {
                     show_source = {
