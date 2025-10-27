@@ -31,7 +31,11 @@ return {
         end,
     },
 
-    { "eraserhd/parinfer-rust", build = "cargo build --release" },
+    {
+        "eraserhd/parinfer-rust",
+        build = "cargo build --release",
+        event = "VeryLazy",
+    },
     {
         "Olical/conjure",
         ft = { "clojure" },
@@ -41,46 +45,16 @@ return {
             -- vim.g["conjure#log#hud#enabled"] = false
 
             vim.g["conjure#mapping#prefix"] = "1"
-            vim.g["conjure#mapping#eval_current_form"] = "e"
-            vim.g["conjure#mapping#eval_root_form"] = "E"
+            vim.g["conjure#mapping#eval_file"] = "f"
+            vim.keymap.set("n", "<space>ef", ":ConjureEvalFile<cr>", { desc = "Evaluate [F]ile" })
+            vim.g["conjure#mapping#eval_root_form"] = "r"
+            vim.keymap.set("n", "<space>er", ":ConjureEvalRootForm<cr>", { desc = "Evaluate [R]oot" })
+            vim.g["conjure#mapping#eval_current_form"] = "c"
+            vim.keymap.set("n", "<space>ec", ":ConjureEvalCurrentForm<cr>", { desc = "Evaluate [C]urrent" })
 
             -- By default conjure will disable diagnostics (errors/warnings
             -- shown from linter/lsp).
             vim.g["conjure#log#diagnostics"] = true
-
-            vim.keymap.set("n", "<space>ec", ":ConjureEvalCurrentForm<cr>", { desc = "Evaluate [C]urrent" })
-            vim.keymap.set("n", "<space>er", ":ConjureEvalRootForm<cr>", { desc = "Evaluate [R]oot" })
-
-            local lein_repl_jobid = nil
-            local start_repl_if_needed = function()
-                if lein_repl_jobid then
-                    local status = vim.fn.jobwait({ lein_repl_jobid }, 0)[1]
-                    if status == -1 then -- `jobwait` timed out == job still runs.
-                        return
-                    end
-                end
-
-                local lein_project_root = vim.fs.root(vim.fn.getcwd(), { "project.clj" })
-                if not lein_project_root then
-                    return
-                end
-
-                lein_repl_jobid = vim.fn.jobstart({
-                    "lein",
-                    "update-in",
-                    ":plugins",
-                    "conj",
-                    "[cider/cider-nrepl RELEASE]",
-                    "--",
-                    "repl",
-                }, { cwd = lein_project_root })
-            end
-
-            vim.api.nvim_create_autocmd("BufReadPost", {
-                pattern = { "*.clj" },
-                group = vim.api.nvim_create_augroup("clojure_start_repl", { clear = true }),
-                callback = start_repl_if_needed,
-            })
         end,
     },
 }

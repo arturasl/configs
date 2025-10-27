@@ -18,3 +18,29 @@ if vim.fn.findfile("project.clj", ".;") ~= "" then
         keys = "<space>bt",
     })
 end
+
+local lein_repl_jobid = nil
+local start_repl_if_needed = function()
+    if lein_repl_jobid then
+        local status = vim.fn.jobwait({ lein_repl_jobid }, 0)[1]
+        if status == -1 then -- `jobwait` timed out == job still runs.
+            return
+        end
+    end
+
+    local lein_project_root = vim.fs.root(vim.fn.getcwd(), { "project.clj" })
+    if not lein_project_root then
+        return
+    end
+
+    lein_repl_jobid = vim.fn.jobstart({
+        "lein",
+        "update-in",
+        ":plugins",
+        "conj",
+        "[cider/cider-nrepl RELEASE]",
+        "--",
+        "repl",
+    }, { cwd = lein_project_root })
+end
+start_repl_if_needed()
