@@ -16,6 +16,7 @@ return {
 
     {
         "L3MON4D3/LuaSnip",
+        lazy = true,
         config = function()
             require("luasnip").setup({})
             require("luasnip.loaders.from_snipmate").lazy_load()
@@ -24,6 +25,7 @@ return {
 
     {
         "Saghen/blink.cmp",
+        event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {},
         build = "cargo build --release",
         opts = {
