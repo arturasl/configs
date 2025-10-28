@@ -1,5 +1,6 @@
 return {
     dir = "~/.vim/bundle/Spelling/",
+    event = "VeryLazy",
     config = function()
         -- Use spell check for English and Lithuanian languages.
         vim.opt.spelllang = { "en", "lt" }
