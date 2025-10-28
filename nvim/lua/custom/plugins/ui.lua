@@ -1,6 +1,7 @@
 return {
     {
         "sphamba/smear-cursor.nvim",
+        event = "VeryLazy",
         config = function()
             require("smear_cursor").setup({
                 -- Faster smear.
@@ -14,6 +15,7 @@ return {
 
     {
         "karb94/neoscroll.nvim",
+        event = "VeryLazy",
         config = function()
             require("neoscroll").setup({
                 duration_multiplier = 0.3,
