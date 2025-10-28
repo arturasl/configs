@@ -1,1 +1,1 @@
-require("ftplugin/vcs")
+vim.cmd("runtime! ftplugin/vcs.lua")
