@@ -1,5 +1,6 @@
 return {
     "mfussenegger/nvim-lint",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         -- NOTE: Preconfigured separately.
         "mason-org/mason.nvim",

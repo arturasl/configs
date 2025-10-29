@@ -1,7 +1,7 @@
 return {
     {
         "rachartier/tiny-inline-diagnostic.nvim",
-        priority = 1000,
+        event = "LspAttach",
         config = function()
             vim.diagnostic.config({
                 virtual_text = false,
@@ -29,6 +29,15 @@ return {
 
     {
         "rachartier/tiny-code-action.nvim",
+        keys = {
+            {
+                "<space>lf",
+                function()
+                    require("tiny-code-action").code_action({})
+                end,
+                desc = "See available [F]ixes",
+            },
+        },
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope.nvim",
@@ -56,10 +65,8 @@ return {
             -- by nvim-lspconfig.
             "mason-org/mason-lspconfig.nvim",
             "nvim-telescope/telescope.nvim",
-            "rachartier/tiny-code-action.nvim",
         },
         config = function()
-            local tiny_action = require("tiny-code-action")
             local telescope = require("telescope.builtin")
 
             vim.api.nvim_create_autocmd("LspAttach", {
@@ -70,9 +77,6 @@ return {
 
                     opts.desc = "Smart [R]ename"
                     keymap.set("n", "<space>lr", vim.lsp.buf.rename, opts)
-
-                    opts.desc = "See available [F]ixes"
-                    keymap.set({ "n", "v" }, "<space>lf", tiny_action.code_action, opts)
 
                     opts.desc = "Show documentation for word under cursor"
                     keymap.set("n", "K", vim.lsp.buf.hover, opts)

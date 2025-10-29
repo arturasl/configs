@@ -1,5 +1,6 @@
 return {
     "stevearc/conform.nvim",
+    event = { "BufWritePre" },
     dependencies = {
         -- NOTE: Preconfigured separately.
         "mason-org/mason.nvim",
