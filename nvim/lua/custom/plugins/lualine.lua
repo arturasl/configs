@@ -1,3 +1,5 @@
+local functions = require("custom/functions")
+
 local get_paste_mode_str = function()
     if vim.o.paste then
         return "PASTE"
@@ -36,10 +38,17 @@ local get_lsp_str = function()
 end
 
 local get_formatters_str = function()
+    if not functions.is_plugin_loaded("conform.nvim") then
+        return ""
+    end
     return table.concat(require("conform").list_formatters_for_buffer(0), ", ")
 end
 
 local get_linters_str = function()
+    if not functions.is_plugin_loaded("nvim-lint") then
+        return ""
+    end
+
     for ft, available in pairs(require("lint").linters_by_ft) do
         if ft == vim.bo.ft then
             return table.concat(available, ", ")
@@ -54,10 +63,6 @@ return {
     dependencies = {
         -- Provides 'lsp_progress'
         "arkav/lualine-lsp-progress",
-        -- For get_formatters_str,
-        "stevearc/conform.nvim",
-        -- For get_linters_str,
-        "mfussenegger/nvim-lint",
     },
     config = function()
         local per_window_sections = {
