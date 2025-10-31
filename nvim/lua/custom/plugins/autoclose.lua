@@ -2,6 +2,7 @@ return {
     -- Finishes quotation marks, braces, parenthesis, etc.
     {
         "windwp/nvim-autopairs",
+        event = { "InsertEnter" },
         config = function()
             require("nvim-autopairs").setup({
                 disable_in_macro = false,
@@ -13,6 +14,7 @@ return {
     -- Finishes xml tags `<div>` will automatically insert `</div>`.
     {
         "windwp/nvim-ts-autotag",
+        event = { "InsertEnter" },
         config = function()
             require("nvim-ts-autotag").setup()
         end,
@@ -22,5 +24,6 @@ return {
     -- automatically insert `end`.
     {
         "tpope/vim-endwise",
+        event = { "InsertEnter" },
     },
 }
