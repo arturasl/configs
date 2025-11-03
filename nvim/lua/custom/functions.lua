@@ -133,7 +133,7 @@ end
 
 local lazy_core = require("lazy.core.config")
 M.is_plugin_loaded = function(name)
-    vim.tbl_get(lazy_core, "plugins", name, "_", "loaded")
+    return vim.tbl_get(lazy_core, "plugins", name, "_", "loaded")
 end
 
 return M
