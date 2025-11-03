@@ -24,6 +24,7 @@ return {
                 yaml = { "prettier" },
                 markdown = { "prettier" },
                 clojure = { "cljfmt" },
+                tex = { "tex-fmt" },
             },
             format_after_save = {
                 timeout_ms = 500,
