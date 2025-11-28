@@ -81,7 +81,8 @@ sudo pacman -S fzf # Fuzzy autocomplete window
 sudo pacman -S ncdu # Show file size statistics.
 ## }}
 ## General programs {{
-./build/alacritty.bash
+sudo pacman -S ghostty
+ln -s  ~/configs/ghostty.config ~/.config/ghostty/config
 ## Tmux {{
 sudo pacman -S tmux # Multiplexer.
 ln -s  ~/configs/tmux.conf ~/.tmux.conf
