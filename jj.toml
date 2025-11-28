@@ -4,29 +4,31 @@
 name = "arturasl"
 email = "589741+arturasl@users.noreply.github.com"
 
+    # //.files().filter(|f| f.is_conflict() || !f.diff().is_empty())
 [ui]
 default-command = ["log", "--reversed", "--no-pager", "--template", """
-    separate(" ",
-        change_id.shortest(),
-        if(divergent, "🚧"),
-        if(hidden, "👻"),
-        if(!description,
-           label("empty", "(no description)"),
+    separate("\n",
+        separate(" ",
+            change_id.shortest(),
+            if(divergent, "🚧"),
+            if(hidden, "👻"),
+            if(conflict, "💥"),
+            if(!description,
+               label("empty", "(no description)"),
+               if(!immutable,
+                  label("description placeholder", description.first_line()))),
+            bookmarks.join(", ")
+        ),
+        if(empty,
+           label("empty", "(empty)"),
            if(!immutable,
-              label("description placeholder", description.first_line()))),
-        bookmarks.join(", ")
-    )
-    ++ "\n" ++
-    if(empty,
-       label("empty", "(empty)"),
-       if(!immutable,
-          diff.files().map(|f| separate(" ",
-            if(f.target().conflict(), "💥"),
-            f.status(),
-            f.path().display(),
-            if(f.source().path().display() != f.target().path().display(),
-               label("elided", "<- " ++ f.source().path().display()))
-          )).join("\n")))
+              diff.files().map(|f| separate(" ",
+                if(f.target().conflict(), "💥"),
+                f.status(),
+                f.path().display(),
+                if(f.source().path().display() != f.target().path().display(),
+                   label("elided", "<- " ++ f.source().path().display()))
+              )).join("\n"))))
 """]
 
 pager = [
