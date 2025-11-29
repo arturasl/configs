@@ -22,4 +22,17 @@ require("lazy").setup({
         notify = false, -- Will use lualine instead.
         frequency = 60 * 60 * 24, -- 24h.
     },
+    performance = {
+        rtp = {
+            disabled_plugins = {
+                "gzip",
+                "netrwPlugin",
+                "rplugin",
+                "tarPlugin",
+                "tohtml",
+                "tutor",
+                "zipPlugin",
+            },
+        },
+    },
 })
