@@ -25,7 +25,10 @@ M.run_cmd_on_key = function(options)
         -- Note that cmd is delayed so that vim.fn.expand() would happen after
         -- keymap.
         for _, val in ipairs(options.fn_cmd()) do
-            cmd = cmd .. vim.fn.shellescape(val) .. " "
+            if val ~= "&&" then
+                val = vim.fn.shellescape(val)
+            end
+            cmd = cmd .. val .. " "
         end
         if options.pipe_first_known_file ~= nil then
             for _, known_file in ipairs(options.pipe_first_known_file) do
