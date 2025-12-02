@@ -11,6 +11,6 @@ run_cmd_on_key({
         return { "npm", "start" }
     end,
     pipe_first_known_file = { "./in", "./small.in", "./large.in" },
-    desc = "[R]uild JS",
+    desc = "[R]un JS",
     keys = "<space>br",
 })
