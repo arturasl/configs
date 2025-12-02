@@ -10,6 +10,7 @@ local get_window_height = function(type)
 end
 
 local previous_cmd = nil
+local prev_cmd_file = nil
 M.run_cmd_on_key = function(options)
     options = vim.tbl_extend(
         "keep",
@@ -31,11 +32,18 @@ M.run_cmd_on_key = function(options)
             cmd = cmd .. val .. " "
         end
         if options.pipe_first_known_file ~= nil then
-            for _, known_file in ipairs(options.pipe_first_known_file) do
-                if vim.uv.fs_stat(known_file) then
-                    cmd = cmd .. "<"
-                    cmd = cmd .. vim.fn.shellescape(known_file)
-                    break
+            if prev_cmd_file ~= nil then
+                if prev_cmd_file ~= "/dev/stdin" then
+                    cmd = cmd .. "< "
+                    cmd = cmd .. vim.fn.shellescape(prev_cmd_file)
+                end
+            else
+                for _, known_file in ipairs(options.pipe_first_known_file) do
+                    if vim.uv.fs_stat(known_file) then
+                        cmd = cmd .. "< "
+                        cmd = cmd .. vim.fn.shellescape(known_file)
+                        break
+                    end
                 end
             end
         end
@@ -86,6 +94,16 @@ M.run_cmd_on_key = function(options)
         end)
     end, { desc = options.desc, buffer = true })
 end
+vim.keymap.set("n", "<space>bR", function()
+    local files = vim.fn.glob("*", true, true)
+    files[#files + 1] = "/dev/stdin"
+    vim.ui.select(files, { prompt = "Select input file" }, function(selected)
+        if selected ~= nil then
+            prev_cmd_file = selected
+            vim.cmd.normal(" br")
+        end
+    end)
+end, { desc = "[R]un with stdin", buffer = true })
 
 M.toogle_quick_fix = function()
     for _, win in pairs(vim.fn.getwininfo()) do
