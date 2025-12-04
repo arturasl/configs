@@ -33,7 +33,7 @@ M.run_cmd_on_key = function(options)
         end
         if options.pipe_first_known_file ~= nil then
             if prev_cmd_file ~= nil then
-                if prev_cmd_file ~= "/dev/stdin" then
+                if prev_cmd_file ~= "stdin" then
                     cmd = cmd .. "< "
                     cmd = cmd .. vim.fn.shellescape(prev_cmd_file)
                 end
@@ -96,14 +96,39 @@ M.run_cmd_on_key = function(options)
 end
 vim.keymap.set("n", "<space>bR", function()
     local files = vim.fn.glob("*", true, true)
-    files[#files + 1] = "/dev/stdin"
-    vim.ui.select(files, { prompt = "Select input file" }, function(selected)
-        if selected ~= nil then
-            prev_cmd_file = selected
-            vim.cmd.normal(" br")
-        end
+    files[#files + 1] = "stdin"
+    M.pick_file(files, function(selected)
+        prev_cmd_file = selected
+        vim.cmd.normal(" br")
     end)
 end, { desc = "[R]un with stdin", buffer = true })
+
+M.pick_file = function(files, on_selection)
+    require("telescope.pickers")
+        .new(
+            require("telescope.themes").get_dropdown({
+                initial_mode = "normal",
+                layout_config = { height = 10 },
+                previewer = require("telescope.previewers.buffer_previewer").cat.new({}),
+            }),
+            {
+                finder = require("telescope.finders").new_table({
+                    results = files,
+                }),
+                attach_mappings = function(bufnr, _)
+                    local actions = require("telescope.actions")
+                    local action_state = require("telescope.actions.state")
+                    actions.select_default:replace(function()
+                        actions.close(bufnr)
+                        local selection = action_state.get_selected_entry()[1]
+                        on_selection(selection)
+                    end)
+                    return true
+                end,
+            }
+        )
+        :find()
+end
 
 M.toogle_quick_fix = function()
     for _, win in pairs(vim.fn.getwininfo()) do

@@ -39,30 +39,10 @@ local alternative_file_picker = function()
         option_to_abs[vim.fn.fnamemodify(abs_path, ":t")] = abs_path
     end
 
-    require("telescope.pickers")
-        .new(
-            require("telescope.themes").get_dropdown({
-                initial_mode = "normal",
-                layout_config = { height = 10 },
-            }),
-            {
-                finder = require("telescope.finders").new_table({
-                    results = vim.tbl_keys(option_to_abs),
-                }),
-                attach_mappings = function(bufnr, _)
-                    local actions = require("telescope.actions")
-                    local action_state = require("telescope.actions.state")
-                    actions.select_default:replace(function()
-                        actions.close(bufnr)
-                        local selection = action_state.get_selected_entry()[1]
-                        local escaped = vim.fn.fnameescape(option_to_abs[selection])
-                        vim.cmd("edit " .. escaped)
-                    end)
-                    return true
-                end,
-            }
-        )
-        :find()
+    require("custom.functions").pick_file(vim.tbl_keys(option_to_abs), function(selection)
+        local escaped = vim.fn.fnameescape(option_to_abs[selection])
+        vim.cmd("edit " .. escaped)
+    end)
 end
 
 return {
