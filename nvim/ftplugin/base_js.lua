@@ -12,7 +12,7 @@ run_cmd_on_key({
         else
             vim.list_extend(run_cmd, { "node", vim.fn.expand("%:p:r") })
         end
-        return { "npm", "start" }
+        return { "time", "npm", "start" }
     end,
     pipe_first_known_file = { "./in", "./small.in", "./large.in" },
     desc = "[R]un JS",
