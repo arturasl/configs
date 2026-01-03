@@ -47,13 +47,11 @@ submit = ["util", "exec", "--", "bash", "-c", """
     rev="${1-@}"
     jj bookmark move --from "heads(::${rev} & bookmarks())" --to "$rev"
     jj git push --remote origin -r "$rev"
-    jj
 """, ""]
 
 up = ["util", "exec", "--", "bash", "-c", """
     set -eu -o pipefail
     jj git fetch
-    jj
 """, ""]
 
 [merge-tools.diffconflicts]

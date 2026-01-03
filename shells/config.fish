@@ -122,6 +122,16 @@ abbr --add cp -- cp -iv
 abbr --add mv -- mv -iv
 abbr --add rm -- rm -v
 
+function jj --wraps jj
+    command jj $argv
+    set --local s $status
+
+    set -l no_log_after '' 'log'
+    if test "$s" -eq 0; and not contains -- "$argv[1]" $no_log_after
+        command jj
+    end
+end
+
 function fzf_file
     fd --type f | fzf --height=50% --layout reverse --border=bold --preview='~/configs/scripts/showme.bash --view-text-stream {}'
 end
