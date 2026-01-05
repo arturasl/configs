@@ -126,9 +126,13 @@ function jj --wraps jj
     command jj $argv
     set --local s $status
 
-    set -l no_log_after '' 'log'
+    set -l no_log_after '' 'log' 'submit'
     if test "$s" -eq 0; and not contains -- "$argv[1]" $no_log_after
         command jj
+    end
+
+    if test (count "$argv") -eq 1; and test "$argv[1]" = 'submit'
+        jj up
     end
 end
 
