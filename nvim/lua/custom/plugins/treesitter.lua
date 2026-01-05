@@ -1,21 +1,32 @@
 return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    branch = "main",
     config = function()
-        require("nvim-treesitter.configs").setup({
-            -- Required fields, setting to unset to make Lua LSP happy.
-            ensure_installed = {},
-            sync_install = false,
-            ignore_install = {},
-            modules = {},
-            -- Auto install treesitter parser on opening certain file type
-            -- first time.
-            auto_install = true,
-            highlight = {
-                enable = true,
-                additional_vim_regex_highlighting = false,
-            },
-            indent = { enable = true },
+        local treesitter = require("nvim-treesitter")
+        treesitter.setup({})
+
+        local available_fts = {}
+        for _, tier in ipairs({ 1, 2 }) do
+            for _, available_ft in ipairs(treesitter.get_available(tier)) do
+                available_fts[available_ft] = true
+            end
+        end
+
+        vim.api.nvim_create_autocmd("FileType", {
+            callback = function()
+                local ft = vim.bo.filetype
+                if not available_fts[ft] then
+                    return
+                end
+
+                treesitter.install({ ft }):wait(300000)
+
+                -- Syntax highlighting.
+                vim.treesitter.start()
+                -- Treesitter based indentation.
+                vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            end,
         })
     end,
 }
