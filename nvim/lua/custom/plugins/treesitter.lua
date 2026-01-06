@@ -6,22 +6,22 @@ return {
         local treesitter = require("nvim-treesitter")
         treesitter.setup({})
 
-        local available_fts = {}
+        local available_langs = {}
         for _, tier in ipairs({ 1, 2 }) do
-            for _, available_ft in ipairs(treesitter.get_available(tier)) do
-                available_fts[available_ft] = true
+            for _, available_lang in ipairs(treesitter.get_available(tier)) do
+                available_langs[available_lang] = true
             end
         end
 
         vim.api.nvim_create_autocmd("FileType", {
             group = vim.api.nvim_create_augroup("treesitter_init", { clear = true }),
-            callback = function()
-                local ft = vim.bo.filetype
-                if not available_fts[ft] then
+            callback = function(event)
+                local lang = vim.treesitter.language.get_lang(event.match) or event.match
+                if not available_langs[lang] then
                     return
                 end
 
-                treesitter.install({ ft }):wait(300000)
+                treesitter.install({ lang }):wait(300000)
 
                 -- Syntax highlighting.
                 vim.treesitter.start()
