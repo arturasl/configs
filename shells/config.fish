@@ -125,9 +125,12 @@ abbr --add rm -- rm -v
 function jj --wraps jj
     command jj $argv
     set --local s $status
+    if test "$s" -ne 0
+        return
+    end
 
     set -l no_log_after '' 'log' 'submit'
-    if test "$s" -eq 0; and not contains -- "$argv[1]" $no_log_after
+    if not contains -- "$argv[1]" $no_log_after
         command jj
     end
 
