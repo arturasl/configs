@@ -14,6 +14,7 @@ return {
         end
 
         vim.api.nvim_create_autocmd("FileType", {
+            group = vim.api.nvim_create_augroup("treesitter_init", { clear = true }),
             callback = function()
                 local ft = vim.bo.filetype
                 if not available_fts[ft] then
