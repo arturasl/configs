@@ -5,3 +5,13 @@ rules:
     message: "Prefer `vim.opt` over `vim.o`."
     languages: [lua]
     severity: WARNING
+
+  - id: always-include-auto-group-name
+    patterns:
+      - pattern-regex: vim.api.nvim_create_autocmd
+      - pattern-not-regex: vim.api.nvim_create_autocmd.*\n.*group.*nvim_create_augroup.*clear.*true
+    message: >
+      Always include `group = vim.api.nvim_create_augroup("name", { clear = true })`
+      as part of `vim.api.nvim_create_autocmd.`
+    languages: [lua]
+    severity: WARNING
