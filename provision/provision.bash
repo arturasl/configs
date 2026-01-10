@@ -79,6 +79,7 @@ sudo pacman -S time # /usr/bin/time
 sudo pacman -S hyperfine # Benchmarking utility.
 sudo pacman -S fzf # Fuzzy autocomplete window
 sudo pacman -S ncdu # Show file size statistics.
+pipx install semgrep # Search via abstract syntax tree.
 ## }}
 ## General programs {{
 sudo pacman -S ghostty
