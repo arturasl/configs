@@ -1,3 +1,49 @@
+local semgrep_config_fn = function()
+    local confs = vim.fs.find("semgrep.yaml", {
+        upward = true,
+        limit = 1,
+    })
+    local cmd = "semgrep"
+
+    return {
+        name = cmd,
+        cmd = confs[1] and cmd or "true",
+        stdin = false,
+        stream = "stdout",
+        args = {
+            "scan",
+            "--quiet",
+            "--json",
+            "--config",
+            confs[1],
+        },
+        ignore_exitcode = true,
+        parser = function(output)
+            local errors = {}
+            if output == "" then
+                return errors
+            end
+            local json = vim.json.decode(output)
+
+            for _, item in ipairs(json.results or {}) do
+                local estart = item["start"]
+                local eend = item["end"] -- Note: `end` is a special keyword.
+                table.insert(errors, {
+                    source = cmd,
+                    lnum = estart.line - 1,
+                    col = estart.col - 1,
+                    end_lnum = eend.line - 1,
+                    end_col = eend.col - 1,
+                    severity = vim.diagnostic.severity.WARN,
+                    message = item.extra.message,
+                })
+            end
+
+            return errors
+        end,
+    }
+end
+
 return {
     "mfussenegger/nvim-lint",
     event = { "BufReadPre", "BufNewFile" },
@@ -11,8 +57,10 @@ return {
     config = function()
         local lint = require("lint")
 
+        lint.linters.semgrep = semgrep_config_fn
+
         lint.linters_by_ft = {
-            lua = { "luacheck" },
+            lua = { "luacheck", "semgrep" },
             cpp = { "cpplint" },
             sh = { "shellcheck" },
             python = { "pylint" },

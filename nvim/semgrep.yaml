@@ -1,0 +1,7 @@
+rules:
+  - id: avoid-vim-o
+    patterns:
+      - pattern-regex: vim\.o\.
+    message: "Prefer `vim.opt` over `vim.o`."
+    languages: [lua]
+    severity: WARNING
