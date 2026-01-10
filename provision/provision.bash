@@ -29,7 +29,7 @@ symlink configs/jj.toml .config/jj/config.toml
 sudo pacman -S zeal # Offline help docs.
 
 ## Language specific {{
-sudo pacman -S python python-pip python-setuptools uv # Python
+sudo pacman -S python python-pip python-pipx python-setuptools uv # Python
 sudo pacman -S fpc # Pascal
 sudo pacman -S nodejs npm # JavaScript
 sudo pacman -S lua lua51 luarocks # Lua

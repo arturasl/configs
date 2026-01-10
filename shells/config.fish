@@ -17,6 +17,7 @@ set --export --global EDITOR nvim
 set --export --global LC_ALL en_US.UTF-8
 set --export --global LANG en_US.UTF-8
 fish_add_path --path --append "$HOME/configs/scripts/global/"
+fish_add_path --path --append "$HOME/.local/bin/" # pipx
 
 ###### Prompt.
 
