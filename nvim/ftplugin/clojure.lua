@@ -17,6 +17,15 @@ if vim.fn.findfile("project.clj", ".;") ~= "" then
         desc = "[T]est Leiningen",
         keys = "<space>bt",
     })
+else
+    run_cmd_on_key({
+        fn_cmd = function()
+            return { "time", "clojure", "-M", vim.fn.expand("%") }
+        end,
+        pipe_first_known_file = { "./in", "./small.in", "./large.in" },
+        desc = "[R]un Clojure",
+        keys = "<space>br",
+    })
 end
 
 local lein_repl_jobid = nil
