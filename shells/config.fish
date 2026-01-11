@@ -135,7 +135,7 @@ function jj --wraps jj
         command jj
     end
 
-    if test (count "$argv") -eq 1; and test "$argv[1]" = 'submit'
+    if test (count "$argv") -ge 1; and test "$argv[1]" = 'submit'
         sleep 5
         jj up
     end
