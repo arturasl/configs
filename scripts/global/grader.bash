@@ -279,9 +279,11 @@ for testFp in "${argTestsDirectory}/"$argTestsToRun'.in'; do
     fi
     totalTests=$((totalTests +1))
 
-    # get time and memory usage
+    # Get time and memory usage.
     runningTime=$(tail -n 1 "$outputTimeFp" | cut -d' ' -f1)
+    [[ -z "$runningTime" ]] && runningTime="$TLEWithEpsilon"
     runningMemory=$(tail -n 1 "$outputTimeFp" | cut -d' ' -f2)
+    [[ -z "$runningMemory" ]] && runningMemory="0"
 
     [[ "$(echo "${runningTime} > ${argTLE}" | bc -l)" -eq 1 ]] && echo -n "$COLOR_TEXT_RED"
     echo -n " ${runningTime}s${COLOR_TEXT_RESET}"
