@@ -141,6 +141,7 @@ function jj --wraps jj
         'new' \
         'rebase'\
         'resolve' \
+        'up' \
         'squash'
     if contains -- "$first_arg" $show_log_after
         command jj
