@@ -130,12 +130,23 @@ function jj --wraps jj
         return
     end
 
-    set -l no_log_after '' 'log' 'submit'
-    if not contains -- "$argv[1]" $no_log_after
+    set --local first_arg ''
+    if test (count "$argv") -ge 1
+        set first_arg "$argv[1]"
+    end
+
+    set --local show_log_after \
+        'describe' \
+        'edit' \
+        'new' \
+        'rebase'\
+        'resolve' \
+        'squash'
+    if contains -- "$first_arg" $show_log_after
         command jj
     end
 
-    if test (count "$argv") -ge 1; and test "$argv[1]" = 'submit'
+    if test "$first_arg" = 'submit'
         sleep 5
         jj up
     end
