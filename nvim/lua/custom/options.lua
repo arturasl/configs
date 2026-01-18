@@ -164,6 +164,15 @@ end, { desc = "Toogle [C]omment on selected lines" })
 vim.g.clipboard = "osc52"
 vim.keymap.set("n", "<space>p", "<cmd>set invpaste<cr>", { desc = "Invert [P]aste mode (no formatting)" })
 
+-------- Custom extension to filetype mappings.
+vim.filetype.add({
+    extension = {
+        ["in"] = "text",
+        ["sol"] = "text",
+        ["out"] = "text",
+    },
+})
+
 -------- Buffers.
 vim.keymap.set("n", "<tab>", "<cmd>bn<cr>", { desc = "Buffer [N]ext" })
 vim.keymap.set("n", "<s-tab>", "<cmd>bp<cr>", { desc = "Buffer [P]revious" })
