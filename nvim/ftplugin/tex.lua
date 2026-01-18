@@ -18,6 +18,6 @@ run_cmd_on_key({
         -- Open pdf in the default viewer.
         vim.cmd("silent !~/configs/scripts/showme.bash --silent-detached '%:p:r.pdf' &>/dev/null &")
     end,
-    desc = "[B]uild LaTeX",
-    keys = "<space>bb",
+    desc = "[R]run LaTeX",
+    keys = "<space>br",
 })
