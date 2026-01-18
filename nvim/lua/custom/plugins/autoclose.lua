@@ -23,7 +23,6 @@ return {
     -- Finishes "blocks" like patterns, e.g. for `function() <cr>` will
     -- automatically insert `end`.
     {
-        "tpope/vim-endwise",
-        event = { "InsertEnter" },
+        "RRethy/nvim-treesitter-endwise",
     },
 }
