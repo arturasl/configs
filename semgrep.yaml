@@ -15,3 +15,14 @@ rules:
       as part of `vim.api.nvim_create_autocmd.`
     languages: [lua]
     severity: WARNING
+
+  - id: use-dot-for-modules
+    patterns:
+      - pattern-regex: require\([^)]*/
+    message: >
+      Prefer to use dot `.` instead of slash `/` in require calls. Whiles `/`
+      works for `lua` module it does not work for `c` ones, e.g. `require('a.b')`
+      will search for `a.so` and `a.b.so`, while `require('a/b')` will on search
+      for `a.b.so`.
+    languages: [lua]
+    severity: WARNING
