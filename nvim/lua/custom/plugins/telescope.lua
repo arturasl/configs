@@ -76,11 +76,11 @@ return {
         vim.keymap.set("n", "<space>a", alternative_file_picker, { desc = "[A]lternative file" })
 
         vim.keymap.set("n", "<space>ss", function()
-            builtin.find_files({ cwd = require("custom/functions").find_root() })
+            builtin.find_files({ cwd = require("custom.functions").find_root() })
         end, { desc = "Find files" })
 
         vim.keymap.set("n", "<space>sg", function()
-            builtin.live_grep({ cwd = require("custom/functions").find_root() })
+            builtin.live_grep({ cwd = require("custom.functions").find_root() })
         end, { desc = "Live [G]rep" })
 
         vim.keymap.set("n", "<space>sh", builtin.oldfiles, { desc = "[H]istoric files" })

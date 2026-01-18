@@ -1,7 +1,7 @@
-local functions = require("custom/functions")
+local functions = require("custom.functions")
 
 local get_paste_mode_str = function()
-    if vim.o.paste then
+    if vim.opt.paste:get() then
         return "PASTE"
     end
     return ""

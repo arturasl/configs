@@ -2,7 +2,7 @@ vim.opt.shiftwidth = 2 -- Numbers of spaces to <> commands.
 vim.opt.softtabstop = 2 -- If someone uses spaces delete them with backspace.
 vim.opt.tabstop = 2 -- Numbers of spaces of tab character.
 
-local run_cmd_on_key = require("custom/functions").run_cmd_on_key
+local run_cmd_on_key = require("custom.functions").run_cmd_on_key
 
 run_cmd_on_key({
     fn_cmd = function()

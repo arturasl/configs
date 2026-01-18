@@ -124,8 +124,8 @@ vim.keymap.set({ "n", "x" }, "j", "gj", { desc = "Move one screen line down" })
 vim.keymap.set({ "n", "x" }, "k", "gk", { desc = "Move one screen line up " })
 -- Disable wrapping in the quickfix window.
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "qf" },
     group = vim.api.nvim_create_augroup("ft_qf_wrap", { clear = true }),
+    pattern = { "qf" },
     callback = function()
         vim.opt_local.wrap = false
     end,
@@ -148,16 +148,16 @@ vim.keymap.set("n", "<c-w><s-l>", "<cmd>vertical resize +2<cr>", { desc = "Incre
 
 -------- Building & Quickfix.
 vim.keymap.set("n", "<space>br", ":make run<cr>", { desc = "[R]un" })
-vim.keymap.set("n", "<space>be", require("custom/functions").toogle_quick_fix, { desc = "Toogle [E]rrors (Quickfix)" })
+vim.keymap.set("n", "<space>be", require("custom.functions").toogle_quick_fix, { desc = "Toogle [E]rrors (Quickfix)" })
 vim.keymap.set("n", "<space>bn", "<cmd>cnext<cr>", { desc = "Quickfix [N]ext" })
 vim.keymap.set("n", "<space>bp", "<cmd>cprev<cr>", { desc = "Quickfix [P]revious" })
 
 -------- Commenting.
 vim.keymap.set("n", "<space>c", function()
-    require("custom/functions").preserve_cursor("gcc")
+    require("custom.functions").preserve_cursor("gcc")
 end, { desc = "Toogle [C]omment on current line" })
 vim.keymap.set("x", "<space>c", function()
-    require("custom/functions").preserve_cursor("gc")
+    require("custom.functions").preserve_cursor("gc")
 end, { desc = "Toogle [C]omment on selected lines" })
 
 -------- Copy/Pasting.
@@ -169,8 +169,8 @@ vim.keymap.set("n", "<tab>", "<cmd>bn<cr>", { desc = "Buffer [N]ext" })
 vim.keymap.set("n", "<s-tab>", "<cmd>bp<cr>", { desc = "Buffer [P]revious" })
 
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "qf" },
     group = vim.api.nvim_create_augroup("ft_qf", { clear = true }),
+    pattern = { "qf" },
     callback = function()
         vim.opt_local.buflisted = false -- Ignore as part of :bn/:bp.
         -- Ignore buffer movement key maps.

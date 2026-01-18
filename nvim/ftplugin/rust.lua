@@ -1,4 +1,4 @@
-local run_cmd_on_key = require("custom/functions").run_cmd_on_key
+local run_cmd_on_key = require("custom.functions").run_cmd_on_key
 
 if vim.fn.findfile("Cargo.toml", ".;") ~= "" then
     run_cmd_on_key({

@@ -1,4 +1,4 @@
-local run_cmd_on_key = require("custom/functions").run_cmd_on_key
+local run_cmd_on_key = require("custom.functions").run_cmd_on_key
 
 run_cmd_on_key({
     fn_cmd = function()

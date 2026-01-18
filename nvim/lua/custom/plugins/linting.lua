@@ -85,6 +85,7 @@ return {
 
         -- Call linter after saving the buffer (file has to be written).
         vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+            group = vim.api.nvim_create_augroup("plug_linting_run", { clear = true }),
             callback = function()
                 lint.try_lint()
             end,
