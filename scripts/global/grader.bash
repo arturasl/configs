@@ -195,10 +195,9 @@ argExecutable="${argCWD}/${argExecutable}"
 [[ -n "$argCopyOutput" ]] && argCopyOutput="${argCWD}/${argCopyOutput}"
 if [[ -n "$argExternalGrader" ]]; then
     argExternalGrader="${argCWD}/${argExternalGrader}"
-    if [[ ! -x "$argExternalGrader" ]]; then
-        echo "'${argExternalGrader}' either does not exist or is not an executable." >&2
-        exit 1
-    fi
+    [[ ! -x "$argExternalGrader" ]] \
+      && echo "'${argExternalGrader}' ${COLOR_TEXT_RED}either does not exist or is not an executable.${COLOR_TEXT_RESET}" 1>&2 \
+      && exit 1
 else
     argExternalGrader="diffGrader"
 fi
