@@ -6,7 +6,6 @@ source "$SCRIPT_DIR/constants.bash"
 initialPlaylist="${HOME}/Music/playlist"
 shuffle=true
 commandFile="$(mktemp "${TMPDIR:-/tmp}/$(basename "$0").XXXX")"
-IFS=$'\n' # evil
 
 #### Cleanup
 

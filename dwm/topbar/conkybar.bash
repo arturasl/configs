@@ -82,7 +82,7 @@ while read -r conky_line; do
 	fi
 
 	# parse conky values to array
-	OLDIFS="$IFS"; IFS='|'; conky_arr=($conky_line); IFS="$OLDIFS"
+    readarray -d '|' -t conky_arr < <(printf "%s" "$conky_line")
 
 	# battery icon
 	bat_icon='bat_full_02'

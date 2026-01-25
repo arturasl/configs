@@ -210,10 +210,9 @@ utilDebugPrint "Will check against mime type: ${argFileMime}"
 utilDebugPrint "Capabilities:\n${capabilities}\n"
 
 # fill up applicable array (with entries of form "priority\texecutable")
-OLDIFS="$IFS"
-IFS=$'\n'
 applicable=''
-for capability in $capabilities; do
+readarray -d $'\n' -t arr_capabilities < <(printf "%s" "$capabilities")
+for capability in "${arr_capabilities[@]}"; do
 	patternForName=$(echo "$capability" | cut -f "$FIELD_NAME_PATTERN")
 	patternForMime=$(echo "$capability" | cut -f "$FIELD_MIME_PATTERN")
 
@@ -239,7 +238,6 @@ for capability in $capabilities; do
 		fi
 	fi
 done
-IFS="$OLDIFS"
 
 # take executable with highest priority and put to `execute`
 applicable=$(echo "${applicable}" | sort --numeric-sort --reverse)
