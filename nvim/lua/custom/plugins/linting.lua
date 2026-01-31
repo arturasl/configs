@@ -61,7 +61,7 @@ return {
 
         lint.linters_by_ft = {
             lua = { "luacheck", "semgrep" },
-            cpp = { "cpplint" },
+            cpp = { "cpplint", "clangtidy" },
             sh = { "shellcheck" },
             python = { "pylint" },
             javascript = { "eslint_d" },
