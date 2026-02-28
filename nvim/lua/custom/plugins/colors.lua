@@ -112,10 +112,14 @@ M[#M + 1] = {
     event = { "BufReadPre", "BufNewFile" },
     config = function()
         require("colorizer").setup({
-            user_default_options = {
-                css = true,
-                mode = "virtualtext",
-                names = false, -- Disable showing colors for names like "black".
+            options = {
+                parsers = {
+                    css = true,
+                    names = { enable = false },
+                },
+                display = {
+                    mode = "virtualtext",
+                },
             },
         })
     end,
