@@ -83,6 +83,7 @@ pipx install semgrep # Search via abstract syntax tree.
 ## }}
 ## General programs {{
 sudo pacman -S ghostty
+git clone https://github.com/sahaj-b/ghostty-cursor-shaders ~/.config/ghostty/shaders
 ln -s  ~/configs/ghostty.config ~/.config/ghostty/config
 ## Tmux {{
 sudo pacman -S tmux # Multiplexer.
