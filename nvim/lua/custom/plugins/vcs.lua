@@ -7,6 +7,10 @@ return {
             vim.g.signify_sign_delete = "▎"
             vim.g.signify_sign_delete_first_line = "▎"
             vim.g.signify_sign_change = "▎"
+
+            vim.g.signify_vcs_cmds = {
+                jj = "jj diff --color=never --context=0 -r @ -- %f",
+            }
         end,
     },
 
