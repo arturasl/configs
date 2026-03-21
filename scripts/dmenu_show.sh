@@ -7,4 +7,5 @@ rofi -modes drun -show drun \
     -no-disable-history \
     -theme purple \
     -kb-mode-next 'Tab' \
-    -kb-element-next ''
+    -kb-element-next '' \
+    -x11
