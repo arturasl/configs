@@ -153,3 +153,19 @@ sudo pacman -S nerd-fonts
 ./build/external_fonts.bash
 ## }}
 #  }}
+
+# Gnome {{{
+sudo pacman -S gnome-browser-connector
+
+# https://extensions.gnome.org/extension/517/caffeine/
+# https://extensions.gnome.org/extension/6807/system-monitor/
+# https://extensions.gnome.org/extension/615/appindicator-support/
+# https://extensions.gnome.org/extension/5660/weather-or-not/
+# }}}
+
+# Chrome {{{
+# https://chromewebstore.google.com/detail/gnome-shell-integration/gphhapmejobijbbhgpjhcjognlahblep
+# https://chromewebstore.google.com/detail/read-on-remarkable/bfhkfdnddlhfippjbflipboognpdpoeh
+# https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh
+# https://chromewebstore.google.com/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb
+# }}}

@@ -7,8 +7,8 @@ map <c-f> scrollPageDown
 map <c-b> scrollPageUp
 
 # Tabs
-map ,b Vomnibar.activateTabSelection
-map d removeTab
+map <space>b Vomnibar.activateTabSelection
+map <space>q removeTab
 map u restoreTab
 
 # Other
