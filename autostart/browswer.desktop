@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Exec=/usr/bin/chromium %U --disable-session-crashed-bubble --disable-infobars
+Comment=Access the Internet

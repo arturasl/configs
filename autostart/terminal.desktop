@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Exec=/usr/bin/ghostty --gtk-single-instance=true -e tmux -2
+Comment=Terminal Application

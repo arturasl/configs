@@ -154,6 +154,10 @@ sudo pacman -S nerd-fonts
 ## }}
 #  }}
 
+# Desktop Environment {{{
+
+symlink configs/autostart .config/
+
 # Gnome {{{
 sudo pacman -S gnome-browser-connector
 
@@ -162,6 +166,8 @@ sudo pacman -S gnome-browser-connector
 # https://extensions.gnome.org/extension/615/appindicator-support/
 # https://extensions.gnome.org/extension/5660/weather-or-not/
 # }}}
+
+#}}}
 
 # Chrome {{{
 # https://chromewebstore.google.com/detail/gnome-shell-integration/gphhapmejobijbbhgpjhcjognlahblep
