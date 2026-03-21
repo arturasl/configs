@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
-Exec=/usr/bin/chromium %U --disable-session-crashed-bubble --disable-infobars
+Exec=/usr/bin/chromium %U --disable-session-crashed-bubble --disable-infobars --start-maximized
 Comment=Access the Internet
