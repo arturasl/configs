@@ -139,6 +139,7 @@ sudo pacman -S audacity # Audio recording/editing.
 ## }}
 ## document viewers {{
 sudo pacman -S zathura{,-djvu,-ps,-pdf-mupdf} # Document preview (pdf, djvu, ps).
+symlink configs/zathurarc .config/zathura/zathurarc
 sudo pacman -S calibre # Epub reader/converter.
 sudo pacman -S feh # Image previewing.
 ## }}

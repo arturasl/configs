@@ -1,0 +1,6 @@
+set selection-clipboard clipboard
+set incremental-search true
+# Large values will be capped to screen dimensions -- essentially maximizes
+# the window by default.
+set window-height 3000
+set window-width 3000
