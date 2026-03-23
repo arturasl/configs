@@ -165,10 +165,11 @@ sudo pacman -S gnome-browser-connector
 # https://extensions.gnome.org/extension/517/caffeine/
 # https://extensions.gnome.org/extension/6807/system-monitor/
 # https://extensions.gnome.org/extension/615/appindicator-support/
-# https://extensions.gnome.org/extension/5660/weather-or-not/
+# https://extensions.gnome.org/extension/5470/weather-oclock/
 # https://extensions.gnome.org/extension/9346/maximize-to-workspace-with-history/
 # https://extensions.gnome.org/extension/7855/dash-in-panel/
 # https://extensions.gnome.org/extension/3193/blur-my-shell/
+# https://extensions.gnome.org/extension/3088/extension-list/
 # }}}
 
 #}}}
