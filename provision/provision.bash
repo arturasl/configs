@@ -12,53 +12,57 @@ symlink() {
     ln -s "$from" "$to"
 }
 
+install() {
+    sudo pacman -S --noconfirm "$@"
+}
+
 # directory structure {{
 mkdir -p ~/Builds/ ~/Tmp
 mkdir -p ~/Projects/{Professional,Personal,Tmp}
 # }}
 
-sudo pacman -Syu
+install -yu # Full system update.
 
 # Development {{
-sudo pacman -S base-devel make cmake clang gcc # Build essentials.
-sudo pacman -S openssh subversion mercurial # Version control
-sudo pacman -S git
+install base-devel make cmake clang gcc # Build essentials.
+install openssh subversion mercurial # Version control
+install git
 git config --global init.defaultBranch main
-sudo pacman -S jujutsu
+install jujutsu
 symlink configs/jj.toml .config/jj/config.toml
-sudo pacman -S zeal # Offline help docs.
+install zeal # Offline help docs.
 
 ## Language specific {{
-sudo pacman -S python python-pip python-pipx python-setuptools uv # Python
-sudo pacman -S fpc # Pascal
-sudo pacman -S nodejs npm # JavaScript
-sudo pacman -S lua lua51 luarocks # Lua
-sudo pacman -S go # Go
-sudo pacman -S texlive-{meta,langeuropean} # LaTeX
-sudo pacman -S php composer # Php
-sudo pacman -S perl cpanminus # Perl
-sudo pacman -S ruby
-sudo pacman -S julia
-sudo pacman -S jdk-openjdk openjdk-doc openjdk-src # Java
-sudo pacman -S clojure leiningen # Clojure
-sudo pacman -S graphviz # Graph drawing utility/language.
+install python python-pip python-pipx python-setuptools uv # Python
+install fpc # Pascal
+install nodejs npm # JavaScript
+install lua lua51 luarocks # Lua
+install go # Go
+install texlive-{meta,langeuropean} # LaTeX
+install php composer # Php
+install perl cpanminus # Perl
+install ruby
+install julia
+install jdk-openjdk openjdk-doc openjdk-src # Java
+install clojure leiningen # Clojure
+install graphviz # Graph drawing utility/language.
 # Rust {{
-sudo pacman -S rustup
+install rustup
 rustup install nightly stable
 rustup default stable
 # }}
 ## }}
 
 ## Virtual machines {{
-sudo pacman -S virtualbox-host-modules-arch virtualbox
-sudo pacman -S virtualbox-guest-{iso,utils}
+install virtualbox-host-modules-arch virtualbox
+install virtualbox-guest-{iso,utils}
 # Restart.
 ## }}
 
 ## Debugging {{
-sudo pacman -S wireshark-qt # Network traffic analyzer.
-sudo pacman -S afl++ afl-utils # Fuzzier.
-sudo pacman -S valgrind # Memory debugger.
+install wireshark-qt # Network traffic analyzer.
+install afl++ afl-utils # Fuzzier.
+install valgrind # Memory debugger.
 ## }}
 
 ./build/nvim.bash
@@ -66,46 +70,46 @@ sudo pacman -S valgrind # Memory debugger.
 
 # Terminal tools {{
 ## Utilities {{
-sudo pacman -S curl
-sudo pacman -S zip
-sudo pacman -S xsel xclip # Clipboard manipulation.
-yay -S xkb-switch # Query/change current keyboard layout.
-sudo pacman -S arandr # Managing monitor positions.
-sudo pacman -S imagemagick # Converts between various image formats (screen capture, filters, etc.)
-sudo pacman -S pandoc # Converts between various document formats (mkd, latex, rst, etc.)
-sudo pacman -S sshfs curlftpfs fuse-zip # Fuse.
-sudo pacman -S moreutils # Various small utils like sponge
-sudo pacman -S time # /usr/bin/time
-sudo pacman -S hyperfine # Benchmarking utility.
-sudo pacman -S fzf # Fuzzy autocomplete window
-sudo pacman -S ncdu # Show file size statistics.
+install curl
+install zip
+install xsel xclip # Clipboard manipulation.
+yay -S --noconfirm xkb-switch # Query/change current keyboard layout.
+install arandr # Managing monitor positions.
+install imagemagick # Converts between various image formats (screen capture, filters, etc.)
+install pandoc # Converts between various document formats (mkd, latex, rst, etc.)
+install sshfs curlftpfs fuse-zip # Fuse.
+install moreutils # Various small utils like sponge
+install time # /usr/bin/time
+install hyperfine # Benchmarking utility.
+install fzf # Fuzzy autocomplete window
+install ncdu # Show file size statistics.
 pipx install semgrep # Search via abstract syntax tree.
 ## }}
 ## General programs {{
-sudo pacman -S ghostty
+install ghostty
 git clone https://github.com/sahaj-b/ghostty-cursor-shaders ~/.config/ghostty/shaders
 symlink configs/ghostty.config .config/ghostty/config
 ## Tmux {{
-sudo pacman -S tmux # Multiplexer.
+install tmux # Multiplexer.
 symlink configs/tmux.conf .tmux.conf
 # }}
 ## Fish {{
-sudo pacman -S fish
+install fish
 fish -c 'exit 0' # Start finish to pre-initialize it.
 bash -c '( test -d ~/.config/fish/ && ln -s ~/configs/shells/config.fish ~/.config/fish/config.fish ) || echo "could not find fish"'
 fish -c fish_update_completions
 # }}
 ./build/vifm.bash  # File manager.
-sudo pacman -S mosh         # Somewhat more persistent ssh.
+install mosh         # Somewhat more persistent ssh.
 
-sudo pacman -S btop         # Process monitor.
+install btop         # Process monitor.
 btop --version >/dev/null
 cat ~/configs/btop.conf >> ~/.config/btop/btop.conf
 
-sudo pacman -S git-delta # Generates nicer diffs, used by neovim tiny-code-action plugin.
+install git-delta # Generates nicer diffs, used by neovim tiny-code-action plugin.
 
 ## Bluetooth {{
-sudo pacman -S bluez bluez-utils
+install bluez bluez-utils
 sudo systemctl enable bluetooth.service
 sudo systemctl start bluetooth.service
 # }}
@@ -114,43 +118,43 @@ sudo systemctl start bluetooth.service
 # }}
 
 # Security {{
-sudo pacman -S keepassxc # Password manager.
+install keepassxc # Password manager.
 # }}
 
 # User level programs {{
 ## General {{
 ## Dropbox {{
-yay -S dropbox # Simple file syncing.
+yay -S --noconfirm dropbox # Simple file syncing.
 dropbox # To login.
 dropbox # To connect with current machine.
 # }}
 
-sudo pacman -S chromium firefox # Internet browser.
-sudo pacman -S libreoffice
-sudo pacman -S gparted
-sudo pacman -S bc qalculate-qt # Calculator.
+install chromium firefox # Internet browser.
+install libreoffice
+install gparted
+install bc qalculate-qt # Calculator.
 ## }}
 ## multimedia  {{
-sudo pacman -S gimp # Image editor.
-sudo pacman -S inkscape # Vector graphics editor.
-sudo pacman -S mplayer # Audio/video player.
-sudo pacman -S vlc vlc-plugins-all # Audio/video player.
-sudo pacman -S audacity # Audio recording/editing.
+install gimp # Image editor.
+install inkscape # Vector graphics editor.
+install mplayer # Audio/video player.
+install vlc vlc-plugins-all # Audio/video player.
+install audacity # Audio recording/editing.
 ## }}
 ## document viewers {{
-sudo pacman -S zathura{,-djvu,-ps,-pdf-mupdf} # Document preview (pdf, djvu, ps).
+install zathura{,-djvu,-ps,-pdf-mupdf} # Document preview (pdf, djvu, ps).
 symlink configs/zathurarc .config/zathura/zathurarc
-sudo pacman -S calibre # Epub reader/converter.
-sudo pacman -S feh # Image previewing.
+install calibre # Epub reader/converter.
+install feh # Image previewing.
 ## }}
 ## window manager{{
-sudo pacman -S rofi # Generic Launcher.
+install rofi # Generic Launcher.
 ## }}
 ## fonts {{
-yay -S ttf-ms-win10-auto
-sudo pacman -S terminus-font
-sudo pacman -S ttf-dejavu ttf-droid
-sudo pacman -S nerd-fonts
+yay -S --noconfirm ttf-ms-win10-auto
+install terminus-font
+install ttf-dejavu ttf-droid
+install nerd-fonts
 ./build/external_fonts.bash
 ## }}
 #  }}
@@ -160,7 +164,7 @@ sudo pacman -S nerd-fonts
 symlink configs/autostart .config/autostart
 
 # Gnome {{{
-sudo pacman -S gnome-browser-connector
+install gnome-browser-connector
 
 install-gnome-extension() {
     local extension="$1/@"

@@ -14,7 +14,7 @@ sudo pacman --noconfirm -S neovim
 # Additional dependencies requested by :checkhealth
 sudo /usr/bin/vendor_perl/cpanm -n Neovim::Ext
 sudo npm install -g neovim
-yay -S ruby-neovim
+yay -S --noconfirm ruby-neovim
 sudo pacman --noconfirm -S python-pynvim
 sudo pacman --noconfirm -S ripgrep fd   # Faster grep & find.
 sudo pacman --noconfirm -S tree-sitter-cli
