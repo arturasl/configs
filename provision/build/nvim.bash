@@ -1,4 +1,9 @@
-#!/bin/bash -xe
+#!/usr/bin/env bash
+
+set -o nounset
+set -o errexit
+set -o pipefail
+shopt -s failglob
 
 symlink() {
     from="${HOME}/$1"
@@ -9,24 +14,28 @@ symlink() {
     ln -s "$from" "$to"
 }
 
-sudo pacman --noconfirm -S neovim
+main() {
+    sudo pacman --noconfirm -S neovim
 
-# Additional dependencies requested by :checkhealth
-sudo /usr/bin/vendor_perl/cpanm -n Neovim::Ext
-sudo npm install -g neovim
-yay -S --noconfirm ruby-neovim
-sudo pacman --noconfirm -S python-pynvim
-sudo pacman --noconfirm -S ripgrep fd   # Faster grep & find.
-sudo pacman --noconfirm -S tree-sitter-cli
+    # Additional dependencies requested by :checkhealth
+    sudo /usr/bin/vendor_perl/cpanm -n Neovim::Ext
+    sudo npm install -g neovim
+    yay -S --noconfirm ruby-neovim
+    sudo pacman --noconfirm -S python-pynvim
+    sudo pacman --noconfirm -S ripgrep fd   # Faster grep & find.
+    sudo pacman --noconfirm -S tree-sitter-cli
 
-# File structure.
-mkdir -p ~/.config/nvim
-symlink configs/nvim/init.lua .config/nvim/init.lua
-symlink configs/nvim/lua .config/nvim/lua
-symlink configs/nvim/localvimrc.lua .config/nvim/localvimrc.lua
-symlink configs/nvim/.stylua.toml .config/nvim/.stylua.toml
-symlink configs/nvim/snippets .config/nvim/snippets
-symlink configs/nvim/queries .config/nvim/queries
-symlink configs/nvim/ftplugin .config/nvim/ftplugin
-symlink configs/vimrc .vimrc
-symlink configs/vim .vim
+    # File structure.
+    mkdir -p ~/.config/nvim
+    symlink configs/nvim/init.lua .config/nvim/init.lua
+    symlink configs/nvim/lua .config/nvim/lua
+    symlink configs/nvim/localvimrc.lua .config/nvim/localvimrc.lua
+    symlink configs/nvim/.stylua.toml .config/nvim/.stylua.toml
+    symlink configs/nvim/snippets .config/nvim/snippets
+    symlink configs/nvim/queries .config/nvim/queries
+    symlink configs/nvim/ftplugin .config/nvim/ftplugin
+    symlink configs/vimrc .vimrc
+    symlink configs/vim .vim
+}
+
+main "$@"

@@ -2,9 +2,14 @@
 # vim: foldmethod=marker
 # vim: foldmarker={{,}}
 
+set -o nounset
+set -o errexit
+set -o pipefail
+shopt -s failglob
+
 symlink() {
-    from="${HOME}/$1"
-    to="${HOME}/$2"
+    local from="${HOME}/$1"
+    local to="${HOME}/$2"
     mkdir -p "$(dirname "$to")"
     if [ -L "$to" ]; then
         return
@@ -14,6 +19,26 @@ symlink() {
 
 install() {
     sudo pacman -S --noconfirm "$@"
+}
+
+git-get() {
+    local from="$1"
+    local to="${HOME}/$2"
+
+    mkdir -p "$to"
+
+    if [[ -n "$(ls "$to")" ]]; then
+        (cd "$to" && git pull)
+        return
+    fi
+
+    git clone "$from" "$to"
+}
+
+install-gnome-extension() {
+    local extension="$1/@"
+    extension="${extension/@/%40}"
+    gnome-browser-connector "gnome-extensions://${extension}/?action=install"
 }
 
 # directory structure {{
@@ -87,7 +112,7 @@ pipx install semgrep # Search via abstract syntax tree.
 ## }}
 ## General programs {{
 install ghostty
-git clone https://github.com/sahaj-b/ghostty-cursor-shaders ~/.config/ghostty/shaders
+git-get https://github.com/sahaj-b/ghostty-cursor-shaders ~/.config/ghostty/shaders
 symlink configs/ghostty.config .config/ghostty/config
 ## Tmux {{
 install tmux # Multiplexer.
@@ -166,11 +191,6 @@ symlink configs/autostart .config/autostart
 # Gnome {{{
 install gnome-browser-connector
 
-install-gnome-extension() {
-    local extension="$1/@"
-    extension="${extension/@/%40}"
-    gnome-browser-connector "gnome-extensions://${extension}/?action=install"
-}
 install-gnome-extension caffeine@patapon.info
 install-gnome-extension system-monitor@gnome-shell-extensions.gcampax.github.com
 install-gnome-extension appindicatorsupport@rgcjonas.gmail.com
