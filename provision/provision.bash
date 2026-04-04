@@ -170,6 +170,7 @@ sudo pacman -S gnome-browser-connector
 # https://extensions.gnome.org/extension/7855/dash-in-panel/
 # https://extensions.gnome.org/extension/3193/blur-my-shell/
 # https://extensions.gnome.org/extension/3088/extension-list/
+# https://extensions.gnome.org/extension/7856/mouse-tail/
 # }}}
 
 #}}}
