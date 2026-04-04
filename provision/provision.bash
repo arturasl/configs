@@ -157,20 +157,25 @@ sudo pacman -S nerd-fonts
 
 # Desktop Environment {{{
 
-symlink configs/autostart .config/
+symlink configs/autostart .config/autostart
 
 # Gnome {{{
 sudo pacman -S gnome-browser-connector
 
-# https://extensions.gnome.org/extension/517/caffeine/
-# https://extensions.gnome.org/extension/6807/system-monitor/
-# https://extensions.gnome.org/extension/615/appindicator-support/
-# https://extensions.gnome.org/extension/5470/weather-oclock/
-# https://extensions.gnome.org/extension/9346/maximize-to-workspace-with-history/
-# https://extensions.gnome.org/extension/7855/dash-in-panel/
-# https://extensions.gnome.org/extension/3193/blur-my-shell/
-# https://extensions.gnome.org/extension/3088/extension-list/
-# https://extensions.gnome.org/extension/7856/mouse-tail/
+install-gnome-extension() {
+    local extension="$1/@"
+    extension="${extension/@/%40}"
+    gnome-browser-connector "gnome-extensions://${extension}/?action=install"
+}
+install-gnome-extension caffeine@patapon.info
+install-gnome-extension system-monitor@gnome-shell-extensions.gcampax.github.com
+install-gnome-extension appindicatorsupport@rgcjonas.gmail.com
+install-gnome-extension weatheroclock@CleoMenezesJr.github.io
+install-gnome-extension maximize-workspace-history@amancode22.github.com
+install-gnome-extension dash-in-panel@fthx
+install-gnome-extension blur-my-shell@aunetx
+install-gnome-extension extension-list@tu.berry
+install-gnome-extension mouse-tail@lanesun.anlbrain.com
 # }}}
 
 #}}}
