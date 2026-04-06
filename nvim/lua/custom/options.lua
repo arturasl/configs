@@ -1,4 +1,3 @@
-vim.g.mapleader = "\\" -- Never use true leader to prevent plugins from creating interfering key maps.
 vim.opt.number = true -- Show number line.
 vim.opt.mouse = "a" -- More mouse please :)
 vim.opt.colorcolumn = "81" -- Column list to highlight (now only 80).
