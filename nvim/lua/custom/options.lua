@@ -37,6 +37,7 @@ vim.opt.background = "dark"
 -- view:
 --   Try to restore screen position before the jump happened.
 vim.opt.jumpoptions = { "view" }
+require("vim._core.ui2").enable({})
 
 -- Highlight current line in active window only.
 vim.opt.cursorline = true
