@@ -153,6 +153,23 @@ function jj --wraps jj
     end
 end
 
+function resolve
+    set -l files_to_resolve (command jj resolve --list | awk '{print $1}')
+
+    if test -z "$files_to_resolve"
+        echo "Nothing to resolve"
+        return 1
+    end
+
+    set -l picked (string join \n $files_to_resolve | fzf)
+
+    if test -z "$picked"
+        return 0
+    end
+
+    $EDITOR -c ":JJDiffConflicts" "$picked"
+end
+
 function fzf_file
     fd --type f | fzf --height=50% --layout reverse --border=bold --preview='~/configs/scripts/showme.bash --view-text-stream {}'
 end
