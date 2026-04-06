@@ -9,7 +9,9 @@ email = "589741+arturasl@users.noreply.github.com"
 default-command = ["log", "--reversed", "--no-pager", "--template", """
     separate("\n",
         separate(" ",
-            change_id.shortest(),
+            separate("/",
+              change_id.shortest(),
+              if(change_offset != 0, change_offset)),
             if(divergent, "🚧"),
             if(hidden, "👻"),
             if(conflict, "💥"),
