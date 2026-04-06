@@ -200,6 +200,7 @@ install-gnome-extension dash-in-panel@fthx
 install-gnome-extension blur-my-shell@aunetx
 install-gnome-extension extension-list@tu.berry
 install-gnome-extension mouse-tail@lanesun.anlbrain.com
+install-gnome-extension Bluetooth-Battery-Meter@maniacx.github.com
 # }}}
 
 #}}}
