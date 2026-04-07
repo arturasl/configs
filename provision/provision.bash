@@ -91,6 +91,7 @@ install valgrind # Memory debugger.
 ## }}
 
 ./build/nvim.bash
+yay -S --noconfirm rehex-git # hexadecimal editor.
 ## }}
 
 # Terminal tools {{
