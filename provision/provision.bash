@@ -44,13 +44,19 @@ init_system() { # {{{
     install -yu # Full system update.
 } # }}}
 
-development() { # {{
-    install base-devel make cmake clang gcc # Build essentials.
-    install openssh subversion mercurial # Version control
+version_control() { # {{
+    install subversion
+    install mercurial
+
     install git
     git config --global init.defaultBranch main
+
     install jujutsu
     symlink configs/jj.toml .config/jj/config.toml
+} # }}
+
+development() { # {{
+    install openssh base-devel make cmake clang gcc # Build essentials.
     install zeal # Offline help docs.
 
     # Language specific
@@ -210,6 +216,7 @@ desktop_environment() { # {{
 
 main() {
     init_system
+    version_control
     development
     terminal_tools
     editors
