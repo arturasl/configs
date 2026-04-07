@@ -25,6 +25,9 @@ main() {
     sudo pacman --noconfirm -S ripgrep fd   # Faster grep & find.
     sudo pacman --noconfirm -S tree-sitter-cli
 
+    # Generates nicer diffs, used by neovim tiny-code-action plugin.
+    sudo pacman --noconfirm -S git-delta
+
     # File structure.
     mkdir -p ~/.config/nvim
     symlink configs/nvim/init.lua .config/nvim/init.lua

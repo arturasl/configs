@@ -82,10 +82,6 @@ development() { # {{
     install wireshark-qt # Network traffic analyzer.
     install afl++ afl-utils # Fuzzier.
     install valgrind # Memory debugger.
-
-    # Editors.
-    ./build/nvim.bash
-    yay -S --noconfirm rehex-git # hexadecimal editor.
 } # }}
 
 terminal_tools(){ # {{
@@ -128,13 +124,17 @@ terminal_tools(){ # {{
     btop --version >/dev/null
     cat ~/configs/btop.conf >> ~/.config/btop/btop.conf
 
-    install git-delta # Generates nicer diffs, used by neovim tiny-code-action plugin.
-
     # Bluetooth
     install bluez bluez-utils
     sudo systemctl enable bluetooth.service
     sudo systemctl start bluetooth.service
 } # }}
+
+editors() {
+    ./build/nvim.bash
+    yay -S --noconfirm rehex-git # hexadecimal editor.
+    install geany
+}
 
 security() { # {{
     install keepassxc # Password manager.
@@ -212,6 +212,7 @@ main() {
     init_system
     development
     terminal_tools
+    editors
     security
     user_programs
     fonts
