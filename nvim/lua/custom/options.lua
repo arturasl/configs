@@ -154,11 +154,14 @@ vim.keymap.set("n", "<space>bp", "<cmd>cprev<cr>", { desc = "Quickfix [P]revious
 
 -------- Commenting.
 vim.keymap.set("n", "<space>c", function()
-    require("custom.functions").preserve_cursor("gcc")
+    require("custom.functions").preserve_cursor("Vgc")
 end, { desc = "Toogle [C]omment on current line" })
 vim.keymap.set("x", "<space>c", function()
     require("custom.functions").preserve_cursor("gc")
 end, { desc = "Toogle [C]omment on selected lines" })
+-- Remove `gcc` as it overlap with `gc` and hence produces error while running:
+--   :checkhealth which-key
+vim.keymap.del("n", "gcc")
 
 -------- Copy/Pasting.
 vim.g.clipboard = "osc52"
