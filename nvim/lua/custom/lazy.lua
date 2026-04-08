@@ -13,6 +13,9 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.runtimepath:prepend(lazypath)
 
+-- Disable support for perl based plugins.
+vim.g.loaded_perl_provider = 0
+
 require("lazy").setup({
     spec = "custom.plugins",
     install = { colorscheme = { "kanagawa", "habamax" } },
