@@ -73,7 +73,7 @@ vim.opt.diffopt = {
     "closeoff",
     -- For lines with changes, run diffing between the lines themselves char by char.
     "inline:char",
-    -- -- Align changed lines that are no more than given lines away (default: no alignment).
+    -- Align changed lines that are no more than given lines away (default: no alignment).
     "linematch:60",
     -- Disable code folding for the unchanged lines.
     "context:999999",

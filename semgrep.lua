@@ -41,3 +41,6 @@ require("a/b/c")
 --
 -- ok: use-dot-for-modules
 require("a.b.c")
+
+-- ruleid: avoid-double-comment
+-- --

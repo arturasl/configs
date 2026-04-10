@@ -35,3 +35,11 @@ rules:
       for `a.b.so`.
     languages: [lua]
     severity: WARNING
+
+  - id: avoid-double-comment
+    patterns:
+      - pattern-regex: -- --
+    message: >
+      Double commet detected.
+    languages: [lua]
+    severity: WARNING
