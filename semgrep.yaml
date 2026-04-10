@@ -43,3 +43,12 @@ rules:
       Double commet detected.
     languages: [lua]
     severity: WARNING
+
+  - id: use-lua-table-for-multi-options
+    patterns:
+      - pattern-regex: vim.opt.[a-z_]*\s=\s["'][^"']+?,
+    message: >
+      Use lua table (e.g. `vim.opt.fileformats = { "unix", "dos" }`) instead of
+      comma separated strings (e.g. vim.opt.fileformats = "unix,dos")
+    languages: [lua]
+    severity: WARNING

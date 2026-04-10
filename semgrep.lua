@@ -44,3 +44,9 @@ require("a.b.c")
 
 -- ruleid: avoid-double-comment
 -- --
+
+-- ruleid: use-lua-table-for-multi-options
+vim.opt.fileformats = "unix,dos,mac"
+
+-- ok: use-dot-for-modules
+vim.opt.fileformats = { "unix", "dos", "mac" }
