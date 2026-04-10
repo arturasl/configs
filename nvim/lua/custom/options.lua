@@ -104,6 +104,31 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
+-- SHared DAta file -- preserve some of environment information like command
+-- history, cursor position, etc.
+vim.opt.shadafile = vim.fn.stdpath("config") .. "/tmp/shada"
+vim.opt.shada = "'100" -- Save marks for last 100 files.
+vim.api.nvim_create_autocmd("BufWinEnter", {
+    group = vim.api.nvim_create_augroup("shada_restore", { clear = true }),
+    pattern = "*",
+    callback = function()
+        local mark_last_pos = '"' -- Marker for last known cursor position.
+        local prev_line = vim.fn.line("'" .. mark_last_pos)
+        -- prev_line is unset (0) or file was truncated (above current
+        -- line count)
+        if prev_line < 1 or prev_line > vim.fn.line("$") then
+            return
+        end
+
+        vim.cmd.normal("g`" .. mark_last_pos) -- Jump to mark.
+
+        -- Make sure that line we jumped to is unfolded.
+        if vim.fn.foldlevel(prev_line) > 0 then
+            vim.cmd.normal("zO")
+        end
+    end,
+})
+
 -------- Search & Replace.
 vim.opt.ignorecase = true -- Case insensitive search.
 vim.opt.smartcase = true -- Unless capitals are use.
