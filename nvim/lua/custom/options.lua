@@ -108,19 +108,34 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 -- history, cursor position, etc.
 vim.opt.shadafile = vim.fn.stdpath("config") .. "/tmp/shada"
 vim.opt.shada = "'20" -- Save marks for last 20 files.
+-- When existing file is loaded (opened) to a buffer.
 vim.api.nvim_create_autocmd("BufReadPost", {
-    group = vim.api.nvim_create_augroup("shada_restore", { clear = true }),
+    group = vim.api.nvim_create_augroup("shada_read", { clear = true }),
     pattern = "*",
-    callback = function()
-        local mark_last_pos = '"' -- Marker for last known cursor position.
-        local prev_line = vim.fn.line("'" .. mark_last_pos)
-        -- prev_line is unset (0) or file was truncated (above current
-        -- line count)
-        if prev_line < 1 or prev_line > vim.fn.line("$") then
-            return
-        end
+    callback = function(opts)
+        -- After entering fully loaded buffer (allows fold handling logic,
+        -- specified in e.g. file header via `modlines`, to finish).
+        vim.api.nvim_create_autocmd("BufWinEnter", {
+            group = vim.api.nvim_create_augroup("shada_enter", { clear = true }),
+            buffer = opts.buf,
+            once = true,
+            callback = function()
+                local mark_last_pos = '"' -- Marker for last cursor position.
+                local prev_line = vim.fn.line("'" .. mark_last_pos)
+                -- prev_line is unset (0) or file was truncated (above current
+                -- line count)
+                if prev_line < 1 or prev_line > vim.fn.line("$") then
+                    return
+                end
 
-        vim.cmd.normal("g`" .. mark_last_pos) -- Jump to mark.
+                vim.cmd.normal("g`" .. mark_last_pos) -- Jump to mark.
+
+                -- Make sure that line we jumped to is unfolded.
+                if vim.fn.foldlevel(prev_line) > 0 then
+                    vim.cmd.normal("zO")
+                end
+            end,
+        })
     end,
 })
 
