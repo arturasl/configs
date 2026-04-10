@@ -114,7 +114,7 @@ terminal_tools(){ # {{
 
     # Tmux
     install tmux # Multiplexer.
-    symlink configs/tmux.conf .tmux.conf
+    symlink configs/tmux/tmux.conf .config/tmux/tmux.conf
 
     # Fish
     install fish
