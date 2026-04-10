@@ -52,7 +52,7 @@ version_control() { # {{
     git config --global init.defaultBranch main
 
     install jujutsu
-    symlink configs/jj.toml .config/jj/config.toml
+    symlink configs/jj/config.toml .config/jj/config.toml
 } # }}
 
 development() { # {{
@@ -110,7 +110,7 @@ terminal_tools(){ # {{
     # General programs
     install ghostty
     git-get https://github.com/sahaj-b/ghostty-cursor-shaders ~/.config/ghostty/shaders
-    symlink configs/ghostty.config .config/ghostty/config
+    symlink configs/ghostty/config .config/ghostty/config
 
     # Tmux
     install tmux # Multiplexer.
@@ -128,7 +128,7 @@ terminal_tools(){ # {{
 
     install btop         # Process monitor.
     btop --version >/dev/null
-    cat ~/configs/btop.conf >> ~/.config/btop/btop.conf
+    cat ~/configs/btop/btop.conf >> ~/.config/btop/btop.conf
 
     # Bluetooth
     install bluez bluez-utils
@@ -167,7 +167,7 @@ user_programs() { # {{
 
     ## Document viewers
     install zathura{,-djvu,-ps,-pdf-mupdf} # Document preview (pdf, djvu, ps).
-    symlink configs/zathurarc .config/zathura/zathurarc
+    symlink configs/zathura/zathurarc .config/zathura/zathurarc
     install calibre # Epub reader/converter.
     install feh # Image previewing.
 
