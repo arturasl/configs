@@ -107,7 +107,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 -- SHared DAta file -- preserve some of environment information like command
 -- history, cursor position, etc.
 vim.opt.shadafile = vim.fn.stdpath("config") .. "/tmp/shada"
-vim.opt.shada = "'100" -- Save marks for last 100 files.
+vim.opt.shada = "'20" -- Save marks for last 20 files.
 vim.api.nvim_create_autocmd("BufReadPost", {
     group = vim.api.nvim_create_augroup("shada_restore", { clear = true }),
     pattern = "*",
