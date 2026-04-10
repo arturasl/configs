@@ -108,7 +108,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 -- history, cursor position, etc.
 vim.opt.shadafile = vim.fn.stdpath("config") .. "/tmp/shada"
 vim.opt.shada = "'100" -- Save marks for last 100 files.
-vim.api.nvim_create_autocmd("BufWinEnter", {
+vim.api.nvim_create_autocmd("BufReadPost", {
     group = vim.api.nvim_create_augroup("shada_restore", { clear = true }),
     pattern = "*",
     callback = function()
@@ -121,11 +121,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
         end
 
         vim.cmd.normal("g`" .. mark_last_pos) -- Jump to mark.
-
-        -- Make sure that line we jumped to is unfolded.
-        if vim.fn.foldlevel(prev_line) > 0 then
-            vim.cmd.normal("zO")
-        end
     end,
 })
 
