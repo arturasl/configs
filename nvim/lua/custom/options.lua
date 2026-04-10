@@ -84,16 +84,17 @@ vim.opt.diffopt = {
 }
 
 -------- Temporal files.
+local state_dir = vim.fn.stdpath("state")
 -- Use double // to use full path as swap/backup/undo file name.
 vim.opt.undofile = true
-vim.opt.undodir = vim.fn.stdpath("config") .. "/tmp/undo/"
+vim.opt.undodir = state_dir .. "/tmp/undo/"
 
 vim.opt.swapfile = true
-vim.opt.directory = vim.fn.stdpath("config") .. "/tmp/swap//"
+vim.opt.directory = state_dir .. "/tmp/swap//"
 
 vim.opt.backup = true
 vim.opt.backupext = ".bak"
-vim.opt.backupdir = vim.fn.stdpath("config") .. "/tmp/backups//"
+vim.opt.backupdir = state_dir .. "/tmp/backups//"
 vim.opt.backupcopy = "yes" -- Make backup by copying original file.
 -- Add a suffix that includes current seconds to all backups (higher chance to
 -- restore anything).
@@ -106,7 +107,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 -- SHared DAta file -- preserve some of environment information like command
 -- history, cursor position, etc.
-vim.opt.shadafile = vim.fn.stdpath("config") .. "/tmp/shada"
+vim.opt.shadafile = state_dir .. "/tmp/shada"
 vim.opt.shada = "'20" -- Save marks for last 20 files.
 -- When existing file is loaded (opened) to a buffer.
 vim.api.nvim_create_autocmd("BufReadPost", {
