@@ -16,6 +16,15 @@ rules:
     languages: [lua]
     severity: WARNING
 
+  - id: use-string-if-single-autocmd-pattern
+    patterns:
+      - pattern-regex: vim.api.nvim_create_augroup.*\n\s*pattern\s*=\s*\{[^,]*\}
+    message: >
+      If auto command pattern contains only a single element (e.g. `{ "qf" }`)
+      there there is no need to use a table (e.g. replace to `"qf"`).
+    languages: [lua]
+    severity: WARNING
+
   - id: use-dot-for-modules
     patterns:
       - pattern-regex: require\([^)]*/

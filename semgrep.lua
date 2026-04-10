@@ -18,6 +18,24 @@ vim.api.nvim_create_autocmd("FileType", {
 	group = vim.api.nvim_create_augroup("treesitter_init", { clear = true }),
 })
 
+-- ruleid: use-string-if-single-autocmd-pattern
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("treesitter_init", { clear = true }),
+	pattern = { "a" },
+})
+
+-- ok: use-string-if-single-autocmd-pattern
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("treesitter_init", { clear = true }),
+	pattern = { "a", "b" },
+})
+
+-- ok: use-string-if-single-autocmd-pattern
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("treesitter_init", { clear = true }),
+	pattern = "a",
+})
+
 -- ruleid: use-dot-for-modules
 require("a/b/c")
 --

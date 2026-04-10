@@ -21,7 +21,7 @@ return {
 
             vim.api.nvim_create_autocmd("FileType", {
                 group = vim.api.nvim_create_augroup("plug_ft_csv", { clear = true }),
-                pattern = { "csv" },
+                pattern = "csv",
                 callback = function()
                     csvview.enable()
                     vim.opt_local.wrap = false

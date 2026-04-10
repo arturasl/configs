@@ -150,7 +150,7 @@ vim.keymap.set({ "n", "x" }, "k", "gk", { desc = "Move one screen line up " })
 -- Disable wrapping in the quickfix window.
 vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("ft_qf_wrap", { clear = true }),
-    pattern = { "qf" },
+    pattern = "qf",
     callback = function()
         vim.opt_local.wrap = false
     end,
@@ -207,7 +207,7 @@ vim.keymap.set("n", "<s-tab>", "<cmd>bp<cr>", { desc = "Buffer [P]revious" })
 
 vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("ft_qf", { clear = true }),
-    pattern = { "qf" },
+    pattern = "qf",
     callback = function()
         vim.opt_local.buflisted = false -- Ignore as part of :bn/:bp.
         -- Ignore buffer movement key maps.
