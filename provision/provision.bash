@@ -200,7 +200,6 @@ desktop_environment() { # {{
     install-gnome-extension appindicatorsupport@rgcjonas.gmail.com
     install-gnome-extension weatheroclock@CleoMenezesJr.github.io
     install-gnome-extension maximize-workspace-history@amancode22.github.com
-    install-gnome-extension dash-in-panel@fthx
     install-gnome-extension blur-my-shell@aunetx
     install-gnome-extension extension-list@tu.berry
     install-gnome-extension mouse-tail@lanesun.anlbrain.com
