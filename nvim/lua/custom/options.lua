@@ -3,13 +3,15 @@ vim.opt.mouse = "a" -- More mouse please :)
 vim.opt.colorcolumn = "81" -- Column list to highlight (now only 80).
 vim.opt.autochdir = true -- File commands are relative to cur directory.
 vim.opt.shell = "bash" -- Always use bash as shell for vim.
-vim.opt.fileformats = "unix,dos,mac" -- Use \n for new lines by default (unless file uses \r\n or \r).
-vim.opt.fileencodings = "ucs-bom,utf-8,latin1" -- Encodings to try for existing files (for new one - UTF-8).
+-- Use \n for new lines by default (unless file uses \r\n or \r).
+vim.opt.fileformats = { "unix", "dos", "mac" }
+-- Encodings to try for existing files (for new one - UTF-8).
+vim.opt.fileencodings = { "ucs-bom", "utf-8", "latin1" }
 -- Show all matched, let narrow results, then let iterate through results.
-vim.completeopt = "menuone,menu,longest,preview"
+vim.completeopt = { "menuone", "menu", "longest", "preview" }
 vim.opt.wildmenu = true
 vim.opt.wildoptions = "fuzzy"
-vim.opt.wildmode = "longest:full,full"
+vim.opt.wildmode = { "longest:full", "full" }
 -- Use status bar for command mode (pressing ":" will replace status line).
 vim.opt.cmdheight = 0
 
@@ -174,7 +176,7 @@ vim.opt.shiftwidth = 4 -- Numbers of spaces to <> commands.
 vim.opt.softtabstop = 4 -- If someone uses spaces delete them with backspace.
 vim.opt.tabstop = 4 -- Numbers of spaces of tab character.
 vim.opt.expandtab = true -- Use spaces instead of tab.
-vim.opt.backspace = "indent,eol,start" -- Allow backspace over anything.
+vim.opt.backspace = { "indent", "eol", "start" } -- Allow backspace over anything.
 
 -------- Windows.
 vim.keymap.set("n", "<c-w><s-j>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
