@@ -130,7 +130,7 @@ M.pick_file = function(files, on_selection)
         :find()
 end
 
-M.toogle_quick_fix = function()
+M.toggle_quick_fix = function()
     for _, win in pairs(vim.fn.getwininfo()) do
         if win["quickfix"] == 1 then
             vim.cmd("cclose")

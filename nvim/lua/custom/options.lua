@@ -186,17 +186,17 @@ vim.keymap.set("n", "<c-w><s-l>", "<cmd>vertical resize +2<cr>", { desc = "Incre
 
 -------- Building & Quickfix.
 vim.keymap.set("n", "<space>br", ":make run<cr>", { desc = "[R]un" })
-vim.keymap.set("n", "<space>be", require("custom.functions").toogle_quick_fix, { desc = "Toogle [E]rrors (Quickfix)" })
+vim.keymap.set("n", "<space>be", require("custom.functions").toggle_quick_fix, { desc = "Toggle [E]rrors (Quickfix)" })
 vim.keymap.set("n", "<space>bn", "<cmd>cnext<cr>", { desc = "Quickfix [N]ext" })
 vim.keymap.set("n", "<space>bp", "<cmd>cprev<cr>", { desc = "Quickfix [P]revious" })
 
 -------- Commenting.
 vim.keymap.set("n", "<space>c", function()
     require("custom.functions").preserve_cursor("Vgc")
-end, { desc = "Toogle [C]omment on current line" })
+end, { desc = "Toggle [C]omment on current line" })
 vim.keymap.set("x", "<space>c", function()
     require("custom.functions").preserve_cursor("gc")
-end, { desc = "Toogle [C]omment on selected lines" })
+end, { desc = "Toggle [C]omment on selected lines" })
 -- Remove `gcc` as it overlap with `gc` and hence produces error while running:
 --   :checkhealth which-key
 vim.keymap.del("n", "gcc")
