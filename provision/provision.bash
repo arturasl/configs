@@ -172,7 +172,7 @@ user_programs() { # {{
     install feh # Image previewing.
 
     ## Window manager
-    install rofi # Generic Launcher.
+    install rofi rofi-emoji rofi-calc # Generic Launcher.
 } # }}
 
 fonts() { # {{
