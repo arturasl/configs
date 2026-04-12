@@ -14,7 +14,7 @@ main() {
         -show-icons \
         -case-smart \
         -no-disable-history \
-        -theme "Arc-Dark" \
+        -theme "rounded-nord-dark" \
         -kb-accept-entry 'Control+y' \
         \
         -kb-element-next '' \

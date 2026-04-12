@@ -23,7 +23,7 @@ install() {
 
 git-get() {
     local from="$1"
-    local to="${HOME}/$2"
+    local to="$2"
 
     mkdir -p "$to"
 
@@ -173,6 +173,8 @@ user_programs() { # {{
 
     ## Window manager
     install rofi rofi-emoji rofi-calc # Generic Launcher.
+    git-get https://github.com/lr-tech/rofi-themes-collection.git ~/Builds/rofi-themes
+    symlink Builds/rofi-themes/themes .local/share/rofi/themes
 } # }}
 
 fonts() { # {{
