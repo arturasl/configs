@@ -16,6 +16,10 @@ main() {
     local picked
     picked="$(echo "$files_to_resolve" | fzf)"
 
+    if [[ -z "$picked" ]]; then
+        return 0
+    fi
+
     echo "Will be resolving: ${picked}"
 
     "$EDITOR" -c ':JJDiffConflicts' "$picked"
