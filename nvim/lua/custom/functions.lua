@@ -169,14 +169,6 @@ M.preserve_cursor = function(arg)
     vim.cmd("stopinsert")
 end
 
-M.visible_buffer_nrs = function()
-    local bufs = {}
-    for _, win in ipairs(vim.api.nvim_list_wins()) do
-        bufs[vim.api.nvim_win_get_buf(win)] = true
-    end
-    return vim.tbl_keys(bufs)
-end
-
 local lazy_core = require("lazy.core.config")
 M.is_plugin_loaded = function(name)
     return vim.tbl_get(lazy_core, "plugins", name, "_", "loaded")
