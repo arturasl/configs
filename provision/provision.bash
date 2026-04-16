@@ -148,6 +148,7 @@ security() { # {{
 
 user_programs() { # {{
     ## Dropbox
+    install python-gpgme libappindicator # Deps.
     yay -S --noconfirm dropbox # Simple file syncing.
     dropbox # To login.
     dropbox # To connect with current machine.
