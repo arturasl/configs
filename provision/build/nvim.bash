@@ -37,7 +37,6 @@ main() {
     symlink configs/nvim/snippets .config/nvim/snippets
     symlink configs/nvim/queries .config/nvim/queries
     symlink configs/nvim/ftplugin .config/nvim/ftplugin
-    symlink configs/vimrc .vimrc
     symlink configs/vim .vim
 }
 
