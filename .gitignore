@@ -1,5 +1,8 @@
 .jj/
+
 vim/tmp/
+vim/autoload/
+vim/plugged/
 
 mutt/tmp/
 !PASS
