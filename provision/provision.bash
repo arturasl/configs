@@ -187,7 +187,10 @@ fonts() { # {{
 } # }}
 
 desktop_environment() { # {{
-    symlink configs/autostart .config/autostart
+    for app in ../autostart/*; do
+        app="$(basename "${app}")"
+        symlink "configs/autostart/${app}" ".config/autostart/${app}"
+    done
 
     # Gnome
     install gnome-browser-connector
