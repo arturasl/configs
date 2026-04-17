@@ -136,11 +136,11 @@ terminal_tools(){ # {{
     sudo systemctl start bluetooth.service
 } # }}
 
-editors() {
+editors() { # {{
     ./build/nvim.bash
     yay -S --noconfirm rehex-git # hexadecimal editor.
     install geany
-}
+} # }}
 
 security() { # {{
     install keepassxc # Password manager.
