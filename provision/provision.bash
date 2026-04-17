@@ -205,7 +205,7 @@ desktop_environment() { # {{
     install-gnome-extension system-monitor@gnome-shell-extensions.gcampax.github.com
     install-gnome-extension appindicatorsupport@rgcjonas.gmail.com
     install-gnome-extension weatheroclock@CleoMenezesJr.github.io
-    install-gnome-extension maximize-workspace-history@amancode22.github.com
+    install-gnome-extension MaximizeWindowIntoNewWorkspace@kyleross.com
     install-gnome-extension blur-my-shell@aunetx
     install-gnome-extension extension-list@tu.berry
     install-gnome-extension mouse-tail@lanesun.anlbrain.com
