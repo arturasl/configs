@@ -1,7 +1,7 @@
 # To see defaults run `ghostty +show-config --default --docs`.
 
 # To see all themes ghostty +list-themes.
-theme=Dracula
+theme=Nordfox
 
 # To see exact font used run `ghostty +show-face --string=abc`.
 font-family="DejaVuSansM Nerd Font Mono"
