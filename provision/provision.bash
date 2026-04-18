@@ -194,6 +194,7 @@ desktop_environment() { # {{
 
     # Gnome
     install gnome-browser-connector
+    install gnome gnome-circle
 
     install-gnome-extension() {
         local extension="$1/@"
