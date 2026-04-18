@@ -117,6 +117,15 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     group = vim.api.nvim_create_augroup("shada_read", { clear = true }),
     pattern = "*",
     callback = function(opts)
+        local mark_last_pos = '"' -- Marker for last cursor position.
+        local prev_line = vim.fn.line("'" .. mark_last_pos)
+        -- prev_line is unset (0) or file was truncated (above current
+        -- line count)
+        if prev_line < 1 or prev_line > vim.fn.line("$") then
+            return
+        end
+
+        vim.cmd.normal("g`" .. mark_last_pos) -- Jump to mark.
         -- After entering fully loaded buffer (allows fold handling logic,
         -- specified in e.g. file header via `modlines`, to finish).
         vim.api.nvim_create_autocmd("BufWinEnter", {
@@ -124,16 +133,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
             buffer = opts.buf,
             once = true,
             callback = function()
-                local mark_last_pos = '"' -- Marker for last cursor position.
-                local prev_line = vim.fn.line("'" .. mark_last_pos)
-                -- prev_line is unset (0) or file was truncated (above current
-                -- line count)
-                if prev_line < 1 or prev_line > vim.fn.line("$") then
-                    return
-                end
-
-                vim.cmd.normal("g`" .. mark_last_pos) -- Jump to mark.
-
                 -- Make sure that line we jumped to is unfolded.
                 if vim.fn.foldlevel(prev_line) > 0 then
                     vim.cmd.normal("zO")
