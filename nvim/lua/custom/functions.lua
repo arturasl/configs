@@ -173,4 +173,54 @@ M.is_plugin_loaded = function(name)
     return vim.tbl_get(require("lazy.core.config"), "plugins", name, "_", "loaded")
 end
 
+-- Splits given string into words originally separated by a white space. Allows
+-- words with white space using quotation marks.
+--
+-- "hello" -> { "hello" }
+-- "   hello  " -> { "hello" }
+-- "hello world" -> { "hello", "world" }
+-- "hello\\ world" -> { "hello world" }
+-- "\"hello world\"" -> { "hello world" }
+-- "'hello world'" -> { "hello world" }
+-- "'hello world''ly'" -> { "hello worldly" }
+-- "'hello\\'world'" -> { "hello'world" }
+M.tokinize = function(arg_line)
+    local parts = {}
+    local current_part = ""
+    local in_dbl_quotes = false
+    local in_sin_quotes = false
+    local escaped = false
+    local append_if_not_empty = function()
+        if #current_part > 0 or in_dbl_quotes or in_sin_quotes then
+            table.insert(parts, current_part)
+            current_part = ""
+        end
+    end
+
+    for i = 1, #arg_line do
+        local ch = arg_line:sub(i, i)
+
+        if escaped then
+            current_part = current_part .. ch
+            escaped = false
+        elseif ch == "\\" then
+            escaped = true
+        elseif ch == '"' and not in_sin_quotes then
+            in_dbl_quotes = not in_dbl_quotes
+        elseif ch == "'" and not in_dbl_quotes then
+            in_sin_quotes = not in_sin_quotes
+        elseif in_dbl_quotes or in_sin_quotes then
+            current_part = current_part .. ch
+        elseif ch:match("%s") then
+            append_if_not_empty()
+        else
+            current_part = current_part .. ch
+        end
+    end
+
+    append_if_not_empty()
+
+    return parts
+end
+
 return M
