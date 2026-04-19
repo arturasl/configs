@@ -45,6 +45,66 @@ local alternative_file_picker = function()
     end)
 end
 
+local search_picker = function()
+    local conf = require("telescope.config").values
+    local finders = require("telescope.finders")
+    local functions = require("custom.functions")
+    local make_entry = require("telescope.make_entry")
+    local pickers = require("telescope.pickers")
+    local sorters = require("telescope.sorters")
+
+    local finder = finders.new_async_job({
+        command_generator = function(prompt)
+            local parts = functions.tokinize(prompt or "")
+            if #parts == 0 then
+                return nil
+            end
+
+            local args = {
+                "rg",
+                "--color=never",
+                "--no-heading",
+                "--with-filename",
+                "--line-number",
+                "--column",
+                "--smart-case",
+            }
+
+            for _, p in ipairs(parts) do
+                local after_colon = p:match(":(.*)") or p
+
+                if p:find("^t:") then
+                    table.insert(args, "--type=" .. after_colon)
+                elseif p:find("^-t:") then
+                    table.insert(args, "--type-not=" .. after_colon)
+                elseif p:find("^f:") then
+                    table.insert(args, "--glob=" .. after_colon)
+                elseif p:find("^-f:") then
+                    table.insert(args, "--glob=!" .. after_colon)
+                else
+                    table.insert(args, "--regexp=" .. p)
+                end
+            end
+
+            vim.print(args)
+
+            return args
+        end,
+        entry_maker = make_entry.gen_from_vimgrep({}),
+        cwd = functions.find_root(),
+    })
+
+    pickers
+        .new({}, {
+            prompt_title = "Search",
+            debounce = 200,
+            finder = finder,
+            previewer = conf.grep_previewer({}),
+            sorter = sorters.empty(),
+        })
+        :find()
+end
+
 return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
@@ -73,16 +133,8 @@ return {
             },
         })
 
+        vim.keymap.set("n", "<space>ss", search_picker, { desc = "[S]earch files" })
         vim.keymap.set("n", "<space>a", alternative_file_picker, { desc = "[A]lternative file" })
-
-        vim.keymap.set("n", "<space>ss", function()
-            builtin.find_files({ cwd = require("custom.functions").find_root() })
-        end, { desc = "Find files" })
-
-        vim.keymap.set("n", "<space>sg", function()
-            builtin.live_grep({ cwd = require("custom.functions").find_root() })
-        end, { desc = "Live [G]rep" })
-
         vim.keymap.set("n", "<space>sh", builtin.oldfiles, { desc = "[H]istoric files" })
     end,
 }
