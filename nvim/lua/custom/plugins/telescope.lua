@@ -60,7 +60,19 @@ local search_picker = function()
                 return nil
             end
 
-            local args = {
+            local name_args = { "find", "." }
+            vim.list_extend(name_args, { "-regextype", "posix-extended" })
+            vim.list_extend(name_args, { "(", "-false" })
+            for _, ignore in ipairs({ ".*", "*.zip", "*.gz", "*.tar", "*.pdf", "*.png", "*.jpeg" }) do
+                vim.list_extend(name_args, { "-o", "-path", "*/" .. ignore })
+            end
+            vim.list_extend(name_args, { ")", "-prune" })
+            -- Ignore directories.
+            vim.list_extend(name_args, { "-o", "-type", "f" })
+            -- Ignore files without an extension.
+            vim.list_extend(name_args, { "-and", "-regex", ".*/[^/]*\\.[^/]+$" })
+
+            local contents_args = {
                 "rg",
                 "--color=never",
                 "--no-heading",
@@ -69,26 +81,30 @@ local search_picker = function()
                 "--column",
                 "--smart-case",
             }
+            local had_contents = false
 
             for _, p in ipairs(parts) do
                 local after_colon = p:match(":(.*)") or p
 
-                if p:find("^t:") then
-                    table.insert(args, "--type=" .. after_colon)
-                elseif p:find("^-t:") then
-                    table.insert(args, "--type-not=" .. after_colon)
-                elseif p:find("^f:") then
-                    table.insert(args, "--glob=" .. after_colon)
+                if p:find("^f:") then
+                    vim.list_extend(name_args, { "-and", "-iregex", ".*(" .. after_colon .. ").*" })
                 elseif p:find("^-f:") then
-                    table.insert(args, "--glob=!" .. after_colon)
+                    vim.list_extend(name_args, { "-and", "-not", "-iregex", ".*(" .. after_colon .. ").*" })
                 else
-                    table.insert(args, "--regexp=" .. p)
+                    table.insert(contents_args, "--regexp=" .. p)
+                    had_contents = true
                 end
             end
 
-            vim.print(args)
+            if not had_contents then
+                vim.list_extend(name_args, { "-printf", "%p:1:1:\\n" })
+            else
+                vim.list_extend(name_args, { "-exec" })
+                vim.list_extend(name_args, contents_args)
+                vim.list_extend(name_args, { "{}", ";" })
+            end
 
-            return args
+            return name_args
         end,
         entry_maker = make_entry.gen_from_vimgrep({}),
         cwd = functions.find_root(),
