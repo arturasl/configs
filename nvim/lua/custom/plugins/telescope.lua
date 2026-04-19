@@ -69,8 +69,7 @@ local search_picker = function()
             vim.list_extend(name_args, { ")", "-prune" })
             -- Ignore directories.
             vim.list_extend(name_args, { "-o", "-type", "f" })
-            -- Ignore files without an extension.
-            vim.list_extend(name_args, { "-and", "-regex", ".*/[^/]*\\.[^/]+$" })
+            local had_name = false
 
             local contents_args = {
                 "rg",
@@ -88,8 +87,10 @@ local search_picker = function()
 
                 if p:find("^f:") then
                     vim.list_extend(name_args, { "-and", "-iregex", ".*(" .. after_colon .. ").*" })
+                    had_name = true
                 elseif p:find("^-f:") then
                     vim.list_extend(name_args, { "-and", "-not", "-iregex", ".*(" .. after_colon .. ").*" })
+                    had_name = true
                 else
                     table.insert(contents_args, "--regexp=" .. p)
                     had_contents = true
@@ -98,6 +99,8 @@ local search_picker = function()
 
             if not had_contents then
                 vim.list_extend(name_args, { "-printf", "%p:1:1:\\n" })
+            elseif not had_name then
+                name_args = contents_args
             else
                 vim.list_extend(name_args, { "-exec" })
                 vim.list_extend(name_args, contents_args)
