@@ -63,7 +63,7 @@ local search_picker = function()
             local name_args = { "find", "." }
             vim.list_extend(name_args, { "-regextype", "posix-extended" })
             vim.list_extend(name_args, { "(", "-false" })
-            for _, ignore in ipairs({ ".*", "*.zip", "*.gz", "*.tar", "*.pdf", "*.png", "*.jpeg" }) do
+            for _, ignore in ipairs({ ".*/*", "*.zip", "*.gz", "*.tar", "*.pdf", "*.png", "*.jpeg" }) do
                 vim.list_extend(name_args, { "-o", "-path", "*/" .. ignore })
             end
             vim.list_extend(name_args, { ")", "-prune" })
