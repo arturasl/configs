@@ -104,7 +104,7 @@ local search_picker = function()
             else
                 vim.list_extend(name_args, { "-exec" })
                 vim.list_extend(name_args, contents_args)
-                vim.list_extend(name_args, { "{}", ";" })
+                vim.list_extend(name_args, { "{}", "+" })
             end
 
             return name_args
