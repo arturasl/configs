@@ -62,12 +62,17 @@ local search_picker = function()
 
             local name_args = { "find", "." }
             vim.list_extend(name_args, { "-regextype", "posix-extended" })
-            vim.list_extend(name_args, { "(", "-false" })
-            for _, ignore in ipairs({ ".*/*", "*.zip", "*.gz", "*.tar", "*.pdf", "*.png", "*.jpeg" }) do
-                vim.list_extend(name_args, { "-o", "-path", "*/" .. ignore })
+            -- Do no go into hidden directories.
+            vim.list_extend(name_args, { "(", "-type", "d", "-name", ".*", "!", "-name", ".", "-prune", ")" })
+
+            -- Ignore some file extensions.
+            vim.list_extend(name_args, { "-o", "(", "-false" })
+            for _, ignore in ipairs({ "*.zip", "*.gz", "*.tar", "*.pdf", "*.png", "*.jpeg" }) do
+                vim.list_extend(name_args, { "-o", "-name", ignore })
             end
-            vim.list_extend(name_args, { ")", "-prune" })
-            -- Ignore directories.
+            vim.list_extend(name_args, { "-prune", ")" })
+
+            -- Search for files.
             vim.list_extend(name_args, { "-o", "-type", "f" })
             local had_name = false
 
