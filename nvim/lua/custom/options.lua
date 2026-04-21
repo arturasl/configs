@@ -146,6 +146,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 vim.opt.ignorecase = true -- Case insensitive search.
 vim.opt.smartcase = true -- Unless capitals are use.
 vim.opt.gdefault = true -- Assume global substitutions s///g by default.
+vim.opt.inccommand = "split" -- Show results of substitution in a vertical split.
 -- Show match in the center of window (and open folds).
 vim.keymap.set("n", "n", "nzzzR", { desc = "Search item next" })
 vim.keymap.set("n", "N", "NzzzR", { desc = "Search item previous" })
