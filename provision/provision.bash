@@ -127,8 +127,7 @@ terminal_tools(){ # {{
     install mosh         # Somewhat more persistent ssh.
 
     install btop         # Process monitor.
-    btop --version >/dev/null
-    cat ~/configs/btop/btop.conf >> ~/.config/btop/btop.conf
+    mkdir -p ~/.config/btop/ && ( btop --default-config && cat ~/configs/btop/btop.conf ) > ~/.config/btop/btop.conf
 
     # Bluetooth
     install bluez bluez-utils
