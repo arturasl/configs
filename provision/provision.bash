@@ -18,7 +18,7 @@ symlink() {
 }
 
 install() {
-    sudo pacman -S --noconfirm "$@"
+    sudo pacman -S --noconfirm --needed "$@"
 }
 
 git-get() {
@@ -95,7 +95,7 @@ terminal_tools(){ # {{
     install curl
     install zip
     install xsel xclip # Clipboard manipulation.
-    yay -S --noconfirm xkb-switch # Query/change current keyboard layout.
+    yay -S --noconfirm --needed xkb-switch # Query/change current keyboard layout.
     install arandr # Managing monitor positions.
     install imagemagick # Converts between various image formats (screen capture, filters, etc.)
     install pandoc # Converts between various document formats (mkd, latex, rst, etc.)
@@ -138,7 +138,7 @@ terminal_tools(){ # {{
 
 editors() { # {{
     ./build/nvim.bash
-    yay -S --noconfirm rehex-git # hexadecimal editor.
+    yay -S --noconfirm --needed rehex-git # hexadecimal editor.
     install geany
 } # }}
 
@@ -149,7 +149,7 @@ security() { # {{
 user_programs() { # {{
     ## Dropbox
     install python-gpgme libappindicator # Deps.
-    yay -S --noconfirm dropbox # Simple file syncing.
+    yay -S --noconfirm --needed dropbox # Simple file syncing.
     dropbox # To login.
     dropbox # To connect with current machine.
 
@@ -179,7 +179,7 @@ user_programs() { # {{
 } # }}
 
 fonts() { # {{
-    yay -S --noconfirm ttf-ms-win10-auto
+    yay -S --noconfirm --needed ttf-ms-win10-auto
     install terminus-font
     install ttf-dejavu ttf-droid
     install nerd-fonts
