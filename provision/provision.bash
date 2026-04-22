@@ -14,7 +14,7 @@ symlink() {
     if [ -L "$to" ]; then
         return
     fi
-    ln -s "$from" "$to"
+    ln --force --symbolic "$from" "$to"
 }
 
 install() {
