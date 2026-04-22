@@ -178,7 +178,7 @@ user_programs() { # {{
 } # }}
 
 fonts() { # {{
-    yay -S --noconfirm --needed ttf-ms-win10-auto
+    yay -S --noconfirm --needed ttf-ms-win11-auto
     install terminus-font
     install ttf-dejavu ttf-droid
     install nerd-fonts
