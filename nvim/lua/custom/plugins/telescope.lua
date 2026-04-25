@@ -136,10 +136,24 @@ local vcs_changed_files_picker = function()
         end, files)
     end
 
-    local files = vim.vim.fn.systemlist({ "jj", "diff", "--name-only" })
-    files = remove_non_existing(files)
+    local run = function(args, stdin)
+        local lines = vim.fn.systemlist(args, stdin)
+        if vim.v.shell_error ~= 0 then
+            return {}
+        end
+        return lines
+    end
 
-    require("custom.functions").pick_file(files, function(selected)
+    local files = {}
+    vim.list_extend(files, run({ "jj", "diff", "--name-only" }))
+
+    local svn_root = vim.trim(run({ "svn", "info", "--show-item", "wc-root" })[1] or "")
+    if svn_root ~= "" then
+        local modifications = run({ "svn", "status", svn_root })
+        vim.list_extend(files, run({ "awk", "{print $2}" }, modifications))
+    end
+
+    require("custom.functions").pick_file(remove_non_existing(files), function(selected)
         local escaped = vim.fn.fnameescape(selected)
         vim.cmd("edit " .. escaped)
     end)
