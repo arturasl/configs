@@ -95,7 +95,9 @@ M.run_cmd_on_key = function(options)
     end, { desc = options.desc, buffer = true })
 end
 vim.keymap.set("n", "<space>bR", function()
-    local files = vim.fn.glob("*", true, true)
+    local files = vim.tbl_filter(function(file)
+        return vim.fn.filereadable(file) == 1
+    end, vim.fn.glob("*", true, true))
     files[#files + 1] = "stdin"
     M.pick_file(files, function(selected)
         prev_cmd_file = selected
