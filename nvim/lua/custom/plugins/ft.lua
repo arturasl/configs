@@ -34,11 +34,11 @@ return {
     {
         "eraserhd/parinfer-rust",
         build = "cargo build --release",
-        event = "VeryLazy",
+        ft = "clojure",
     },
     {
         "Olical/conjure",
-        ft = { "clojure" },
+        ft = "clojure",
         init = function()
             vim.g["conjure#mapping#enable_defaults"] = false
             vim.g["conjure#highlight#enabled"] = true
