@@ -149,9 +149,16 @@ local vcs_changed_files_picker = function()
 
     local svn_root = vim.trim(run({ "svn", "info", "--show-item", "wc-root" })[1] or "")
     if svn_root ~= "" then
-        local modifications = run({ "svn", "status", svn_root })
-        vim.list_extend(files, run({ "awk", "{print $2}" }, modifications))
+        local svn_modified = run({ "svn", "status", svn_root })
+        vim.list_extend(files, run({ "awk", "{print $2}" }, svn_modified))
     end
+
+    local git_modified = run({ "git", "status", "--short" })
+    if #git_modified > 0 then
+        vim.list_extend(files, run({ "awk", "{print $2}" }, git_modified))
+    end
+
+    vim.print(files)
 
     require("custom.functions").pick_file(remove_non_existing(files), function(selected)
         local escaped = vim.fn.fnameescape(selected)
