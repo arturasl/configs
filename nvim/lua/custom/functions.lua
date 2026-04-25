@@ -104,16 +104,20 @@ vim.keymap.set("n", "<space>bR", function()
 end, { desc = "[R]un with stdin", buffer = true })
 
 M.pick_file = function(files, on_selection)
+    local conf = require("telescope.config").values
+    local make_entry = require("telescope.make_entry")
+
     require("telescope.pickers")
         .new(
             require("telescope.themes").get_dropdown({
                 initial_mode = "normal",
                 layout_config = { height = 10 },
-                previewer = require("telescope.previewers.buffer_previewer").cat.new({}),
+                previewer = conf.file_previewer({}),
             }),
             {
                 finder = require("telescope.finders").new_table({
                     results = files,
+                    entry_maker = make_entry.gen_from_file({}),
                 }),
                 attach_mappings = function(bufnr, _)
                     local actions = require("telescope.actions")
