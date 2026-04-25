@@ -53,6 +53,10 @@ local search_picker = function()
     local pickers = require("telescope.pickers")
     local sorters = require("telescope.sorters")
 
+    local opts = {
+        cwd = functions.find_root(),
+    }
+
     local finder = finders.new_async_job({
         command_generator = function(prompt)
             local parts = functions.tokinize(prompt or "")
@@ -114,8 +118,8 @@ local search_picker = function()
 
             return name_args
         end,
-        entry_maker = make_entry.gen_from_vimgrep({}),
-        cwd = functions.find_root(),
+        entry_maker = make_entry.gen_from_vimgrep(opts),
+        cwd = opts.cwd,
     })
 
     pickers
@@ -123,7 +127,7 @@ local search_picker = function()
             prompt_title = "Search",
             debounce = 200,
             finder = finder,
-            previewer = conf.grep_previewer({}),
+            previewer = conf.grep_previewer(opts),
             sorter = sorters.empty(),
         })
         :find()
