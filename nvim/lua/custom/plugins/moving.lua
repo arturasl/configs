@@ -5,6 +5,7 @@ return {
         -- vai -- visual inside current block + line before;
         -- vaI -- visual inside current block + line before + line after;
         "michaeljsmith/vim-indent-object",
+        event = "VeryLazy",
     },
     {
         "folke/flash.nvim",
