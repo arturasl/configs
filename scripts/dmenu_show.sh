@@ -15,7 +15,7 @@ main() {
         -case-smart \
         -no-disable-history \
         -theme "rounded-nord-dark" \
-        -kb-accept-entry 'Control+y' \
+        -kb-accept-entry 'Control+y,Return' \
         \
         -kb-element-next '' \
         -kb-mode-next 'Tab' \
