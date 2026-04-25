@@ -129,6 +129,22 @@ local search_picker = function()
         :find()
 end
 
+local vcs_changed_files_picker = function()
+    local remove_non_existing = function(files)
+        return vim.tbl_filter(function(file)
+            return vim.fn.filereadable(file) == 1
+        end, files)
+    end
+
+    local files = vim.vim.fn.systemlist({ "jj", "diff", "--name-only" })
+    files = remove_non_existing(files)
+
+    require("custom.functions").pick_file(files, function(selected)
+        local escaped = vim.fn.fnameescape(selected)
+        vim.cmd("edit " .. escaped)
+    end)
+end
+
 return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
@@ -158,7 +174,8 @@ return {
         })
 
         vim.keymap.set("n", "<space>ss", search_picker, { desc = "[S]earch files" })
+        vim.keymap.set("n", "<space>sc", vcs_changed_files_picker, { desc = "[S]earch [C]hanged files" })
         vim.keymap.set("n", "<space>a", alternative_file_picker, { desc = "[A]lternative file" })
-        vim.keymap.set("n", "<space>sh", builtin.oldfiles, { desc = "[H]istoric files" })
+        vim.keymap.set("n", "<space>sh", builtin.oldfiles, { desc = "[S]earch [H]istoric files" })
     end,
 }
