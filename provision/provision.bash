@@ -42,6 +42,15 @@ init_system() { # {{{
     # }}
 
     install -yu # Full system update.
+
+    # Btrfs
+    install snapper
+    # Show snapshots in the grub menu.
+    install inotify-tools grub-btrfs
+    sudo systemctl start grub-btrfsd
+    sudo systemctl enable grub-btrfsd
+    # Create snapshots before/after using pacman.
+    install snap-pac
 } # }}}
 
 version_control() { # {{
