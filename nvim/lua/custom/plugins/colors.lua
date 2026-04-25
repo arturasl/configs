@@ -102,27 +102,23 @@ M[#M + 1] = {
     "folke/todo-comments.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-        require("todo-comments").setup({})
-    end,
+    opts = {},
 }
 
 M[#M + 1] = {
     "NvChad/nvim-colorizer.lua",
     event = { "BufReadPre", "BufNewFile" },
-    config = function()
-        require("colorizer").setup({
-            options = {
-                parsers = {
-                    css = true,
-                    names = { enable = false },
-                },
-                display = {
-                    mode = "virtualtext",
-                },
+    opts = {
+        options = {
+            parsers = {
+                css = true,
+                names = { enable = false },
             },
-        })
-    end,
+            display = {
+                mode = "virtualtext",
+            },
+        },
+    },
 }
 
 return M

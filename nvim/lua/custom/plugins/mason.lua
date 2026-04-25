@@ -13,8 +13,6 @@ return {
                 end,
             },
         },
-        config = function()
-            require("mason").setup()
-        end,
+        opts = {},
     },
 }
