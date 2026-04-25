@@ -176,10 +176,40 @@ return {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
     },
+    keys = {
+        -- Search.
+        { "<space>ss", search_picker, desc = "[S]earch files" },
+        { "<space>sc", vcs_changed_files_picker, desc = "[S]earch [C]hanged files" },
+        {
+            "<space>sh",
+            function()
+                require("telescope.builtin").oldfiles()
+            end,
+            desc = "[S]earch [H]istoric files",
+        },
+
+        -- Alternatives.
+        { "<space>a", alternative_file_picker, desc = "[A]lternative file" },
+
+        -- Lsp.
+        {
+            "<space>lu",
+            function()
+                require("telescope.builtin").lsp_references()
+            end,
+            desc = "[Lsp] [U]sages (references)",
+        },
+        {
+            "<space>ld",
+            function()
+                require("telescope.builtin").diagnostics({ bufnr = 0 })
+            end,
+            desc = "[L]sp [D]iagnostics",
+        },
+    },
     config = function()
         local telescope = require("telescope")
         local actions = require("telescope.actions")
-        local builtin = require("telescope.builtin")
 
         local mappings = {
             ["<C-y>"] = actions.select_default,
@@ -198,10 +228,5 @@ return {
                 },
             },
         })
-
-        vim.keymap.set("n", "<space>ss", search_picker, { desc = "[S]earch files" })
-        vim.keymap.set("n", "<space>sc", vcs_changed_files_picker, { desc = "[S]earch [C]hanged files" })
-        vim.keymap.set("n", "<space>a", alternative_file_picker, { desc = "[A]lternative file" })
-        vim.keymap.set("n", "<space>sh", builtin.oldfiles, { desc = "[S]earch [H]istoric files" })
     end,
 }

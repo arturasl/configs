@@ -42,16 +42,19 @@ return {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope.nvim",
         },
-        opts = {
-            backend = "delta", -- Requires `pacman -S git-delta`.
-            picker = {
-                "telescope",
-                opts = require("telescope.themes").get_dropdown({
-                    initial_mode = "normal",
-                    layout_config = { height = 10 },
-                }),
-            },
-        },
+        config = function()
+            local themes = require("telescope.themes")
+            require("tiny-code-action").setup({
+                backend = "delta", -- Requires `pacman -S git-delta`.
+                picker = {
+                    "telescope",
+                    opts = themes.get_dropdown({
+                        initial_mode = "normal",
+                        layout_config = { height = 10 },
+                    }),
+                },
+            })
+        end,
     },
 
     {
@@ -62,11 +65,8 @@ return {
             -- Maps between LSPs installed by Mason and configurations managed
             -- by nvim-lspconfig.
             "mason-org/mason-lspconfig.nvim",
-            "nvim-telescope/telescope.nvim",
         },
         config = function()
-            local telescope = require("telescope.builtin")
-
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("custom_lsp_overrides", { clear = true }),
                 callback = function(evt)
@@ -84,14 +84,6 @@ return {
 
                     opts.desc = "Definition"
                     keymap.set("n", "<ctrl>]", vim.lsp.buf.definition, opts)
-
-                    opts.desc = "[U]sages (references)"
-                    keymap.set("n", "<space>lu", telescope.lsp_references, opts)
-
-                    opts.desc = "[D]iagnostics"
-                    keymap.set("n", "<space>ld", function()
-                        telescope.diagnostics({ bufnr = 0 })
-                    end, opts)
 
                     opts.desc = "[I]nline hints"
                     keymap.set("n", "<space>li", function()
