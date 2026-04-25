@@ -178,6 +178,7 @@ return {
         local builtin = require("telescope.builtin")
 
         local mappings = {
+            ["<C-y>"] = actions.select_default,
             ["<C-b>"] = actions.preview_scrolling_up,
             ["<C-f>"] = actions.preview_scrolling_down,
             ["<C-n>"] = actions.move_selection_next,
