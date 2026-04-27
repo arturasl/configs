@@ -45,6 +45,7 @@ init_system() { # {{{
 
     # Btrfs
     install snapper
+    sudo snapper -c root create-config /
     # Show snapshots in the grub menu.
     install inotify-tools grub-btrfs
     sudo systemctl start grub-btrfsd
