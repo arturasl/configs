@@ -81,8 +81,13 @@ development() { # {{
     install julia
     install jdk-openjdk openjdk-doc openjdk-src # Java
     install clojure leiningen # Clojure
-    install ghc ghc-static cabal-install && cabal update # Haskell
     install graphviz # Graph drawing utility/language.
+
+    # Haskell
+    yay -S --noconfirm --needed ghcup-hs-bin
+    ghcup install ghc
+    ghcup install cabal
+    ghcup instal hls
 
     # Rust
     install rustup

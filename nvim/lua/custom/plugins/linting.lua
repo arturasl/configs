@@ -68,6 +68,7 @@ return {
             typescript = { "eslint_d" },
             css = { "stylelint" },
             clojure = { "clj-kondo" },
+            haskell = { "hlint" },
         }
 
         table.insert(lint.linters.pylint.args, "--disable=" .. table.concat({

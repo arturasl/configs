@@ -120,6 +120,7 @@ return {
             setup("texlab")
             setup("clojure_lsp")
             setup("ts_ls")
+            setup("hls")
 
             -- Install servers that were configured by lspconfig.
             -- Has to be after `setup`s.

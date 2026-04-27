@@ -25,6 +25,7 @@ return {
                 markdown = { "prettier" },
                 clojure = { "cljfmt" },
                 tex = { "tex-fmt" },
+                haskell = { "ormolu" },
             },
             format_after_save = {
                 timeout_ms = 500,
