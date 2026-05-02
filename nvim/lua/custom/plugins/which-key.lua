@@ -13,6 +13,7 @@ return {
             { "<space>b", group = "[B]uild" },
             { "<space>s", group = "[S]earch" },
             { "<space>l", group = "[L]SP" },
+            { "<space>d", group = "[D]Diff" },
         })
     end,
 }

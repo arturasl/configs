@@ -11,13 +11,17 @@ return {
             vim.g.signify_vcs_cmds = {
                 jj = "jj diff --color=never --context=0 -r @ -- %f",
             }
+
+            vim.keymap.set("n", "<space>dn", "<plug>(signify-next-hunk)", { desc = "[D]iff [N]ext" })
+            vim.keymap.set("n", "<space>dp", "<plug>(signify-prev-hunk)", { desc = "[D]iff [P]reviuos" })
+            vim.keymap.set("n", "<space>dd", "<cmd>:SignifyDiff!<cr>", { desc = "[D]iff" })
         end,
     },
 
     {
         "mbbill/undotree",
         keys = {
-            { "<down>", vim.cmd.UndotreeToggle, desc = "Toggle UndoTree" },
+            { "<space>dl", vim.cmd.UndotreeToggle, desc = "[D]iff [L]ocal" },
         },
     },
 
