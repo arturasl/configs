@@ -43,6 +43,10 @@ init_system() { # {{{
 
     install -yu # Full system update.
 
+    # Auto update mirror list.
+    sudo systemctl enabled reflector.timer
+    sudo systemctl enable reflector.timer
+
     # Btrfs
     install snapper
     sudo snapper -c root create-config /
