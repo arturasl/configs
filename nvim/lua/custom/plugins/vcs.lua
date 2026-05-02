@@ -15,6 +15,13 @@ return {
     },
 
     {
+        "mbbill/undotree",
+        keys = {
+            { "<down>", vim.cmd.UndotreeToggle, desc = "Toggle UndoTree" },
+        },
+    },
+
+    {
         "rafikdraoui/jj-diffconflicts",
         cmd = "JJDiffConflicts",
         init = function()
