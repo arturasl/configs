@@ -5,7 +5,7 @@ theme=Nordfox
 
 # To see exact font used run `ghostty +show-face --string=abc`.
 font-family="DejaVuSansM Nerd Font Mono"
-font-size=10
+font-size=9
 
 # Do not confirm on terminal close.
 confirm-close-surface=false
