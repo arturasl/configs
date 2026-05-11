@@ -21,7 +21,7 @@ local create_cpp_args = function()
         "-Wcast-align",
         "-Wuseless-cast",
         "-Wfloat-equal",
-        "-fsanitize=address",
+        "-fsanitize=address,undefined",
         vim.fn.expand("%:p"),
         "-o",
         vim.fn.expand("%:p:r"),
