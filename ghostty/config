@@ -19,3 +19,8 @@ mouse-hide-while-typing=true
 # Cursor trail effect.
 custom-shader-animation = always
 custom-shader = shaders/cursor_warp.glsl
+
+# Semi transparent background.
+background-opacity = 0.9
+background-opacity-cells = true
+background-blur = true
