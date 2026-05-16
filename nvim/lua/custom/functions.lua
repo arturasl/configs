@@ -160,6 +160,7 @@ M.preserve_cursor = function(arg)
     local tabnr = vim.api.nvim_get_current_tabpage()
     local winnr = vim.api.nvim_get_current_win()
     local line, col = unpack(vim.api.nvim_win_get_cursor(winnr))
+    local top_visible_line = vim.fn.line("w0")
 
     if type(arg) == "string" then
         vim.cmd.normal(arg)
@@ -169,9 +170,14 @@ M.preserve_cursor = function(arg)
 
     vim.api.nvim_set_current_tabpage(tabnr)
     vim.api.nvim_tabpage_set_win(tabnr, winnr)
+
     -- Min between total line count in current buffer in case it changed.
     line = math.min(vim.fn.line("$"), line)
     vim.api.nvim_win_set_cursor(winnr, { line, col })
+
+    top_visible_line = math.min(vim.fn.line("$"), top_visible_line)
+    vim.fn.winrestview({ topline = top_visible_line })
+
     vim.cmd("stopinsert")
 end
 
