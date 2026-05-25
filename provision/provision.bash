@@ -221,6 +221,10 @@ desktop_environment() { # {{
         gnome-browser-connector "gnome-extensions://${extension}/?action=install"
     }
 
+    # For rendering thumbnails in the filemanager.
+    install ffmpegthumbnailer
+    install gnome-epub-thumbnailer
+
     install-gnome-extension caffeine@patapon.info
     install-gnome-extension system-monitor@gnome-shell-extensions.gcampax.github.com
     install-gnome-extension appindicatorsupport@rgcjonas.gmail.com
