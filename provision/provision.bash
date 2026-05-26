@@ -175,6 +175,7 @@ user_programs() { # {{
     # General
     install chromium firefox # Internet browser.
     install libreoffice
+    install anki
     install gparted
     install bc qalculate-qt # Calculator.
 
