@@ -28,13 +28,10 @@ else
     })
 end
 
-local lein_repl_jobid = nil
+local lein_repl_obj = nil
 local start_repl_if_needed = function()
-    if lein_repl_jobid then
-        local status = vim.fn.jobwait({ lein_repl_jobid }, 0)[1]
-        if status == -1 then -- `jobwait` timed out == job still runs.
-            return
-        end
+    if lein_repl_obj then
+        return
     end
 
     local lein_project_root = vim.fs.root(vim.fn.getcwd(), { "project.clj" })
@@ -42,7 +39,7 @@ local start_repl_if_needed = function()
         return
     end
 
-    lein_repl_jobid = vim.fn.jobstart({
+    lein_repl_obj = vim.system({
         "lein",
         "update-in",
         ":plugins",
@@ -50,6 +47,8 @@ local start_repl_if_needed = function()
         "[cider/cider-nrepl RELEASE]",
         "--",
         "repl",
-    }, { cwd = lein_project_root })
+    }, { cwd = lein_project_root }, function()
+        lein_repl_obj = nil
+    end)
 end
 start_repl_if_needed()

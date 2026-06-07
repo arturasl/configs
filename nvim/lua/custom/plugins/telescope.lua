@@ -141,11 +141,11 @@ local vcs_changed_files_picker = function()
     end
 
     local run = function(args, stdin)
-        local lines = vim.fn.systemlist(args, stdin)
-        if vim.v.shell_error ~= 0 then
+        local obj = vim.system(args, { text = true, stdin = stdin }):wait()
+        if obj.code ~= 0 then
             return {}
         end
-        return lines
+        return vim.split(obj.stdout, "\n", { trimempty = true })
     end
 
     local files = {}
@@ -161,8 +161,6 @@ local vcs_changed_files_picker = function()
     if #git_modified > 0 then
         vim.list_extend(files, run({ "awk", "{print $2}" }, git_modified))
     end
-
-    vim.print(files)
 
     require("custom.functions").pick_file(remove_non_existing(files), function(selected)
         local escaped = vim.fn.fnameescape(selected)
