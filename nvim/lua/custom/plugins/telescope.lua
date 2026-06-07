@@ -135,9 +135,18 @@ end
 
 local vcs_changed_files_picker = function()
     local remove_non_existing = function(files)
-        return vim.tbl_filter(function(file)
-            return vim.fn.filereadable(file) == 1
-        end, files)
+        local unique = {}
+        local in_unique = {}
+
+        for _, file in ipairs(files) do
+            if vim.fn.filereadable(file) == 1 and in_unique[file] == nil then
+                in_unique[file] = 1
+                unique[#unique + 1] = file
+            end
+        end
+
+        table.sort(unique)
+        return unique
     end
 
     local run = function(args, stdin)
