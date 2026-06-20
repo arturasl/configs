@@ -26,7 +26,7 @@ return {
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = { "saghen/blink.lib" },
         build = function()
-            require("blink.cmp").build():wait(60000)
+            require("blink.cmp").build():pwait()
         end,
         opts = {
             keymap = { preset = "default" },
