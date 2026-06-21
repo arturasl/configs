@@ -215,6 +215,14 @@ vim.filetype.add({
     },
 })
 
+-------- Selection.
+-- Selection.
+vim.keymap.set("x", "i$", ":<C-u>normal! T$vt$<CR>", { desc = "Inner $" })
+vim.keymap.set("x", "a$", ":<C-u>normal! F$vf$<CR>", { desc = "Outer $" })
+-- Operation pending.
+vim.keymap.set("o", "i$", ":normal vi$<CR>", { desc = "Inner $" })
+vim.keymap.set("o", "a$", ":normal va$<CR>", { desc = "Outer $" })
+
 -------- Buffers.
 vim.keymap.set("n", "<tab>", "<cmd>bn<cr>", { desc = "Buffer [N]ext" })
 vim.keymap.set("n", "<s-tab>", "<cmd>bp<cr>", { desc = "Buffer [P]revious" })
