@@ -216,12 +216,15 @@ vim.filetype.add({
 })
 
 -------- Selection.
--- Selection.
-vim.keymap.set("x", "i$", ":<C-u>normal! T$vt$<CR>", { desc = "Inner $" })
-vim.keymap.set("x", "a$", ":<C-u>normal! F$vf$<CR>", { desc = "Outer $" })
--- Operation pending.
-vim.keymap.set("o", "i$", ":normal vi$<CR>", { desc = "Inner $" })
-vim.keymap.set("o", "a$", ":normal va$<CR>", { desc = "Outer $" })
+for _, char in ipairs({ "$", "*", "_" }) do
+    local fmt = ":<C-u>normal! %s%sv%s%s<CR>"
+    vim.keymap.set("x", "i" .. char, fmt:format("T", char, "t", char), { desc = "Select Inside " .. char })
+    vim.keymap.set("x", "a" .. char, fmt:format("F", char, "f", char), { desc = "Select Around (Including) " .. char })
+
+    fmt = ":normal v%s%s<CR>"
+    vim.keymap.set("o", "i" .. char, fmt:format("i", char), { desc = "Operate Inside " .. char })
+    vim.keymap.set("o", "a" .. char, fmt:format("a", char), { desc = "Operate Around (Including) " .. char })
+end
 
 -------- Buffers.
 vim.keymap.set("n", "<tab>", "<cmd>bn<cr>", { desc = "Buffer [N]ext" })
