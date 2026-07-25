@@ -98,8 +98,27 @@ end
 # Use ctrn-{n,p,o} to move over history.
 vim_bind n,i ctrl-p history-search-backward
 vim_bind n,i ctrl-n history-search-forward
-# Tab to use proposed completion.
+# ctrl-y to use proposed completion.
 vim_bind n,i ctrl-y accept-autosuggestion
+
+# Goal:
+# * Always show a list of completion.
+# Fails:
+# * Not only shows, but also inserts the longest matching prefix.
+# function __my_complete
+#     set -l cursor_pos (commandline -C)
+#     set -l full_cmd (commandline -b)
+#     set -l cmd_up_to_cursor (string sub -l $cursor_pos -- "$full_cmd")
+#
+#     set -l match_count (complete -C "$cmd_up_to_cursor" | count)
+#
+#     if test $match_count -gt 1
+#         commandline -f complete
+#     end
+# end
+#
+# bind --mode insert '' self-insert __my_complete
+
 # Disable arrow keys.
 vim_bind n,i up 'true'
 vim_bind n,i down 'true'
