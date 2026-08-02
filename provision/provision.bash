@@ -56,6 +56,9 @@ init_system() { # {{{
     sudo systemctl enable grub-btrfsd
     # Create snapshots before/after using pacman.
     install snap-pac
+
+    # Additional package managers.
+    install flatpak
 } # }}}
 
 version_control() { # {{
@@ -166,8 +169,6 @@ security() { # {{
 } # }}
 
 user_programs() { # {{
-    install flatpak
-
     ## Dropbox
     flatpak install --assumeyes com.dropbox.Client
     flatpak run com.dropbox.Client start
