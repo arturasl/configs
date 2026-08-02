@@ -169,10 +169,8 @@ user_programs() { # {{
     install flatpak
 
     ## Dropbox
-    install python-gpgme libappindicator # Deps.
-    yay -S --noconfirm --needed dropbox # Simple file syncing.
-    dropbox # To login.
-    dropbox # To connect with current machine.
+    flatpak install --assumeyes com.dropbox.Client
+    flatpak run com.dropbox.Client start
 
     # General
     install chromium firefox # Internet browser.
@@ -187,7 +185,7 @@ user_programs() { # {{
     install mplayer # Audio/video player.
     install vlc vlc-plugins-all # Audio/video player.
     install audacity # Audio recording/editing.
-    flatpak install com.discordapp.Discord
+    flatpak install --assumeyes com.discordapp.Discord
 
     ## Document viewers
     install zathura{,-djvu,-ps,-pdf-mupdf} # Document preview (pdf, djvu, ps).
