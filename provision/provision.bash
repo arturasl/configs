@@ -166,6 +166,8 @@ security() { # {{
 } # }}
 
 user_programs() { # {{
+    install flatpak
+
     ## Dropbox
     install python-gpgme libappindicator # Deps.
     yay -S --noconfirm --needed dropbox # Simple file syncing.
@@ -185,6 +187,7 @@ user_programs() { # {{
     install mplayer # Audio/video player.
     install vlc vlc-plugins-all # Audio/video player.
     install audacity # Audio recording/editing.
+    flatpak install com.discordapp.Discord
 
     ## Document viewers
     install zathura{,-djvu,-ps,-pdf-mupdf} # Document preview (pdf, djvu, ps).
