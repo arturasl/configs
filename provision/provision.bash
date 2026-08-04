@@ -102,11 +102,6 @@ development() { # {{
     rustup install nightly stable
     rustup default stable
 
-    # Virtual machines
-    install virtualbox-host-modules-arch virtualbox
-    install virtualbox-guest-{iso,utils}
-    # Restart.
-
     # Debugging
     install wireshark-qt # Network traffic analyzer.
     install afl++ afl-utils # Fuzzier.
@@ -208,6 +203,16 @@ fonts() { # {{
     ./build/external_fonts.bash
 } # }}
 
+virtualization() {
+    install docker
+
+    # Virtual machines
+    install virtualbox-host-modules-arch virtualbox
+    install virtualbox-guest-{iso,utils}
+    # Restart.
+
+}
+
 desktop_environment() { # {{
     for app in ../autostart/*; do
         app="$(basename "${app}")"
@@ -250,6 +255,7 @@ main() {
     init_system
     version_control
     development
+    virtualization
     terminal_tools
     editors
     security
