@@ -170,6 +170,7 @@ function jj --wraps jj
     if test "$first_arg" = 'submit'
         sleep 5
         jj up
+        jj new
     end
 end
 
