@@ -59,6 +59,11 @@ init_system() { # {{{
 
     # Additional package managers.
     install flatpak
+
+    # Allow local npm installs.
+    # Also see modification of the path in the shell configuration.
+    install npm
+    npm config set prefix "${HOME}/.npm-packages"
 } # }}}
 
 version_control() { # {{
@@ -203,7 +208,7 @@ fonts() { # {{
     ./build/external_fonts.bash
 } # }}
 
-virtualization() {
+virtualization() {  # {{
     install docker
 
     # Virtual machines
@@ -211,7 +216,7 @@ virtualization() {
     install virtualbox-guest-{iso,utils}
     # Restart.
 
-}
+} # }}
 
 desktop_environment() { # {{
     for app in ../autostart/*; do

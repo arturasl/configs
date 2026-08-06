@@ -20,6 +20,9 @@ fish_add_path --path --append "$HOME/configs/scripts/global/"
 fish_add_path --path --append "$HOME/.local/bin/" # pipx
 fish_add_path --path --append "$HOME/.ghcup/bin" # pipx
 
+set NPM_PACKAGES "$HOME/.npm-packages"
+fish_add_path "$NPM_PACKAGES/bin"
+
 ###### Prompt.
 
 function fish_prompt
