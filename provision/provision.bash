@@ -250,6 +250,21 @@ desktop_environment() { # {{
     install-gnome-extension Bluetooth-Battery-Meter@maniacx.github.com
 } # }}
 
+agents() {  # {{
+    # Ollama
+    install ollama
+    ollama serve &
+    local pid_ollama="$!"
+    sleep 10
+    ollama pull gemma4:e2b
+    kill "$pid_ollama"
+
+    # Pi
+    npm install -g @earendil-works/pi-coding-agent
+    symlink "configs/pi/models.json" ".pi/agent/models.json"
+    symlink "configs/pi/settings.json" ".pi/agent/settings.json"
+} # }}
+
 # Chrome {{{
 # https://chromewebstore.google.com/detail/gnome-shell-integration/gphhapmejobijbbhgpjhcjognlahblep
 # https://chromewebstore.google.com/detail/read-on-remarkable/bfhkfdnddlhfippjbflipboognpdpoeh
@@ -268,6 +283,7 @@ main() {
     user_programs
     fonts
     desktop_environment
+    agents
 }
 
 main "$@"

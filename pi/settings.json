@@ -1,0 +1,6 @@
+{
+  "defaultProvider": "ollama",
+  "defaultModel": "gemma4:e2b",
+  "lastChangelogVersion": "0.84.0",
+  "theme": "dark"
+}
