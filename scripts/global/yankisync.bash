@@ -13,5 +13,5 @@ dir="$1"
 anki&
 ankipid="$!"
 sleep 5
-npx -- yanki sync ./cards --anki-web
+yanki sync ./cards --anki-web
 kill -9 "$ankipid"
