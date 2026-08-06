@@ -1,6 +1,7 @@
 {
   "defaultProvider": "ollama",
-  "defaultModel": "gemma4:e2b",
+  "defaultModel": "gemma4:e4b",
   "lastChangelogVersion": "0.84.0",
-  "theme": "dark"
+  "theme": "dark",
+  "packages": ["npm:pi-vim"]
 }
