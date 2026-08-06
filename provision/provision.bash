@@ -257,12 +257,15 @@ agents() {  # {{
     local pid_ollama="$!"
     sleep 10
     ollama pull gemma4:e2b
+    ollama pull gemma4:e4b
     kill "$pid_ollama"
 
     # Pi
     npm install -g @earendil-works/pi-coding-agent
     symlink "configs/pi/models.json" ".pi/agent/models.json"
     symlink "configs/pi/settings.json" ".pi/agent/settings.json"
+    pi install npm:avtc-pi-unstuck
+    pi install npm:pi-vim
 } # }}
 
 # Chrome {{{
