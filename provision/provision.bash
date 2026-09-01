@@ -217,6 +217,12 @@ virtualization() {  # {{
     install virtualbox-guest-{iso,utils}
     # Restart.
 
+    qemu-full
+    # Make sure KVM supervisor is loaded.
+    lsmod | grep '^kvm[[:space:]]'
+    # Make sure OVMF (Open Virtual Machine Firmware) UEFI firmware was
+    # installed (part of EDK project).
+    pacman -Qs edk2-ovmf
 } # }}
 
 desktop_environment() { # {{
