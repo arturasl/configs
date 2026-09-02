@@ -95,6 +95,7 @@ development() { # {{
     install jdk-openjdk openjdk-doc openjdk-src # Java
     install clojure leiningen # Clojure
     install graphviz # Graph drawing utility/language.
+    install mermaid-cli # Graph drawing utility/language.
 
     # Haskell
     yay -S --noconfirm --needed ghcup-hs-bin

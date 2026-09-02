@@ -75,6 +75,7 @@ read -r -d '' capabilities <<EOF
 \.(pdf|eps|ps)$	application/pdf	capPDFViewer	pdftotext FILENAME -	50
 \.epub$	application/epub+zip	capPDFViewer	pandoc -f epub -t markdown FILENAME -	50
 \.(jpe?g|png|gif)$	image/.+	feh --draw-actions	img2txt	50
+\.svg$	image/svg+xml	capWebBrowser	img2txt	50
 \.docx$			docx2txt FILENAME -	75
 \.doc$			antiword	75
 \.odt$			odt2txt	75
