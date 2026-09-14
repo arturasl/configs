@@ -32,6 +32,13 @@ return {
     },
 
     {
+        "MeanderingProgrammer/render-markdown.nvim",
+        dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+        ft = "markdown",
+        opts = {},
+    },
+
+    {
         "eraserhd/parinfer-rust",
         build = "cargo build --release",
         ft = "clojure",
