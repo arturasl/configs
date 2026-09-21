@@ -46,7 +46,7 @@ diff-formatter = ":git"
 submit = ["util", "exec", "--", "bash", "-c", """
     set -eu -o pipefail
     rev="${1-@}"
-    jj bookmark move --from "heads(::${rev} & bookmarks())" --to "$rev"
+    jj bookmark advance --to "$rev"
     jj git push --remote origin -r "$rev"
 """, ""]
 
