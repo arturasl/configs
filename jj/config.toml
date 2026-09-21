@@ -4,7 +4,6 @@
 name = "arturasl"
 email = "589741+arturasl@users.noreply.github.com"
 
-    # //.files().filter(|f| f.is_conflict() || !f.diff().is_empty())
 [ui]
 default-command = ["log", "--reversed", "--no-pager", "--template", """
     separate("\n",
