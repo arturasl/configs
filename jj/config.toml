@@ -11,7 +11,7 @@ default-command = ["log", "--reversed", "--no-pager", "--template", """
         separate(" ",
             separate("/",
               change_id.shortest(),
-              if(change_offset != 0, change_offset)),
+              if(change_offset != 0 || divergent, change_offset)),
             if(divergent, "🚧"),
             if(hidden, "👻"),
             if(conflict, "💥"),
