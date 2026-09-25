@@ -121,6 +121,7 @@ return {
             setup("clojure_lsp")
             setup("ts_ls")
             setup("hls")
+            setup("beancount")
 
             -- Install servers that were configured by lspconfig.
             -- Has to be after `setup`s.
