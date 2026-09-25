@@ -21,6 +21,10 @@ install() {
     sudo pacman -S --noconfirm --needed "$@"
 }
 
+flat_install() {
+    flatpak install --assumeyes "$@"
+}
+
 git-get() {
     local from="$1"
     local to="$2"
@@ -190,7 +194,7 @@ user_programs() { # {{
     install mplayer # Audio/video player.
     install vlc vlc-plugins-all # Audio/video player.
     install audacity # Audio recording/editing.
-    flatpak install com.discordapp.Discord
+    flat_install com.discordapp.Discord
 
     ## Document viewers
     install zathura{,-djvu,-ps,-pdf-mupdf} # Document preview (pdf, djvu, ps).
