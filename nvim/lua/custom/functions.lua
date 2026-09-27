@@ -75,6 +75,7 @@ M.run_cmd_on_key = function(options)
             )
             vim.api.nvim_set_current_buf(buf_id)
 
+            cmd = "echo " .. "Running: " .. vim.fn.shellescape(cmd) .. " && " .. cmd
             local job_id = vim.fn.jobstart(cmd, {
                 term = true,
                 on_exit = function(_, exit_code, _)
