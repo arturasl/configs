@@ -27,6 +27,7 @@ return {
                 clojure = { "cljfmt" },
                 tex = { "tex-fmt" },
                 haskell = { "ormolu" },
+                xml = { "prettier" },
             },
             format_after_save = {
                 timeout_ms = 500,
