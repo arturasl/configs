@@ -3,7 +3,7 @@ local run_cmd_on_key = require("custom.functions").run_cmd_on_key
 if vim.fn.findfile("pyproject.toml", ".;") ~= "" then
     run_cmd_on_key({
         fn_cmd = function()
-            return { "time", "uv", "run", vim.fn.expand("%") }
+            return { "time", "uv", "run", vim.fn.expand("%:p:h:t") }
         end,
         pipe_first_known_file = { "./in", "./small.in", "./large.in" },
         desc = "Build & [R]un UV",
@@ -12,7 +12,7 @@ if vim.fn.findfile("pyproject.toml", ".;") ~= "" then
 
     run_cmd_on_key({
         fn_cmd = function()
-            return { "uv", "run", "pytest", vim.fn.expand("%") }
+            return { "uv", "run", "pytest", vim.fn.expand("%:p:h:t") }
         end,
         desc = "[T]est UV",
         keys = "<space>bt",
