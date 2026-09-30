@@ -121,7 +121,21 @@ return {
             setup("clojure_lsp")
             setup("ts_ls")
             setup("hls")
-            setup("beancount")
+            setup("beancount", {
+                root_markers = { "main.beancount", ".git", "pyproject.toml" },
+                before_init = function(params, config)
+                    local root = config.root_dir
+                    if not root then
+                        return
+                    end
+                    local opts = params.initializationOptions or {}
+                    local main_journal = root .. "/main.beancount"
+                    if vim.fn.filereadable(main_journal) == 1 then
+                        opts.journal_file = main_journal
+                        print(main_journal)
+                    end
+                end,
+            })
 
             -- Install servers that were configured by lspconfig.
             -- Has to be after `setup`s.
