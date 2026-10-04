@@ -271,6 +271,8 @@ agents() {  # {{
     sleep 10
     ollama pull gemma4:e2b
     ollama pull gemma4:e4b
+    ollama pull gemma4:12b
+    ollama pull gemma4:26b
     kill "$pid_ollama"
 
     # Pi
