@@ -1,7 +1,10 @@
 {
   "defaultProvider": "ollama",
   "defaultModel": "gemma4:e2b",
-  "lastChangelogVersion": "0.84.0",
+  "lastChangelogVersion": "1.0.2",
   "theme": "dark",
-  "packages": ["npm:pi-vim", "npm:avtc-pi-unstuck"]
+  "packages": [
+    "npm:pi-vim",
+    "npm:avtc-pi-unstuck"
+  ]
 }
