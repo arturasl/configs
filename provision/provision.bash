@@ -134,6 +134,7 @@ terminal_tools(){ # {{
     install fzf # Fuzzy autocomplete window
     install ncdu # Show file size statistics.
     pipx install semgrep # Search via abstract syntax tree.
+    install tesseract tesseract-data unpaper && pipx install ocrmypdf  # OCR.
 
     # General programs
     install ghostty
