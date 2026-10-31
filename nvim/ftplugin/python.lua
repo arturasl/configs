@@ -12,7 +12,7 @@ if vim.fn.findfile("pyproject.toml", ".;") ~= "" then
 
     run_cmd_on_key({
         fn_cmd = function()
-            return { "uv", "run", "pytest", vim.fn.expand("%:p:h:t") }
+            return { "uv", "run", "pytest", vim.fn.expand("%") }
         end,
         desc = "[T]est UV",
         keys = "<space>bt",
